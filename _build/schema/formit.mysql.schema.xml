@@ -1,26 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-The xml model schema for the package.
--->
 <model package="formit" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" tablePrefix="formit_">
-    <!--
-    Example classes. This example has 2 objects: Car and Tire.
-    
-    Cars can have multiple tires; tires can only have one car. Note the aggregate/composite relationships. 
-    -->
-    <!--
-    <object class="baseCar" table="cars" extends="xPDOSimpleObject">
-        <field key="name" dbtype="varchar" precision="255" phptype="string" default="" null="false" />       
-        
-        <composite alias="Tires" class="baseTire" local="id" foreign="tire" cardinality="many" owner="local" />
-    </object>
-    
-    <object class="baseTire" table="tires" extends="xPDOSimpleObject">
-        <field key="position" dbtype="varchar" precision="255" phptype="string" default="" null="false" />
-        <field key="car" dbtype="int" precision="10" phptype="integer" attributes="unsigned" default="0" null="false" index="index" />
-        <field key="width" dbtype="int" precision="10" phptype="integer" attributes="unsigned" default="10" null="false" />
-        
-        <aggregate alias="Car" class="baseCar" local="car" foreign="id" cardinality="one" owner="foreign" />
-    </object>
-    -->
 </model>

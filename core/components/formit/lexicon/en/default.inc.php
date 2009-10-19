@@ -1,7 +1,44 @@
 <?php
 /**
- * Default Lexicon Topic. Used for backend.
+ * FormIt
+ *
+ * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ *
+ * FormIt is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ *
+ * FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA 02111-1307 USA
+ *
+ * @package formit
+ */
+/**
+ * Default Lexicon Topic
  *
  * @package formit
  * @subpackge lexicon
  */
+$_lang['formit.email_invalid'] = 'Please enter a valid email address.';
+$_lang['formit.email_invalid_domain'] = 'Your email address does not have a valid domain name.';
+$_lang['formit.email_no_recipient'] = 'Please specify a recipient or recipients for the email.';
+$_lang['formit.email_not_sent'] = 'An error occurred while trying to send the email.';
+$_lang['formit.email_tpl_nf'] = 'Please specify an email template.';
+$_lang['formit.field_not_empty'] = 'This field must be empty.';
+$_lang['formit.field_required'] = 'This field is required.';
+$_lang['formit.max_length'] = 'This field cannot be longer than [[+length]] characters long.';
+$_lang['formit.max_value'] = 'This field cannot be larger than [[+value]].';
+$_lang['formit.min_length'] = 'This field must be at least [[+length]] characters long.';
+$_lang['formit.min_value'] = 'This field cannot be smaller than [[+value]].';
+$_lang['formit.not_number'] = 'This field must be a valid number.';
+$_lang['formit.password_dont_match'] = 'Your passwords do not match.';
+$_lang['formit.password_not_confirmed'] = 'Please confirm your password.';
+$_lang['formit.range_invalid'] = 'Invalid range specification.';
+$_lang['formit.range'] = 'Your value must be between [[+min]] and [[+max]].';
+$_lang['formit.username_taken'] = 'Username already taken. Please choose another.';

@@ -1,5 +1,25 @@
 <?php
 /**
+ * FormIt
+ *
+ * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ *
+ * FormIt is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ *
+ * FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA 02111-1307 USA
+ *
+ * @package formit
+ */
+/**
  * @package formit
  */
 class FormIt {
@@ -8,9 +28,13 @@ class FormIt {
      * @access public
      */
     public $debugTimer = 0;
+    /**
+     * @var boolean $_initialized True if the class has been initialized or not.
+     */
+    private $_initialized = false;
 
     /**
-     * Base constructor
+     * FormIt constructor
      *
      * @param modX &$modx A reference to the modX instance.
      * @param array $config An array of configuration options. Optional.
@@ -56,29 +80,50 @@ class FormIt {
      */
     public function initialize($context = 'web') {
         switch ($context) {
-            case 'mgr':
-                /* if in mgr, load the manager request class
-                 * this handles sub-action page loading
-                 * via the 'action' request variable
-                 */
-                if (!$this->modx->loadClass('formit.request.fiControllerRequest',$this->config['modelPath'],true,true)) {
-                    return 'Could not load controller request handler.';
-                }
-                $this->request = new FiControllerRequest($this);
-                return $this->request->handleRequest();
-                break;
+            case 'mgr': break;
             case 'web':
             default:
-                $this->modx->lexicon->load('formit:web');
-                $this->modx->regClientCSS($this->config['cssUrl'].'index.css');
-                /* do other front-end related stuff here
-                 * that you want to execute in all front-end snippets
-                 */
+                $this->modx->lexicon->load('formit:default');
+                $this->_initialized = true;
                 break;
         }
-        return true;
+        return $this->_initialized;
     }
 
+    /**
+     * Loads the Validator class.
+     *
+     * @access public
+     * @param $config array An array of configuration parameters for the
+     * validator class
+     * @return fiValidator An instance of the fiValidator class.
+     */
+    public function loadValidator($config = array()) {
+        if (!$this->modx->loadClass('formit.fiValidator',$this->config['modelPath'],true,true)) {
+            $this->modx->log(MODX_LOG_LEVEL_ERROR,'[FormIt] Could not load Validator class.');
+            return false;
+        }
+        $this->validator = new fiValidator($this,$config);
+        return $this->validator;
+    }
+
+
+    /**
+     * Loads the Hooks class.
+     *
+     * @access public
+     * @param $config array An array of configuration parameters for the
+     * hooks class
+     * @return fiHooks An instance of the fiHooks class.
+     */
+    public function loadHooks($config = array()) {
+        if (!$this->modx->loadClass('formit.fiHooks',$this->config['modelPath'],true,true)) {
+            $this->modx->log(MODX_LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
+            return false;
+        }
+        $this->hooks = new fiHooks($this,$config);
+        return $this->hooks;
+    }
 
     /**
      * Gets a Chunk and caches it; also falls back to file-based templates
@@ -145,9 +190,7 @@ class FormIt {
         if ($this->debugTimer !== false) {
             $output .= "<br />\nExecution time: ".$this->endDebugTimer()."\n";
         }
-        return $this->getChunk('fiWrapper',array(
-            'output' => $output,
-        ));
+        return $output;
     }
 
     /**

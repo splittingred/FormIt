@@ -1,6 +1,26 @@
 <?php
 /**
- * Transport build script
+ * FormIt
+ *
+ * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ *
+ * FormIt is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ *
+ * FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * Suite 330, Boston, MA 02111-1307 USA
+ *
+ * @package formit
+ */
+/**
+ * FormIt transport package build script
  *
  * @package formit
  * @subpackage build
@@ -14,7 +34,7 @@ set_time_limit(0);
 /* set package defines */
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
-define('PKG_VERSION','0.1');
+define('PKG_VERSION','1.0');
 define('PKG_RELEASE','alpha1');
 
 /* override with your own defines here (see build.config.sample.php) */
@@ -58,13 +78,6 @@ $snippets = include_once $sources['data'].'transport.snippets.php';
 if (is_array($snippets)) {
     $category->addMany($snippets);
 } else { $modx->log(MODX_LOG_LEVEL_FATAL,'Adding snippets failed.'); }
-
-/* add base chunks */
-$modx->log(MODX_LOG_LEVEL_INFO,'Adding in chunks.'); flush();
-$chunks = include_once $sources['data'].'transport.chunks.php';
-if (is_array($chunks)) {
-    $category->addMany($chunks);
-} else { $modx->log(MODX_LOG_LEVEL_FATAL,'Adding chunks failed.'); }
 
 /* create base category vehicle */
 $attr = array(
@@ -113,41 +126,6 @@ $vehicle->resolve('file',array(
     'target' => "return MODX_ASSETS_PATH . 'components/';",
 ));
 $builder->putVehicle($vehicle);
-
-
-/* load system settings */
-$modx->log(MODX_LOG_LEVEL_INFO,'Adding in system settings.'); flush();
-$settings = include_once $sources['data'].'transport.settings.php';
-
-$attributes= array(
-    XPDO_TRANSPORT_UNIQUE_KEY => 'key',
-    XPDO_TRANSPORT_PRESERVE_KEYS => true,
-    XPDO_TRANSPORT_UPDATE_OBJECT => false,
-);
-foreach ($settings as $setting) {
-    $vehicle = $builder->createVehicle($setting,$attributes);
-    $builder->putVehicle($vehicle);
-}
-unset($settings,$setting,$attributes);
-
-/* load action/menu */
-$modx->log(MODX_LOG_LEVEL_INFO,'Adding in topmenu item.'); flush();
-$menu = include_once $sources['data'].'transport.menu.php';
-$vehicle= $builder->createVehicle($menu,array (
-    XPDO_TRANSPORT_PRESERVE_KEYS => true,
-    XPDO_TRANSPORT_UPDATE_OBJECT => true,
-    XPDO_TRANSPORT_UNIQUE_KEY => 'text',
-    XPDO_TRANSPORT_RELATED_OBJECTS => true,
-    XPDO_TRANSPORT_RELATED_OBJECT_ATTRIBUTES => array (
-        'Menus' => array (
-            XPDO_TRANSPORT_PRESERVE_KEYS => false,
-            XPDO_TRANSPORT_UPDATE_OBJECT => true,
-            XPDO_TRANSPORT_UNIQUE_KEY => array ('namespace','controller'),
-        ),
-    ),
-));
-$builder->putVehicle($vehicle);
-unset($vehicle,$menu);
 
 /* load lexicon strings */
 $builder->buildLexicon($sources['lexicon']);
