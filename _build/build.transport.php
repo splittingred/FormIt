@@ -50,10 +50,11 @@ $sources= array (
     'build' => $root .'_build/',
     'resolvers' => $root . '_build/resolvers/',
     'data' => $root . '_build/data/',
-    'source_core' => $root,
-    'source_assets' => $assets,
-    'lexicon' => $root.'lexicon/',
-    'docs' => $root.'docs/',
+    'properties' => $root . '_build/properties/',
+    'source_core' => $root.'core/components/formit',
+    'source_assets' => $root.'assets/components/formit',
+    'lexicon' => $root.'core/components/formit/lexicon/',
+    'docs' => $root.'core/components/formit/docs/',
 );
 unset($root);
 
@@ -120,10 +121,6 @@ $vehicle = $builder->createVehicle($category,$attr);
 $vehicle->resolve('file',array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
-));
-$vehicle->resolve('file',array(
-    'source' => $sources['source_assets'],
-    'target' => "return MODX_ASSETS_PATH . 'components/';",
 ));
 $builder->putVehicle($vehicle);
 

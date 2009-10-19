@@ -30,9 +30,9 @@ $snippets[0]->fromArray(array(
     'id' => 0,
     'name' => 'FormIt',
     'description' => 'A dynamic form processing snippet.',
-    'snippet' => getSnippetContent($sources['source_core'].'elements/snippets/snippet.formit.php'),
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formit.php'),
 ),'',true,true);
-$properties = include $sources['build'].'properties/properties.formit.php';
+$properties = include $sources['properties'].'properties.formit.php';
 $snippets[0]->setProperties($properties);
 unset($properties);
 
