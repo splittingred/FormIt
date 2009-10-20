@@ -41,6 +41,13 @@ $properties = array(
         'value' => '',
     ),
     array(
+        'name' => 'errTpl',
+        'desc' => 'The wrapper template for error messages.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '<span class="error">[[+error]]</span>',
+    ),
+    array(
         'name' => 'redirectTo',
         'desc' => 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.',
         'type' => 'textfield',

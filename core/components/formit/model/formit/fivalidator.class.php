@@ -110,7 +110,8 @@ class fiValidator {
             $type = substr($type,0,$hasParams);
         }
 
-        if (method_exists($this,$type) && $type != 'validate') {
+        $invNames = array('validate','validateFields','_addError','__construct');
+        if (method_exists($this,$type) && !in_array($type,$invNames)) {
             /* built-in validator */
             $validated = $this->$type($key,$value,$param);
 
@@ -131,13 +132,29 @@ class fiValidator {
         }
 
         if (is_array($validated) && !empty($validated)) {
-            $this->errors = array_merge($this->errors,$validated);
+            foreach ($validated as $key => $errMsg) {
+                $this->_addError($key,$errMsg);
+            }
             $validated = false;
         } else if ($validated !== true) {
-            $this->errors[$key] .= ' '.$validated;
+            $this->_addError($key,$validated);
             $validated = false;
         }
         return $validated;
+    }
+
+    /**
+     * Adds an error to the stack.
+     *
+     * @access private
+     * @param string $key The field to add the error to.
+     * @param string $value The error message.
+     * @return string The added error message with the error wrapper.
+     */
+    private function _addError($key,$value) {
+        $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
+        $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
+        return $this->errors[$key];
     }
 
     /**
@@ -263,10 +280,10 @@ class fiValidator {
     }
 
     /**
-     * Validates value between a range, specified by min:max.
+     * Validates value between a range, specified by min-max.
      */
-    public function range($key,$value,$ranges = '0:1') {
-        $range = explode(':',$ranges);
+    public function range($key,$value,$ranges = '0-1') {
+        $range = explode('-',$ranges);
         if (count($range) < 2) return $this->modx->lexicon('formit.range_invalid');
 
         if ($value < $range[0] || $value > $range[1]) {
