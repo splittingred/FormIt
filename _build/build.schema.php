@@ -37,7 +37,7 @@ $modx= new modX();
 $modx->initialize('mgr');
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 echo '<pre>'; /* used for nice formatting of log messages */
-$modx->setLogLevel(MODX_LOG_LEVEL_INFO);
+$modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('ECHO');
 
 $root = MODX_BASE_PATH;
@@ -55,14 +55,7 @@ $generator->classTemplate= <<<EOD
 /**
  * [+phpdoc-package+]
  */
-class [+class+] extends [+extends+] {
-    function [+class+](& \$xpdo) {
-        \$this->__construct(\$xpdo);
-    }
-    function __construct(& \$xpdo) {
-        parent :: __construct(\$xpdo);
-    }
-}
+class [+class+] extends [+extends+] {}
 ?>
 EOD;
 $generator->platformTemplate= <<<EOD
@@ -71,14 +64,7 @@ $generator->platformTemplate= <<<EOD
  * [+phpdoc-package+]
  */
 require_once (strtr(realpath(dirname(dirname(__FILE__))), '\\\\', '/') . '/[+class-lowercase+].class.php');
-class [+class+]_[+platform+] extends [+class+] {
-    function [+class+]_[+platform+](& \$xpdo) {
-        \$this->__construct(\$xpdo);
-    }
-    function __construct(& \$xpdo) {
-        parent :: __construct(\$xpdo);
-    }
-}
+class [+class+]_[+platform+] extends [+class+] {}
 ?>
 EOD;
 $generator->mapHeader= <<<EOD

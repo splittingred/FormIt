@@ -100,7 +100,7 @@ class FormIt {
      */
     public function loadValidator($config = array()) {
         if (!$this->modx->loadClass('formit.fiValidator',$this->config['modelPath'],true,true)) {
-            $this->modx->log(MODX_LOG_LEVEL_ERROR,'[FormIt] Could not load Validator class.');
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Validator class.');
             return false;
         }
         $this->validator = new fiValidator($this,$config);
@@ -118,7 +118,7 @@ class FormIt {
      */
     public function loadHooks($config = array()) {
         if (!$this->modx->loadClass('formit.fiHooks',$this->config['modelPath'],true,true)) {
-            $this->modx->log(MODX_LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
             return false;
         }
         $this->hooks = new fiHooks($this,$config);

@@ -35,7 +35,7 @@ set_time_limit(0);
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
 define('PKG_VERSION','1.0');
-define('PKG_RELEASE','alpha2');
+define('PKG_RELEASE','alpha3');
 
 /* override with your own defines here (see build.config.sample.php) */
 require_once dirname(__FILE__) . '/build.config.php';
@@ -60,7 +60,7 @@ unset($root);
 
 $modx->initialize('mgr');
 echo '<pre>';
-$modx->setLogLevel(MODX_LOG_LEVEL_INFO);
+$modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('ECHO');
 
 $modx->loadClass('transport.modPackageBuilder','',false, true);
@@ -74,46 +74,46 @@ $category->set('id',1);
 $category->set('category',PKG_NAME);
 
 /* add base snippets */
-$modx->log(MODX_LOG_LEVEL_INFO,'Adding in snippets.'); flush();
+$modx->log(modX::LOG_LEVEL_INFO,'Adding in snippets.'); flush();
 $snippets = include_once $sources['data'].'transport.snippets.php';
 if (is_array($snippets)) {
     $category->addMany($snippets);
-} else { $modx->log(MODX_LOG_LEVEL_FATAL,'Adding snippets failed.'); }
+} else { $modx->log(modX::LOG_LEVEL_FATAL,'Adding snippets failed.'); }
 
 /* create base category vehicle */
 $attr = array(
-    XPDO_TRANSPORT_UNIQUE_KEY => 'category',
-    XPDO_TRANSPORT_PRESERVE_KEYS => false,
-    XPDO_TRANSPORT_UPDATE_OBJECT => true,
-    XPDO_TRANSPORT_RELATED_OBJECTS => true,
-    XPDO_TRANSPORT_RELATED_OBJECT_ATTRIBUTES => array (
+    xPDOTransport::UNIQUE_KEY => 'category',
+    xPDOTransport::PRESERVE_KEYS => false,
+    xPDOTransport::UPDATE_OBJECT => true,
+    xPDOTransport::RELATED_OBJECTS => true,
+    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
         'Children' => array(
-            XPDO_TRANSPORT_PRESERVE_KEYS => false,
-            XPDO_TRANSPORT_UPDATE_OBJECT => true,
-            XPDO_TRANSPORT_UNIQUE_KEY => 'category',
-            XPDO_TRANSPORT_RELATED_OBJECTS => true,
-            XPDO_TRANSPORT_RELATED_OBJECT_ATTRIBUTES => array (
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'category',
+            xPDOTransport::RELATED_OBJECTS => true,
+            xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
                 'Snippets' => array(
-                    XPDO_TRANSPORT_PRESERVE_KEYS => false,
-                    XPDO_TRANSPORT_UPDATE_OBJECT => true,
-                    XPDO_TRANSPORT_UNIQUE_KEY => 'name',
+                    xPDOTransport::PRESERVE_KEYS => false,
+                    xPDOTransport::UPDATE_OBJECT => true,
+                    xPDOTransport::UNIQUE_KEY => 'name',
                 ),
                 'Chunks' => array(
-                    XPDO_TRANSPORT_PRESERVE_KEYS => false,
-                    XPDO_TRANSPORT_UPDATE_OBJECT => true,
-                    XPDO_TRANSPORT_UNIQUE_KEY => 'name',
+                    xPDOTransport::PRESERVE_KEYS => false,
+                    xPDOTransport::UPDATE_OBJECT => true,
+                    xPDOTransport::UNIQUE_KEY => 'name',
                 ),
             ),
         ),
         'Snippets' => array(
-            XPDO_TRANSPORT_PRESERVE_KEYS => false,
-            XPDO_TRANSPORT_UPDATE_OBJECT => true,
-            XPDO_TRANSPORT_UNIQUE_KEY => 'name',
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'name',
         ),
         'Chunks' => array(
-            XPDO_TRANSPORT_PRESERVE_KEYS => false,
-            XPDO_TRANSPORT_UPDATE_OBJECT => true,
-            XPDO_TRANSPORT_UNIQUE_KEY => 'name',
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => 'name',
         ),
     )
 );
@@ -142,6 +142,6 @@ $tend= $mtime;
 $totalTime= ($tend - $tstart);
 $totalTime= sprintf("%2.4f s", $totalTime);
 
-$modx->log(MODX_LOG_LEVEL_INFO,"\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
+$modx->log(modX::LOG_LEVEL_INFO,"\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
 
 exit ();

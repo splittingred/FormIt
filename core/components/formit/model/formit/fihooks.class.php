@@ -106,7 +106,7 @@ class fiHooks {
 
         } else {
             /* no hook found */
-            $this->modx->log(MODX_LOG_LEVEL_ERROR,'[FormIt] Could not find hook "'.$hook.'".');
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find hook "'.$hook.'".');
             $success = true;
         }
 
@@ -191,11 +191,11 @@ class fiHooks {
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
-        $this->modx->mail->set(MODX_MAIL_BODY, $message);
-        $this->modx->mail->set(MODX_MAIL_FROM, $emailFrom);
-        $this->modx->mail->set(MODX_MAIL_FROM_NAME, $emailFromName);
-        $this->modx->mail->set(MODX_MAIL_SENDER, $emailFrom);
-        $this->modx->mail->set(MODX_MAIL_SUBJECT, $subject);
+        $this->modx->mail->set(modMail::MAIL_BODY, $message);
+        $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
+        $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
+        $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
+        $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
         /* add to: with support for multiple addresses */
         $emailTo = explode(',',$emailTo);
