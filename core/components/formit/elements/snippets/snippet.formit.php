@@ -56,7 +56,7 @@ if (empty($fi->validator->errors)) {
     if (!empty($fi->hooks->errors)) {
         $errorMsg = $fi->hooks->getErrorMessage();
 
-        $modx->toPlaceholder('message',$errorMsg,'fi.error');
+        $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
     }
 }
 $modx->toPlaceholders($fi->validator->errors,'fi.error');

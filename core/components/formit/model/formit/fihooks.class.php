@@ -176,7 +176,11 @@ class fiHooks {
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
-        $subject = $this->modx->getOption('emailSubject',$this->formit->config,'');
+        if (!empty($fields['subject']) && $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true)) {
+            $subject = $fields['subject'];
+        } else {
+            $subject = $this->modx->getOption('emailSubject',$this->formit->config,'');
+        }
 
         /* check email to */
         $emailTo = $this->modx->getOption('emailTo',$this->formit->config,'');

@@ -1,0 +1,7 @@
+Changelog for FormIt.
+
+FormIt 1.0 ($LastChangedRevision$, $LastChangedDate$)
+====================================
+- Added emailUseFieldForSubject property to FormIt snippet
+- Fixed bug on email hook where if subject was passed through form, it wouldn't set it as email subject
+- Added changelog

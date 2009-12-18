@@ -90,6 +90,13 @@ $properties = array(
         'value' => '',
     ),
     array(
+        'name' => 'emailUseFieldForSubject',
+        'desc' => 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+    ),
+    array(
         'name' => 'emailHtml',
         'desc' => 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.',
         'type' => 'combo-boolean',
