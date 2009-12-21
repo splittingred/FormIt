@@ -166,13 +166,14 @@ class fiHooks {
      * @return boolean True if email was successfully sent.
      */
     public function email($fields = array()) {
+
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
         if (empty($tpl)) {
             $this->errors[] = $this->modx->lexicon('formit.email_tpl_nf');
             return false;
         }
 
-        $emailFrom = empty($this->fields['email']) ? $this->modx->getOption('emailsender') : $this->fields['email'];
+        $emailFrom = empty($fields['email']) ? $this->modx->getOption('emailsender') : $fields['email'];
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
@@ -200,6 +201,17 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
+
+        if ($this->modx->getOption('smtpEnabled',$this->formit->config,false)) {
+            $this->modx->mail->set(modMail::MAIL_ENGINE, 'smtp');
+            $this->modx->mail->set(modMail::MAIL_SMTP_AUTH, $this->modx->getOption('smtpAuth',$this->formit->config,'false'));
+            $this->modx->mail->set(modMail::MAIL_SMTP_HOSTS,$this->modx->getOption('smtpHost',$this->formit->config,'localhost'));
+            $this->modx->mail->set(modMail::MAIL_SMTP_PASS,$this->modx->getOption('smtpPassword',$this->formit->config,'password'));
+            $this->modx->mail->set(modMail::MAIL_SMTP_PORT,$this->modx->getOption('smtpPort',$this->formit->config,587));
+            $this->modx->mail->set(modMail::MAIL_SMTP_USER,$this->modx->getOption('smtpUsername',$this->formit->config,'username'));
+            $this->modx->mail->set(modMail::MAIL_SMTP_PREFIX,$this->modx->getOption('smtpPrefix',$this->formit->config,''));
+
+        }
 
         /* add to: with support for multiple addresses */
         $emailTo = explode(',',$emailTo);

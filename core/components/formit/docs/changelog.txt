@@ -2,6 +2,8 @@ Changelog for FormIt.
 
 FormIt 1.0 ($LastChangedRevision$, $LastChangedDate$)
 ====================================
+- Added SMTP support to FormIt email hook
+- Fixed bug with emailFrom in email hook
 - Added emailUseFieldForSubject property to FormIt snippet
 - Fixed bug on email hook where if subject was passed through form, it wouldn't set it as email subject
 - Added changelog

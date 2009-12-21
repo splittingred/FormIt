@@ -47,6 +47,7 @@ $properties = array(
         'options' => '',
         'value' => '<span class="error">[[+error]]</span>',
     ),
+    /* redirect hook */
     array(
         'name' => 'redirectTo',
         'desc' => 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.',
@@ -54,6 +55,7 @@ $properties = array(
         'options' => '',
         'value' => '',
     ),
+    /* email hook */
     array(
         'name' => 'emailTo',
         'desc' => 'If `email` is set as a hook, then this specifies the email(s) to send the email to. Can be a comma-separated list of email addresses.',
@@ -102,6 +104,56 @@ $properties = array(
         'type' => 'combo-boolean',
         'options' => '',
         'value' => true,
+    ),
+    /* smtp */
+    array(
+        'name' => 'smtpEnabled',
+        'desc' => 'If true, will use SMTP instead of the default mail protocol.',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+    ),
+    array(
+        'name' => 'smtpAuth',
+        'desc' => 'If true, will attempt to auth to smtp.',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+    ),
+    array(
+        'name' => 'smtpHost',
+        'desc' => 'The host for SMTP.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'localhost',
+    ),
+    array(
+        'name' => 'smtpPassword',
+        'desc' => 'The password for auth to SMTP.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'password',
+    ),
+    array(
+        'name' => 'smtpPort',
+        'desc' => 'The port to connect to SMTP.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '587',
+    ),
+    array(
+        'name' => 'smtpUsername',
+        'desc' => 'The username for auth to SMTP.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'username',
+    ),
+    array(
+        'name' => 'smtpPrefix',
+        'desc' => 'The SMTP prefix.',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
     ),
 );
 

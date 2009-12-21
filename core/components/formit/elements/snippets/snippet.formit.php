@@ -37,7 +37,7 @@ if (empty($_POST)) return '';
 if (!empty($submitVar) && empty($_POST[$submitVar])) return '';
 
 /* load FormIt classes */
-require_once $modx->getOption('core_path').'components/formit/model/formit/formit.class.php';
+require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
 $fi = new FormIt($modx,$scriptProperties);
 $fi->initialize($modx->context->get('key'));
 
@@ -50,6 +50,7 @@ $fields = $fi->validator->validateFields($_POST);
 
 if (empty($fi->validator->errors)) {
     $fi->loadHooks();
+
     $fi->hooks->loadMultiple($hooks,$fields);
 
     /* process form */
