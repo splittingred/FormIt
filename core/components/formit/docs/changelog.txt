@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.0 ($LastChangedRevision$, $LastChangedDate$)
 ====================================
+- Fixed bug on hooks due to !== and != difference
 - Added SMTP support to FormIt email hook
 - Fixed bug with emailFrom in email hook
 - Added emailUseFieldForSubject property to FormIt snippet

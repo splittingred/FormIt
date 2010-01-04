@@ -113,7 +113,7 @@ class fiHooks {
         if (is_array($success) && !empty($success)) {
             $this->errors = array_merge($this->errors,$success);
             $success = false;
-        } else if ($success !== true) {
+        } else if ($success != true) {
             $this->errors[$hook] .= ' '.$success;
             $success = false;
         }
