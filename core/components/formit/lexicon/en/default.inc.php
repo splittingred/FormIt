@@ -25,6 +25,7 @@
  * @package formit
  * @subpackge lexicon
  */
+$_lang['formit.contains'] = 'Your value must contain the phrase "[[+value]]".';
 $_lang['formit.email_invalid'] = 'Please enter a valid email address.';
 $_lang['formit.email_invalid_domain'] = 'Your email address does not have a valid domain name.';
 $_lang['formit.email_no_recipient'] = 'Please specify a recipient or recipients for the email.';

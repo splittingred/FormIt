@@ -2,6 +2,8 @@ Changelog for FormIt.
 
 FormIt 1.0 ($LastChangedRevision$, $LastChangedDate$)
 ====================================
+- Added missing formit.contains lexicon entry
+- Fixed possible loophole with $this->fields and referencing in multiple hooks
 - Fixed bug on hooks due to !== and != difference
 - Added SMTP support to FormIt email hook
 - Fixed bug with emailFrom in email hook

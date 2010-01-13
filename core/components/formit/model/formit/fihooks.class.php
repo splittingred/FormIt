@@ -73,8 +73,9 @@ class fiHooks {
         if (is_string($hooks)) $hooks = explode(',',$hooks);
 
         $this->hooks = array();
+        $this->fields =& $fields;
         foreach ($hooks as $hook) {
-            $success = $this->load($hook,$fields);
+            $success = $this->load($hook,$this->fields);
             if (!$success) return $this->hooks;
             /* dont proceed if hook fails */
         }
@@ -166,7 +167,6 @@ class fiHooks {
      * @return boolean True if email was successfully sent.
      */
     public function email($fields = array()) {
-
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
         if (empty($tpl)) {
             $this->errors[] = $this->modx->lexicon('formit.email_tpl_nf');
