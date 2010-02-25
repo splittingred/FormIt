@@ -42,4 +42,6 @@ $_lang['formit.password_dont_match'] = 'Your passwords do not match.';
 $_lang['formit.password_not_confirmed'] = 'Please confirm your password.';
 $_lang['formit.range_invalid'] = 'Invalid range specification.';
 $_lang['formit.range'] = 'Your value must be between [[+min]] and [[+max]].';
+$_lang['formit.spam_blocked'] = 'Your registration was blocked by a spam filter: ';
+$_lang['formit.spam_marked'] = ' - marked as spam.';
 $_lang['formit.username_taken'] = 'Username already taken. Please choose another.';

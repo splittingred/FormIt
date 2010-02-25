@@ -141,7 +141,7 @@ class fiHooks {
      * @param array $fields An array of cleaned POST fields
      * @return boolean False if unsuccessful.
      */
-    public function redirect($fields = array()) {
+    public function redirect(array $fields = array()) {
         if (empty($this->formit->config['redirectTo'])) return false;
 
         $url = $this->modx->makeUrl($this->formit->config['redirectTo']);
@@ -166,12 +166,8 @@ class fiHooks {
      * @param array $fields An array of cleaned POST fields
      * @return boolean True if email was successfully sent.
      */
-    public function email($fields = array()) {
+    public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
-        if (empty($tpl)) {
-            $this->errors[] = $this->modx->lexicon('formit.email_tpl_nf');
-            return false;
-        }
 
         $emailFrom = empty($fields['email']) ? $this->modx->getOption('emailsender') : $fields['email'];
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
@@ -187,12 +183,22 @@ class fiHooks {
         $emailTo = $this->modx->getOption('emailTo',$this->formit->config,'');
         $emailToName = $this->modx->getOption('emailToName',$this->formit->config,$emailTo);
         if (empty($emailTo)) {
-            $this->errors[] = $this->modx->lexicon('formit.email_no_recipient');
+            $this->errors['emailTo'] = $this->modx->lexicon('formit.email_no_recipient');
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.email_no_recipient'));
             return false;
         }
 
         /* compile message */
-        $message = $this->modx->getChunk($tpl,$fields);
+        if (empty($tpl)) {
+            $tpl = 'email';
+            $f = '';
+            foreach ($fields as $k => $v) {
+                if ($k == 'nospam') continue;
+                $f .= '<strong>'.$k.'</strong>: '.$v.'<br />'."\n";
+            }
+            $fields['fields'] = $f;
+        }
+        $message = $this->formit->getChunk($tpl,$fields);
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
@@ -230,9 +236,42 @@ class fiHooks {
 
         if (!$sent) {
             $this->errors[] = $this->modx->lexicon('formit.email_not_sent');
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.email_not_sent'));
         }
 
         return $sent;
+    }
+
+    /**
+     * Ensure the a field passes a spam filter.
+     *
+     * Properties:
+     * - spamEmailFields - The email fields to check. A comma-delimited list.
+     *
+     * @access public
+     * @param array $fields An array of cleaned POST fields
+     * @return boolean True if email was successfully sent.
+     */
+    public function spam(array $fields = array()) {
+        $passed = true;
+        $spamEmailFields = $this->modx->getOption('spamEmailFields',$this->formit->config,'email');
+        $emails = explode(',',$spamEmailFields);
+        if ($this->modx->loadClass('stopforumspam.StopForumSpam',$this->formit->config['modelPath'],true,true)) {
+            $sfspam = new StopForumSpam($this->modx);
+            foreach ($emails as $email) {
+                $spamResult = $sfspam->check($_SERVER['REMOTE_ADDR'],$fields[$email]);
+                if (!empty($spamResult)) {
+                    $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
+                    $this->errors[$email] = $this->modx->lexicon('formit.spam_blocked',array(
+                        'fields' => $spamFields,
+                    ));
+                    $passed = false;
+                }
+            }
+        } else {
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Couldnt load StopForumSpam class.');
+        }
+        return $passed;
     }
 
 }

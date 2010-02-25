@@ -55,12 +55,17 @@ if (empty($fi->validator->errors)) {
 
     /* process form */
     if (!empty($fi->hooks->errors)) {
-        $errorMsg = $fi->hooks->getErrorMessage();
+        $modx->toPlaceholders($fi->hooks->errors,'fi.error');
 
+        $errorMsg = $fi->hooks->getErrorMessage();
         $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
+    } else {
+        $modx->toPlaceholder('success',true,'fi');
     }
+
+} else {
+    $modx->toPlaceholders($fi->validator->errors,'fi.error');
 }
-$modx->toPlaceholders($fi->validator->errors,'fi.error');
 $modx->toPlaceholders($fields,'fi');
 
 return '';
