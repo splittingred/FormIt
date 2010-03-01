@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.0 ($LastChangedRevision$, $LastChangedDate$)
 ====================================
+- [#ADDON-122] Fixed incorrect message in spam lexicon item
 - Added 'spam' hook that utilizes StopForumSpam spam filter. Will filter the fields in the property &spamEmailFields 
 - Ensure hooks errors are set as placeholders
 - Aded fi.success placeholder to be set on a successful form submission if no redirect hook is specified 

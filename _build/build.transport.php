@@ -35,7 +35,7 @@ set_time_limit(0);
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
 define('PKG_VERSION','1.0');
-define('PKG_RELEASE','rc2');
+define('PKG_RELEASE','rc3');
 
 /* override with your own defines here (see build.config.sample.php) */
 require_once dirname(__FILE__) . '/build.config.php';
