@@ -170,7 +170,9 @@ class fiHooks {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
 
         $emailFrom = empty($fields['email']) ? $this->modx->getOption('emailsender') : $fields['email'];
-        $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
+        if (empty($emailFrom)) {
+            $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
+        }
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
         if (!empty($fields['subject']) && $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true)) {
@@ -216,7 +218,6 @@ class fiHooks {
             $this->modx->mail->set(modMail::MAIL_SMTP_PORT,$this->modx->getOption('smtpPort',$this->formit->config,587));
             $this->modx->mail->set(modMail::MAIL_SMTP_USER,$this->modx->getOption('smtpUsername',$this->formit->config,'username'));
             $this->modx->mail->set(modMail::MAIL_SMTP_PREFIX,$this->modx->getOption('smtpPrefix',$this->formit->config,''));
-
         }
 
         /* add to: with support for multiple addresses */
@@ -232,7 +233,10 @@ class fiHooks {
 
         /* send email */
         $sent = $this->modx->mail->send();
-        $this->modx->mail->reset();
+        $this->modx->mail->reset(array(
+            modMail::MAIL_CHARSET => $this->modx->getOption('mail_charset',null,'UTF-8'),
+            modMail::MAIL_ENCODING => $this->modx->getOption('mail_encoding',null,'8bit'),
+        ));
 
         if (!$sent) {
             $this->errors[] = $this->modx->lexicon('formit.email_not_sent');
