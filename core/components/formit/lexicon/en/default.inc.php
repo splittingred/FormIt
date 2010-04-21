@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ * Copyright 2009-2010 by Shaun McCormick <shaun@collabpad.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -42,6 +42,7 @@ $_lang['formit.password_dont_match'] = 'Your passwords do not match.';
 $_lang['formit.password_not_confirmed'] = 'Please confirm your password.';
 $_lang['formit.range_invalid'] = 'Invalid range specification.';
 $_lang['formit.range'] = 'Your value must be between [[+min]] and [[+max]].';
+$_lang['formit.recaptcha_err_load'] = 'Could not load reCaptcha service class.';
 $_lang['formit.spam_blocked'] = 'Your submission was blocked by a spam filter: ';
 $_lang['formit.spam_marked'] = ' - marked as spam.';
 $_lang['formit.username_taken'] = 'Username already taken. Please choose another.';

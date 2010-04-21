@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ * Copyright 2009-2010 by Shaun McCormick <shaun@collabpad.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -34,8 +34,8 @@ set_time_limit(0);
 /* set package defines */
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
-define('PKG_VERSION','1.0');
-define('PKG_RELEASE','pl');
+define('PKG_VERSION','1.1');
+define('PKG_RELEASE','rc1');
 
 /* override with your own defines here (see build.config.sample.php) */
 require_once dirname(__FILE__) . '/build.config.php';

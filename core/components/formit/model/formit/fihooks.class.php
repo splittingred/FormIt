@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ * Copyright 2009-2010 by Shaun McCormick <shaun@collabpad.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -274,6 +274,31 @@ class fiHooks {
             }
         } else {
             $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Couldnt load StopForumSpam class.');
+        }
+        return $passed;
+    }
+
+    /**
+     * Adds in reCaptcha support to FormIt
+     * 
+     * @access public
+     * @param array $fields An array of cleaned POST fields
+     * @return boolean True if email was successfully sent.
+     */
+    public function recaptcha(array $fields = array()) {
+        $passed = false;
+        $recaptcha = $this->modx->getService('recaptcha','reCaptcha',$this->formit->config['modelPath'].'recaptcha/');
+        if (!($recaptcha instanceof reCaptcha)) return $passed;
+        if (empty($recaptcha->config[reCaptcha::OPT_PRIVATE_KEY])) return $passed;
+
+        $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
+
+        if (!$response->is_valid) {
+            $this->errors['recaptcha'] = $this->modx->lexicon('recaptcha.incorrect',array(
+                'error' => $response->error != 'incorrect-captcha-sol' ? $response->error : '',
+            ));
+        } else {
+            $passed = true;
         }
         return $passed;
     }

@@ -2,7 +2,7 @@
 Snippet: FormIt
 --------------------
 Version: 1.0
-Since: June 25, 2009
+Since: June 25, 2009-2010
 Author: Shaun McCormick <shaun@collabpad.com>
 
 A form processing Snippet for MODx Revolution.

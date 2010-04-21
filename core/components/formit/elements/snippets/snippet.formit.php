@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009 by Shaun McCormick <shaun@collabpad.com>
+ * Copyright 2009-2010 by Shaun McCormick <shaun@collabpad.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -26,23 +26,34 @@
  *
  * @version 1.0
  * @author Shaun McCormick <shaun@collabpad.com>
- * @copyright Copyright &copy; 2009
+ * @copyright Copyright &copy; 2009-2010
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License
  * version 2 or (at your option) any later version.
  * @package formit
  */
-/* make sure appropriate POST occurred */
-$submitVar = $modx->getOption('submitVar',$scriptProperties,false);
-if (empty($_POST)) return '';
-if (!empty($submitVar) && empty($_POST[$submitVar])) return '';
-
 /* load FormIt classes */
 require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
 $fi = new FormIt($modx,$scriptProperties);
 $fi->initialize($modx->context->get('key'));
 
 /* get default properties */
+$submitVar = $modx->getOption('submitVar',$scriptProperties,false);
 $hooks = $modx->getOption('hooks',$scriptProperties,'');
+
+/* if using recaptcha, load recaptcha html */
+if (strpos($hooks,'recaptcha') !== false) {
+    $recaptcha = $modx->getService('recaptcha','reCaptcha',$fi->config['modelPath'].'recaptcha/');
+    if ($recaptcha instanceof reCaptcha) {
+        $html = $recaptcha->getHtml();
+        $modx->setPlaceholder('formit.recaptcha_html',$html);
+    } else {
+        $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
+    }
+}
+
+/* make sure appropriate POST occurred */
+if (empty($_POST)) return '';
+if (!empty($submitVar) && empty($_POST[$submitVar])) return '';
 
 /* validate fields */
 $fi->loadValidator();
