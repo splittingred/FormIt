@@ -124,6 +124,22 @@ $vehicle->resolve('file',array(
 ));
 $builder->putVehicle($vehicle);
 
+/* load system settings */
+$settings = include_once $sources['data'].'transport.settings.php';
+if (!is_array($settings)) $modx->log(modX::LOG_LEVEL_FATAL,'No settings returned.');
+$attributes= array(
+    xPDOTransport::UNIQUE_KEY => 'key',
+    xPDOTransport::PRESERVE_KEYS => true,
+    xPDOTransport::UPDATE_OBJECT => false,
+);
+foreach ($settings as $setting) {
+    $vehicle = $builder->createVehicle($setting,$attributes);
+    $builder->putVehicle($vehicle);
+}
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($settings).' system settings.'); flush();
+unset($settings,$setting,$attributes);
+
+
 /* load lexicon strings */
 $builder->buildLexicon($sources['lexicon']);
 
