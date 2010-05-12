@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.1 ($LastChangedRevision$, $LastChangedDate$)
 ====================================
+- Added stripTags to all fields by default (unless 'allowTags' hook is passed') to prevent XSS
 - Added in missing settings
 - Added reCaptcha support via the recaptcha hook
 - Adjusted copyright information to reflect current year

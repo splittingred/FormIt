@@ -76,14 +76,15 @@ class fiValidator {
         $this->fields = array();
         foreach ($keys as $k => $v) {
             $key = explode(':',$k);
+            $dontStrip = strpos($k,'allowTags') !== false ? true : false;
             $validators = count($key);
             if ($validators > 1) {
-                $this->fields[$key[0]] = $v;
+                $this->fields[$key[0]] = !$dontStrip ? $this->stripTags($key[0],$v) : $v;
                 for ($i=1;$i<$validators;$i++) {
                     $this->validate($key[0],$v,$key[$i]);
                 }
             } else {
-                $this->fields[$k] = $v;
+                $this->fields[$k] = !$dontStrip ? $this->stripTags($k,$v) : $v;
             }
         }
         return $this->fields;
@@ -275,6 +276,15 @@ class fiValidator {
      * tags.
      */
     public function stripTags($key,$value,$allowedTags = '') {
+        $this->fields[$key] = strip_tags($value,$allowedTags);
+        return true;
+    }
+
+    /**
+     * Strip all tags in the field. The parameter can be a string of allowed
+     * tags.
+     */
+    public function allowTags($key,$value,$allowedTags = '<strong><em><b><i><li><ul><a>') {
         $this->fields[$key] = strip_tags($value,$allowedTags);
         return true;
     }
