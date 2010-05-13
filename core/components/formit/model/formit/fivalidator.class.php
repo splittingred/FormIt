@@ -76,15 +76,20 @@ class fiValidator {
         $this->fields = array();
         foreach ($keys as $k => $v) {
             $key = explode(':',$k);
-            $dontStrip = strpos($k,'allowTags') !== false ? true : false;
+            
+            /* strip tags by default */
+            if (strpos($k,'allowTags') === false) {
+                $v = strip_tags($v);
+            }
+
             $validators = count($key);
             if ($validators > 1) {
-                $this->fields[$key[0]] = !$dontStrip ? $this->stripTags($key[0],$v) : $v;
+                $this->fields[$key[0]] = $v;
                 for ($i=1;$i<$validators;$i++) {
                     $this->validate($key[0],$v,$key[$i]);
                 }
             } else {
-                $this->fields[$k] = !$dontStrip ? $this->stripTags($k,$v) : $v;
+                $this->fields[$k] = $v;
             }
         }
         return $this->fields;
