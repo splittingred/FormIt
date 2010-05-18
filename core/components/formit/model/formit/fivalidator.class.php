@@ -78,7 +78,7 @@ class fiValidator {
             $key = explode(':',$k);
             
             /* strip tags by default */
-            if (strpos($k,'allowTags') === false) {
+            if (strpos($k,'allowTags') === false && !is_array($v)) {
                 $v = strip_tags($v);
             }
 
@@ -167,7 +167,13 @@ class fiValidator {
      * Checks to see if field is required.
      */
     public function required($key,$value) {
-        return !empty($value) ? true : $this->modx->lexicon('formit.field_required');
+        $success = false;
+        if (is_array($value)) {
+            $success = !empty($value['tmp_name']) && isset($value['error']) && $value['error'] == UPLOAD_ERR_OK ? true : false;
+        } else {
+            $success = !empty($value) ? true : false;
+        }
+        return $success ? true : $this->modx->lexicon('formit.field_required');
     }
 
     /**

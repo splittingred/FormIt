@@ -57,7 +57,9 @@ if (!empty($submitVar) && empty($_POST[$submitVar])) return '';
 
 /* validate fields */
 $fi->loadValidator();
-$fields = $fi->validator->validateFields($_POST);
+$fields = $_POST;
+if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
+$fields = $fi->validator->validateFields($fields);
 
 if (empty($fi->validator->errors)) {
     $fi->loadHooks();

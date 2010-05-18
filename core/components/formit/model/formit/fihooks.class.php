@@ -196,6 +196,9 @@ class fiHooks {
             $f = '';
             foreach ($fields as $k => $v) {
                 if ($k == 'nospam') continue;
+                if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
+                    $v = $v['name'];
+                }
                 $f .= '<strong>'.$k.'</strong>: '.$v.'<br />'."\n";
             }
             $fields['fields'] = $f;
@@ -218,6 +221,13 @@ class fiHooks {
             $this->modx->mail->set(modMail::MAIL_SMTP_PORT,$this->modx->getOption('smtpPort',$this->formit->config,587));
             $this->modx->mail->set(modMail::MAIL_SMTP_USER,$this->modx->getOption('smtpUsername',$this->formit->config,'username'));
             $this->modx->mail->set(modMail::MAIL_SMTP_PREFIX,$this->modx->getOption('smtpPrefix',$this->formit->config,''));
+        }
+
+        /* handle file fields */
+        foreach ($fields as $k => $v) {
+            if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
+                $this->modx->mail->mailer->AddAttachment($v['tmp_name'],$v['name'],'base64',!empty($v['type']) ? $v['type'] : 'application/octet-stream');
+            }
         }
 
         /* add to: with support for multiple addresses */
