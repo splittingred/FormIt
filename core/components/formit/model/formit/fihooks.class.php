@@ -103,6 +103,7 @@ class fiHooks {
             $properties = $this->formit->config;
             $properties['hook'] =& $this;
             $properties['fields'] = $fields;
+            $properties['errors'] =& $this->errors;
             $success = $snippet->process($properties);
 
         } else {

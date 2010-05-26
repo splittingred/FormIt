@@ -129,6 +129,7 @@ class fiValidator {
                 'param' => $param,
                 'type' => $type,
                 'validator' => &$this,
+                'errors' => &$this->errors,
             ));
 
         } else {
@@ -142,7 +143,7 @@ class fiValidator {
                 $this->_addError($key,$errMsg);
             }
             $validated = false;
-        } else if ($validated !== true) {
+        } else if ($validated != true) {
             $this->_addError($key,$validated);
             $validated = false;
         }
