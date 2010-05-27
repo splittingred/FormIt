@@ -123,7 +123,7 @@ class fiValidator {
 
         } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $type))) {
             /* custom snippet validator */
-            $validated = $snippet->process(array(
+            $props = array_merge($this->formit->config,array(
                 'key' => $key,
                 'value' => $value,
                 'param' => $param,
@@ -131,6 +131,7 @@ class fiValidator {
                 'validator' => &$this,
                 'errors' => &$this->errors,
             ));
+            $validated = $snippet->process($props);
 
         } else {
             /* no validator found */
@@ -143,10 +144,11 @@ class fiValidator {
                 $this->_addError($key,$errMsg);
             }
             $validated = false;
-        } else if ($validated != true) {
+        } elseif ($validated !== '1' && $validated !== 1 && $validated !== true) {            
             $this->_addError($key,$validated);
             $validated = false;
         }
+
         return $validated;
     }
 
