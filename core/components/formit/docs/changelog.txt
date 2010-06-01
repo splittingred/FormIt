@@ -1,7 +1,8 @@
 Changelog for FormIt.
 
-FormIt 1.1 ($LastChangedRevision$, $LastChangedDate$)
+FormIt 1.1
 ====================================
+- Migrated FormIt to Git
 - Fixed bug that caused validators to not fire
 - Fixed bug where custom validators were wonky, added 'errors' references to custom hooks/validators
 - [#ADDON-147] Added support for validation and emailing of file fields
@@ -10,7 +11,7 @@ FormIt 1.1 ($LastChangedRevision$, $LastChangedDate$)
 - Added reCaptcha support via the recaptcha hook
 - Adjusted copyright information to reflect current year
 
-FormIt 1.0 (LastChangedRevision: 728, LastChangedDate: 2010-03-18 14:57:44 -0500 (Thu, 18 Mar 2010))
+FormIt 1.0
 ====================================
 - Fixed bug with emailFrom property getting overwritten
 - [#ADDON-122] Fixed incorrect message in spam lexicon item
