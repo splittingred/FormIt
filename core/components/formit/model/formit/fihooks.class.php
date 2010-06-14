@@ -145,7 +145,7 @@ class fiHooks {
     public function redirect(array $fields = array()) {
         if (empty($this->formit->config['redirectTo'])) return false;
 
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo']);
+        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'','','abs');
         return $this->modx->sendRedirect($url);
     }
 
