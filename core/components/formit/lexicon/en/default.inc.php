@@ -37,6 +37,7 @@ $_lang['formit.max_length'] = 'This field cannot be longer than [[+length]] char
 $_lang['formit.max_value'] = 'This field cannot be larger than [[+value]].';
 $_lang['formit.min_length'] = 'This field must be at least [[+length]] characters long.';
 $_lang['formit.min_value'] = 'This field cannot be smaller than [[+value]].';
+$_lang['formit.not_date'] = 'This field must be a valid date.';
 $_lang['formit.not_number'] = 'This field must be a valid number.';
 $_lang['formit.password_dont_match'] = 'Your passwords do not match.';
 $_lang['formit.password_not_confirmed'] = 'Please confirm your password.';

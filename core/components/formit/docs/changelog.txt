@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.1
 ====================================
+- Fixed bug with isDate check
 - Migrated FormIt to Git
 - Fixed bug that caused validators to not fire
 - Fixed bug where custom validators were wonky, added 'errors' references to custom hooks/validators

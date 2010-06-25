@@ -332,10 +332,10 @@ class fiValidator {
      * Checks to see if the field is a valid date. Allows for date formatting as
      * well.
      */
-    public function isDate($key,$value,$format = '') {
+    public function isDate($key,$value,$format = '%m/%d/%Y') {
         $ts = strtotime($value);
-        if ($ts === false) {
-            return $this->modx->lexicon('formit.not_date');
+        if ($ts === false || empty($value)) {
+            return $this->modx->lexicon('formit.not_date',array('format' => $format));
         }
         if (!empty($format)) {
             $this->fields[$key] = strftime($format,$ts);
