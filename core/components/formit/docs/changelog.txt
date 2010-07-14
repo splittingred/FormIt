@@ -2,6 +2,11 @@ Changelog for FormIt.
 
 FormIt 1.1.5
 ====================================
+- Added islowercase and isuppercase validators
+- Added multibyte support to validators
+
+FormIt 1.1.5
+====================================
 - Added Russian translation
 - Updated copyright information
 

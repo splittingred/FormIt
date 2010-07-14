@@ -57,6 +57,8 @@ class fiValidator {
         $this->formit =& $formit;
         $this->modx =& $formit->modx;
         $this->config = array_merge(array(
+            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
+            'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
         ),$config);
     }
 
@@ -109,11 +111,13 @@ class fiValidator {
     public function validate($key,$value,$type = '') {
         $validated = false;
 
-        $hasParams = strpos($type,'=');
+        $hasParams = $this->config['use_multibyte'] ? mb_strpos($type,'=',0,$this->config['encoding']) : strpos($type,'=');
         $param = null;
         if ($hasParams !== false) {
-            $param = str_replace('`','',substr($type,$hasParams+1,strlen($type)));
-            $type = substr($type,0,$hasParams);
+            $len = $this->config['use_multibyte'] ? mb_strlen($type,$this->config['encoding']) : strlen($type);
+            $s = $this->config['use_multibyte'] ? mb_substr($type,$hasParams+1,$len,$this->config['encoding']) : substr($type,$hasParams+1,$len);
+            $param = str_replace('`','',$s);
+            $type = $this->config['use_multibyte'] ? mb_substr($type,0,$hasParams,$this->config['encoding']) : substr($type,0,$hasParams);
         }
 
         $invNames = array('validate','validateFields','_addError','__construct');
@@ -202,25 +206,33 @@ class fiValidator {
      */
     public function email($key,$value) {
         /* validate length and @ */
-        if (!@ereg("^[^@]{1,64}\@[^\@]{1,255}$", $value)) {
+        $pattern = "^[^@]{1,64}\@[^\@]{1,255}$";
+        $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$value) : @ereg($pattern, $value);
+        if (!$condition) {
             return $this->modx->lexicon('formit.email_invalid');
         }
 
         $email_array = explode("@", $value);
         $local_array = explode(".", $email_array[0]);
         for ($i = 0; $i < sizeof($local_array); $i++) {
-            if (!@ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$",$local_array[$i])) {
+            $pattern = "^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$";
+            $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$local_array[$i]) : @ereg($pattern,$local_array[$i]);
+            if (!$condition) {
                 return $this->modx->lexicon('formit.email_invalid');
             }
         }
         /* validate domain */
-        if (!@ereg("^\[?[0-9\.]+\]?$", $email_array[1])) {
+        $pattern = "^\[?[0-9\.]+\]?$";
+        $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern, $email_array[1]) : @ereg($pattern, $email_array[1]);
+        if (!$condition) {
             $domain_array = explode(".", $email_array[1]);
             if (sizeof($domain_array) < 2) {
                 return $this->modx->lexicon('formit.email_invalid_domain');
             }
             for ($i = 0; $i < sizeof($domain_array); $i++) {
-                if (!@ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$",$domain_array[$i])) {
+                $pattern = "^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$";
+                $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$domain_array[$i]) : @ereg($pattern,$domain_array[$i]);
+                if (!$condition) {
                     return $this->modx->lexicon('formit.email_invalid_domain');
                 }
             }
@@ -232,7 +244,8 @@ class fiValidator {
      * Checks to see if field value is shorter than $param.
      */
     public function minLength($key,$value,$param = 0) {
-        if (strlen($value) < $param) {
+        $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
+        if ($v < $param) {
             return $this->modx->lexicon('formit.min_length',array('length' => $param));
         }
         return true;
@@ -242,7 +255,8 @@ class fiValidator {
      * Checks to see if field value is longer than $param.
      */
     public function maxLength($key,$value,$param = 999) {
-        if (strlen($value) > $param) {
+        $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
+        if ($v > $param) {
             return $this->modx->lexicon('formit.max_length',array('length' => $param));
         }
         return true;
@@ -341,5 +355,21 @@ class fiValidator {
             $this->fields[$key] = strftime($format,$ts);
         }
         return true;
+    }
+
+    /**
+     * Checks to see if a string is all lowercase
+     */
+    public function islowercase($key,$value) {
+        $v = $this->config['use_multibyte'] ? mb_strtolower($value,$this->config['encoding']) : strtolower($value);
+        return strcmp($v,$value) == 0 ? true : $this->modx->lexicon('formit.not_lowercase');
+    }
+
+    /**
+     * Checks to see if a string is all uppercase
+     */
+    public function isuppercase($key,$value) {
+        $v = $this->config['use_multibyte'] ? mb_strtoupper($value,$this->config['encoding']) : strtoupper($value);
+        return strcmp($v,$value) == 0 ? true : $this->modx->lexicon('formit.not_lowercase');
     }
 }

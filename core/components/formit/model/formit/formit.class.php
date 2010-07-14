@@ -63,6 +63,8 @@ class FormIt {
             'jsUrl' => $assetsUrl.'js/',
 
             'debug' => $this->modx->getOption('formit.debug',null,false),
+            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
+            'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
         ),$config);
 
         $this->modx->addPackage('formit',$this->config['modelPath']);
@@ -165,7 +167,8 @@ class FormIt {
      */
     private function _getTplChunk($name) {
         $chunk = false;
-        $f = $this->config['chunksPath'].strtolower($name).'.chunk.tpl';
+        $lname = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
+        $f = $this->config['chunksPath'].$lname.'.chunk.tpl';
         if (file_exists($f)) {
             $o = file_get_contents($f);
             $chunk = $this->modx->newObject('modChunk');
