@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.1.6
 ====================================
+- Fixed bug in html emails where linebreaks were being ignored
 - Added islowercase and isuppercase validators
 - Added multibyte support to validators
 

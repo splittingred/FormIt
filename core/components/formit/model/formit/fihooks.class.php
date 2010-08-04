@@ -208,7 +208,7 @@ class fiHooks {
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
-        $this->modx->mail->set(modMail::MAIL_BODY, $message);
+        $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml ? nl2br($message) : $message);
         $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
