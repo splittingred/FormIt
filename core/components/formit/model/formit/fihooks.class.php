@@ -214,16 +214,6 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
-        if ($this->modx->getOption('smtpEnabled',$this->formit->config,false)) {
-            $this->modx->mail->set(modMail::MAIL_ENGINE, 'smtp');
-            $this->modx->mail->set(modMail::MAIL_SMTP_AUTH, $this->modx->getOption('smtpAuth',$this->formit->config,'false'));
-            $this->modx->mail->set(modMail::MAIL_SMTP_HOSTS,$this->modx->getOption('smtpHost',$this->formit->config,'localhost'));
-            $this->modx->mail->set(modMail::MAIL_SMTP_PASS,$this->modx->getOption('smtpPassword',$this->formit->config,'password'));
-            $this->modx->mail->set(modMail::MAIL_SMTP_PORT,$this->modx->getOption('smtpPort',$this->formit->config,587));
-            $this->modx->mail->set(modMail::MAIL_SMTP_USER,$this->modx->getOption('smtpUsername',$this->formit->config,'username'));
-            $this->modx->mail->set(modMail::MAIL_SMTP_PREFIX,$this->modx->getOption('smtpPrefix',$this->formit->config,''));
-        }
-
         /* handle file fields */
         foreach ($fields as $k => $v) {
             if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
@@ -239,7 +229,9 @@ class fiHooks {
             $etn = !empty($emailToName[$i]) ? $emailToName[$i] : '';
             $this->modx->mail->address('to',$emailTo[$i],$etn);
         }
-        $this->modx->mail->address('reply-to',$emailFrom);
+        $emailReplyTo = $this->modx->getOption('emailReplyTo',$this->formit->config,$emailFrom);
+        $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
+        $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
         $this->modx->mail->setHTML($emailHtml);
 
         /* send email */
