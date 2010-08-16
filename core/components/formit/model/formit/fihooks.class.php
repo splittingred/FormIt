@@ -229,9 +229,38 @@ class fiHooks {
             $etn = !empty($emailToName[$i]) ? $emailToName[$i] : '';
             $this->modx->mail->address('to',$emailTo[$i],$etn);
         }
+        /* reply to */
         $emailReplyTo = $this->modx->getOption('emailReplyTo',$this->formit->config,$emailFrom);
         $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
         $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+
+        /* cc */
+        $emailCC = $this->modx->getOption('emailCC',$this->formit->config,'');
+        if (!empty($emailCC)) {
+            $emailCCName = $this->modx->getOption('emailCCName',$this->formit->config,'');
+            $emailCC = explode(',',$emailCC);
+            $emailCCName = explode(',',$emailCCName);
+            $numAddresses = count($emailCC);
+            for ($i=0;$i<$numAddresses;$i++) {
+                $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
+                $this->modx->mail->address('cc',$emailCC[$i],$etn);
+            }
+        }
+
+        /* bcc */
+        $emailBCC = $this->modx->getOption('emailBCC',$this->formit->config,'');
+        if (!empty($emailBCC)) {
+            $emailBCCName = $this->modx->getOption('emailBCCName',$this->formit->config,'');
+            $emailBCC = explode(',',$emailBCC);
+            $emailBCCName = explode(',',$emailBCCName);
+            $numAddresses = count($emailBCC);
+            for ($i=0;$i<$numAddresses;$i++) {
+                $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
+                $this->modx->mail->address('bcc',$emailBCC[$i],$etn);
+            }
+        }
+
+        /* set HTML */
         $this->modx->mail->setHTML($emailHtml);
 
         /* send email */
