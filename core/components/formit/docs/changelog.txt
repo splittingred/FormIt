@@ -1,6 +1,6 @@
 Changelog for FormIt.
 
-FormIt 1.2.0
+FormIt 1.1.7
 ====================================
 - Added bcc and cc properties for email hook
 
