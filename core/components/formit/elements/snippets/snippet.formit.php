@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modxcms.com>
+ * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -25,7 +25,7 @@
  * A dynamic form processing Snippet for MODx Revolution 2.0.
  *
  * @version 1.0
- * @author Shaun McCormick <shaun@modxcms.com>
+ * @author Shaun McCormick <shaun@modx.com>
  * @copyright Copyright &copy; 2009-2010
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License
  * version 2 or (at your option) any later version.
