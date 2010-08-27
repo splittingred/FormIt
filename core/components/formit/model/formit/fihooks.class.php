@@ -94,7 +94,8 @@ class fiHooks {
         $success = false;
         $this->hooks[] = $hook;
 
-        if (method_exists($this,$hook) && $hook != 'load') {
+        $reserved = array('load','_process','__construct','getErrorMessage');
+        if (method_exists($this,$hook) && !in_array($hook,$reserved)) {
             /* built-in hooks */
             $success = $this->$hook($fields);
 
@@ -169,18 +170,24 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
+        $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
 
+        /* get from name */
         $emailFrom = empty($fields['email']) ? $this->modx->getOption('emailsender') : $fields['email'];
         if (empty($emailFrom)) {
             $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
+            $emailFrom = $this->_process($emailFrom,$fields);
         }
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
-        $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
+        $emailFromName = $this->_process($emailFromName,$fields);
+
+        /* get subject */
         if (!empty($fields['subject']) && $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true)) {
             $subject = $fields['subject'];
         } else {
             $subject = $this->modx->getOption('emailSubject',$this->formit->config,'');
         }
+        $subject = $this->_process($subject,$fields);
 
         /* check email to */
         $emailTo = $this->modx->getOption('emailTo',$this->formit->config,'');
@@ -227,11 +234,16 @@ class fiHooks {
         $numAddresses = count($emailTo);
         for ($i=0;$i<$numAddresses;$i++) {
             $etn = !empty($emailToName[$i]) ? $emailToName[$i] : '';
+            if (!empty($etn)) $etn = $this->_process($etn,$fields);
+            $emailTo[$i] = $this->_process($emailTo[$i],$fields);
             $this->modx->mail->address('to',$emailTo[$i],$etn);
         }
+
         /* reply to */
         $emailReplyTo = $this->modx->getOption('emailReplyTo',$this->formit->config,$emailFrom);
+        $emailReplyTo = $this->_process($emailReplyTo,$fields);
         $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
+        $emailReplyToName = $this->_process($emailReplyToName,$fields);
         $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
 
         /* cc */
@@ -243,6 +255,8 @@ class fiHooks {
             $numAddresses = count($emailCC);
             for ($i=0;$i<$numAddresses;$i++) {
                 $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
+                if (!empty($etn)) $etn = $this->_process($etn,$fields);
+                $emailCC[$i] = $this->_process($emailCC[$i],$fields);
                 $this->modx->mail->address('cc',$emailCC[$i],$etn);
             }
         }
@@ -256,6 +270,8 @@ class fiHooks {
             $numAddresses = count($emailBCC);
             for ($i=0;$i<$numAddresses;$i++) {
                 $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
+                if (!empty($etn)) $etn = $this->_process($etn,$fields);
+                $emailBCC[$i] = $this->_process($emailBCC[$i],$fields);
                 $this->modx->mail->address('bcc',$emailBCC[$i],$etn);
             }
         }
@@ -276,6 +292,13 @@ class fiHooks {
         }
 
         return $sent;
+    }
+
+    public function _process($str,array $placeholders = array()) {
+        foreach ($placeholders as $k => $v) {
+            $str = str_replace('[[+'.$k.']]',$v,$str);
+        }
+        return $str;
     }
 
     /**
