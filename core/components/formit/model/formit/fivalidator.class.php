@@ -59,6 +59,7 @@ class fiValidator {
         $this->config = array_merge(array(
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
+            'customValidators' => !empty($this->formit->config['customValidators']) ? explode(',',$this->formit->config['customValidators']) : array(),
         ),$config);
     }
 
@@ -120,36 +121,43 @@ class fiValidator {
             $type = $this->config['use_multibyte'] ? mb_substr($type,0,$hasParams,$this->config['encoding']) : substr($type,0,$hasParams);
         }
 
-        $invNames = array('validate','validateFields','_addError','__construct');
+        $invNames = array('validate','validateFields','addError','__construct');
         if (method_exists($this,$type) && !in_array($type,$invNames)) {
             /* built-in validator */
             $validated = $this->$type($key,$value,$param);
 
-        } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $type))) {
-            /* custom snippet validator */
-            $props = array_merge($this->formit->config,array(
-                'key' => $key,
-                'value' => $value,
-                'param' => $param,
-                'type' => $type,
-                'validator' => &$this,
-                'errors' => &$this->errors,
-            ));
-            $validated = $snippet->process($props);
-
+        /* only allow specified validators to prevent brute force execution of unwanted snippets */
+        } else if (in_array($type,$this->config['customValidators'])) {
+            /* attempt to grab custom validator */
+            $snippet = $this->modx->getObject('modSnippet',array('name' => $type));
+            if ($snippet) {
+                /* custom snippet validator */
+                $props = array_merge($this->formit->config,array(
+                    'key' => $key,
+                    'value' => $value,
+                    'param' => $param,
+                    'type' => $type,
+                    'validator' => &$this,
+                    'errors' => &$this->errors,
+                ));
+                $validated = $snippet->process($props);
+            } else {
+                /* no validator found */
+                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find validator "'.$type.'" for field "'.$key.'".');
+                $validated = true;
+            }
         } else {
-            /* no validator found */
-            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find validator "'.$type.'" for field "'.$key.'".');
+            $this->modx->log(modX::LOG_LEVEL_INFO,'[FormIt] Validator "'.$type.'" for field "'.$key.'" was not specified in the customValidators property.');
             $validated = true;
         }
 
         if (is_array($validated) && !empty($validated)) {
             foreach ($validated as $key => $errMsg) {
-                $this->_addError($key,$errMsg);
+                $this->addError($key,$errMsg);
             }
             $validated = false;
         } elseif ($validated !== '1' && $validated !== 1 && $validated !== true) {            
-            $this->_addError($key,$validated);
+            $this->addError($key,$validated);
             $validated = false;
         }
 
@@ -164,7 +172,7 @@ class fiValidator {
      * @param string $value The error message.
      * @return string The added error message with the error wrapper.
      */
-    private function _addError($key,$value) {
+    public function addError($key,$value) {
         $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
         $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
         return $this->errors[$key];

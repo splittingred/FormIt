@@ -50,6 +50,14 @@ $properties = array(
         'value' => '<span class="error">[[+error]]</span>',
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'customValidators',
+        'desc' => 'prop_formit.customvalidators_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
     /* redirect hook */
     array(
         'name' => 'redirectTo',
