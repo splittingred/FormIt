@@ -58,6 +58,14 @@ $properties = array(
         'value' => '',
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'clearFieldsOnSuccess',
+        'desc' => 'prop_formit.clearfieldsonsuccess_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
     /* redirect hook */
     array(
         'name' => 'redirectTo',

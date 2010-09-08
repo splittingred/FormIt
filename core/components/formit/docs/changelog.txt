@@ -1,7 +1,8 @@
 Changelog for FormIt.
 
-FormIt 1.1.8
+FormIt 1.2.0
 ====================================
+- Added clearFieldsOnSuccess property to clear fields after a successful form submission without a redirect
 - Allow placeholders of fields in all email properties
 - Added customValidators property to FormIt snippet to restrict custom validators to only specified validators to prevent brute force snippet loading
 - Added fiValidator::addError for easier error loading for custom validators

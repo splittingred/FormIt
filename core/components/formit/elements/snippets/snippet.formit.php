@@ -73,7 +73,12 @@ if (empty($fi->validator->errors)) {
         $errorMsg = $fi->hooks->getErrorMessage();
         $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
     } else {
+        /* set success placeholder */
         $modx->toPlaceholder('success',true,'fi');
+        /* if clearing fields on success, just end here */
+        if ($modx->getOption('clearFieldsOnSuccess',$scriptProperties,true)) {
+            return '';
+        }
     }
 
 } else {
