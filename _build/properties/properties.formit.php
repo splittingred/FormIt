@@ -61,9 +61,9 @@ $properties = array(
     array(
         'name' => 'clearFieldsOnSuccess',
         'desc' => 'prop_formit.clearfieldsonsuccess_desc',
-        'type' => 'textfield',
+        'type' => 'combo-boolean',
         'options' => '',
-        'value' => '',
+        'value' => true,
         'lexicon' => 'formit:properties',
     ),
     /* redirect hook */
