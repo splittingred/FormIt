@@ -1,6 +1,6 @@
 Changelog for FormIt.
 
-FormIt 1.3.0
+FormIt 1.2.1
 ====================================
 - Added recaptchaTheme property, which allows themeing of reCaptcha hook
 
