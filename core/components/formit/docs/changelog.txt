@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.3.0
+====================================
+- Added recaptchaTheme property, which allows themeing of reCaptcha hook
+
 FormIt 1.2.0
 ====================================
 - Added preHooks property to allow for custom snippets to pre-fill fields

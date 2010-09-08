@@ -74,6 +74,20 @@ $properties = array(
         'value' => true,
         'lexicon' => 'formit:properties',
     ),
+    /* recaptcha hook */
+    array(
+        'name' => 'reCaptchaTheme',
+        'desc' => 'prop_formit.recaptchatheme_desc',
+        'type' => 'list',
+        'options' => array(
+            'text' => 'formit.opt_red','value' => 'red',
+            'text' => 'formit.opt_white','value' => 'white',
+            'text' => 'formit.opt_clean','value' => 'clean',
+            'text' => 'formit.opt_blackglass','value' => 'blackglass',
+        ),
+        'value' => 'clean',
+        'lexicon' => 'formit:properties',
+    ),
     /* redirect hook */
     array(
         'name' => 'redirectTo',

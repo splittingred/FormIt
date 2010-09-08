@@ -45,7 +45,8 @@ $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 if (strpos($hooks,'recaptcha') !== false) {
     $recaptcha = $modx->getService('recaptcha','reCaptcha',$fi->config['modelPath'].'recaptcha/');
     if ($recaptcha instanceof reCaptcha) {
-        $html = $recaptcha->getHtml();
+        $recaptchaTheme = $modx->getOption('recaptchaTheme',$scriptProperties,'clean');
+        $html = $recaptcha->getHtml($recaptchaTheme);
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
         $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
