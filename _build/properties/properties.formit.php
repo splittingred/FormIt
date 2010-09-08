@@ -76,7 +76,7 @@ $properties = array(
     ),
     /* recaptcha hook */
     array(
-        'name' => 'reCaptchaTheme',
+        'name' => 'recaptchaTheme',
         'desc' => 'prop_formit.recaptchatheme_desc',
         'type' => 'list',
         'options' => array(
