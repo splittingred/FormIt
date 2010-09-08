@@ -114,17 +114,19 @@ class FormIt {
      * Loads the Hooks class.
      *
      * @access public
+     * @param $type The type of hook to load.
      * @param $config array An array of configuration parameters for the
      * hooks class
      * @return fiHooks An instance of the fiHooks class.
      */
-    public function loadHooks($config = array()) {
+    public function loadHooks($type = 'post',$config = array()) {
         if (!$this->modx->loadClass('formit.fiHooks',$this->config['modelPath'],true,true)) {
             $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
             return false;
         }
-        $this->hooks = new fiHooks($this,$config);
-        return $this->hooks;
+        $type = $type.'Hooks';
+        $this->$type = new fiHooks($this,$config);
+        return $this->$type;
     }
 
     /**

@@ -68,7 +68,7 @@ class fiHooks {
      * @parma array $fields The fields and values of the form
      * @return array An array of field name => value pairs.
      */
-    public function loadMultiple($hooks,$fields) {
+    public function loadMultiple($hooks,array $fields = array()) {
         if (empty($hooks)) return array();
         if (is_string($hooks)) $hooks = explode(',',$hooks);
 
@@ -88,9 +88,10 @@ class fiHooks {
      * @access public
      * @param string $hook The name of the hook. May be a Snippet name.
      * @param array $fields The fields and values of the form.
+     * @param array $customProperties Any other custom properties to load into a custom hook.
      * @return boolean True if hook was successful.
      */
-    public function load($hook,$fields = array()) {
+    public function load($hook,array $fields = array(),array $customProperties = array()) {
         $success = false;
         $this->hooks[] = $hook;
 
@@ -101,7 +102,7 @@ class fiHooks {
 
         } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hook))) {
             /* custom snippet hook */
-            $properties = $this->formit->config;
+            $properties = array_merge($this->formit->config,$customProperties);
             $properties['hook'] =& $this;
             $properties['fields'] = $fields;
             $properties['errors'] =& $this->errors;

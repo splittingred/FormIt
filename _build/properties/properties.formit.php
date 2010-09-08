@@ -43,6 +43,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'preHooks',
+        'desc' => 'prop_formit.prehooks_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'errTpl',
         'desc' => 'prop_formit.errtpl_desc',
         'type' => 'textfield',

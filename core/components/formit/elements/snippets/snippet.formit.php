@@ -39,6 +39,7 @@ $fi->initialize($modx->context->get('key'));
 /* get default properties */
 $submitVar = $modx->getOption('submitVar',$scriptProperties,false);
 $hooks = $modx->getOption('hooks',$scriptProperties,'');
+$preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
@@ -48,6 +49,26 @@ if (strpos($hooks,'recaptcha') !== false) {
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
         $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
+    }
+}
+
+/* load preHooks */
+$fi->loadHooks('pre');
+$fi->preHooks->loadMultiple($preHooks,array(),array(
+    'submitVar' => $submitVar,
+    'hooks' => $hooks,
+));
+/* if a prehook sets a field, do so here */
+if (!empty($fi->preHooks->fields) && empty($_POST)) {
+    $modx->toPlaceholders($fi->preHooks->fields,'fi');
+}
+/* if any errors in preHooks */
+if (!empty($fi->preHooks->errors)) {
+    $modx->toPlaceholders($fi->preHooks->errors,'fi.error');
+
+    $errorMsg = $fi->preHooks->getErrorMessage();
+    if (!empty($errorMsg)) {
+        $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
     }
 }
 
@@ -62,15 +83,15 @@ if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
 $fields = $fi->validator->validateFields($fields);
 
 if (empty($fi->validator->errors)) {
-    $fi->loadHooks();
+    $fi->loadHooks('post');
 
-    $fi->hooks->loadMultiple($hooks,$fields);
+    $fi->postHooks->loadMultiple($hooks,$fields);
 
     /* process form */
-    if (!empty($fi->hooks->errors)) {
-        $modx->toPlaceholders($fi->hooks->errors,'fi.error');
+    if (!empty($fi->postHooks->errors)) {
+        $modx->toPlaceholders($fi->postHooks->errors,'fi.error');
 
-        $errorMsg = $fi->hooks->getErrorMessage();
+        $errorMsg = $fi->postHooks->getErrorMessage();
         $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
     } else {
         /* set success placeholder */
