@@ -27,7 +27,8 @@
  * @package formit
  * @subpackage recaptcha
  */
-class reCaptcha {
+if (!class_exists('FormItReCaptcha')) {
+class FormItReCaptcha {
     const API_SERVER = 'http://api.recaptcha.net/';
     const API_SECURE_SERVER = 'https://api-secure.recaptcha.net/';
     const VERIFY_SERVER = 'api-verify.recaptcha.net';
@@ -39,9 +40,9 @@ class reCaptcha {
         $this->modx =& $modx;
         $this->modx->lexicon->load('formit:recaptcha');
         $this->config = array_merge(array(
-            reCaptcha::OPT_PRIVATE_KEY => $this->modx->getOption('formit.recaptcha_private_key',$config,''),
-            reCaptcha::OPT_PUBLIC_KEY => $this->modx->getOption('formit.recaptcha_public_key',$config,''),
-            reCaptcha::OPT_USE_SSL => $this->modx->getOption('formit.recaptcha_use_ssl',$config,false),
+            FormItReCaptcha::OPT_PRIVATE_KEY => $this->modx->getOption('formit.recaptcha_private_key',$config,''),
+            FormItReCaptcha::OPT_PUBLIC_KEY => $this->modx->getOption('formit.recaptcha_public_key',$config,''),
+            FormItReCaptcha::OPT_USE_SSL => $this->modx->getOption('formit.recaptcha_use_ssl',$config,false),
         ),$config);
     }
 
@@ -70,7 +71,7 @@ class reCaptcha {
      * @return array response
      */
     protected function httpPost($host, $path, array $data = array(), $port = 80) {
-        $data['privatekey'] = $this->config[reCaptcha::OPT_PRIVATE_KEY];
+        $data['privatekey'] = $this->config[FormItReCaptcha::OPT_PRIVATE_KEY];
         $req = $this->qsencode($data);
 
         $http_request  = "POST $path HTTP/1.0\r\n";
@@ -100,19 +101,21 @@ class reCaptcha {
      * Gets the challenge HTML (javascript and non-javascript version).
      * This is called from the browser, and the resulting reCAPTCHA HTML widget
      * is embedded within the HTML form it was called from.
-     * @param string $pubkey A public key for reCAPTCHA
+     * @param string $theme The theme to use
+     * @param string $width The width of the form
+     * @param string $height The height of the form
      * @param string $error The error given by reCAPTCHA (optional, default is null)
      * @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
 
      * @return string - The HTML to be embedded in the user's form.
      */
-    public function getHtml($theme = 'clean',$error = null) {
-        if (empty($this->config[reCaptcha::OPT_PUBLIC_KEY])) {
+    public function getHtml($theme = 'clean',$width = 500,$height = 300,$error = null) {
+        if (empty($this->config[FormItReCaptcha::OPT_PUBLIC_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
         }
 
         /* use ssl or not */
-        $server = !empty($this->config[reCaptcha::OPT_USE_SSL]) ? reCaptcha::API_SECURE_SERVER : reCaptcha::API_SERVER;
+        $server = !empty($this->config[FormItReCaptcha::OPT_USE_SSL]) ? FormItReCaptcha::API_SECURE_SERVER : FormItReCaptcha::API_SERVER;
 
         $errorpart = '';
         if ($error) {
@@ -120,18 +123,20 @@ class reCaptcha {
         }
         $opt = array(
             'theme' => $theme,
+            'width' => $width,
+            'height' => $height,
             'lang' => $this->modx->getOption('cultureKey',null,'en'),
         );
-        return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[reCaptcha::OPT_PUBLIC_KEY] . $errorpart . '"></script>
+        return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '"></script>
         <noscript>
-                <iframe src="'. $server . 'noscript?k=' . $this->config[reCaptcha::OPT_PUBLIC_KEY] . $errorpart . '" height="300" width="500" frameborder="0"></iframe><br/>
+                <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '" height="'.$height.'" width="'.$width.'" frameborder="0" style="width: '.$width.'px; height: '.$height.'px;"></iframe><br />
                 <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
                 <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
         </noscript>';
     }
 
     protected function error($message = '') {
-        $response = new reCaptchaResponse();
+        $response = new FormItReCaptchaResponse();
         $response->is_valid = false;
         $response->error = $message;
         return $message;
@@ -146,7 +151,7 @@ class reCaptcha {
       * @return ReCaptchaResponse
       */
     public function checkAnswer ($remoteIp, $challenge, $responseField, $extraParams = array()) {
-        if (empty($this->config[reCaptcha::OPT_PRIVATE_KEY])) {
+        if (empty($this->config[FormItReCaptcha::OPT_PRIVATE_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
         }
 
@@ -159,14 +164,14 @@ class reCaptcha {
             return $this->error($this->modx->lexicon('recaptcha.empty_answer'));
         }
 
-        $response = $this->httpPost(reCaptcha::VERIFY_SERVER,"/verify",array (
+        $response = $this->httpPost(FormItReCaptcha::VERIFY_SERVER,"/verify",array (
             'remoteip' => $remoteIp,
             'challenge' => $challenge,
             'response' => $responseField,
         ) + $extraParams);
 
         $answers = explode("\n",$response[1]);
-        $response = new reCaptchaResponse();
+        $response = new FormItReCaptchaResponse();
 
         if (trim($answers[0]) == 'true') {
             $response->is_valid = true;
@@ -212,14 +217,14 @@ class reCaptcha {
 
     /* gets the reCAPTCHA Mailhide url for a given email, public key and private key */
     public function mailhideUrl($email) {
-        if (empty($this->config[reCaptcha::OPT_PUBLIC_KEY]) || empty($this->config[reCaptcha::OPT_PRIVATE_KEY])) {
+        if (empty($this->config[FormItReCaptcha::OPT_PUBLIC_KEY]) || empty($this->config[FormItReCaptcha::OPT_PRIVATE_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.mailhide_no_api_key'));
         }
 
-        $ky = pack('H*',$this->config[reCaptcha::OPT_PRIVATE_KEY]);
+        $ky = pack('H*',$this->config[FormItReCaptcha::OPT_PRIVATE_KEY]);
         $cryptmail = $this->aesEncrypt($email, $ky);
         return 'http://mailhide.recaptcha.net/d?k='
-            . $this->config[reCaptcha::OPT_PUBLIC_KEY]
+            . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY]
             . '&c=' . $this->mailhideUrlbase64($cryptmail);
     }
 
@@ -261,7 +266,8 @@ class reCaptcha {
 /**
  * A reCaptchaResponse is returned from reCaptcha::check_answer()
  */
-class reCaptchaResponse {
+class FormItReCaptchaResponse {
     public $is_valid;
     public $error;
+}
 }

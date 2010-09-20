@@ -88,6 +88,24 @@ $properties = array(
         'value' => 'clean',
         'lexicon' => 'formit:properties',
     ),
+    /* Until google supports dynamic widths, leaving these out to prevent confusion */
+    /*
+    array(
+        'name' => 'recaptchaWidth',
+        'desc' => 'prop_formit.recaptchawidth_desc',
+        'type' => 'list',
+        'options' => '',
+        'value' => 500,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'recaptchaHeight',
+        'desc' => 'prop_formit.recaptchaheight_desc',
+        'type' => 'list',
+        'options' => '',
+        'value' => 300,
+        'lexicon' => 'formit:properties',
+    ),*/
     /* redirect hook */
     array(
         'name' => 'redirectTo',

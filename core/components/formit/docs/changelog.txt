@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.2.2
+====================================
+- Added width/height for reCaptcha, however, reCaptcha APIs prevent resizing via calls
+
 FormIt 1.2.1
 ====================================
 - Added recaptchaTheme property, which allows theming of reCaptcha hook

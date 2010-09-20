@@ -343,9 +343,9 @@ class fiHooks {
      */
     public function recaptcha(array $fields = array()) {
         $passed = false;
-        $recaptcha = $this->modx->getService('recaptcha','reCaptcha',$this->formit->config['modelPath'].'recaptcha/');
-        if (!($recaptcha instanceof reCaptcha)) return $passed;
-        if (empty($recaptcha->config[reCaptcha::OPT_PRIVATE_KEY])) return $passed;
+        $recaptcha = $this->modx->getService('recaptcha','FormItReCaptcha',$this->formit->config['modelPath'].'recaptcha/');
+        if (!($recaptcha instanceof FormItReCaptcha)) return $passed;
+        if (empty($recaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return $passed;
 
         $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 

@@ -43,13 +43,15 @@ $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
-    $recaptcha = $modx->getService('recaptcha','reCaptcha',$fi->config['modelPath'].'recaptcha/');
-    if ($recaptcha instanceof reCaptcha) {
+    $recaptcha = $modx->getService('recaptcha','FormItReCaptcha',$fi->config['modelPath'].'recaptcha/');
+    if ($recaptcha instanceof FormItReCaptcha) {
         $recaptchaTheme = $modx->getOption('recaptchaTheme',$scriptProperties,'clean');
-        $html = $recaptcha->getHtml($recaptchaTheme);
+        $recaptchaWidth = $modx->getOption('recaptchaWidth',$scriptProperties,500);
+        $recaptchaHeight = $modx->getOption('recaptchaHeight',$scriptProperties,300);
+        $html = $recaptcha->getHtml($recaptchaTheme,$recaptchaWidth,$recaptchaHeight);
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
-        $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
+        $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$modx->lexicon('formit.recaptcha_err_load'));
     }
 }
 
