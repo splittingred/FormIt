@@ -74,6 +74,22 @@ $properties = array(
         'value' => true,
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'successMessage',
+        'desc' => 'prop_formit.successmessage_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'successMessagePlaceholder',
+        'desc' => 'prop_formit.successmessageplaceholder_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'fi.successMessage',
+        'lexicon' => 'formit:properties',
+    ),
     /* recaptcha hook */
     array(
         'name' => 'recaptchaTheme',

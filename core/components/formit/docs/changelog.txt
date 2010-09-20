@@ -1,7 +1,8 @@
 Changelog for FormIt.
 
-FormIt 1.2.2
+FormIt 1.3.0
 ====================================
+- Added &successMessage and &successMessagePlaceholder properties for easier success message handling
 - Fixed ordering for &emailFrom property
 - Added width/height for reCaptcha, however, reCaptcha APIs prevent resizing via calls
 

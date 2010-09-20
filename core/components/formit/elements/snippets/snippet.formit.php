@@ -99,6 +99,11 @@ if (empty($fi->validator->errors)) {
     } else {
         /* set success placeholder */
         $modx->toPlaceholder('success',true,'fi');
+        $successMsg = $modx->getOption('successMessage',$scriptProperties,'');
+        if (!empty($successMsg)) {
+            $smPlaceholder = $modx->getOption('successMessagePlaceholder',$scriptProperties,'fi.successMessage');
+            $modx->setPlaceholder($smPlaceholder,$successMsg);
+        }
         /* if clearing fields on success, just end here */
         if ($modx->getOption('clearFieldsOnSuccess',$scriptProperties,true)) {
             return '';
