@@ -36,6 +36,15 @@ $properties = include $sources['properties'].'properties.formit.php';
 $snippets[0]->setProperties($properties);
 unset($properties);
 
+$snippets[1]= $modx->newObject('modSnippet');
+$snippets[1]->fromArray(array(
+    'id' => 1,
+    'name' => 'FormItAutoResponder',
+    'description' => 'Custom hook for FormIt to handle Auto-Response emails.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitautoresponder.php'),
+),'',true,true);
+unset($properties);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

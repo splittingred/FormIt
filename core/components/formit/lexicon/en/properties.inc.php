@@ -52,6 +52,19 @@ $_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is 
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
 
+$_lang['prop_fiar.fiartpl_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies auto-response template to send as the email.';
+$_lang['prop_fiar.fiartofield_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies which form field shall be used for the To: address in the auto-response email.';
+$_lang['prop_fiar.fiarbcc_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies the email(s) to send the email to as a BCC. Can be a comma-separated list of email addresses.';
+$_lang['prop_fiar.fiarbccname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailBCC` property.';
+$_lang['prop_fiar.fiarcc_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies the email(s) to send the email to as a CC. Can be a comma-separated list of email addresses.';
+$_lang['prop_fiar.fiarccname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailCC` property.';
+$_lang['prop_fiar.fiarfrom_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the From: address for the email. If not set, will first look for an `email` form field. If none is found, will default to the `emailsender` system setting.';
+$_lang['prop_fiar.fiarfromname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the From: name for the email.';
+$_lang['prop_fiar.fiarreplyto_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the Reply-To: address for the email.';
+$_lang['prop_fiar.fiarreplytoname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the Reply-To: name for the email.';
+$_lang['prop_fiar.fiarsubject_desc'] = 'If `FormItAutoResponder` is set as a hook, this is required as a subject line for the email.';
+$_lang['prop_fiar.fiarhtml_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, this toggles HTML emails or not. Defaults to true.';
+
 $_lang['formit.opt_blackglass'] = 'Black Glass';
 $_lang['formit.opt_clean'] = 'Clean';
 $_lang['formit.opt_red'] = 'Red';

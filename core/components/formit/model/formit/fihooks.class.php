@@ -103,6 +103,7 @@ class fiHooks {
         } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hook))) {
             /* custom snippet hook */
             $properties = array_merge($this->formit->config,$customProperties);
+            $properties['formit'] =& $this->formit;
             $properties['hook'] =& $this;
             $properties['fields'] = $fields;
             $properties['errors'] =& $this->errors;
@@ -294,7 +295,7 @@ class fiHooks {
 
         return $sent;
     }
-
+    
     public function _process($str,array $placeholders = array()) {
         foreach ($placeholders as $k => $v) {
             $str = str_replace('[[+'.$k.']]',$v,$str);
