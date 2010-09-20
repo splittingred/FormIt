@@ -174,11 +174,11 @@ class fiHooks {
         $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
 
         /* get from name */
-        $emailFrom = empty($fields['email']) ? $this->modx->getOption('emailsender') : $fields['email'];
+        $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
         if (empty($emailFrom)) {
-            $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,$emailFrom);
-            $emailFrom = $this->_process($emailFrom,$fields);
+            $emailFrom = !empty($fields['email']) ? $fields['email'] : $this->modx->getOption('emailsender');
         }
+        $emailFrom = $this->_process($emailFrom,$fields);
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailFromName = $this->_process($emailFromName,$fields);
 

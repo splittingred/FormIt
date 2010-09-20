@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.2.2
 ====================================
+- Fixed ordering for &emailFrom property
 - Added width/height for reCaptcha, however, reCaptcha APIs prevent resizing via calls
 
 FormIt 1.2.1
