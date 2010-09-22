@@ -130,6 +130,15 @@ class FormIt {
     }
 
     /**
+     * Gets a unique session-based store key for storing form submissions.
+     *
+     * @return string
+     */
+    public function getStoreKey() {
+        return $this->modx->context->get('key').'/elements/formit/submission/'.md5(session_id());
+    }
+
+    /**
      * Gets a Chunk and caches it; also falls back to file-based templates
      * for easier debugging.
      *

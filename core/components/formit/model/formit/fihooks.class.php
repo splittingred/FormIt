@@ -93,19 +93,20 @@ class fiHooks {
      */
     public function load($hook,array $fields = array(),array $customProperties = array()) {
         $success = false;
+        if (!empty($fields)) $this->fields =& $fields;
         $this->hooks[] = $hook;
 
         $reserved = array('load','_process','__construct','getErrorMessage');
         if (method_exists($this,$hook) && !in_array($hook,$reserved)) {
             /* built-in hooks */
-            $success = $this->$hook($fields);
+            $success = $this->$hook($this->fields);
 
         } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hook))) {
             /* custom snippet hook */
             $properties = array_merge($this->formit->config,$customProperties);
             $properties['formit'] =& $this->formit;
             $properties['hook'] =& $this;
-            $properties['fields'] = $fields;
+            $properties['fields'] = $this->fields;
             $properties['errors'] =& $this->errors;
             $success = $snippet->process($properties);
 
@@ -134,6 +135,64 @@ class fiHooks {
      */
     public function getErrorMessage($delim = "\n") {
         return implode($delim,$this->errors);
+    }
+    
+    /**
+     * Adds an error to the stack.
+     *
+     * @access private
+     * @param string $key The field to add the error to.
+     * @param string $value The error message.
+     * @return string The added error message with the error wrapper.
+     */
+    public function addError($key,$value) {
+        $this->errors[$key] .= $value;
+        return $this->errors[$key];
+    }
+
+    /**
+     * Sets the value of a field.
+     *
+     * @param string $key The field name to set.
+     * @param mixed $value The value to set to the field.
+     * @return mixed The set value.
+     */
+    public function setValue($key,$value) {
+        $this->fields[$key] = $value;
+        return $this->fields[$key];
+    }
+
+    /**
+     * Sets an associative array of field name and values.
+     *
+     * @param array $values A key/name pair of fields and values to set.
+     */
+    public function setValues($values) {
+        foreach ($values as $key => $value) {
+            $this->setValue($key,$value);
+        }
+    }
+
+    /**
+     * Gets the value of a field.
+     *
+     * @param string $key The field name to get.
+     * @return mixed The value of the key, or null if non-existent.
+     */
+    public function getValue($key) {
+        if (array_key_exists($key,$this->fields)) {
+            return $this->fields[$key];
+        }
+        return null;
+    }
+
+    /**
+     * Gets an associative array of field name and values.
+     *
+     * @return array $values A key/name pair of fields and values.
+     */
+    public function getValues() {
+        return $this->fields;
     }
 
     /**

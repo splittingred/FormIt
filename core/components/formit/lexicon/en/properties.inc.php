@@ -26,6 +26,7 @@
  * @subpackge lexicon
  * @language en
  */
+/* FormIt properties */
 $_lang['prop_formit.hooks_desc'] = 'What scripts to fire, if any, after the form passes validation. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
 $_lang['prop_formit.submitvar_desc'] = 'If set, will not begin form processing if this POST variable is not passed.';
 $_lang['prop_formit.prehooks_desc'] = 'What scripts to fire, if any, once the form loads. You can pre-set form fields via $scriptProperties[`hook`]->fields[`fieldname`]. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
@@ -34,6 +35,8 @@ $_lang['prop_formit.customvalidators_desc'] = 'A comma-separated list of custom 
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'If true, will clear the fields on a successful form submission that does not redirect.';
 $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder with the name of the value of the property &successMessagePlaceholder, which defaults to `fi.successMessage`.';
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
+$_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
+$_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
 $_lang['prop_formit.recaptchaheight_desc'] = 'If `recaptcha` is set as a hook, this will select the height for the reCaptcha widget.';
 $_lang['prop_formit.recaptchatheme_desc'] = 'If `recaptcha` is set as a hook, this will select a theme for the reCaptcha widget.';
@@ -52,6 +55,7 @@ $_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is 
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
 
+/* FormIt Auto-Responder properties */
 $_lang['prop_fiar.fiartpl_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies auto-response template to send as the email.';
 $_lang['prop_fiar.fiartofield_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies which form field shall be used for the To: address in the auto-response email.';
 $_lang['prop_fiar.fiarbcc_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies the email(s) to send the email to as a BCC. Can be a comma-separated list of email addresses.';
@@ -65,6 +69,12 @@ $_lang['prop_fiar.fiarreplytoname_desc'] = 'Optional. If `FormItAutoResponder` i
 $_lang['prop_fiar.fiarsubject_desc'] = 'If `FormItAutoResponder` is set as a hook, this is required as a subject line for the email.';
 $_lang['prop_fiar.fiarhtml_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, this toggles HTML emails or not. Defaults to true.';
 
+/* FormItRetriever properties */
+$_lang['prop_fir.placeholderprefix_desc'] = 'The prefix to use with placeholders from the form data.';
+$_lang['prop_fir.redirecttoonnotfound_desc'] = 'If the data is not found, if this is set, redirect to the Resource with this ID.';
+$_lang['prop_fir.eraseonload_desc'] = 'If true, will erase the stored form data on load. Strongly recommended to leave to false unless you only want the data to load once.';
+
+/* FormIt Options */
 $_lang['formit.opt_blackglass'] = 'Black Glass';
 $_lang['formit.opt_clean'] = 'Clean';
 $_lang['formit.opt_red'] = 'Red';

@@ -24,11 +24,6 @@
  *
  * A dynamic form processing Snippet for MODx Revolution 2.0.
  *
- * @version 1.0
- * @author Shaun McCormick <shaun@modx.com>
- * @copyright Copyright &copy; 2009-2010
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License
- * version 2 or (at your option) any later version.
  * @package formit
  */
 /* load FormIt classes */
@@ -40,6 +35,8 @@ $fi->initialize($modx->context->get('key'));
 $submitVar = $modx->getOption('submitVar',$scriptProperties,false);
 $hooks = $modx->getOption('hooks',$scriptProperties,'');
 $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
+$errTpl = $modx->getOption('errTpl',$scriptProperties,'<span class="error">[[+error]]</span>');
+$store = $modx->getOption('store',$scriptProperties,false);
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
@@ -64,10 +61,15 @@ $fi->preHooks->loadMultiple($preHooks,array(),array(
 /* if a prehook sets a field, do so here */
 if (!empty($fi->preHooks->fields) && empty($_POST)) {
     $modx->toPlaceholders($fi->preHooks->fields,'fi');
+    $fields = $fi->preHooks->fields;
 }
 /* if any errors in preHooks */
 if (!empty($fi->preHooks->errors)) {
-    $modx->toPlaceholders($fi->preHooks->errors,'fi.error');
+    $errors = array();
+    foreach ($fi->preHooks->errors as $key => $error) {
+        $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
+    }
+    $modx->toPlaceholders($errors,'fi.error');
 
     $errorMsg = $fi->preHooks->getErrorMessage();
     if (!empty($errorMsg)) {
@@ -81,18 +83,32 @@ if (!empty($submitVar) && empty($_POST[$submitVar])) return '';
 
 /* validate fields */
 $fi->loadValidator();
-$fields = $_POST;
+if (empty($fields)) $fields = array();
+$fields = array_merge($fields,$_POST);
 if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
 $fields = $fi->validator->validateFields($fields);
 
 if (empty($fi->validator->errors)) {
-    $fi->loadHooks('post');
+    /* if set, store fields */
+    if (!empty($store)) {
+         /* default to store data for 5 minutes */
+        $storeTime = $modx->getOption('storeTime',$scriptProperties,300);
+        /* create the hash to store */
+        $cacheKey = $fi->getStoreKey();
+        $modx->cacheManager->set($cacheKey,$fields,$storeTime);
+    }
 
+    /* load posthooks */
+    $fi->loadHooks('post');
     $fi->postHooks->loadMultiple($hooks,$fields);
 
     /* process form */
     if (!empty($fi->postHooks->errors)) {
-        $modx->toPlaceholders($fi->postHooks->errors,'fi.error');
+        $errors = array();
+        foreach ($fi->postHooks->errors as $key => $error) {
+            $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
+        }
+        $modx->toPlaceholders($errors,'fi.error');
 
         $errorMsg = $fi->postHooks->getErrorMessage();
         $modx->toPlaceholder('error_message',$errorMsg,'fi.error');

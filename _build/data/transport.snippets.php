@@ -45,6 +45,17 @@ $snippets[1]->fromArray(array(
 ),'',true,true);
 unset($properties);
 
+$snippets[2]= $modx->newObject('modSnippet');
+$snippets[2]->fromArray(array(
+    'id' => 2,
+    'name' => 'FormItRetriever',
+    'description' => 'Fetches a form submission for a user for displaying on a thank you page.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitretriever.php'),
+),'',true,true);
+$properties = include $sources['properties'].'properties.formitretriever.php';
+$snippets[2]->setProperties($properties);
+unset($properties);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

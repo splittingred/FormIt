@@ -90,6 +90,22 @@ $properties = array(
         'value' => 'fi.successMessage',
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'store',
+        'desc' => 'prop_formit.store_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'storeTime',
+        'desc' => 'prop_formit.storetime_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 300,
+        'lexicon' => 'formit:properties',
+    ),
     /* recaptcha hook */
     array(
         'name' => 'recaptchaTheme',
