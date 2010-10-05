@@ -348,6 +348,7 @@ class fiValidator {
          if (!is_numeric($value)) {
              return $this->modx->lexicon('formit.not_number');
          }
+         return true;
      }
 
     /**
