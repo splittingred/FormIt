@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.3.0
 ====================================
+- Fixed issue with isNumber validator
 - Added FormItRetriever snippet to get data from a FormIt submission for thank you pages
 - Added extra API methods for custom hooks for easier data grabbing
 - Added FormItAutoResponder snippet to use as a custom hook for auto-responses
