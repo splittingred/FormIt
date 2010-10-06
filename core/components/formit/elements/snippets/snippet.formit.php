@@ -37,6 +37,7 @@ $hooks = $modx->getOption('hooks',$scriptProperties,'');
 $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 $errTpl = $modx->getOption('errTpl',$scriptProperties,'<span class="error">[[+error]]</span>');
 $store = $modx->getOption('store',$scriptProperties,false);
+$fieldsToValidate = $modx->getOption('fieldsToValidate',$scriptProperties,false);
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
@@ -86,6 +87,14 @@ $fi->loadValidator();
 if (empty($fields)) $fields = array();
 $fields = array_merge($fields,$_POST);
 if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
+if ($fieldsToValidate) {
+  $fieldsToValidate = explode(',',$fieldsToValidate);
+  foreach ($fieldsToValidate as $key) {
+    if (!array_key_exists($key, $fields)) {
+      $fields[$key] = '';
+    }
+  }
+}
 $fields = $fi->validator->validateFields($fields);
 
 if (empty($fi->validator->errors)) {
