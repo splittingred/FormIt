@@ -167,7 +167,7 @@ class fiHooks {
      *
      * @param array $values A key/name pair of fields and values to set.
      */
-    public function setValues($values) {
+    public function setValues(array $values = array()) {
         foreach ($values as $key => $value) {
             $this->setValue($key,$value);
         }

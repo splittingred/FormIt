@@ -1,5 +1,11 @@
 Changelog for FormIt.
 
+FormIt 1.4.0
+====================================
+- Introduced &validate parameter for more secure validation parameters to prevent POST injection
+- Added FormItIsChecked and FormItIsSelected custom output filters for easier checkbox/radio/select handling of selected values
+- Added &placeholderPrefix for FormIt snippet, defaults to `fi.`
+
 FormIt 1.3.0
 ====================================
 - Fixed issue with isNumber validator

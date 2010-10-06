@@ -37,11 +37,14 @@ $hooks = $modx->getOption('hooks',$scriptProperties,'');
 $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 $errTpl = $modx->getOption('errTpl',$scriptProperties,'<span class="error">[[+error]]</span>');
 $store = $modx->getOption('store',$scriptProperties,false);
+$validate = $modx->getOption('validate',$scriptProperties,'');
+$placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
     $recaptcha = $modx->getService('recaptcha','FormItReCaptcha',$fi->config['modelPath'].'recaptcha/');
     if ($recaptcha instanceof FormItReCaptcha) {
+        /* setup recaptcha properties */
         $recaptchaTheme = $modx->getOption('recaptchaTheme',$scriptProperties,'clean');
         $recaptchaWidth = $modx->getOption('recaptchaWidth',$scriptProperties,500);
         $recaptchaHeight = $modx->getOption('recaptchaHeight',$scriptProperties,300);
@@ -58,22 +61,30 @@ $fi->preHooks->loadMultiple($preHooks,array(),array(
     'submitVar' => $submitVar,
     'hooks' => $hooks,
 ));
-/* if a prehook sets a field, do so here */
+
+/* if a prehook sets a field, do so here, but only if POST isnt submitted */
 if (!empty($fi->preHooks->fields) && empty($_POST)) {
-    $modx->toPlaceholders($fi->preHooks->fields,'fi');
+    $fs = $fi->preHooks->fields;
+    /* better handling of checkbox values when input name is an array[] */
+    foreach ($fs as $f => $v) {
+        if (is_array($v)) { implode(',',$v); }
+        $fs[$f] = $v;
+    }
+    $modx->setPlaceholders($fs,$placeholderPrefix);
     $fields = $fi->preHooks->fields;
 }
+
 /* if any errors in preHooks */
 if (!empty($fi->preHooks->errors)) {
     $errors = array();
     foreach ($fi->preHooks->errors as $key => $error) {
         $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
     }
-    $modx->toPlaceholders($errors,'fi.error');
+    $modx->toPlaceholders($errors,$placeholderPrefix.'error');
 
     $errorMsg = $fi->preHooks->getErrorMessage();
     if (!empty($errorMsg)) {
-        $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
+        $modx->setPlaceholder($placeholderPrefix.'error_message',$errorMsg);
     }
 }
 
@@ -86,7 +97,7 @@ $fi->loadValidator();
 if (empty($fields)) $fields = array();
 $fields = array_merge($fields,$_POST);
 if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
-$fields = $fi->validator->validateFields($fields);
+$fields = $fi->validator->validateFields($fields,$validate);
 
 if (empty($fi->validator->errors)) {
     /* if set, store fields */
@@ -108,16 +119,16 @@ if (empty($fi->validator->errors)) {
         foreach ($fi->postHooks->errors as $key => $error) {
             $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
         }
-        $modx->toPlaceholders($errors,'fi.error');
+        $modx->toPlaceholders($errors,$placeholderPrefix.'.error');
 
         $errorMsg = $fi->postHooks->getErrorMessage();
-        $modx->toPlaceholder('error_message',$errorMsg,'fi.error');
+        $modx->setPlaceholder($placeholderPrefix.'error_message',$errorMsg);
     } else {
         /* set success placeholder */
-        $modx->toPlaceholder('success',true,'fi');
+        $modx->setPlaceholder($placeholderPrefix.'success',true);
         $successMsg = $modx->getOption('successMessage',$scriptProperties,'');
         if (!empty($successMsg)) {
-            $smPlaceholder = $modx->getOption('successMessagePlaceholder',$scriptProperties,'fi.successMessage');
+            $smPlaceholder = $modx->getOption('successMessagePlaceholder',$scriptProperties,$placeholderPrefix.'successMessage');
             $modx->setPlaceholder($smPlaceholder,$successMsg);
         }
         /* if clearing fields on success, just end here */
@@ -127,8 +138,16 @@ if (empty($fi->validator->errors)) {
     }
 
 } else {
-    $modx->toPlaceholders($fi->validator->errors,'fi.error');
+    $modx->toPlaceholders($fi->validator->errors,$placeholderPrefix.'error');
 }
-$modx->toPlaceholders($fields,'fi');
+/* better handling of checkbox values when input name is an array[] */
+$fs = array();
+foreach ($fields as $k => $v) {
+    if (is_array($v) && !isset($_FILES[$k])) {
+        $v = implode(',',$v);
+    }
+    $fs[$k] = $v;
+}
+$modx->setPlaceholders($fs,$placeholderPrefix);
 
 return '';

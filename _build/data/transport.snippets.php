@@ -56,6 +56,22 @@ $properties = include $sources['properties'].'properties.formitretriever.php';
 $snippets[2]->setProperties($properties);
 unset($properties);
 
+$snippets[3]= $modx->newObject('modSnippet');
+$snippets[3]->fromArray(array(
+    'id' => 3,
+    'name' => 'FormItIsChecked',
+    'description' => 'A custom output filter used with checkboxes/radios for checking checked status.',
+    'snippet' => getSnippetContent($sources['root'].'elements/snippets/snippet.formitischecked.php'),
+),'',true,true);
+
+$snippets[4]= $modx->newObject('modSnippet');
+$snippets[4]->fromArray(array(
+    'id' => 4,
+    'name' => 'FormItIsSelected',
+    'description' => 'A custom output filter used with dropdowns for checking selected status.',
+    'snippet' => getSnippetContent($sources['root'].'elements/snippets/snippet.formitisselected.php'),
+),'',true,true);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

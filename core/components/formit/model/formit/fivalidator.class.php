@@ -75,16 +75,35 @@ class fiValidator {
      * @param array $keys The fields to validate.
      * @return array An array of field name => value pairs.
      */
-    public function validateFields(array $keys = array()) {
+    public function validateFields(array $keys = array(),$validationFields = '') {
         $this->fields = array();
+
+        /* process the list of fields that will be validated */
+        $validationFields = explode(',',$validationFields);
+        $fieldValidators = array();
+        foreach ($validationFields as $idx => $v) {
+            $v = trim(ltrim($v),' '); /* allow multi-line definitions */
+            $key = explode(':',$v); /* explode into list separated by : */
+            if (!empty($key[0])) {
+                $field = $key[0];
+                array_splice($key,0,1); /* remove the field name from validator list */
+                $fieldValidators[$field] = $key;
+            }
+        }
+        
+        /* do it the old way, through name:validator on the POST */
         foreach ($keys as $k => $v) {
             $key = explode(':',$k);
             
             /* strip tags by default */
-            if (strpos($k,'allowTags') === false && !is_array($v)) {
+            if (strpos($k,'allowTags') === false && !is_array($v) && (!isset($validateFields[$k]) || !in_array('allowTags',$validateFields[$k]))) {
                 $v = strip_tags($v);
             }
 
+            /* handle checkboxes/radios with empty hiddens before that are field[] names */
+            if (is_array($v) && !isset($_FILES[$v]) && empty($v[0])) array_splice($v,0,1);
+
+            /* loop through validators and execute the old way, for backwards compatibility */
             $validators = count($key);
             if ($validators > 1) {
                 $this->fields[$key[0]] = $v;
@@ -94,7 +113,15 @@ class fiValidator {
             } else {
                 $this->fields[$k] = $v;
             }
+
+            /* do new way of validation, which is more secure */
+            if (!empty($fieldValidators[$k])) {
+                foreach ($fieldValidators[$k] as $validator) {
+                    $this->validate($k,$v,$validator);
+                }
+            }
         }
+        
         return $this->fields;
     }
 
@@ -105,7 +132,7 @@ class fiValidator {
      * @param string $key The key of the field
      * @param mixed $value The value of the field
      * @param string $type Optional. The type of the validator to apply. Can
-     * either be a method name of lgnValidator or a Snippet name.
+     * either be a method name of fiValidator or a Snippet name.
      * @return boolean True if validation was successful. If not, will store
      * error messages to $this->errors.
      */
@@ -183,7 +210,7 @@ class fiValidator {
      */
     public function required($key,$value) {
         $success = false;
-        if (is_array($value)) {
+        if (is_array($value) && isset($_FILES[$key])) { /* handling file uploads */
             $success = !empty($value['tmp_name']) && isset($value['error']) && $value['error'] == UPLOAD_ERR_OK ? true : false;
         } else {
             $success = !empty($value) ? true : false;
