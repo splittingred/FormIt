@@ -35,6 +35,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'preHooks',
+        'desc' => 'prop_formit.prehooks_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'submitVar',
         'desc' => 'prop_formit.submitvar_desc',
         'type' => 'textfield',
@@ -43,8 +51,8 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
-        'name' => 'preHooks',
-        'desc' => 'prop_formit.prehooks_desc',
+        'name' => 'validate',
+        'desc' => 'prop_formit.validate_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -96,6 +104,14 @@ $properties = array(
         'type' => 'combo-boolean',
         'options' => '',
         'value' => false,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'placeholderPrefix',
+        'desc' => 'prop_formit.placeholderprefix_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'fi.',
         'lexicon' => 'formit:properties',
     ),
     array(

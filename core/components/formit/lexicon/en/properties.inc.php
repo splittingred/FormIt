@@ -28,8 +28,9 @@
  */
 /* FormIt properties */
 $_lang['prop_formit.hooks_desc'] = 'What scripts to fire, if any, after the form passes validation. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
-$_lang['prop_formit.submitvar_desc'] = 'If set, will not begin form processing if this POST variable is not passed.';
 $_lang['prop_formit.prehooks_desc'] = 'What scripts to fire, if any, once the form loads. You can pre-set form fields via $scriptProperties[`hook`]->fields[`fieldname`]. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
+$_lang['prop_formit.submitvar_desc'] = 'If set, will not begin form processing if this POST variable is not passed.';
+$_lang['prop_formit.validate_desc'] = 'A comma-separated list of fields to validate, with each field name as name:validator (eg: username:required,email:required). Validators can also be chained, like email:email:required. This property can be specified on multiple lines.';
 $_lang['prop_formit.errtpl_desc'] = 'The wrapper template for error messages.';
 $_lang['prop_formit.customvalidators_desc'] = 'A comma-separated list of custom validator names (snippets) you plan to use in this form. They must be explicitly stated here, or they will not be run.';
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'If true, will clear the fields on a successful form submission that does not redirect.';
@@ -37,6 +38,7 @@ $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
 $_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
 $_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
+$_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
 $_lang['prop_formit.recaptchaheight_desc'] = 'If `recaptcha` is set as a hook, this will select the height for the reCaptcha widget.';
 $_lang['prop_formit.recaptchatheme_desc'] = 'If `recaptcha` is set as a hook, this will select a theme for the reCaptcha widget.';
