@@ -61,7 +61,7 @@ $snippets[3]->fromArray(array(
     'id' => 3,
     'name' => 'FormItIsChecked',
     'description' => 'A custom output filter used with checkboxes/radios for checking checked status.',
-    'snippet' => getSnippetContent($sources['root'].'elements/snippets/snippet.formitischecked.php'),
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitischecked.php'),
 ),'',true,true);
 
 $snippets[4]= $modx->newObject('modSnippet');
@@ -69,7 +69,7 @@ $snippets[4]->fromArray(array(
     'id' => 4,
     'name' => 'FormItIsSelected',
     'description' => 'A custom output filter used with dropdowns for checking selected status.',
-    'snippet' => getSnippetContent($sources['root'].'elements/snippets/snippet.formitisselected.php'),
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitisselected.php'),
 ),'',true,true);
 
 /*
