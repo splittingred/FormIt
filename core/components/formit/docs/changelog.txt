@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.4.0
 ====================================
+- Fixed bug with recaptcha and other hooks error display messages
 - Introduced &validate parameter for more secure validation parameters to prevent POST injection
 - Added FormItIsChecked and FormItIsSelected custom output filters for easier checkbox/radio/select handling of selected values
 - Added &placeholderPrefix for FormIt snippet, defaults to `fi.`

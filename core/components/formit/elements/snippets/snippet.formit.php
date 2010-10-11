@@ -119,7 +119,7 @@ if (empty($fi->validator->errors)) {
         foreach ($fi->postHooks->errors as $key => $error) {
             $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
         }
-        $modx->toPlaceholders($errors,$placeholderPrefix.'.error');
+        $modx->toPlaceholders($errors,$placeholderPrefix.'error');
 
         $errorMsg = $fi->postHooks->getErrorMessage();
         $modx->setPlaceholder($placeholderPrefix.'error_message',$errorMsg);
