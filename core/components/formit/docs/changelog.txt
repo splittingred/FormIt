@@ -3,6 +3,7 @@ Changelog for FormIt.
 FormIt 1.4.0
 ====================================
 - Added sanity check for replyto/cc/bcc emails on email hook
+- Added ability to change language via &language parameter
 
 FormIt 1.4.0
 ====================================
