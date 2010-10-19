@@ -85,7 +85,8 @@ class FormIt {
             case 'mgr': break;
             case 'web':
             default:
-                $this->modx->lexicon->load('formit:default');
+                $language = isset($this->config['language']) ? $this->config['language'] . ':' : '';
+                $this->modx->lexicon->load($language.'formit:default');
                 $this->_initialized = true;
                 break;
         }
