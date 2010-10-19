@@ -231,7 +231,6 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
-        $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
 
         /* get from name */
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
@@ -346,6 +345,7 @@ class fiHooks {
         }
 
         /* set HTML */
+        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
         $this->modx->mail->setHTML($emailHtml);
 
         /* send email */
@@ -362,7 +362,14 @@ class fiHooks {
 
         return $sent;
     }
-    
+
+    /**
+     * Processes string and sets placeholders
+     *
+     * @param string $str The string to process
+     * @param array $placeholders An array of placeholders to replace with values
+     * @return string The parsed string
+     */
     public function _process($str,array $placeholders = array()) {
         foreach ($placeholders as $k => $v) {
             $str = str_replace('[[+'.$k.']]',$v,$str);
