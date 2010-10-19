@@ -34,7 +34,7 @@ set_time_limit(0);
 /* set package defines */
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
-define('PKG_VERSION','1.4.0');
+define('PKG_VERSION','1.4.1');
 define('PKG_RELEASE','pl');
 
 /* override with your own defines here (see build.config.sample.php) */

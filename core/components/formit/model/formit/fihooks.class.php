@@ -297,7 +297,9 @@ class fiHooks {
             $etn = !empty($emailToName[$i]) ? $emailToName[$i] : '';
             if (!empty($etn)) $etn = $this->_process($etn,$fields);
             $emailTo[$i] = $this->_process($emailTo[$i],$fields);
-            $this->modx->mail->address('to',$emailTo[$i],$etn);
+            if (!empty($emailTo[$i])) {
+                $this->modx->mail->address('to',$emailTo[$i],$etn);
+            }
         }
 
         /* reply to */
@@ -305,7 +307,9 @@ class fiHooks {
         $emailReplyTo = $this->_process($emailReplyTo,$fields);
         $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
         $emailReplyToName = $this->_process($emailReplyToName,$fields);
-        $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+        if (!empty($emailReplyTo)) {
+            $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+        }
 
         /* cc */
         $emailCC = $this->modx->getOption('emailCC',$this->formit->config,'');
@@ -318,7 +322,9 @@ class fiHooks {
                 $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
                 if (!empty($etn)) $etn = $this->_process($etn,$fields);
                 $emailCC[$i] = $this->_process($emailCC[$i],$fields);
-                $this->modx->mail->address('cc',$emailCC[$i],$etn);
+                if (!empty($emailCC[$i])) {
+                    $this->modx->mail->address('cc',$emailCC[$i],$etn);
+                }
             }
         }
 
@@ -333,7 +339,9 @@ class fiHooks {
                 $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
                 if (!empty($etn)) $etn = $this->_process($etn,$fields);
                 $emailBCC[$i] = $this->_process($emailBCC[$i],$fields);
-                $this->modx->mail->address('bcc',$emailBCC[$i],$etn);
+                if (!empty($emailBCC[$i])) {
+                    $this->modx->mail->address('bcc',$emailBCC[$i],$etn);
+                }
             }
         }
 
