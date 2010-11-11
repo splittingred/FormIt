@@ -242,7 +242,8 @@ class fiHooks {
         $emailFromName = $this->_process($emailFromName,$fields);
 
         /* get subject */
-        if (!empty($fields['subject']) && $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true)) {
+        $useEmailFieldForSubject = $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true);
+        if (!empty($fields['subject']) && $useEmailFieldForSubject) {
             $subject = $fields['subject'];
         } else {
             $subject = $this->modx->getOption('emailSubject',$this->formit->config,'');
