@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.0
 ====================================
+- Fixed incorrect default param for fiarSender
 - Fixed error reporting for FormItAutoResponder
 - Added sanity checks to form attachments when dealing with missing names
 - Fixed invalid offset error in checkbox validation

@@ -28,7 +28,7 @@
 $tpl = $modx->getOption('fiarTpl',$scriptProperties,'fiarTpl');
 $mailFrom = $modx->getOption('fiarFrom',$scriptProperties,$modx->getOption('emailsender'));
 $mailFromName = $modx->getOption('fiarFromName',$scriptProperties,$modx->getOption('site_name'));
-$mailSender = $modx->getOption('fiarSender',$scriptProperties,$modx->getOption('site_name'));
+$mailSender = $modx->getOption('fiarSender',$scriptProperties,$modx->getOption('emailsender'));
 $mailSubject = $modx->getOption('fiarSubject',$scriptProperties,'[[++site_name]] Auto-Responder');
 $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($modx->getOption('site_name'),$modx->getOption('emailsender')),$mailSubject);
 $mailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
