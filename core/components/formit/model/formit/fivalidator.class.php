@@ -47,9 +47,9 @@ class fiValidator {
     public $formit = null;
 
     /**
-     * The constructor for the lgnValidator class
+     * The constructor for the fiValidator class
      *
-     * @param Login &$login A reference to the Login class instance.
+     * @param FormIt &$formit A reference to the FormIt class instance.
      * @param array $config Optional. An array of configuration parameters.
      * @return lgnValidator
      */
@@ -101,7 +101,7 @@ class fiValidator {
             }
 
             /* handle checkboxes/radios with empty hiddens before that are field[] names */
-            if (is_array($v) && !isset($_FILES[$v]) && empty($v[0])) array_splice($v,0,1);
+            if (is_array($v) && !isset($_FILES[$key[0]]) && empty($v[0])) array_splice($v,0,1);
 
             /* loop through validators and execute the old way, for backwards compatibility */
             $validators = count($key);
@@ -229,7 +229,7 @@ class fiValidator {
      * Checks to see if passwords match.
      */
     public function password_confirm($key,$value,$param = 'password_confirm') {
-        if (empty($value)) return $this->modx->lexicon('register.password_not_confirmed');
+        if (empty($value)) return $this->modx->lexicon('formit.password_not_confirmed');
         if ($this->fields[$param] != $value) {
             return $this->modx->lexicon('formit.password_dont_match');
         }
