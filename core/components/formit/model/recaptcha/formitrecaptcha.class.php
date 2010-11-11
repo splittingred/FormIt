@@ -109,7 +109,7 @@ class FormItReCaptcha {
 
      * @return string - The HTML to be embedded in the user's form.
      */
-    public function getHtml($theme = 'clean',$width = 500,$height = 300,$error = null) {
+    public function getHtml($scriptProperties = array()) { //$theme = 'clean',$width = 500,$height = 300,$error = null) {
         if (empty($this->config[FormItReCaptcha::OPT_PUBLIC_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
         }
@@ -121,18 +121,33 @@ class FormItReCaptcha {
         if ($error) {
            $errorpart = "&amp;error=" . $error;
         }
-        $opt = array(
-            'theme' => $theme,
-            'width' => $width,
-            'height' => $height,
-            'lang' => $this->modx->getOption('cultureKey',null,'en'),
-        );
+        $opt = $this->getOptions($scriptProperties);
         return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '"></script>
         <noscript>
                 <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '" height="'.$height.'" width="'.$width.'" frameborder="0" style="width: '.$width.'px; height: '.$height.'px;"></iframe><br />
                 <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
                 <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
         </noscript>';
+    }
+
+    /**
+     * Get options for reCaptcha from snippet
+     */
+    public function getOptions(array $scriptProperties = array()) {
+        $opt = $this->modx->getOption('recaptchaJs',$scriptProperties,'{}');
+        $opt = $this->modx->fromJSON($opt);
+        if (empty($opt)) $opt = array();
+
+        /* backwards compat */
+        $backwardOpt = array(
+            'theme' => $this->modx->getOption('recaptchaTheme',$scriptProperties,'clean'),
+            'width' => $this->modx->getOption('recaptchaWidth',$scriptProperties,500),
+            'height' => $this->modx->getOption('recaptchaHeight',$scriptProperties,300),
+            'lang' => $this->modx->getOption('cultureKey',null,'en'),
+        );
+        $opt = array_merge($backwardOpt,$opt);
+        
+        return $opt;
     }
 
     protected function error($message = '') {

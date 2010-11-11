@@ -45,10 +45,7 @@ if (strpos($hooks,'recaptcha') !== false) {
     $recaptcha = $modx->getService('recaptcha','FormItReCaptcha',$fi->config['modelPath'].'recaptcha/');
     if ($recaptcha instanceof FormItReCaptcha) {
         /* setup recaptcha properties */
-        $recaptchaTheme = $modx->getOption('recaptchaTheme',$scriptProperties,'clean');
-        $recaptchaWidth = $modx->getOption('recaptchaWidth',$scriptProperties,500);
-        $recaptchaHeight = $modx->getOption('recaptchaHeight',$scriptProperties,300);
-        $html = $recaptcha->getHtml($recaptchaTheme,$recaptchaWidth,$recaptchaHeight);
+        $html = $recaptcha->getHtml($scriptProperties);
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
         $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$modx->lexicon('formit.recaptcha_err_load'));

@@ -40,6 +40,7 @@ $_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache fo
 $_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
 $_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
+$_lang['prop_formit.recaptchajs_desc'] = 'If `recaptcha` is set as a hook, this can be a JSON object that will be set to the JS RecaptchaOptions variable, which configures options for reCaptcha.';
 $_lang['prop_formit.recaptchaheight_desc'] = 'If `recaptcha` is set as a hook, this will select the height for the reCaptcha widget.';
 $_lang['prop_formit.recaptchatheme_desc'] = 'If `recaptcha` is set as a hook, this will select a theme for the reCaptcha widget.';
 $_lang['prop_formit.recaptchawidth_desc'] = 'If `recaptcha` is set as a hook, this will set the width for the reCaptcha widget.';

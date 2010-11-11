@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.5.0
+====================================
+- Added recaptchaJS to allow for custom JS overriding of reCaptcha options var
+
 FormIt 1.4.1
 ====================================
 - Added sanity check for emailHtml property on email hook

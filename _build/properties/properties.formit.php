@@ -124,6 +124,14 @@ $properties = array(
     ),
     /* recaptcha hook */
     array(
+        'name' => 'recaptchaJs',
+        'desc' => 'prop_formit.recaptchajs_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '{}',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'recaptchaTheme',
         'desc' => 'prop_formit.recaptchatheme_desc',
         'type' => 'list',
