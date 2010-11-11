@@ -92,7 +92,7 @@ if (!empty($emailBCC)) {
 }
 
 if (!$modx->mail->send()) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] An error occurred while trying to send the auto-responder email: '.$err);
+    $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] An error occurred while trying to send the auto-responder email: '.$modx->mail->mailer->ErrorInfo);
     return false;
 }
 $modx->mail->reset();
