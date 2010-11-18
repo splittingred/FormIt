@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.0
 ====================================
+- Added spamCheckIp property, defaults to false, to check IP as well in spam hook
 - Fixed incorrect default param for fiarSender
 - Fixed error reporting for FormItAutoResponder
 - Added sanity checks to form attachments when dealing with missing names

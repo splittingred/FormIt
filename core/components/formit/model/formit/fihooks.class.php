@@ -399,8 +399,10 @@ class fiHooks {
         $emails = explode(',',$spamEmailFields);
         if ($this->modx->loadClass('stopforumspam.StopForumSpam',$this->formit->config['modelPath'],true,true)) {
             $sfspam = new StopForumSpam($this->modx);
+            $checkIp = $this->modx->getOption('spamCheckIp',$this->formit->config,false);
+            $ip = $checkIp ? $_SERVER['REMOTE_ADDR'] : '';
             foreach ($emails as $email) {
-                $spamResult = $sfspam->check($_SERVER['REMOTE_ADDR'],$fields[$email]);
+                $spamResult = $sfspam->check($ip,$fields[$email]);
                 if (!empty($spamResult)) {
                     $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
                     $this->errors[$email] = $this->modx->lexicon('formit.spam_blocked',array(
