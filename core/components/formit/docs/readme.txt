@@ -1,7 +1,6 @@
 --------------------
 Snippet: FormIt
 --------------------
-Version: 1.3
 Author: Shaun McCormick <shaun@modx.com>
 
 A form processing Snippet for MODx Revolution.

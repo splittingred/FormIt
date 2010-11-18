@@ -206,8 +206,12 @@ class fiHooks {
      */
     public function redirect(array $fields = array()) {
         if (empty($this->formit->config['redirectTo'])) return false;
-
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'','','abs');
+        $redirectParams = !empty($this->formit->config['redirectParams']) ? $this->formit->config['redirectParams'] : '';
+        if (!empty($redirectParams)) {
+            $redirectParams = $this->modx->fromJSON($redirectParams);
+            if (empty($redirectParams)) $redirectParams = '';
+        }
+        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'',$redirectParams,'abs');
         return $this->modx->sendRedirect($url);
     }
 

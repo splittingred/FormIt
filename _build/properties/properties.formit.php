@@ -122,6 +122,23 @@ $properties = array(
         'value' => 300,
         'lexicon' => 'formit:properties',
     ),
+    /* spam hook */
+    array(
+        'name' => 'spamEmailFields',
+        'desc' => 'prop_formit.spamemailfields_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'email',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'spamCheckIp',
+        'desc' => 'prop_formit.spamcheckip_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'formit:properties',
+    ),
     /* recaptcha hook */
     array(
         'name' => 'recaptchaJs',
@@ -166,6 +183,14 @@ $properties = array(
     array(
         'name' => 'redirectTo',
         'desc' => 'prop_formit.redirectto_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'redirectParams',
+        'desc' => 'prop_formit.redirectparams_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
