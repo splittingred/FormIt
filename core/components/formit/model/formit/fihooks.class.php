@@ -208,6 +208,9 @@ class fiHooks {
         if (empty($this->formit->config['redirectTo'])) return false;
         $redirectParams = !empty($this->formit->config['redirectParams']) ? $this->formit->config['redirectParams'] : '';
         if (!empty($redirectParams)) {
+            $prefix = $this->modx->getOption('placeholderPrefix',$this->formit->config,'fi.');
+            $this->modx->setPlaceholders($fields,$prefix);
+            $this->modx->parser->processElementTags('',$redirectParams,true,true);
             $redirectParams = $this->modx->fromJSON($redirectParams);
             if (empty($redirectParams)) $redirectParams = '';
         }
