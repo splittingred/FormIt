@@ -1,5 +1,10 @@
 Changelog for FormIt.
 
+FormIt 1.5.1
+====================================
+- Fixed issue where &store was not respecting values set in post-hooks
+- Redirect hook now redirects *after* all other hooks execute
+
 FormIt 1.5.0
 ====================================
 - Fixed bug with redirectParams not parsing placeholders in the params

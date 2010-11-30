@@ -68,6 +68,7 @@ if (!empty($fi->preHooks->fields) && empty($_POST)) {
         $fs[$f] = $v;
     }
     $modx->setPlaceholders($fs,$placeholderPrefix);
+    /* assign new fields values */
     $fields = $fi->preHooks->fields;
 }
 
@@ -97,15 +98,6 @@ if (!empty($_FILES)) { $fields = array_merge($fields,$_FILES); }
 $fields = $fi->validator->validateFields($fields,$validate);
 
 if (empty($fi->validator->errors)) {
-    /* if set, store fields */
-    if (!empty($store)) {
-         /* default to store data for 5 minutes */
-        $storeTime = $modx->getOption('storeTime',$scriptProperties,300);
-        /* create the hash to store */
-        $cacheKey = $fi->getStoreKey();
-        $modx->cacheManager->set($cacheKey,$fields,$storeTime);
-    }
-
     /* load posthooks */
     $fi->loadHooks('post');
     $fi->postHooks->loadMultiple($hooks,$fields);
@@ -121,6 +113,23 @@ if (empty($fi->validator->errors)) {
         $errorMsg = $fi->postHooks->getErrorMessage();
         $modx->setPlaceholder($placeholderPrefix.'error_message',$errorMsg);
     } else {
+        /* assign new values from posthooks */
+        $fields = $fi->postHooks->fields;
+
+        /* if store is set for FormItRetriever, store fields here */
+        if (!empty($store)) {
+             /* default to store data for 5 minutes */
+            $storeTime = $modx->getOption('storeTime',$scriptProperties,300);
+            /* create the hash to store */
+            $cacheKey = $fi->getStoreKey();
+            $modx->cacheManager->set($cacheKey,$fields,$storeTime);
+        }
+
+        /* if the redirect URL was set, redirect */
+        if (!empty($fi->postHooks->redirectUrl)) {
+            $modx->sendRedirect($fi->postHooks->redirectUrl);
+        }
+
         /* set success placeholder */
         $modx->setPlaceholder($placeholderPrefix.'success',true);
         $successMsg = $modx->getOption('successMessage',$scriptProperties,'');

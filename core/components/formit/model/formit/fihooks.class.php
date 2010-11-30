@@ -45,6 +45,12 @@ class fiHooks {
      * @access public
      */
     public $formit = null;
+    /**
+     * @var string If a hook redirects, it needs to set this var to use proper
+     * order of execution on redirects/stores
+     * @access public
+     */
+    public $redirectUrl = null;
 
     /**
      * The constructor for the fiHooks class
@@ -215,7 +221,8 @@ class fiHooks {
             if (empty($redirectParams)) $redirectParams = '';
         }
         $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'',$redirectParams,'abs');
-        return $this->modx->sendRedirect($url);
+        $this->setRedirectUrl($url);
+        return true;
     }
 
     /**
@@ -449,4 +456,12 @@ class fiHooks {
         return $passed;
     }
 
+    /**
+     * Set a URL to redirect to after all hooks run successfully.
+     *
+     * @param string $url The URL to redirect to after all hooks execute
+     */
+    public function setRedirectUrl($url) {
+        $this->redirectUrl = $url;
+    }
 }
