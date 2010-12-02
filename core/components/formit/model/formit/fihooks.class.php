@@ -376,8 +376,8 @@ class fiHooks {
         ));
 
         if (!$sent) {
-            $this->errors[] = $this->modx->lexicon('formit.email_not_sent');
-            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.email_not_sent'));
+            $this->errors[] = $this->modx->lexicon('formit.email_not_sent').' '.print_r($this->modx->mail->mailer->ErrorInfo,true);
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.email_not_sent').' '.print_r($this->modx->mail->mailer->ErrorInfo,true));
         }
 
         return $sent;

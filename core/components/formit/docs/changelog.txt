@@ -2,6 +2,10 @@ Changelog for FormIt.
 
 FormIt 1.5.1
 ====================================
+- Added more debugging info to email hook
+
+FormIt 1.5.1
+====================================
 - Fixed issue where &store was not respecting values set in post-hooks
 - Redirect hook now redirects *after* all other hooks execute
 
