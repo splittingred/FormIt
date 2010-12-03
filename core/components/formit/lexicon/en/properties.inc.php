@@ -80,6 +80,14 @@ $_lang['prop_fir.placeholderprefix_desc'] = 'The prefix to use with placeholders
 $_lang['prop_fir.redirecttoonnotfound_desc'] = 'If the data is not found, if this is set, redirect to the Resource with this ID.';
 $_lang['prop_fir.eraseonload_desc'] = 'If true, will erase the stored form data on load. Strongly recommended to leave to false unless you only want the data to load once.';
 
+/* FormIt Math hook properties */
+$_lang['prop_math.mathminrange_desc'] = 'If `math` is set as a hook, the minimum range for each number in the equation.';
+$_lang['prop_math.mathmaxrange_desc'] = 'If `math` is set as a hook, the maximum range for each number in the equation.';
+$_lang['prop_math.mathfield_desc'] = 'If `math` is set as a hook, the name of the input field for the answer.';
+$_lang['prop_math.mathop1field_desc'] = 'If `math` is set as a hook, the name of the field for the 1st number in the equation.';
+$_lang['prop_math.mathop2field_desc'] = 'If `math` is set as a hook, the name of the field for the 2nd number in the equation.';
+$_lang['prop_math.mathoperatorfield_desc'] = 'If `math` is set as a hook, the name of the field for the operator in the equation.';
+
 /* FormIt Options */
 $_lang['formit.opt_blackglass'] = 'Black Glass';
 $_lang['formit.opt_clean'] = 'Clean';

@@ -53,7 +53,7 @@ if (strpos($hooks,'recaptcha') !== false) {
 }
 
 /* if using math hook, load default placeholders */
-if (strpos($preHooks,'math') !== false && empty($_POST)) {
+if (strpos($hooks,'math') !== false && empty($_POST)) {
     $mathMaxRange = $modx->getOption('mathMaxRange',$scriptProperties,100);
     $mathMinRange = $modx->getOption('mathMinRange',$scriptProperties,10);
     $op1 = rand($mathMinRange,$mathMaxRange);
