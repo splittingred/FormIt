@@ -399,6 +399,55 @@ $properties = array(
         'value' => true,
         'lexicon' => 'formit:properties',
     ),
+    /* math hook */
+    array(
+        'name' => 'mathMinRange',
+        'desc' => 'prop_math.mathminrange_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 10,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'mathMaxRange',
+        'desc' => 'prop_math.mathmaxrange_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 100,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'mathField',
+        'desc' => 'prop_math.mathfield_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'math',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'mathOp1Field',
+        'desc' => 'prop_math.mathop1field_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'op1',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'mathOp2Field',
+        'desc' => 'prop_math.mathop2field_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'op2',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'mathOperatorField',
+        'desc' => 'prop_math.mathoperatorfield_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'operator',
+        'lexicon' => 'formit:properties',
+    ),
 );
 
 return $properties;

@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.1
 ====================================
+- Added math hook, allowing anti-spam math field measure
 - Added more debugging info to email hook
 
 FormIt 1.5.1

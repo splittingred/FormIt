@@ -52,6 +52,22 @@ if (strpos($hooks,'recaptcha') !== false) {
     }
 }
 
+/* if using math hook, load default placeholders */
+if (strpos($preHooks,'math') !== false && empty($_POST)) {
+    $mathMaxRange = $modx->getOption('mathMaxRange',$scriptProperties,100);
+    $mathMinRange = $modx->getOption('mathMinRange',$scriptProperties,10);
+    $op1 = rand($mathMinRange,$mathMaxRange);
+    $op2 = rand($mathMinRange,$mathMaxRange);
+    if ($op2 > $op1) { $t = $op2; $op2 = $op1; $op1 = $t; } /* swap so we always get positive #s */
+    $operators = array('+','-');
+    $operator = rand(0,1);
+    $modx->setPlaceholders(array(
+        $modx->getOption('mathOp1Field',$scriptProperties,'op1') => $op1,
+        $modx->getOption('mathOp2Field',$scriptProperties,'op2') => $op2,
+        $modx->getOption('mathOperatorField',$scriptProperties,'operator') => $operators[$operator],
+    ),$placeholderPrefix);
+}
+
 /* load preHooks */
 $fi->loadHooks('pre');
 $fi->preHooks->loadMultiple($preHooks,array(),array(
