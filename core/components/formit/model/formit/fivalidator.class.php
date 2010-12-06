@@ -36,6 +36,11 @@ class fiValidator {
      */
     public $fields = array();
     /**
+     * @var array $fieldLabels A collection of field labels.
+     * @access public
+     */
+    public $fieldLabels = array();
+    /**
      * @var modX $modx A reference to the modX instance.
      * @access public
      */
@@ -199,7 +204,12 @@ class fiValidator {
      * @return string The concatenated error message
      */
     public function getErrorMessage($delim = "\n") {
-        return implode($delim,$this->errors);
+        $errors = array();
+        foreach($this->errors as $field => $error) {
+            $label = !empty($this->fieldLabels[$field]) ? $this->fieldLabels[$field] : ucfirst($field);
+            $errors[] = $label . ": " . $error;
+        }
+        return implode($delim,$errors);
     }
 
     /**
@@ -226,6 +236,16 @@ class fiValidator {
             $success = !empty($value) ? true : false;
         }
         return $success ? true : $this->modx->lexicon('formit.field_required');
+    }
+
+    /**
+     * Label a field.
+     */
+    public function label($key,$value,$param = '') {
+      if (!empty($param)) {
+        $this->fieldLabels[$key] = $param;
+      }
+      return true;
     }
 
     /**
