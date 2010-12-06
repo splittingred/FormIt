@@ -160,7 +160,14 @@ if (empty($fi->validator->errors)) {
     }
 
 } else {
-    $modx->toPlaceholders($fi->validator->errors,$placeholderPrefix.'error');
+    $errors = array();
+    foreach ($fi->validator->errors as $key => $error) {
+        $errors[$key] = str_replace('[[+error]]',$error,$errTpl);
+    }
+    $modx->toPlaceholders($errors,$placeholderPrefix.'error');
+
+    $errorMsg = $fi->validator->getErrorMessage();
+    $modx->setPlaceholder($placeholderPrefix.'error_message',$errorMsg);
 }
 /* better handling of checkbox values when input name is an array[] */
 $fs = array();

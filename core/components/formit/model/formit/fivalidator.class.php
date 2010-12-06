@@ -192,6 +192,17 @@ class fiValidator {
     }
 
     /**
+     * Gets the error messages compiled into a single string.
+     *
+     * @access public
+     * @param string $delim The delimiter between each message.
+     * @return string The concatenated error message
+     */
+    public function getErrorMessage($delim = "\n") {
+        return implode($delim,$this->errors);
+    }
+
+    /**
      * Adds an error to the stack.
      *
      * @access private
@@ -200,8 +211,7 @@ class fiValidator {
      * @return string The added error message with the error wrapper.
      */
     public function addError($key,$value) {
-        $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
-        $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
+        $this->errors[$key] .= $value;
         return $this->errors[$key];
     }
 
