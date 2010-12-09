@@ -168,7 +168,8 @@ foreach ($fields as $k => $v) {
     if (is_array($v) && !isset($_FILES[$k])) {
         $v = implode(',',$v);
     }
-    $fs[$k] = $v;
+    /* str_replace to prevent showing of placeholders */
+    $fs[$k] = str_replace(array('[',']'),array('&#91;','&#93'),$v);
 }
 $modx->setPlaceholders($fs,$placeholderPrefix);
 
