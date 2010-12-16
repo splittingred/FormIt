@@ -4,7 +4,7 @@
  *
  * @package formit
  */
-$output = '';
+$output = ' ';
 if ($input == $options) {
     $output = ' checked="checked"';
 }
