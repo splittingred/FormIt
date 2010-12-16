@@ -90,13 +90,22 @@ class fiValidator {
                 $fieldValidators[$field] = $key;
             }
         }
-        
+
         /* do it the old way, through name:validator on the POST */
         foreach ($keys as $k => $v) {
             $key = explode(':',$k);
+
+            $stripTags = strpos($k,'allowTags') === false;
+            if (isset($fieldValidators[$k])) {
+                foreach ($fieldValidators[$k] as $fv) {
+                    if (strpos($fv,'allowTags') !== false) {
+                        $stripTags = false;
+                    }
+                }
+            }
             
             /* strip tags by default */
-            if (strpos($k,'allowTags') === false && !is_array($v) && (!isset($validateFields[$k]) || !in_array('allowTags',$validateFields[$k]))) {
+            if ($stripTags && !is_array($v)) {
                 $v = strip_tags($v);
             }
 
@@ -144,7 +153,7 @@ class fiValidator {
         if ($hasParams !== false) {
             $len = $this->config['use_multibyte'] ? mb_strlen($type,$this->config['encoding']) : strlen($type);
             $s = $this->config['use_multibyte'] ? mb_substr($type,$hasParams+1,$len,$this->config['encoding']) : substr($type,$hasParams+1,$len);
-            $param = str_replace('`','',$s);
+            $param = str_replace(array('`','^'),'',$s);
             $type = $this->config['use_multibyte'] ? mb_substr($type,0,$hasParams,$this->config['encoding']) : substr($type,0,$hasParams);
         }
 
@@ -348,6 +357,7 @@ class fiValidator {
      * tags.
      */
     public function allowTags($key,$value,$allowedTags = '<strong><em><b><i><li><ul><a>') {
+        if (empty($allowedTags)) $allowedTags = '<strong><em><b><i><li><ul><a>';
         $this->fields[$key] = strip_tags($value,$allowedTags);
         return true;
     }

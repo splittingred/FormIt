@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.5.3
+====================================
+- [#37] Fix allowTags validator to work, and work with parameters encapsulated by ^
+
 FormIt 1.5.2
 ====================================
 - Fixed security vulnerability
