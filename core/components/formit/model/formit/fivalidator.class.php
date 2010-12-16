@@ -252,7 +252,7 @@ class fiValidator {
         /* validate length and @ */
         $pattern = "^[^@]{1,64}\@[^\@]{1,255}$";
         $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$value) : @ereg($pattern, $value);
-        if (!$condition) {
+        if (!$condition || empty($value)) {
             return $this->modx->lexicon('formit.email_invalid',array('field' => $key, 'value' => $value));
         }
 

@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.3
 ====================================
+- [#47] Ensure email validator checks for empty string
 - [#42] Can now include field names in error strings via `field` placeholder
 - [#39] Fix issue with FormItIsChecked/Selected to prevent output from occurring if not checked
 - [#37] Fix allowTags validator to work, and work with parameters encapsulated by ^
