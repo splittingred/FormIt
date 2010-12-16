@@ -169,7 +169,7 @@ foreach ($fields as $k => $v) {
         $v = implode(',',$v);
     }
     /* str_replace to prevent showing of placeholders */
-    $fs[$k] = str_replace(array('[',']'),array('&#91;','&#93'),$v);
+    $fs[$k] = str_replace(array('[',']'),array('&#91;','&#93;'),$v);
 }
 $modx->setPlaceholders($fs,$placeholderPrefix);
 
