@@ -140,6 +140,25 @@ class FormIt {
     }
 
     /**
+     * Load the reCaptcha service class
+     * 
+     * @param array $config An array of configuration parameters for the
+     * reCaptcha class
+     * @return reCaptcha An instance of the reCaptcha class
+     */
+    public function loadReCaptcha(array $config = array()) {
+        if (empty($this->recaptcha)) {
+            if ($this->modx->loadClass('recaptcha.FormItReCaptcha',$this->config['modelPath'],true,true)) {
+                $this->recaptcha = new FormItReCaptcha($this->modx,$config);
+            } else {
+                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
+                return false;
+            }
+        }
+        return $this->recaptcha;
+    }
+
+    /**
      * Gets a Chunk and caches it; also falls back to file-based templates
      * for easier debugging.
      *

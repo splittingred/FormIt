@@ -81,6 +81,7 @@ class fiHooks {
         $this->hooks = array();
         $this->fields =& $fields;
         foreach ($hooks as $hook) {
+            $hook = trim($hook);
             $success = $this->load($hook,$this->fields);
             if (!$success) return $this->hooks;
             /* dont proceed if hook fails */
@@ -440,9 +441,8 @@ class fiHooks {
      */
     public function recaptcha(array $fields = array()) {
         $passed = false;
-        $recaptcha = $this->modx->getService('recaptcha','FormItReCaptcha',$this->formit->config['modelPath'].'recaptcha/');
-        if (!($recaptcha instanceof FormItReCaptcha)) return $passed;
-        if (empty($recaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return $passed;
+        $recaptcha = $this->formit->loadReCaptcha();
+        if (empty($recaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
 
         $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 

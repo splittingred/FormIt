@@ -2,6 +2,8 @@ Changelog for FormIt.
 
 FormIt 1.5.3
 ====================================
+- [#50] Trim each hook specification in hooks calls
+- [#49] Ensure reCaptcha service instance is unique for each FormIt instance
 - [#47] Ensure email validator checks for empty string
 - [#42] Can now include field names in error strings via `field` placeholder
 - [#39] Fix issue with FormItIsChecked/Selected to prevent output from occurring if not checked

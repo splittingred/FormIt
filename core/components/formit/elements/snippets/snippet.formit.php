@@ -42,10 +42,9 @@ $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.
 
 /* if using recaptcha, load recaptcha html */
 if (strpos($hooks,'recaptcha') !== false) {
-    $recaptcha = $modx->getService('recaptcha','FormItReCaptcha',$fi->config['modelPath'].'recaptcha/');
-    if ($recaptcha instanceof FormItReCaptcha) {
-        /* setup recaptcha properties */
-        $html = $recaptcha->getHtml($scriptProperties);
+    $fi->loadReCaptcha($scriptProperties);
+    if (!empty($fi->recaptcha) && $fi->recaptcha instanceof FormItReCaptcha) {
+        $html = $fi->recaptcha->getHtml();
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
         $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$modx->lexicon('formit.recaptcha_err_load'));
