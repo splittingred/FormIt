@@ -36,6 +36,7 @@ $submitVar = $modx->getOption('submitVar',$scriptProperties,false);
 $hooks = $modx->getOption('hooks',$scriptProperties,'');
 $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 $errTpl = $modx->getOption('errTpl',$scriptProperties,'<span class="error">[[+error]]</span>');
+$errMsgTpl = $modx->getOption('errMsgTpl',$scriptProperties,'<p class="error">A form validation error occurred, please check the values you entered.</p>');
 $store = $modx->getOption('store',$scriptProperties,false);
 $validate = $modx->getOption('validate',$scriptProperties,'');
 $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
@@ -160,6 +161,7 @@ if (empty($fi->validator->errors)) {
 
 } else {
     $modx->toPlaceholders($fi->validator->errors,$placeholderPrefix.'error');
+    $modx->setPlaceholder($placeholderPrefix.'validators_error_message', $errMsgTpl);
 }
 /* better handling of checkbox values when input name is an array[] */
 $fs = array();
