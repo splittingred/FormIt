@@ -160,6 +160,7 @@ if (empty($fi->validator->errors)) {
 
 } else {
     $modx->toPlaceholders($fi->validator->errors,$placeholderPrefix.'error');
+    $modx->setPlaceholder($placeholderPrefix.'validation_error',true);
 }
 /* better handling of checkbox values when input name is an array[] */
 $fs = array();
