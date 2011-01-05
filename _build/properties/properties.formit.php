@@ -67,6 +67,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'validationErrorMessage',
+        'desc' => 'prop_formit.validationerrormessage_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '<p class="error">A form validation error occurred. Please check the values you have entered.</p>',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'customValidators',
         'desc' => 'prop_formit.customvalidators_desc',
         'type' => 'textfield',

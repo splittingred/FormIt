@@ -2,8 +2,9 @@ Changelog for FormIt.
 
 FormIt 1.5.3
 ====================================
+- [#52] Add a general validation error message property that shows when validation fails
 - [#53] Fix bug that prevented recaptcha options from working
-- Add a generic validation error in FormIt to allow for general messages
+- Add a generic validation error placeholder in FormIt to allow for general messages
 - [#50] Trim each hook specification in hooks calls
 - [#49] Ensure reCaptcha service instance is unique for each FormIt instance
 - [#47] Ensure email validator checks for empty string

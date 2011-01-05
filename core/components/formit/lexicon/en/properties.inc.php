@@ -32,6 +32,7 @@ $_lang['prop_formit.prehooks_desc'] = 'What scripts to fire, if any, once the fo
 $_lang['prop_formit.submitvar_desc'] = 'If set, will not begin form processing if this POST variable is not passed.';
 $_lang['prop_formit.validate_desc'] = 'A comma-separated list of fields to validate, with each field name as name:validator (eg: username:required,email:required). Validators can also be chained, like email:email:required. This property can be specified on multiple lines.';
 $_lang['prop_formit.errtpl_desc'] = 'The wrapper template for error messages.';
+$_lang['prop_formit.validationerrormessage_desc'] = 'A general error message to set to a placeholder if validation fails.';
 $_lang['prop_formit.customvalidators_desc'] = 'A comma-separated list of custom validator names (snippets) you plan to use in this form. They must be explicitly stated here, or they will not be run.';
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'If true, will clear the fields on a successful form submission that does not redirect.';
 $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder with the name of the value of the property &successMessagePlaceholder, which defaults to `fi.successMessage`.';
