@@ -75,6 +75,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'validationErrorBulkTpl',
+        'desc' => 'prop_formit.validationerrorbulktpl_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '<li>[[+error]]</li>',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'customValidators',
         'desc' => 'prop_formit.customvalidators_desc',
         'type' => 'textfield',

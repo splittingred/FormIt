@@ -31,6 +31,11 @@ class fiValidator {
      */
     public $errors = array();
     /**
+     * @var array $errorsRaw A collection of all the non-processed errors so far.
+     * @access public
+     */
+    public $errorsRaw = array();
+    /**
      * @var array $fields A collection of all the validated fields so far.
      * @access public
      */
@@ -210,6 +215,7 @@ class fiValidator {
      */
     public function addError($key,$value) {
         $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
+        $this->errorsRaw[$key] = $value;
         $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
         return $this->errors[$key];
     }

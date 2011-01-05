@@ -2,7 +2,8 @@ Changelog for FormIt.
 
 FormIt 1.5.3
 ====================================
-- [#52] Add a general validation error message property that shows when validation fails
+- [#40] Add ability to display all error messages in bulk at top, added validationErrorBulkTpl for templating each one
+- [#52] Add a general validation error message property, validationErrorMessage, that shows when validation fails
 - [#53] Fix bug that prevented recaptcha options from working
 - Add a generic validation error placeholder in FormIt to allow for general messages
 - [#50] Trim each hook specification in hooks calls

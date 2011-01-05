@@ -37,6 +37,8 @@ $hooks = $modx->getOption('hooks',$scriptProperties,'');
 $preHooks = $modx->getOption('preHooks',$scriptProperties,'');
 $errTpl = $modx->getOption('errTpl',$scriptProperties,'<span class="error">[[+error]]</span>');
 $validationErrorMessage = $modx->getOption('validationErrorMessage',$scriptProperties,'<p class="error">A form validation error occurred. Please check the values you have entered.</p>');
+$validationErrorBulkTpl = $modx->getOption('validationErrorBulkTpl',$scriptProperties,'<li>[[+error]]</li>');
+$validationErrorBulkSeparator = $modx->getOption('validationErrorBulkSeparator',$scriptProperties,"\n");
 $store = $modx->getOption('store',$scriptProperties,false);
 $validate = $modx->getOption('validate',$scriptProperties,'');
 $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
@@ -161,6 +163,13 @@ if (empty($fi->validator->errors)) {
 
 } else {
     $modx->toPlaceholders($fi->validator->errors,$placeholderPrefix.'error');
+    $errs = array();
+    foreach ($fi->validator->errorsRaw as $field => $err) {
+        $err = $field.': '.$err;
+        $errs[] = str_replace('[[+error]]',$err,$validationErrorBulkTpl);
+    }
+    $errs = implode($validationErrorBulkSeparator,$errs);
+    $validationErrorMessage = str_replace('[[+errors]]',$errs,$validationErrorMessage);
     $modx->setPlaceholder($placeholderPrefix.'validation_error',true);
     $modx->setPlaceholder($placeholderPrefix.'validation_error_message',$validationErrorMessage);
 }
