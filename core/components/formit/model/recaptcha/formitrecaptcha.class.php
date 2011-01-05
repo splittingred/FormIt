@@ -109,7 +109,7 @@ class FormItReCaptcha {
 
      * @return string - The HTML to be embedded in the user's form.
      */
-    public function getHtml($scriptProperties = array()) { //$theme = 'clean',$width = 500,$height = 300,$error = null) {
+    public function getHtml($scriptProperties = array()) {
         if (empty($this->config[FormItReCaptcha::OPT_PUBLIC_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
         }

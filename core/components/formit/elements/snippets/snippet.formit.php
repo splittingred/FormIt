@@ -44,7 +44,7 @@ $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.
 if (strpos($hooks,'recaptcha') !== false) {
     $fi->loadReCaptcha($scriptProperties);
     if (!empty($fi->recaptcha) && $fi->recaptcha instanceof FormItReCaptcha) {
-        $html = $fi->recaptcha->getHtml();
+        $html = $fi->recaptcha->getHtml($scriptProperties);
         $modx->setPlaceholder('formit.recaptcha_html',$html);
     } else {
         $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$modx->lexicon('formit.recaptcha_err_load'));
