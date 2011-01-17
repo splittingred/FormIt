@@ -81,7 +81,7 @@ class fiValidator {
      * @return array An array of field name => value pairs.
      */
     public function validateFields(array $keys = array(),$validationFields = '') {
-        $this->fields = array();
+        $this->fields = $fields;
 
         /* process the list of fields that will be validated */
         $validationFields = explode(',',$validationFields);

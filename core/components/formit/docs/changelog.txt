@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.6.0
+====================================
+- [#55] Allow all fields to be accessed in custom validators
+
 FormIt 1.5.3
 ====================================
 - [#40] Add ability to display all error messages in bulk at top, added validationErrorBulkTpl for templating each one
