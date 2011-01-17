@@ -255,10 +255,13 @@ class fiValidator {
      * Checks to see if field value is an actual email address.
      */
     public function email($key,$value) {
+        /* allow empty emails, :required should be used to prevent blank field */
+        if (empty($value)) return true;
+        
         /* validate length and @ */
         $pattern = "^[^@]{1,64}\@[^\@]{1,255}$";
         $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$value) : @ereg($pattern, $value);
-        if (!$condition || empty($value)) {
+        if (!$condition) {
             return $this->modx->lexicon('formit.email_invalid',array('field' => $key, 'value' => $value));
         }
 
