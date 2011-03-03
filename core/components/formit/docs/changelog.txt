@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.4
 ====================================
+- Fix issue with math hook where error placeholders were incorrect
 - Fix issue where emailHtml property was not respected in email hook
 - Fix issue where hooks were not passed customProperties array
 - [#51] Allow blank fields to be passed with :email validator
