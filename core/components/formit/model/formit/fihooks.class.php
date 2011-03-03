@@ -247,6 +247,7 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
+        $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
 
         /* get from name */
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
