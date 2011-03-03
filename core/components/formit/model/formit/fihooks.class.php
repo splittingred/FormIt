@@ -71,10 +71,11 @@ class fiHooks {
      *
      * @access public
      * @param array $hooks The hooks to run.
-     * @parma array $fields The fields and values of the form
+     * @param array $fields The fields and values of the form
+     * @param array $customProperties An array of extra properties to send to the hook
      * @return array An array of field name => value pairs.
      */
-    public function loadMultiple($hooks,array $fields = array()) {
+    public function loadMultiple($hooks,array $fields = array(),array $customProperties = array()) {
         if (empty($hooks)) return array();
         if (is_string($hooks)) $hooks = explode(',',$hooks);
 
@@ -82,7 +83,7 @@ class fiHooks {
         $this->fields =& $fields;
         foreach ($hooks as $hook) {
             $hook = trim($hook);
-            $success = $this->load($hook,$this->fields);
+            $success = $this->load($hook,$this->fields,$customProperties);
             if (!$success) return $this->hooks;
             /* dont proceed if hook fails */
         }
