@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -81,7 +81,7 @@ class fiValidator {
      * @return array An array of field name => value pairs.
      */
     public function validateFields(array $keys = array(),$validationFields = '') {
-        $this->fields = $fields;
+        $this->fields = $keys;
 
         /* process the list of fields that will be validated */
         $validationFields = explode(',',$validationFields);
