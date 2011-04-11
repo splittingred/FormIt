@@ -247,7 +247,6 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
-        $emailHtml = $this->modx->getOption('emailHtml',$this->formit->config,true);
 
         /* get from name */
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
@@ -293,12 +292,20 @@ class fiHooks {
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
-        $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml ? nl2br($message) : $message);
+
+        /* set HTML */
+        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
+        $emailConvertNewlines = (boolean)$this->modx->getOption('emailConvertNewlines',$this->formit->config,false);
+        $this->modx->mail->setHTML($emailHtml);
+
+        /* set email main properties */
+        $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml && $emailConvertNewlines ? nl2br($message) : $message);
         $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
+        
         /* handle file fields */
         foreach ($fields as $k => $v) {
             $attachmentIndex = 0;
@@ -366,10 +373,6 @@ class fiHooks {
                 }
             }
         }
-
-        /* set HTML */
-        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
-        $this->modx->mail->setHTML($emailHtml);
 
         /* send email */
         $sent = $this->modx->mail->send();

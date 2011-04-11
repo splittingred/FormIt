@@ -317,6 +317,14 @@ $properties = array(
         'value' => true,
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'emailConvertNewlines',
+        'desc' => 'prop_formit.emailconvertnewlines_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'formit:properties',
+    ),
 
     /* auto-responder properties */
     array(
