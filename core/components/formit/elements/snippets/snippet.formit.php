@@ -82,7 +82,7 @@ if (!empty($fi->preHooks->fields) && empty($_POST)) {
     $fs = $fi->preHooks->fields;
     /* better handling of checkbox values when input name is an array[] */
     foreach ($fs as $f => $v) {
-        if (is_array($v)) { implode(',',$v); }
+        if (is_array($v)) { $v = implode(',',$v); }
         $fs[$f] = $v;
     }
     $modx->setPlaceholders($fs,$placeholderPrefix);
@@ -142,7 +142,7 @@ if (empty($fi->validator->errors)) {
             $cacheKey = $fi->getStoreKey();
             $modx->cacheManager->set($cacheKey,$fields,$storeTime);
         }
-
+        
         /* if the redirect URL was set, redirect */
         if (!empty($fi->postHooks->redirectUrl)) {
             $modx->sendRedirect($fi->postHooks->redirectUrl);

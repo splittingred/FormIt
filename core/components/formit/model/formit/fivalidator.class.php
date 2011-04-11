@@ -365,8 +365,8 @@ class fiValidator {
      * Strip all tags in the field. The parameter can be a string of allowed
      * tags.
      */
-    public function allowTags($key,$value,$allowedTags = '<strong><em><b><i><li><ul><a>') {
-        if (empty($allowedTags)) $allowedTags = '<strong><em><b><i><li><ul><a>';
+    public function allowTags($key,$value,$allowedTags = '') {
+        if (empty($allowedTags)) return true;
         $this->fields[$key] = strip_tags($value,$allowedTags);
         return true;
     }
