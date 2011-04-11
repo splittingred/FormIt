@@ -61,6 +61,12 @@ if (strpos($hooks,'math') !== false && empty($_POST)) {
     $op1 = rand($mathMinRange,$mathMaxRange);
     $op2 = rand($mathMinRange,$mathMaxRange);
     if ($op2 > $op1) { $t = $op2; $op2 = $op1; $op1 = $t; } /* swap so we always get positive #s */
+    /* prevent numbers from being equal */
+    if ($op2 == $op1) {
+        while ($op2 == $op1) {
+            $op2 = rand($mathMinRange,$mathMaxRange);
+        }
+    }
     $operators = array('+','-');
     $operator = rand(0,1);
     $modx->setPlaceholders(array(

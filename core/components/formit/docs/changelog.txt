@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.5.5
 ====================================
+- [#4057] Prevent math hook from generating similar numbers
 - [#4302] Cleanups to FormItAutoResponder snippet
 - [#3991] Fix issue with checkbox values in emails
 
