@@ -34,31 +34,32 @@ $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($m
 $mailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
 $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
-if (empty($scriptProperties['fields'][$toField])) {
+if (empty($fields[$toField])) {
     $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.');
     return false;
 }
 
 /* setup placeholders */
-$placeholders = $scriptProperties['fields'];
-$mailTo= $scriptProperties['fields'][$toField];
+$placeholders = $fields;
+$mailTo= $fields[$toField];
 
-$message = $scriptProperties['formit']->getChunk($tpl,$placeholders);
+$message = $formit->getChunk($tpl,$placeholders);
 
 $modx->getService('mail', 'mail.modPHPMailer');
+$modx->mail->reset();
 $modx->mail->set(modMail::MAIL_BODY,$message);
-$modx->mail->set(modMail::MAIL_FROM,$scriptProperties['hook']->_process($mailFrom,$placeholders));
-$modx->mail->set(modMail::MAIL_FROM_NAME,$scriptProperties['hook']->_process($mailFromName,$placeholders));
-$modx->mail->set(modMail::MAIL_SENDER,$scriptProperties['hook']->_process($mailSender,$placeholders));
-$modx->mail->set(modMail::MAIL_SUBJECT,$scriptProperties['hook']->_process($mailSubject,$placeholders));
+$modx->mail->set(modMail::MAIL_FROM,$hook->_process($mailFrom,$placeholders));
+$modx->mail->set(modMail::MAIL_FROM_NAME,$hook->_process($mailFromName,$placeholders));
+$modx->mail->set(modMail::MAIL_SENDER,$hook->_process($mailSender,$placeholders));
+$modx->mail->set(modMail::MAIL_SUBJECT,$hook->_process($mailSubject,$placeholders));
 $modx->mail->address('to',$mailTo);
 $modx->mail->setHTML($isHtml);
 
 /* reply to */
-$emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$emailFrom);
-$emailReplyTo = $scriptProperties['hook']->_process($emailReplyTo,$fields);
-$emailReplyToName = $modx->getOption('fiarReplyToName',$scriptProperties,$emailFromName);
-$emailReplyToName = $scriptProperties['hook']->_process($emailReplyToName,$fields);
+$emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
+$emailReplyTo = $hook->_process($emailReplyTo,$fields);
+$emailReplyToName = $modx->getOption('fiarReplyToName',$scriptProperties,$mailFromName);
+$emailReplyToName = $hook->_process($emailReplyToName,$fields);
 $modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
 
 /* cc */
@@ -70,8 +71,8 @@ if (!empty($emailCC)) {
     $numAddresses = count($emailCC);
     for ($i=0;$i<$numAddresses;$i++) {
         $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
-        if (!empty($etn)) $etn = $scriptProperties['hook']->_process($etn,$fields);
-        $emailCC[$i] = $scriptProperties['hook']->_process($emailCC[$i],$fields);
+        if (!empty($etn)) $etn = $hook->_process($etn,$fields);
+        $emailCC[$i] = $hook->_process($emailCC[$i],$fields);
         $modx->mail->address('cc',$emailCC[$i],$etn);
     }
 }
@@ -85,8 +86,8 @@ if (!empty($emailBCC)) {
     $numAddresses = count($emailBCC);
     for ($i=0;$i<$numAddresses;$i++) {
         $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
-        if (!empty($etn)) $etn = $scriptProperties['hook']->_process($etn,$fields);
-        $emailBCC[$i] = $scriptProperties['hook']->_process($emailBCC[$i],$fields);
+        if (!empty($etn)) $etn = $hook->_process($etn,$fields);
+        $emailBCC[$i] = $hook->_process($emailBCC[$i],$fields);
         $modx->mail->address('bcc',$emailBCC[$i],$etn);
     }
 }

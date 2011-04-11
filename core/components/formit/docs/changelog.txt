@@ -1,5 +1,10 @@
 Changelog for FormIt.
 
+FormIt 1.5.5
+====================================
+- [#4302] Cleanups to FormItAutoResponder snippet
+- [#3991] Fix issue with checkbox values in emails
+
 FormIt 1.5.4
 ====================================
 - Fix issue with math hook where error placeholders were incorrect
