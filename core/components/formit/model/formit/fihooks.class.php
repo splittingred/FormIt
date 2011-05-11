@@ -222,7 +222,12 @@ class fiHooks {
             $redirectParams = $this->modx->fromJSON($redirectParams);
             if (empty($redirectParams)) $redirectParams = '';
         }
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'',$redirectParams,'abs');
+        $contextKey = $this->modx->context->get('key');
+        $resource = $this->modx->getObject('modResource',$this->formit->config['redirectTo']);
+        if ($resource) {
+            $contextKey = $resource->get('context_key');
+        }
+        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
         $this->setRedirectUrl($url);
         return true;
     }

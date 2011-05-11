@@ -2,6 +2,10 @@ Changelog for FormIt.
 
 FormIt 1.5.5
 ====================================
+- [#4564] Fix redirectTo with non-web contexts
+
+FormIt 1.5.5
+====================================
 - [#4168] Add emailConvertNewlines property for handling newlines in HTML emails
 - [#4057] Prevent math hook from generating similar numbers
 - [#4302] Cleanups to FormItAutoResponder snippet
