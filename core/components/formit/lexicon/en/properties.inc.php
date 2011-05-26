@@ -63,6 +63,8 @@ $_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is 
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
 $_lang['prop_formit.emailconvertnewlines_desc'] = 'If true and emailHtml is set to 1, will convert newlines to BR tags in the email.';
+$_lang['prop_formit.emailmulitseparator_desc'] = 'The default separator for collections of items sent through checkboxes/multi-selects. Defaults to a newline.';
+$_lang['prop_formit.emailmultiwrapper_desc'] = 'Will wrap each item in a collection of fields sent via checkboxes/multi-selects. Defaults to just the value.';
 
 /* FormIt Auto-Responder properties */
 $_lang['prop_fiar.fiartpl_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies auto-response template to send as the email.';

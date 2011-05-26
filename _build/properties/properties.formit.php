@@ -325,6 +325,22 @@ $properties = array(
         'value' => false,
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'emailMultiWrapper',
+        'desc' => 'prop_formit.emailmultiwrapper_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => "\n",
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'emailMultiSeparator',
+        'desc' => 'prop_formit.emailmultiseparator_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => '[[+value]]',
+        'lexicon' => 'formit:properties',
+    ),
 
     /* auto-responder properties */
     array(

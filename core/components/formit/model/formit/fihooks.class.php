@@ -252,6 +252,8 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
+        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
+        $emailConvertNewlines = (boolean)$this->modx->getOption('emailConvertNewlines',$this->formit->config,false);
 
         /* get from name */
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
@@ -288,10 +290,31 @@ class fiHooks {
                 if ($k == 'nospam') continue;
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
+                } else if (is_array($v)) {
+                    foreach ($v as $vKey => $vValue) {
+                        if (empty($vKey)) $vKey = $k;
+                        $f .= '<strong>'.$vKey.'</strong>: '.$vValue.'<br />'."\n";
+                    }
                 }
                 $f .= '<strong>'.$k.'</strong>: '.$v.'<br />'."\n";
             }
             $fields['fields'] = $f;
+        } else {
+            /* handle file/checkboxes in email tpl */
+            $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
+            if ($multiSeparator == '\n') $multiSeparator = "\n"; /* allow for inputted newlines */
+            $multiWrapper = $this->modx->getOption('emailMultiWrapper',$this->formit->config,"[[+value]]");
+            foreach ($fields as $k => &$v) {
+                if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
+                    $v = $v['name'];
+                } else if (is_array($v)) {
+                    $vOpts = array();
+                    foreach ($v as $vKey => $vValue) {
+                        $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                    }
+                    $v = implode($multiSeparator,$vOpts);
+                }
+            }
         }
         $message = $this->formit->getChunk($tpl,$fields);
 
@@ -299,8 +322,6 @@ class fiHooks {
         $this->modx->getService('mail', 'mail.modPHPMailer');
 
         /* set HTML */
-        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
-        $emailConvertNewlines = (boolean)$this->modx->getOption('emailConvertNewlines',$this->formit->config,false);
         $this->modx->mail->setHTML($emailHtml);
 
         /* set email main properties */

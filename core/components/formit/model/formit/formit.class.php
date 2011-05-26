@@ -115,7 +115,7 @@ class FormIt {
      * Loads the Hooks class.
      *
      * @access public
-     * @param $type The type of hook to load.
+     * @param $type string The type of hook to load.
      * @param $config array An array of configuration parameters for the
      * hooks class
      * @return fiHooks An instance of the fiHooks class.

@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 1.6.0
+====================================
+- Add &emailMultiSeparator and &emailMultiWrapper for handling display of checkboxes/multi-selects in email hook
+
 FormIt 1.5.6
 ====================================
 - [#4564] Fix redirectTo with non-web contexts
