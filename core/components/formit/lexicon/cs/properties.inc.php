@@ -27,7 +27,7 @@
  * @language cs
  *
  * @author modxcms.cz
- * @updated 2011-01-03
+ * @updated 2011-04-24
  */
 /* FormIt properties */
 $_lang['prop_formit.hooks_desc'] = 'Jaké skripty se mají spustit, poté co je pozitivně dokončena validace dat. Jeden nebo čárkou oddělený seznam hooků. Jakmile jeden z hooků vrátí negativní odpověď ("false") je vykonání dalších hooků v pořadí ukončeno. Hook může být také název snippetu, který bude tímto v danou chvíli spuštěn.';
@@ -35,6 +35,8 @@ $_lang['prop_formit.prehooks_desc'] = 'Jaké skripty se mají spustit, při inic
 $_lang['prop_formit.submitvar_desc'] = 'Je-li tento parametr nastaven, formulář nebude zpracován dokud daná proměnná nebude definována v $_POST.';
 $_lang['prop_formit.validate_desc'] = 'Čárkou oddělený seznam názvů políček, které se mají validovat. Pro každé pole musí být zadáno pravidlo ve tvaru nazev:validator (např: username:required, email:required). Validátory mohou být také řetězeny, jako např. email:email:required. Takové pravidlo může být definováno na více řádcích.';
 $_lang['prop_formit.errtpl_desc'] = 'Šablona oblasti pro chybové zprávy.';
+$_lang['prop_formit.validationerrormessage_desc'] = 'Obecná chybová zpráva, která je nastavena do placeholderu pokud validace neproběhla v pořádku. Může obsahovat [[+errors]] v případě, že chcete zobrazit seznam všech chyb nad formulářem.';
+$_lang['prop_formit.validationerrorbulktpl_desc'] = 'HTML šablona, která je použita pro každou chybu v obecné zprávě při zobrazení chyb.';
 $_lang['prop_formit.customvalidators_desc'] = 'Čárkou oddělený seznam uživatelských validátorů (názvů snippetů), které budete využívat v tomto formuláři. Pokud nejsou dané uživatelské validátory uvedeny v tomto parametru nelze je následně využít.';
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'Je-li nastaven na "true", budou po úspěšném odeslání formuláře (který se nepřesměrovává) vymazány hodnoty všech políček.';
 $_lang['prop_formit.successmessage_desc'] = 'Je-li tento parametr nastaven, bude nastaven placeholder s názvem z parametru "&successMessagePlaceholder" na hodnotu zapsanou v tomto parametru, výchozí hodnota je `fi.successMessage`. Tato hodnota bude zobrazena po úspěšném odeslání formuláře pokud není nastaveno přesměrování.';
@@ -63,6 +65,7 @@ $_lang['prop_formit.emailreplytoname_desc'] = 'Volitelné. Je-li nastaven hook `
 $_lang['prop_formit.emailsubject_desc'] = 'Je-li nastaven hook `email` pak je tento parametr vyžadován a definuje předmět zprávy.';
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'Je-li ve formuláři definováno políčko `subject` a tento parametr je nastaven na "true" bude hodnota formulářového políčka `subject` použita jako předmět zprávy.';
 $_lang['prop_formit.emailhtml_desc'] = 'Volitelné. Je-li nastaven hook `email` pak tímto parametrem můžete aktivovat odeslání zprávy ve formátu HTML, jinak bude zpráva odeslána v textovém formátu. Ve výchozím nastavení se použije HTML.';
+$_lang['prop_formit.emailconvertnewlines_desc'] = 'Je-li nataveno na Ano a emailHtml je nastaveno na 1, budou v e-mailu překonvertovány nové řádky na HTML značku BR.';
 
 /* FormIt Auto-Responder properties */
 $_lang['prop_fiar.fiartpl_desc'] = 'Je-li nastaven hook `FormItAutoResponder` pak tímto parametrem nastavíte šablonu e-mailu, která bude automaticky odeslána.';
