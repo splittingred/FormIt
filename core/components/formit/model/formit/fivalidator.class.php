@@ -81,7 +81,7 @@ class fiValidator {
      * @return array An array of field name => value pairs.
      */
     public function validateFields(array $keys = array(),$validationFields = '') {
-        $this->fields = $fields;
+        $this->fields = array();
 
         /* process the list of fields that will be validated */
         $validationFields = explode(',',$validationFields);
@@ -219,6 +219,9 @@ class fiValidator {
     public function addError($key,$value) {
         $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
         $this->errorsRaw[$key] = $value;
+        if (!isset($this->errors[$key])) {
+            $this->errors[$key] = '';
+        }
         $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
         return $this->errors[$key];
     }
