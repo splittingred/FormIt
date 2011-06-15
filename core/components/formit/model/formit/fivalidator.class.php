@@ -93,6 +93,9 @@ class fiValidator {
                 $field = $key[0];
                 array_splice($key,0,1); /* remove the field name from validator list */
                 $fieldValidators[$field] = $key;
+                if (!isset($keys[$field])) { /* prevent someone from bypassing a required field by removing it from the form */
+                    $keys[$field] = '';
+                }
             }
         }
 
