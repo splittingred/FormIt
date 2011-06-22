@@ -56,7 +56,7 @@ class fiValidator {
      *
      * @param FormIt &$formit A reference to the FormIt class instance.
      * @param array $config Optional. An array of configuration parameters.
-     * @return lgnValidator
+     * @return \fiValidator
      */
     function __construct(FormIt &$formit,array $config = array()) {
         $this->formit =& $formit;
@@ -78,6 +78,7 @@ class fiValidator {
      *
      * @access public
      * @param array $keys The fields to validate.
+     * @param string $validationFields
      * @return array An array of field name => value pairs.
      */
     public function validateFields(array $keys = array(),$validationFields = '') {
@@ -93,6 +94,9 @@ class fiValidator {
                 $field = $key[0];
                 array_splice($key,0,1); /* remove the field name from validator list */
                 $fieldValidators[$field] = $key;
+                if (!isset($keys[$field])) { /* prevent someone from bypassing a required field by removing it from the form */
+                    $keys[$field] = '';
+                }
             }
         }
 
@@ -216,12 +220,18 @@ class fiValidator {
     public function addError($key,$value) {
         $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
         $this->errorsRaw[$key] = $value;
+        if (!isset($this->errors[$key])) {
+            $this->errors[$key] = '';
+        }
         $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
         return $this->errors[$key];
     }
 
     /**
      * Checks to see if field is required.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
     public function required($key,$value) {
         $success = false;
@@ -235,6 +245,9 @@ class fiValidator {
 
     /**
      * Checks to see if field is blank.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
     public function blank($key,$value) {
         return empty($value) ? true : $this->modx->lexicon('formit.field_not_empty',array('field' => $key, 'value' => $value));
@@ -242,6 +255,10 @@ class fiValidator {
 
     /**
      * Checks to see if passwords match.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $param The parameter passed into the validator that contains the field to check the password against
+     * @return boolean
      */
     public function password_confirm($key,$value,$param = 'password_confirm') {
         if (empty($value)) return $this->modx->lexicon('formit.password_not_confirmed');
@@ -253,6 +270,9 @@ class fiValidator {
 
     /**
      * Checks to see if field value is an actual email address.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
     public function email($key,$value) {
         /* allow empty emails, :required should be used to prevent blank field */
@@ -295,6 +315,10 @@ class fiValidator {
 
     /**
      * Checks to see if field value is shorter than $param.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param int $param The minimum length the field can be
+     * @return boolean
      */
     public function minLength($key,$value,$param = 0) {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
@@ -306,6 +330,10 @@ class fiValidator {
 
     /**
      * Checks to see if field value is longer than $param.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param int $param The maximum length the field can be
+     * @return boolean
      */
     public function maxLength($key,$value,$param = 999) {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
@@ -317,6 +345,10 @@ class fiValidator {
 
     /**
      * Checks to see if field value is less than $param.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param int $param The minimum value the field can be
+     * @return boolean
      */
     public function minValue($key,$value,$param = 0) {
         if ((float)$value < (float)$param) {
@@ -327,6 +359,10 @@ class fiValidator {
 
     /**
      * Checks to see if field value is greater than $param.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param int $param The maximum value the field can be
+     * @return boolean
      */
     public function maxValue($key,$value,$param = 0) {
         if ((float)$value > (float)$param) {
@@ -337,6 +373,10 @@ class fiValidator {
 
     /**
      * See if field contains a certain value.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $expr The regular expression to check against the field
+     * @return boolean
      */
     public function contains($key,$value,$expr = '') {
         if (!preg_match('/'.$expr.'/i',$value)) {
@@ -347,6 +387,10 @@ class fiValidator {
 
     /**
      * Strip a string from the value.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $param The value to strip from the field
+     * @return boolean
      */
     public function strip($key,$value,$param = '') {
         $this->fields[$key] = str_replace($param,'',$value);
@@ -355,6 +399,10 @@ class fiValidator {
     /**
      * Strip all tags in the field. The parameter can be a string of allowed
      * tags.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $allowedTags A comma-separated list of tags to allow in the field's value
+     * @return boolean
      */
     public function stripTags($key,$value,$allowedTags = '') {
         $this->fields[$key] = strip_tags($value,$allowedTags);
@@ -364,6 +412,10 @@ class fiValidator {
     /**
      * Strip all tags in the field. The parameter can be a string of allowed
      * tags.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $allowedTags A comma-separated list of tags to allow in the field's value. Leave blank to allow all.
+     * @return boolean
      */
     public function allowTags($key,$value,$allowedTags = '') {
         if (empty($allowedTags)) return true;
@@ -373,6 +425,10 @@ class fiValidator {
 
     /**
      * Validates value between a range, specified by min-max.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $ranges The range the value should reside in
+     * @return boolean
      */
     public function range($key,$value,$ranges = '0-1') {
         $range = explode('-',$ranges);
@@ -392,6 +448,9 @@ class fiValidator {
 
     /**
      * Checks to see if the field is a number.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
      public function isNumber($key,$value) {
          if (!is_numeric($value)) {
@@ -403,6 +462,10 @@ class fiValidator {
     /**
      * Checks to see if the field is a valid date. Allows for date formatting as
      * well.
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $format The format of the date
+     * @return boolean
      */
     public function isDate($key,$value,$format = '%m/%d/%Y') {
         $ts = strtotime($value);
@@ -417,6 +480,9 @@ class fiValidator {
 
     /**
      * Checks to see if a string is all lowercase
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
     public function islowercase($key,$value) {
         $v = $this->config['use_multibyte'] ? mb_strtolower($value,$this->config['encoding']) : strtolower($value);
@@ -425,6 +491,9 @@ class fiValidator {
 
     /**
      * Checks to see if a string is all uppercase
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @return boolean
      */
     public function isuppercase($key,$value) {
         $v = $this->config['use_multibyte'] ? mb_strtoupper($value,$this->config['encoding']) : strtoupper($value);
