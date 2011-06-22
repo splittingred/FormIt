@@ -67,7 +67,7 @@ class FormItReCaptcha {
      * @param string $host
      * @param string $path
      * @param array $data
-     * @param int port
+     * @param int $port
      * @return array response
      */
     protected function httpPost($host, $path, array $data = array(), $port = 80) {
@@ -96,17 +96,13 @@ class FormItReCaptcha {
 
         return $response;
     }
-    
+
     /**
      * Gets the challenge HTML (javascript and non-javascript version).
      * This is called from the browser, and the resulting reCAPTCHA HTML widget
      * is embedded within the HTML form it was called from.
-     * @param string $theme The theme to use
-     * @param string $width The width of the form
-     * @param string $height The height of the form
-     * @param string $error The error given by reCAPTCHA (optional, default is null)
-     * @param boolean $use_ssl Should the request be made over ssl? (optional, default is false)
-
+     *
+     * @param array $scriptProperties
      * @return string - The HTML to be embedded in the user's form.
      */
     public function getHtml($scriptProperties = array()) {
@@ -117,21 +113,20 @@ class FormItReCaptcha {
         /* use ssl or not */
         $server = !empty($this->config[FormItReCaptcha::OPT_USE_SSL]) ? FormItReCaptcha::API_SECURE_SERVER : FormItReCaptcha::API_SERVER;
 
-        $errorpart = '';
-        if ($error) {
-           $errorpart = "&amp;error=" . $error;
-        }
         $opt = $this->getOptions($scriptProperties);
-        return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '"></script>
-        <noscript>
-                <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . $errorpart . '" height="'.$height.'" width="'.$width.'" frameborder="0" style="width: '.$width.'px; height: '.$height.'px;"></iframe><br />
-                <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
-                <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-        </noscript>';
+        return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '"></script>
+<noscript>
+        <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '" height="'.$opt['height'].'" width="'.$opt['width'].'" frameborder="0" style="width: '.$opt['width'].'px; height: '.$opt['height'].'px;"></iframe><br />
+        <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+        <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+</noscript>';
     }
 
     /**
      * Get options for reCaptcha from snippet
+     *
+     * @param array $scriptProperties
+     * @return array|void
      */
     public function getOptions(array $scriptProperties = array()) {
         $opt = $this->modx->getOption('recaptchaJs',$scriptProperties,'{}');
@@ -158,13 +153,13 @@ class FormItReCaptcha {
     }
 
     /**
-      * Calls an HTTP POST function to verify if the user's guess was correct
-      * @param string $remoteip
-      * @param string $challenge
-      * @param string $response
-      * @param array $extra_params an array of extra variables to post to the server
-      * @return ReCaptchaResponse
-      */
+     * Calls an HTTP POST function to verify if the user's guess was correct
+     * @param string $remoteIp
+     * @param string $challenge
+     * @param string $responseField
+     * @param array $extraParams An array of extra variables to post to the server
+     * @return ReCaptchaResponse
+     */
     public function checkAnswer ($remoteIp, $challenge, $responseField, $extraParams = array()) {
         if (empty($this->config[FormItReCaptcha::OPT_PRIVATE_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
@@ -198,13 +193,15 @@ class FormItReCaptcha {
     }
 
     /**
-     * gets a URL where the user can sign up for reCAPTCHA. If your application
+     * Gets a URL where the user can sign up for reCAPTCHA. If your application
      * has a configuration page where you enter a key, you should provide a link
      * using this function.
+     *
      * @param string $domain The domain where the page is hosted
      * @param string $appname The name of your application
+     * @return string
      */
-    public function getSignupUrl ($domain = null, $appname = null) {
+    public function getSignupUrl($domain = null,$appname = null) {
         return "http://recaptcha.net/api/getkey?" .  $this->qsencode(array ('domain' => $domain, 'app' => $appname));
     }
 
@@ -226,7 +223,7 @@ class FormItReCaptcha {
     }
 
 
-    protected function mailhideUrlbase64 ($x) {
+    protected function mailhideUrlbase64($x) {
         return strtr(base64_encode ($x), '+/', '-_');
     }
 
@@ -244,9 +241,12 @@ class FormItReCaptcha {
     }
 
     /**
-     * gets the parts of the email to expose to the user.
+     * Gets the parts of the email to expose to the user.
      * eg, given johndoe@example,com return ["john", "example.com"].
      * the email is then displayed as john...@example.com
+     *
+     * @param string $email
+     * @return array|string
      */
     public function mailhideEmailParts ($email) {
         $arr = preg_split("/@/", $email);
@@ -266,16 +266,18 @@ class FormItReCaptcha {
      * to get a key, go to:
      *
      * http://mailhide.recaptcha.net/apikey
+     *
+     * @param $email
+     * @return string
      */
     public function mailhideHtml($email) {
         $emailparts = $this->mailhideEmailParts($email);
         $url = $this->mailhideUrl($email);
 
-        return htmlentities($emailparts[0]) . "<a href='" . htmlentities ($url) .
-            "' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ($emailparts [1]);
+        $str = htmlentities($emailparts[0]) . "<a href='" . htmlentities ($url) .
+            "' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities($emailparts [1]);
+        return $str;
     }
-
-
 }
 
 /**

@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.6.0
 ====================================
+- [#5038] Fix uninitialized variable warnings in reCaptcha service
 - [#4993] Add Italian translation and fix recaptcha links
 - Fix issue where fields could be removed via DOM from form and be bypassed
 - Add &emailMultiSeparator and &emailMultiWrapper for handling display of checkboxes/multi-selects in email hook
