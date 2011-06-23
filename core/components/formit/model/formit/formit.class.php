@@ -78,6 +78,7 @@ class FormIt {
      * handling actions.
      *
      * @access public
+     * @param string $context The context to initialize FormIt into
      * @return mixed
      */
     public function initialize($context = 'web') {

@@ -20,7 +20,7 @@
  * @package formit
  */
 /**
- * A custom hook for auto-responders.
+ * A custom FormIt hook for auto-responders.
  * 
  * @package formit
  */

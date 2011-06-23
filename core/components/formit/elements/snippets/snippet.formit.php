@@ -22,7 +22,7 @@
 /**
  * FormIt
  *
- * A dynamic form processing Snippet for MODx Revolution 2.0.
+ * A dynamic form processing Snippet for MODx Revolution.
  *
  * @package formit
  */
