@@ -25,10 +25,10 @@
  * @package formit
  * @subpackge lexicon
  */
-$_lang['recaptcha.empty_answer'] = 'Incorrect captcha words. Please check your answer and try again.';
-$_lang['recaptcha.incorrect'] = 'The reCAPTCHA wasn\'t entered correctly. Go back and try it again. [[+error]]';
-$_lang['recaptcha.mailhide_no_mcrypt'] = 'To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.';
-$_lang['recaptcha.mailhide_no_api_key'] = 'To use reCAPTCHA Mailhide, you have to sign up for a public and private key, you can do so at <a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>';
-$_lang['recaptcha.no_api_key'] = 'To use reCAPTCHA you must get an API key from <a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>';
-$_lang['recaptcha.no_remote_ip'] = 'For security reasons, you must pass the remote ip to reCAPTCHA';
+$_lang['recaptcha.empty_answer'] = 'Parole della validazione non valide. Si prega di controllare la vostra risposta e riprovare.';
+$_lang['recaptcha.incorrect'] = 'La validazione non è stata immessa correttamente. Tornare indietro e riprovare. [[+error]]';
+$_lang['recaptcha.mailhide_no_mcrypt'] = 'Per utilizzare la validazione reCAPTCHA Mailhide, dovete avere il modulo PHP mcrypt installato.';
+$_lang['recaptcha.mailhide_no_api_key'] = 'Per utilizzare la validazione reCAPTCHA Mailhide, dovete iscrivervi per le chiavi pubbliche e private, potete farlo all''indirizzo <a href="http://www.google.com/recaptcha/mailhide/">http://www.google.com/recaptcha/mailhide/</a>';
+$_lang['recaptcha.no_api_key'] = 'Per utilizzare la validazione reCAPTCHA dovete creare una chiave API da <a href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a>';
+$_lang['recaptcha.no_remote_ip'] = 'Per una questione di sicurezza, dovete si deve passare l''IP remoto a reCAPTCHA';
 
