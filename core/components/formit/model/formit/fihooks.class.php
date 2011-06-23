@@ -290,15 +290,20 @@ class fiHooks {
                 if ($k == 'nospam') continue;
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
+                    $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
                 } else if (is_array($v)) {
                     foreach ($v as $vKey => $vValue) {
+                        if (is_string($vKey) && !empty($vKey)) {
+                            $vKey = $k.'.'.$vKey;
+                        }
                         if (empty($vKey)) $vKey = $k;
-                        $f .= '<strong>'.$vKey.'</strong>: '.$vValue.'<br />'."\n";
+                        $f[$vKey] = '<strong>'.$vKey.'</strong>: '.$vValue.'<br />';
                     }
+                } else {
+                    $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
                 }
-                $f .= '<strong>'.$k.'</strong>: '.$v.'<br />'."\n";
             }
-            $fields['fields'] = $f;
+            $fields['fields'] = implode("\n",$f);
         } else {
             /* handle file/checkboxes in email tpl */
             $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
