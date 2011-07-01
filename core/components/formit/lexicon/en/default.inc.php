@@ -23,7 +23,7 @@
  * Default Lexicon Topic
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
  */
 $_lang['formit.contains'] = 'Your value must contain the phrase "[[+value]]".';
 $_lang['formit.email_invalid'] = 'Please enter a valid email address.';

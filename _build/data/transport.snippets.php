@@ -83,6 +83,17 @@ $properties = include $sources['properties'].'properties.formitcountryoptions.ph
 $snippets[5]->setProperties($properties);
 unset($properties);
 
+$snippets[6]= $modx->newObject('modSnippet');
+$snippets[6]->fromArray(array(
+    'id' => 6,
+    'name' => 'FormItStateOptions',
+    'description' => 'A utility snippet for generating a dropdown list of U.S. states.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitstateoptions.php'),
+),'',true,true);
+$properties = include $sources['properties'].'properties.formitstateoptions.php';
+$snippets[6]->setProperties($properties);
+unset($properties);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

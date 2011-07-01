@@ -23,7 +23,7 @@
  * Properties Lexicon Topic
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
  * @language en
  */
 /* FormIt properties */

@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 1.6.0
 ====================================
+- Add FormItStateOptions snippet for easy U.S. state dropdowns
 - Add FormItCountryOptions snippet for easy country dropdowns
 - Fix issue with bracketed field names being added as extra fields post-validation with . prefix
 
