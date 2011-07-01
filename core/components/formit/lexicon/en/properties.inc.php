@@ -93,6 +93,13 @@ $_lang['prop_math.mathop1field_desc'] = 'If `math` is set as a hook, the name of
 $_lang['prop_math.mathop2field_desc'] = 'If `math` is set as a hook, the name of the field for the 2nd number in the equation.';
 $_lang['prop_math.mathoperatorfield_desc'] = 'If `math` is set as a hook, the name of the field for the operator in the equation.';
 
+/* FormItCountryOptions properties */
+$_lang['prop_fico.selected_desc'] = 'The country value to select.';
+$_lang['prop_fico.selectedattribute_desc'] = 'Optional. The HTML attribute to add to a selected country.';
+$_lang['prop_fico.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';
+$_lang['prop_fico.tpl_desc'] = 'Optional. The chunk to use for each country dropdown option.';
+$_lang['prop_fico.useisocode_desc'] = 'If 1, will use the ISO country code for the value. If 0, will use the country name.';
+
 /* FormIt Options */
 $_lang['formit.opt_blackglass'] = 'Black Glass';
 $_lang['formit.opt_clean'] = 'Clean';

@@ -72,6 +72,17 @@ $snippets[4]->fromArray(array(
     'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitisselected.php'),
 ),'',true,true);
 
+$snippets[5]= $modx->newObject('modSnippet');
+$snippets[5]->fromArray(array(
+    'id' => 5,
+    'name' => 'FormItCountryOptions',
+    'description' => 'A utility snippet for generating a dropdown list of countries.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitcountryoptions.php'),
+),'',true,true);
+$properties = include $sources['properties'].'properties.formitcountryoptions.php';
+$snippets[5]->setProperties($properties);
+unset($properties);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

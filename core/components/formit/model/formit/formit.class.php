@@ -56,6 +56,7 @@ class FormIt {
             'chunksPath' => $corePath.'elements/chunks/',
             'snippetsPath' => $corePath.'elements/snippets/',
             'controllersPath' => $corePath.'controllers/',
+            'includesPath' => $corePath.'includes/',
 
             'assetsPath' => $assetsPath,
             'assetsUrl' => $assetsUrl,

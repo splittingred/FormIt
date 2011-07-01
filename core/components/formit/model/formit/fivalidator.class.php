@@ -117,7 +117,14 @@ class fiValidator {
                 $this->_validate($k,$v,$fieldValidators);
             }
         }
-        
+
+        /* remove fields that have . in name */
+        foreach ($this->fields as $field => $v) {
+            if (strpos($field,'.') !== false) {
+                unset($this->fields[$field]);
+            }
+        }
+
         return $this->fields;
     }
 
