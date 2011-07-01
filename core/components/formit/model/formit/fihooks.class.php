@@ -283,6 +283,7 @@ class fiHooks {
         }
 
         /* compile message */
+        $origFields = $fields;
         if (empty($tpl)) {
             $tpl = 'email';
             $f = '';
@@ -338,7 +339,7 @@ class fiHooks {
 
         
         /* handle file fields */
-        foreach ($fields as $k => $v) {
+        foreach ($origFields as $k => $v) {
             $attachmentIndex = 0;
             if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                 if (empty($v['name'])) {
