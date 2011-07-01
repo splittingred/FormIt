@@ -307,8 +307,11 @@ class fiHooks {
         } else {
             /* handle file/checkboxes in email tpl */
             $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
+            if (empty($multiSeparator)) $multiSeparator = "\n";
             if ($multiSeparator == '\n') $multiSeparator = "\n"; /* allow for inputted newlines */
             $multiWrapper = $this->modx->getOption('emailMultiWrapper',$this->formit->config,"[[+value]]");
+            if (empty($multiWrapper)) $multiWrapper = '[[+value]]';
+            
             foreach ($fields as $k => &$v) {
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];

@@ -330,7 +330,7 @@ $properties = array(
         'desc' => 'prop_formit.emailmultiwrapper_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => "\n",
+        'value' => '[[+value]]',
         'lexicon' => 'formit:properties',
     ),
     array(
@@ -338,7 +338,7 @@ $properties = array(
         'desc' => 'prop_formit.emailmultiseparator_desc',
         'type' => 'combo-boolean',
         'options' => '',
-        'value' => '[[+value]]',
+        'value' => '',
         'lexicon' => 'formit:properties',
     ),
 
