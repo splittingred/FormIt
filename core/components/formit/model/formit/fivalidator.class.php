@@ -95,7 +95,7 @@ class fiValidator {
                 array_splice($key,0,1); /* remove the field name from validator list */
                 $fieldValidators[$field] = $key;
                 if (!isset($this->fields[$field]) && strpos($field,'.') === false) { /* prevent someone from bypassing a required field by removing it from the form */
-                    $keys[$field] = '';
+                    $keys[$field] = !empty($this->fields[$v]) ? $this->fields[$v] : '';
                 }
             }
         }
@@ -124,7 +124,6 @@ class fiValidator {
                 unset($this->fields[$field]);
             }
         }
-
         return $this->fields;
     }
 
