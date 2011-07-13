@@ -26,31 +26,41 @@
  */
 class fiHooks {
     /**
-     * @var array $errors A collection of all the processed errors so far.
+     * A collection of all the processed errors so far.
+     * @var array $errors
      * @access public
      */
     public $errors = array();
     /**
-     * @var array $hooks A collection of all the processed hooks so far.
+     * A collection of all the processed hooks so far.
+     * @var array $hooks
      * @access public
      */
     public $hooks = array();
     /**
-     * @var modX $modx A reference to the modX instance.
+     * A reference to the modX instance.
+     * @var modX $modx
      * @access public
      */
     public $modx = null;
     /**
-     * @var FormIt $formit A reference to the FormIt instance.
+     * A reference to the FormIt instance.
+     * @var FormIt $formit
      * @access public
      */
     public $formit = null;
     /**
-     * @var string If a hook redirects, it needs to set this var to use proper
-     * order of execution on redirects/stores
+     * If a hook redirects, it needs to set this var to use proper order of execution on redirects/stores
+     * @var string
      * @access public
      */
     public $redirectUrl = null;
+
+    /**
+     * The current stored and parsed fields for the FormIt call.
+     * @var array $fields
+     */
+    public $fields = array();
 
     /**
      * The constructor for the fiHooks class

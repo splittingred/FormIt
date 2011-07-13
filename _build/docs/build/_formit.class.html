@@ -1,0 +1,617 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>FormIt API Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script>
+      $(document).ready(function() {
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().css('cursor', 'pointer');
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().click(function() {
+          if ($(this).next().is(':hidden'))
+          {
+            $(this).children('img')[0].src = 'images/arrow_down.gif';
+          } else
+          {
+            $(this).children('img')[0].src = 'images/arrow_right.gif';
+          }
+          $(this).next().slideToggle();
+        });
+      $('dl.function-info, dl.constant-info, dl.property-info').hide();
+      $('dl.function-info img, dl.constant-info img, dl.property-info img').show();
+      });
+    </script><a name="top"></a><h1 class="file">formit.class.php</h1>
+<div class="file_menu">
+<a href="#classes">Classes</a> </div>
+<dl class="file-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt>Classes</dt>
+<dd><a class="class" href="#%5CFormIt">FormIt</a></dd>
+</dl>
+<h2>Description</h2>
+<p class="short-description">FormIt</p>
+<div class="long-description"><p>Copyright 2009-2011 by Shaun McCormick <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;">&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;</a></p>
+
+<p>FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.</p>
+
+<p>FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA</p>
+</div>
+<a name="classes"></a><a id="\FormIt"></a><h2 class="class">\FormIt<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div class="class">
+<dl class="class-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt>Properties</dt>
+<dd><a class="property private" href="#%5CFormIt::%24_initialized">$_initialized</a></dd>
+<dd><a class="property public" href="#%5CFormIt::%24debugTimer">$debugTimer</a></dd>
+<dt>Methods</dt>
+<dd><a class="method public" href="#%5CFormIt::__construct()">__construct</a></dd>
+<dd><a class="method private" href="#%5CFormIt::_getTplChunk()">_getTplChunk</a></dd>
+<dd><a class="method protected" href="#%5CFormIt::endDebugTimer()">endDebugTimer</a></dd>
+<dd><a class="method public" href="#%5CFormIt::getChunk()">getChunk</a></dd>
+<dd><a class="method public" href="#%5CFormIt::getStoreKey()">getStoreKey</a></dd>
+<dd><a class="method public" href="#%5CFormIt::initialize()">initialize</a></dd>
+<dd><a class="method public" href="#%5CFormIt::loadHooks()">loadHooks</a></dd>
+<dd><a class="method public" href="#%5CFormIt::loadReCaptcha()">loadReCaptcha</a></dd>
+<dd><a class="method public" href="#%5CFormIt::loadValidator()">loadValidator</a></dd>
+<dd><a class="method public" href="#%5CFormIt::output()">output</a></dd>
+<dd><a class="method protected" href="#%5CFormIt::startDebugTimer()">startDebugTimer</a></dd>
+</dl>
+<h3>Description</h3>
+<p class="short-description"></p>
+<div class="long-description">
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\FormIt::$_initialized"></a><h4 class="property private">$_initialized<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
+</h4>
+<div class="property">
+<code>boolean <span class="highlight">$_initialized</span> = 'false'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>boolean<br><em>True if the class has been initialized or not.</em>
+</dd>
+<dt>visibility</dt>
+<dd>private</dd>
+<dt>default</dt>
+<dd>false</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::$debugTimer"></a><h4 class="property public">$debugTimer<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
+</h4>
+<div class="property">
+<code>int <span class="highlight">$debugTimer</span> = '0'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>int<br><em>In debug mode, will monitor execution time.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>0</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\FormIt::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">__construct</span><span class="nb-faded-text">(
+          \modX $modx, array $config
+              =
+              array
+          )
+        </span>
+        :
+        </code><p class="short-description">FormIt constructor</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$modx</dt>
+<dd>\modX<br><em>&amp;amp;$modx A reference to the modX instance.</em>
+</dd>
+<dt>$config</dt>
+<dd>array<br><em>An array of configuration options. Optional.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::_getTplChunk()"></a><h4 class="method private">_getTplChunk<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">_getTplChunk</span><span class="nb-faded-text">(
+          string $name
+          )
+        </span>
+        :
+        \modChunk/boolean</code><p class="short-description">Returns a modChunk object from a template file.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$name</dt>
+<dd>string<br><em>The name of the Chunk. Will parse to name.chunk.tpl</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>\modChunk/boolean</dt>
+<dd><em>Returns the modChunk object if found, otherwise false.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>private</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>private</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::endDebugTimer()"></a><h4 class="method protected">endDebugTimer<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">endDebugTimer</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        int</code><p class="short-description">Ends the debug timer and returns the total number of seconds script took
+to run.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>int</dt>
+<dd><em>The end total time to execute the script.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>protected</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>protected</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::getChunk()"></a><h4 class="method public">getChunk<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getChunk</span><span class="nb-faded-text">(
+          string $name, array $properties
+              =
+              array
+          )
+        </span>
+        :
+        string</code><p class="short-description">Gets a Chunk and caches it; also falls back to file-based templates
+for easier debugging.</p>
+<div class="long-description"><p>Will always use the file-based chunk if $debug is set to true.</p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$name</dt>
+<dd>string<br><em>The name of the Chunk</em>
+</dd>
+<dt>$properties</dt>
+<dd>array<br><em>The properties for the Chunk</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The processed content of the Chunk</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::getStoreKey()"></a><h4 class="method public">getStoreKey<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getStoreKey</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        string</code><p class="short-description">Gets a unique session-based store key for storing form submissions.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::initialize()"></a><h4 class="method public">initialize<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">initialize</span><span class="nb-faded-text">(
+          string $context
+              =
+              web
+          )
+        </span>
+        :
+        mixed</code><p class="short-description">Initialize the component into a context and provide context-specific
+handling actions.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$context</dt>
+<dd>string<br><em>The context to initialize FormIt into</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>mixed</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::loadHooks()"></a><h4 class="method public">loadHooks<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadHooks</span><span class="nb-faded-text">(
+          \$type $type
+              =
+              post, \$config $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_fihooks.class.html#%5CfiHooks">\fiHooks</a></code><p class="short-description">Loads the Hooks class.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$type</dt>
+<dd>\$type<br><em>string The type of hook to load.</em>
+</dd>
+<dt>$config</dt>
+<dd>\$config<br><em>array An array of configuration parameters for the hooks class</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_fihooks.class.html#%5CfiHooks">\fiHooks</a></dt>
+<dd><em>An instance of the fiHooks class.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::loadReCaptcha()"></a><h4 class="method public">loadReCaptcha<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadReCaptcha</span><span class="nb-faded-text">(
+          array $config
+              =
+              array
+          )
+        </span>
+        :
+        \reCaptcha</code><p class="short-description">Load the reCaptcha service class</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$config</dt>
+<dd>array<br><em>An array of configuration parameters for the reCaptcha class</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>\reCaptcha</dt>
+<dd><em>An instance of the reCaptcha class</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::loadValidator()"></a><h4 class="method public">loadValidator<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadValidator</span><span class="nb-faded-text">(
+          \$config $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></code><p class="short-description">Loads the Validator class.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$config</dt>
+<dd>\$config<br><em>array An array of configuration parameters for the validator class</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></dt>
+<dd><em>An instance of the fiValidator class.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::output()"></a><h4 class="method public">output<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">output</span><span class="nb-faded-text">(
+          string $output
+          )
+        </span>
+        :
+        string</code><p class="short-description">Output the final output and wrap in the wrapper chunk. Optional, but
+recommended for debugging as it outputs the execution time to the output.</p>
+<div class="long-description"><p>Also, it is good to output your snippet code with wrappers for easier
+CSS isolation and styling.</p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$output</dt>
+<dd>string<br><em>The output to process</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The final wrapped output</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::startDebugTimer()"></a><h4 class="method protected">startDebugTimer<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">startDebugTimer</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        int</code><p class="short-description">Starts the debug timer.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>int</dt>
+<dd><em>The start time.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>protected</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>protected</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.11.2</a>.
+    </small></body></html>
