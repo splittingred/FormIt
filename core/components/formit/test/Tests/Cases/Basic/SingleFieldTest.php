@@ -130,7 +130,11 @@ class SingleFieldTest extends FiTestCase {
         $errors = $this->formit->request->validator->getErrors();
         $success = false;
         if (!empty($errors['name'])) {
-            if (strpos($errors['name'],$lookFor) !== false) {
+            if (!empty($lookFor)) {
+                if (strpos($errors['name'],$lookFor) !== false) {
+                    $success = true;
+                }
+            } else {
                 $success = true;
             }
         }
@@ -139,6 +143,30 @@ class SingleFieldTest extends FiTestCase {
     public function providerErrTpl() {
         return array(
             array('<div class="error">[[+error]]</div>','<div class="error">'),
+            array('<span>[[+error]]</span>','<span>'),
+            array('[[+error]]',''),
+        );
+    }
+
+    /**
+     * Ensure &placeholderPrefix works as expected
+     * @param string $prefix The prefix to test with
+     * @return void
+     * @dataProvider providerPlaceholderPrefix
+     */
+    public function testPlaceholderPrefix($prefix) {
+        $this->formit->config['clearFieldsOnSuccess'] = false;
+        $this->formit->config['placeholderPrefix'] = $prefix;
+        $this->processForm();
+        $set = !empty($this->modx->placeholders[$prefix.'name']) && $this->modx->placeholders[$prefix.'name'] == 'Mr. Tester';
+        $this->assertTrue($set,'The property &placeholderPrefix was not respected with the following value: '.$prefix);
+    }
+    public function providerPlaceholderPrefix($prefix) {
+        return array(
+            array('fi.'),
+            array('formit-'),
+            array('fi'),
+            array(''),
         );
     }
 }
