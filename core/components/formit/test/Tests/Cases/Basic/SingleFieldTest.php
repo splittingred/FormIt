@@ -113,4 +113,32 @@ class SingleFieldTest extends FiTestCase {
             array(false,true),
         );
     }
+
+    /**
+     * Ensure &errTpl works as expected
+     * 
+     * @param string $tpl The tpl to use for the &errTpl value
+     * @param string $lookFor The string to look for in the output
+     * @return void
+     * @dataProvider providerErrTpl
+     */
+    public function testErrTpl($tpl,$lookFor) {
+        $this->formit->config['errTpl'] = $tpl;
+        $_POST['name'] = '';
+        $this->processForm();
+
+        $errors = $this->formit->request->validator->getErrors();
+        $success = false;
+        if (!empty($errors['name'])) {
+            if (strpos($errors['name'],$lookFor) !== false) {
+                $success = true;
+            }
+        }
+        $this->assertTrue($success,'The property &errTpl was not respected with the following value: '.$tpl);
+    }
+    public function providerErrTpl() {
+        return array(
+            array('<div class="error">[[+error]]</div>','<div class="error">'),
+        );
+    }
 }
