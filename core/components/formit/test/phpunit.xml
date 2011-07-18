@@ -16,6 +16,7 @@
       <testsuite name="Cases">
           <file>Tests/Cases/Basic/SingleFieldTest.php</file>
           <file>Tests/Cases/Basic/PreHookTest.php</file>
+          <file>Tests/Cases/Basic/PostHookTest.php</file>
       </testsuite>
     </testsuites>
 </phpunit>

@@ -25,6 +25,10 @@ class FiTestCase extends PHPUnit_Framework_TestCase {
         $fiCorePath = $this->modx->getOption('formit.core_path',null,$this->modx->getOption('core_path',null,MODX_CORE_PATH).'components/formit/');
         require_once $fiCorePath.'model/formit/formit.class.php';
         $this->formit = new FormIt($this->modx);
+        /* set this here to prevent emails/headers from being sent */
+        $this->formit->inTestMode = true;
+        /* make sure to reset MODX placeholders so as not to keep placeholder data across tests */
+        $this->modx->placeholders = array();
     }
 
     /**

@@ -116,7 +116,7 @@ class fiHooks {
      * Load a hook. Stores any errors for the hook to $this->errors.
      *
      * @access public
-     * @param string $hook The name of the hook. May be a Snippet name.
+     * @param string $hookName The name of the hook. May be a Snippet name.
      * @param array $fields The fields and values of the form.
      * @param array $customProperties Any other custom properties to load into a custom hook.
      * @return boolean True if hook was successful.
@@ -161,14 +161,20 @@ class fiHooks {
         return $success;
     }
 
-    private function _loadFileBasedHook($hookName,array $customProperties = array()) {
+    /**
+     * Attempt to load a file-based hook given a name
+     * @param string $path The absolute path of the hook file
+     * @param array $customProperties An array of custom properties to run with the hook
+     * @return boolean True if the hook succeeded
+     */
+    private function _loadFileBasedHook($path,array $customProperties = array()) {
         $scriptProperties = array_merge($this->formit->config,$customProperties);
         $formit =& $this->formit;
         $hook =& $this;
         $fields = $this->fields;
         $errors =& $this->errors;
         try {
-            $success = include $hookName;
+            $success = include $path;
         } catch (Exception $e) {
             $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$e->getMessage());
         }
@@ -639,7 +645,8 @@ class fiHooks {
             if (is_array($v)) { $v = implode(',',$v); }
             $fs[$f] = $v;
         }
-        $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+        //$this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+        $this->modx->toPlaceholders($fs,$this->config['placeholderPrefix'],'');
         
         return $this->getValues();
     }

@@ -310,7 +310,7 @@ class fiRequest {
      */
     public function checkForRedirect() {
         $url = $this->formit->postHooks->getRedirectUrl();
-        if (!empty($url)) {
+        if (!empty($url) && !$this->formit->inTestMode) {
             $this->modx->sendRedirect($url);
         }
     }

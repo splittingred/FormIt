@@ -66,6 +66,11 @@ class FormIt {
      * @var array $chunks
      */
     public $chunks;
+    /**
+     * Used when running unit tests to prevent emails/headers from being sent
+     * @var boolean $inTestMode
+     */
+    public $inTestMode = false;
 
     /**
      * FormIt constructor
