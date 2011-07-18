@@ -1,0 +1,34 @@
+<?php
+/**
+ * @package formit-test
+ */
+/**
+ * Extends the basic PHPUnit TestCase class to provide FormIt specific methods
+ *
+ * @package formit-test
+ */
+class FiTestCase extends PHPUnit_Framework_TestCase {
+    /**
+     * @var modX
+     */
+    protected $modx = null;
+    protected $formit = null;
+
+    /**
+     * Ensure all tests have a reference to the MODX object
+     */
+    public function setUp() {
+        $this->modx =& FiTestHarness::_getConnection();
+        $fiCorePath = $this->modx->getOption('formit.core_path',null,$this->modx->getOption('core_path',null,MODX_CORE_PATH).'components/formit/');
+        require_once $fiCorePath.'model/formit/formit.class.php';
+        $this->formit = new FormIt($this->modx);
+    }
+
+    /**
+     * Remove reference at end of test case
+     */
+    public function tearDown() {
+        $this->modx = null;
+        $this->formit = null;
+    }
+}

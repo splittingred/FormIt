@@ -770,7 +770,7 @@ field or the emailsender setting.
       </method>
     </class>
   </file>
-  <file path="firequest.class.php" hash="997ff2e9e04073d49d1da286fe601aa1">
+  <file path="firequest.class.php" hash="a6dfa6f70f4e083f27319f1ef6b85f9d">
     <docblock>
       <description>FormIt</description>
       <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
@@ -795,7 +795,7 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
       <extends/>
       <full_name>\fiRequest</full_name>
       <docblock>
-        <description>Handles all POST requests for FormIt and abstracts postHook and validation processing.</description>
+        <description>Handles all pre and POST requests for FormIt and abstracts hooks and validation processing.</description>
         <long-description>
 </long-description>
         <tag name="package" description="formit" line="22"/>

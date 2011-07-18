@@ -81,6 +81,7 @@ class FormIt {
             'snippetsPath' => $corePath.'elements/snippets/',
             'controllersPath' => $corePath.'controllers/',
             'includesPath' => $corePath.'includes/',
+            'testsPath' => $corePath.'test/',
 
             'assetsPath' => $assetsPath,
             'assetsUrl' => $assetsUrl,
@@ -116,6 +117,14 @@ class FormIt {
                 $this->_initialized = true;
                 break;
         }
+        return $this->_initialized;
+    }
+
+    /**
+     * Sees if the FormIt class has been initialized already
+     * @return boolean
+     */
+    public function isInitialized() {
         return $this->_initialized;
     }
 
