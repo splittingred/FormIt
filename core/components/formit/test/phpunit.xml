@@ -18,6 +18,7 @@
           <file>Tests/Cases/Basic/PreHookTest.php</file>
           <file>Tests/Cases/Basic/PostHookTest.php</file>
           <!--<file>Tests/Cases/Basic/SpamHookTest.php</file>-->
+          <file>Tests/Cases/Basic/MathHookTest.php</file>
       </testsuite>
     </testsuites>
 </phpunit>
