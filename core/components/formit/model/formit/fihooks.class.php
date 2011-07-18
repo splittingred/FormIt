@@ -645,7 +645,6 @@ class fiHooks {
             if (is_array($v)) { $v = implode(',',$v); }
             $fs[$f] = $v;
         }
-        //$this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
         $this->modx->toPlaceholders($fs,$this->config['placeholderPrefix'],'');
         
         return $this->getValues();

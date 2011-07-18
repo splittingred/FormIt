@@ -51,4 +51,30 @@ class PostHookTest extends FiTestCase {
         $this->formit->postHooks->gatherFields();
         $this->assertEquals($this->modx->placeholders['fi.checkbox'],'1,2');
     }
+
+    /**
+     * Test $hook->setValues from within a postHook
+     * @return void
+     */
+    public function testSetValues() {
+        $this->formit->config['hooks'] = $this->formit->config['testsPath'].'hooks/post/posthooktest.setvalues.php';
+        $this->processForm();
+        $values = $this->formit->postHooks->getValues();
+        $success = strcmp($values['name'],'John Doe') == 0 && strcmp($values['email'],'john.doe@fake-emails.com') == 0;
+        $this->assertTrue($success,'$hook->setValues() failed in the post hook.');
+    }
+
+    /**
+     * Test $hook->addError from within a postHook
+     * @return void
+     */
+    public function testAddError() {
+        $this->formit->config['hooks'] = $this->formit->config['testsPath'].'hooks/post/posthooktest.adderror.php';
+        $this->processForm();
+        $this->assertTrue($this->formit->postHooks->hasErrors(),'$hook->addError did not add any errors.');
+        
+        $errors = $this->formit->postHooks->getErrors();
+        $success = strcmp($errors['name'],'Please use a real name.') == 0;
+        $this->assertTrue($success,'$hook->addError() failed to add the correct error message in the post hook.');
+    }
 }
