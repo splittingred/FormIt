@@ -28,13 +28,14 @@ class SingleFieldTest extends FiTestCase {
     }
 
     /**
-     * Ensure that the placeholder "fi.name" was properly set
+     * Ensure that the placeholder "fi.name" was properly set on a form
      * @return void
      */
     public function testPlaceholderSet() {
+        $this->formit->config['clearFieldsOnSuccess'] = false;
         $this->processForm();
         $set = !empty($this->modx->placeholders['fi.name']) && $this->modx->placeholders['fi.name'] == 'Mr. Tester';
-        $this->assertTrue($set,'The placeholder "fi.name" was not set to "Mr. Tester"');
+        $this->assertTrue($set,'The placeholder "fi.name" was not set to "Mr. Tester". Was set to: '.$this->modx->placeholders['fi.name']);
     }
 
     /**
@@ -84,5 +85,32 @@ class SingleFieldTest extends FiTestCase {
         $request = $this->formit->loadRequest();
         $submitted = $request->hasSubmission();
         $this->assertTrue($submitted,'FormIt did not submit the form, incorrectly looking for a submitVar when one was not needed');
+    }
+
+    /**
+     * Ensure the &clearFieldsOnSuccess property is correctly working
+     * 
+     * @param boolean $clearFieldsOnSuccess Whether or not to clear the fields on a successful form submission
+     * @param boolean $fieldShouldExist Whether or not the field should be set
+     * @dataProvider providerClearFieldsOnSuccess
+     */
+    public function testClearFieldsOnSuccess($clearFieldsOnSuccess,$fieldShouldExist) {
+        $this->formit->config['clearFieldsOnSuccess'] = $clearFieldsOnSuccess;
+        unset($this->modx->placeholders['fi.name']);
+        $this->processForm();
+
+        $nameIsSet = !empty($this->modx->placeholders['fi.name']);
+        $success = $fieldShouldExist ? $nameIsSet : !$nameIsSet;
+        $this->assertTrue($success,'The property clearFieldsOnSuccess was not respected with a value of: '.($clearFieldsOnSuccess ? 1 : 0));
+    }
+    /**
+     * Data provider for update processor test
+     * @return array
+     */
+    public function providerClearFieldsOnSuccess() {
+        return array(
+            array(true,false),
+            array(false,true),
+        );
     }
 }

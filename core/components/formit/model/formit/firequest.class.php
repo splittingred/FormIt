@@ -275,7 +275,7 @@ class fiRequest {
 
             /* if clearing fields on success, just end here */
             if ($this->modx->getOption('clearFieldsOnSuccess',$this->config,true)) {
-                $this->clearFieldsAtEnd = false;
+                $this->clearFieldsAtEnd = true;
             }
         }
 
