@@ -105,7 +105,7 @@ class FormItReCaptcha {
      * @param array $scriptProperties
      * @return string - The HTML to be embedded in the user's form.
      */
-    public function getHtml($scriptProperties = array()) {
+    public function render($scriptProperties = array()) {
         if (empty($this->config[FormItReCaptcha::OPT_PUBLIC_KEY])) {
             return $this->error($this->modx->lexicon('recaptcha.no_api_key'));
         }
@@ -114,12 +114,14 @@ class FormItReCaptcha {
         $server = !empty($this->config[FormItReCaptcha::OPT_USE_SSL]) ? FormItReCaptcha::API_SECURE_SERVER : FormItReCaptcha::API_SERVER;
 
         $opt = $this->getOptions($scriptProperties);
-        return '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '"></script>
+        $html = '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '"></script>
 <noscript>
         <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '" height="'.$opt['height'].'" width="'.$opt['width'].'" frameborder="0" style="width: '.$opt['width'].'px; height: '.$opt['height'].'px;"></iframe><br />
         <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
         <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
 </noscript>';
+        $this->modx->setPlaceholder('formit.recaptcha_html',$html);
+        return $html;
     }
 
     /**

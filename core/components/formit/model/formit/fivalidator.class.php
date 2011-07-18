@@ -62,6 +62,10 @@ class fiValidator {
         $this->formit =& $formit;
         $this->modx =& $formit->modx;
         $this->config = array_merge(array(
+            'placeholderPrefix' => 'fi.',
+            'validationErrorBulkTpl' => '<li>[[+error]]</li>',
+            'validationErrorBulkSeparator' => "\n",
+            'validationErrorMessage' => '<p class="error">A form validation error occurred. Please check the values you have entered.</p>',
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
             'customValidators' => !empty($this->formit->config['customValidators']) ? explode(',',$this->formit->config['customValidators']) : array(),
@@ -77,11 +81,12 @@ class fiValidator {
      * name:validator=param:anotherValidator:oneMoreValidator=`param`
      *
      * @access public
-     * @param array $keys The fields to validate.
+     * @param fiDictionary $dictionary
      * @param string $validationFields
      * @return array An array of field name => value pairs.
      */
-    public function validateFields(array $keys = array(),$validationFields = '') {
+    public function validateFields(fiDictionary $dictionary,$validationFields = '') {
+        $keys = $dictionary->toArray();
         $this->fields = $keys;
 
         /* process the list of fields that will be validated */
@@ -101,7 +106,8 @@ class fiValidator {
         }
 
         /* do it the old way, through name:validator on the POST */
-        foreach ($keys as $k => $v) {
+        /** @var string|array $v */
+        foreach ($this->fields as $k => $v) {
             /* is a array field, ie contact[name] */
             if (is_array($v) && !isset($_FILES[$k]) && is_string($k) && intval($k) == 0 && $k !== 0) {
                 $isCheckbox = false;
@@ -117,13 +123,18 @@ class fiValidator {
                 $this->_validate($k,$v,$fieldValidators);
             }
         }
-
         /* remove fields that have . in name */
         foreach ($this->fields as $field => $v) {
-            if (strpos($field,'.') !== false) {
+            if (strpos($field,'.') !== false || strpos($field,':')) {
                 unset($this->fields[$field]);
             }
         }
+
+        /* add fields back into dictionary */
+        foreach ($this->fields as $k => $v) {
+            $dictionary->set($k,$v);
+        }
+
         return $this->fields;
     }
 
@@ -185,9 +196,12 @@ class fiValidator {
      * error messages to $this->errors.
      */
     public function validate($key,$value,$type = '') {
+        /** @var boolean $validated */
         $validated = false;
 
+        /** @var boolean $hasParams */
         $hasParams = $this->config['use_multibyte'] ? mb_strpos($type,'=',0,$this->config['encoding']) : strpos($type,'=');
+        /** @var string|null $param The parameter value, if one is set */
         $param = null;
         if ($hasParams !== false) {
             $len = $this->config['use_multibyte'] ? mb_strlen($type,$this->config['encoding']) : strlen($type);
@@ -196,6 +210,7 @@ class fiValidator {
             $type = $this->config['use_multibyte'] ? mb_substr($type,0,$hasParams,$this->config['encoding']) : substr($type,0,$hasParams);
         }
 
+        /** @var array $invNames An array of invalid hook names to skip */
         $invNames = array('validate','validateFields','addError','__construct');
         if (method_exists($this,$type) && !in_array($type,$invNames)) {
             /* built-in validator */
@@ -204,6 +219,7 @@ class fiValidator {
         /* only allow specified validators to prevent brute force execution of unwanted snippets */
         } else if (in_array($type,$this->config['customValidators'])) {
             /* attempt to grab custom validator */
+            /** @var modSnippet|null $snippet */
             $snippet = $this->modx->getObject('modSnippet',array('name' => $type));
             if ($snippet) {
                 /* custom snippet validator */
@@ -255,6 +271,32 @@ class fiValidator {
         }
         $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
         return $this->errors[$key];
+    }
+
+    /**
+     * Check to see if there are any validator errors in the stack
+     *
+     * @return boolean
+     */
+    public function hasErrors() {
+        return !empty($this->errors);
+    }
+
+    /**
+     * Get all errors in the stack
+     *
+     * @return array
+     */
+    public function getErrors() {
+        return $this->errors;
+    }
+
+    /**
+     * Get all raw errors in the stack (errors without the wrapper)
+     * @return array
+     */
+    public function getRawErrors() {
+        return $this->errorsRaw;
     }
 
     /**
@@ -528,5 +570,22 @@ class fiValidator {
     public function isuppercase($key,$value) {
         $v = $this->config['use_multibyte'] ? mb_strtoupper($value,$this->config['encoding']) : strtoupper($value);
         return strcmp($v,$value) == 0 ? true : $this->modx->lexicon('formit.not_lowercase',array('field' => $key,'value' => $value));
+    }
+
+    /**
+     * Process the errors that have occurred and setup the appropriate placeholders
+     * @return void
+     */
+    public function processErrors() {
+        $this->modx->toPlaceholders($this->getErrors(),$this->config['placeholderPrefix'].'error');
+        $errs = array();
+        foreach ($this->getRawErrors() as $field => $err) {
+            $err = $field.': '.$err;
+            $errs[] = str_replace('[[+error]]',$err,$this->config['validationErrorBulkTpl']);
+        }
+        $errs = implode($this->config['validationErrorBulkSeparator'],$errs);
+        $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->config['validationErrorMessage']);
+        $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error',true);
+        $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error_message',$validationErrorMessage);
     }
 }

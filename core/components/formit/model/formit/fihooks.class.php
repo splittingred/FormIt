@@ -73,6 +73,13 @@ class fiHooks {
         $this->formit =& $formit;
         $this->modx =& $formit->modx;
         $this->config = array_merge(array(
+            'placeholderPrefix' => 'fi.',
+            'errTpl' => '<span class="error">[[+error]]</span>',
+
+            'mathField' => 'math',
+            'mathOp1Field' => 'op1',
+            'mathOp2Field' => 'op2',
+            'mathOperatorField' => 'operator',
         ),$config);
     }
 
@@ -166,6 +173,24 @@ class fiHooks {
     public function addError($key,$value) {
         $this->errors[$key] .= $value;
         return $this->errors[$key];
+    }
+
+    /**
+     * See if there are any errors in the stack.
+     *
+     * @return boolean
+     */
+    public function hasErrors() {
+        return !empty($this->errors);
+    }
+
+    /**
+     * Get all errors for this current request
+     * 
+     * @return array
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 
     /**
@@ -470,9 +495,9 @@ class fiHooks {
                 $spamResult = $sfspam->check($ip,$fields[$email]);
                 if (!empty($spamResult)) {
                     $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
-                    $this->errors[$email] = $this->modx->lexicon('formit.spam_blocked',array(
+                    $this->addError($email,$this->modx->lexicon('formit.spam_blocked',array(
                         'fields' => $spamFields,
-                    ));
+                    )));
                     $passed = false;
                 }
             }
@@ -497,9 +522,9 @@ class fiHooks {
         $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 
         if (!$response->is_valid) {
-            $this->errors['recaptcha'] = $this->modx->lexicon('recaptcha.incorrect',array(
+            $this->addError('recaptcha',$this->modx->lexicon('recaptcha.incorrect',array(
                 'error' => $response->error != 'incorrect-captcha-sol' ? $response->error : '',
-            ));
+            )));
         } else {
             $passed = true;
         }
@@ -516,6 +541,15 @@ class fiHooks {
     }
 
     /**
+     * Get the specified redirection url
+     *
+     * @return null|string
+     */
+    public function getRedirectUrl() {
+        return $this->redirectUrl;
+    }
+
+    /**
      * Math field hook for anti-spam math input field.
      *
      * @access public
@@ -523,13 +557,15 @@ class fiHooks {
      * @return boolean True if email was successfully sent.
      */
     public function math(array $fields = array()) {
-        $mathField = $this->modx->getOption('mathField',$this->formit->config,'math');
-        if (empty($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $mathField)); return false; }
-        $op1Field = $this->modx->getOption('mathOp1Field',$this->formit->config,'op1');
+        $mathField = $this->modx->getOption('mathField',$this->config,'math');
+        if (!isset($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $mathField)); return false; }
+        if (empty($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.field_required',array('field' => $mathField)); return false; }
+        
+        $op1Field = $this->modx->getOption('mathOp1Field',$this->config,'op1');
         if (empty($fields[$op1Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op1Field)); return false; }
-        $op2Field = $this->modx->getOption('mathOp2Field',$this->formit->config,'op2');
+        $op2Field = $this->modx->getOption('mathOp2Field',$this->config,'op2');
         if (empty($fields[$op2Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op2Field)); return false; }
-        $operatorField = $this->modx->getOption('mathOperatorField',$this->formit->config,'operator');
+        $operatorField = $this->modx->getOption('mathOperatorField',$this->config,'operator');
         if (empty($fields[$operatorField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $operatorField)); return false; }
 
         $answer = false;
@@ -543,8 +579,44 @@ class fiHooks {
         $guess = (int)$fields[$mathField];
         $passed = (boolean)($guess == $answer);
         if (!$passed) {
-            $this->errors[$mathField] = $this->modx->lexicon('formit.math_incorrect');
+            $this->addError($mathField,$this->modx->lexicon('formit.math_incorrect'));
         }
         return $passed;
+    }
+
+    /**
+     * Process any errors returned by the hooks and set them to placeholders
+     * @return void
+     */
+    public function processErrors() {
+        $errors = array();
+        $placeholderErrors = $this->getErrors();
+        foreach ($placeholderErrors as $key => $error) {
+            $errors[$key] = str_replace('[[+error]]',$error,$this->config['errTpl']);
+        }
+        $this->modx->toPlaceholders($errors,$this->config['placeholderPrefix'].'error');
+
+        $errorMsg = $this->getErrorMessage();
+        if (!empty($errorMsg)) {
+            $this->modx->setPlaceholder($this->config['placeholderPrefix'].'error_message',$errorMsg);
+        }
+    }
+
+    /**
+     * Gather fields and set them into placeholders for pre-fetching
+     * @return array
+     */
+    public function gatherFields() {
+        if (empty($this->fields)) return array();
+
+        $fs = $this->getValues();
+        /* better handling of checkbox values when input name is an array[] */
+        foreach ($fs as $f => $v) {
+            if (is_array($v)) { $v = implode(',',$v); }
+            $fs[$f] = $v;
+        }
+        $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+        
+        return $this->getValues();
     }
 }
