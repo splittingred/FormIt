@@ -18,7 +18,7 @@ class FiTestCase extends PHPUnit_Framework_TestCase {
     protected $formit = null;
 
     /**
-     * Ensure all tests have a reference to the MODX object
+     * Ensure all tests have a reference to the MODX and FormIt objects
      */
     public function setUp() {
         $this->modx =& FiTestHarness::_getConnection();
@@ -33,5 +33,15 @@ class FiTestCase extends PHPUnit_Framework_TestCase {
     public function tearDown() {
         $this->modx = null;
         $this->formit = null;
+    }
+
+    /**
+     * Go ahead and send the form through the request handler. Used as a shortcut method.
+     * @return void
+     */
+    public function processForm() {
+        $request = $this->formit->loadRequest();
+        $fields = $request->prepare();
+        $request->handle($fields);
     }
 }

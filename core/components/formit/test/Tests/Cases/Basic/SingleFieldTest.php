@@ -30,11 +30,7 @@ class SingleFieldTest extends FiTestCase {
      * @return void
      */
     public function testPlaceholderSet() {
-        /** @var fiRequest $request */
-        $request = $this->formit->loadRequest();
-        $fields = $request->prepare();
-        $request->handle($fields);
-
+        $this->processForm();
         $set = !empty($this->modx->placeholders['fi.name']) && $this->modx->placeholders['fi.name'] == 'Mr. Tester';
         $this->assertTrue($set,'The placeholder "fi.name" was not set to "Mr. Tester"');
     }
@@ -43,13 +39,8 @@ class SingleFieldTest extends FiTestCase {
      * Ensure that validation passes for name:required string
      */
     public function testRequiredName() {
-        /** @var fiRequest $request */
-        $request = $this->formit->loadRequest();
-        $fields = $request->prepare();
-        $request->handle($fields);
-
+        $this->processForm();
         $hasNoErrors = !$this->formit->request->validator->hasErrors();
-
         $this->assertTrue($hasNoErrors,'The validation string name:required did not pass.');
     }
 
@@ -61,9 +52,7 @@ class SingleFieldTest extends FiTestCase {
      */
     public function testValidationForNonExistentField() {
         $this->formit->config['validate'] = 'email:required';
-        $request = $this->formit->loadRequest();
-        $fields = $request->prepare();
-        $request->handle($fields);
+        $this->processForm();
 
         $hasErrors = $this->formit->request->validator->hasErrors();
         $this->assertTrue($hasErrors,'The email:required validation passed, which should not have occurred.');
