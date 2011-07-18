@@ -62,13 +62,17 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dl class="class-info">
 <dt>package</dt>
 <dd>formit</dd>
-<dt>Properties</dt>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Properties
+              </a></dt>
 <dd><a class="property public" href="#%5CfiValidator::%24errors">$errors</a></dd>
 <dd><a class="property public" href="#%5CfiValidator::%24errorsRaw">$errorsRaw</a></dd>
 <dd><a class="property public" href="#%5CfiValidator::%24fields">$fields</a></dd>
 <dd><a class="property public" href="#%5CfiValidator::%24formit">$formit</a></dd>
 <dd><a class="property public" href="#%5CfiValidator::%24modx">$modx</a></dd>
-<dt>Methods</dt>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Methods
+              </a></dt>
 <dd><a class="method public" href="#%5CfiValidator::__construct()">__construct</a></dd>
 <dd><a class="method private" href="#%5CfiValidator::_validate()">_validate</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::addError()">addError</a></dd>
@@ -76,6 +80,9 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd><a class="method public" href="#%5CfiValidator::blank()">blank</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::contains()">contains</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::email()">email</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::getErrors()">getErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::getRawErrors()">getRawErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::hasErrors()">hasErrors</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::isDate()">isDate</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::isNumber()">isNumber</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::islowercase()">islowercase</a></dd>
@@ -85,6 +92,7 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd><a class="method public" href="#%5CfiValidator::minLength()">minLength</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::minValue()">minValue</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::password_confirm()">password_confirm</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::processErrors()">processErrors</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::range()">range</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::required()">required</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::strip()">strip</a></dd>
@@ -92,9 +100,11 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd><a class="method public" href="#%5CfiValidator::validate()">validate</a></dd>
 <dd><a class="method public" href="#%5CfiValidator::validateFields()">validateFields</a></dd>
 </dl>
+<dl></dl>
 <h3>Description</h3>
-<p class="short-description">Handles custom validaton</p>
-<div class="long-description">
+<p class="short-description">Handles custom validation on fields. Allows for specific, defined validators by FormIt, or custom Validators
+that are MODX Snippets.</p>
+<div class="long-description"><p>Validation can be chained to do proper order-of-execution for field value checking.</p>
 </div>
 <h3>Properties</h3>
 <div>
@@ -560,6 +570,105 @@ tags.</p>
 <div class="clear"></div>
 </div>
 </div>
+<a id="\fiValidator::getErrors()"></a><h4 class="method public">getErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all errors in the stack</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::getRawErrors()"></a><h4 class="method public">getRawErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getRawErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all raw errors in the stack (errors without the wrapper)</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::hasErrors()"></a><h4 class="method public">hasErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Check to see if there are any validator errors in the stack</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
 <a id="\fiValidator::isDate()"></a><h4 class="method public">isDate<div class="to-top"><a href="#fiValidator">jump to class</a></div>
 </h4>
 <div class="method">
@@ -996,6 +1105,31 @@ well.</p>
 <div class="clear"></div>
 </div>
 </div>
+<a id="\fiValidator::processErrors()"></a><h4 class="method public">processErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">processErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Process the errors that have occurred and setup the appropriate placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
 <a id="\fiValidator::range()"></a><h4 class="method public">range<div class="to-top"><a href="#fiValidator">jump to class</a></div>
 </h4>
 <div class="method">
@@ -1242,9 +1376,7 @@ tags.</p>
 </h4>
 <div class="method">
 <code><span class="highlight">validateFields</span><span class="nb-faded-text">(
-          array $keys
-              =
-              array, string $validationFields
+          <a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a> $dictionary, string $validationFields
           )
         </span>
         :
@@ -1257,8 +1389,8 @@ the field names stripped of their validators.</p>
 <div class="api-section">
 <h5 class="arguments">Arguments</h5>
 <dl class="argument-info">
-<dt>$keys</dt>
-<dd>array<br><em>The fields to validate.</em>
+<dt>$dictionary</dt>
+<dd>\fiDictionary<br><em></em>
 </dd>
 <dt>$validationFields</dt>
 <dd>string<br><em></em>
@@ -1293,5 +1425,5 @@ the field names stripped of their validators.</p>
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.11.2</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.13-DEV</a>.
     </small></body></html>

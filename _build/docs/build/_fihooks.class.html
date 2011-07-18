@@ -62,24 +62,33 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dl class="class-info">
 <dt>package</dt>
 <dd>formit</dd>
-<dt>Properties</dt>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Properties
+              </a></dt>
 <dd><a class="property public" href="#%5CfiHooks::%24errors">$errors</a></dd>
 <dd><a class="property public" href="#%5CfiHooks::%24fields">$fields</a></dd>
 <dd><a class="property public" href="#%5CfiHooks::%24formit">$formit</a></dd>
 <dd><a class="property public" href="#%5CfiHooks::%24hooks">$hooks</a></dd>
 <dd><a class="property public" href="#%5CfiHooks::%24modx">$modx</a></dd>
 <dd><a class="property public" href="#%5CfiHooks::%24redirectUrl">$redirectUrl</a></dd>
-<dt>Methods</dt>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Methods
+              </a></dt>
 <dd><a class="method public" href="#%5CfiHooks::__construct()">__construct</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::_process()">_process</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::addError()">addError</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::email()">email</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::gatherFields()">gatherFields</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::getErrorMessage()">getErrorMessage</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getErrors()">getErrors</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getRedirectUrl()">getRedirectUrl</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::getValue()">getValue</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::getValues()">getValues</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::hasErrors()">hasErrors</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::load()">load</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::loadMultiple()">loadMultiple</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::math()">math</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::processErrors()">processErrors</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::recaptcha()">recaptcha</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::redirect()">redirect</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::setRedirectUrl()">setRedirectUrl</a></dd>
@@ -87,9 +96,13 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd><a class="method public" href="#%5CfiHooks::setValues()">setValues</a></dd>
 <dd><a class="method public" href="#%5CfiHooks::spam()">spam</a></dd>
 </dl>
+<dl></dl>
 <h3>Description</h3>
-<p class="short-description">Base Hooks handling class</p>
-<div class="long-description">
+<p class="short-description">Base Hooks handling class. Hooks can be used to run scripts prior to loading the form, or after a form has been
+submitted.</p>
+<div class="long-description"><p>Hooks can be either a predefined list by FormIt, or custom MODX Snippets. They can also be chained to allow for
+order-of-execution processing. Returning false from a Hook will end the chain. Returning false in a postHook will
+prevent the form from being further submitted.</p>
 </div>
 <h3>Properties</h3>
 <div>
@@ -453,6 +466,39 @@ field or the emailsender setting.
 <div class="clear"></div>
 </div>
 </div>
+<a id="\fiHooks::gatherFields()"></a><h4 class="method public">gatherFields<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">gatherFields</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Gather fields and set them into placeholders for pre-fetching</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
 <a id="\fiHooks::getErrorMessage()"></a><h4 class="method public">getErrorMessage<div class="to-top"><a href="#fiHooks">jump to class</a></div>
 </h4>
 <div class="method">
@@ -495,6 +541,72 @@ field or the emailsender setting.
 <dd>false</dd>
 <dt>access</dt>
 <dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getErrors()"></a><h4 class="method public">getErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all errors for this current request</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getRedirectUrl()"></a><h4 class="method public">getRedirectUrl<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getRedirectUrl</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        null|string</code><p class="short-description">Get the specified redirection url</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>null|string</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
 </dl>
 <div class="clear"></div>
 </div>
@@ -557,6 +669,39 @@ field or the emailsender setting.
 <dl class="return-info">
 <dt>array</dt>
 <dd><em>$values A key/name pair of fields and values.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::hasErrors()"></a><h4 class="method public">hasErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">See if there are any errors in the stack.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
 </dl>
 <div class="clear"></div>
 </div>
@@ -724,6 +869,31 @@ field or the emailsender setting.
 <dd>false</dd>
 <dt>access</dt>
 <dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::processErrors()"></a><h4 class="method public">processErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">processErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Process any errors returned by the hooks and set them to placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
 </dl>
 <div class="clear"></div>
 </div>
@@ -984,5 +1154,5 @@ field or the emailsender setting.
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.11.2</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.13-DEV</a>.
     </small></body></html>

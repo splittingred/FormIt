@@ -20,6 +20,8 @@
  * @package formit
  */
 /**
+ * Base class for FormIt. Used for initializing the form processing engine, handling templating and running snippets.
+ * 
  * @package formit
  */
 class FormIt {

@@ -20,9 +20,7 @@
  * @package formit
  */
 /**
- * fiRequest
- *
- * Handles all POST requests for FormIt and abstracts postHook and validation processing
+ * Handles all pre and POST requests for FormIt and abstracts hooks and validation processing.
  *
  * @package formit
  */

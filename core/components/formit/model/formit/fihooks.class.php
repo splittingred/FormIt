@@ -20,7 +20,12 @@
  * @package formit
  */
 /**
- * Base Hooks handling class
+ * Base Hooks handling class. Hooks can be used to run scripts prior to loading the form, or after a form has been
+ * submitted.
+ *
+ * Hooks can be either a predefined list by FormIt, or custom MODX Snippets. They can also be chained to allow for
+ * order-of-execution processing. Returning false from a Hook will end the chain. Returning false in a postHook will
+ * prevent the form from being further submitted.
  *
  * @package formit
  */

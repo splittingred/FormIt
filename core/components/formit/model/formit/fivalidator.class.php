@@ -20,7 +20,10 @@
  * @package formit
  */
 /**
- * Handles custom validaton
+ * Handles custom validation on fields. Allows for specific, defined validators by FormIt, or custom Validators
+ * that are MODX Snippets.
+ *
+ * Validation can be chained to do proper order-of-execution for field value checking.
  *
  * @package formit
  */

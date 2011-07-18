@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<project version="0.11.2" title="FormIt API Documentation">
-  <file path="fihooks.class.php" hash="2b05213dbdefac20f17bd6f3daed4be7">
+<project version="0.13-DEV" title="FormIt API Documentation">
+  <file path="fidictionary.class.php" hash="0b354b2bfe866537002e8058b8f970af">
     <docblock>
       <description>FormIt</description>
       <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
@@ -21,253 +21,458 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
       <tag name="package" description="formit"/>
     </docblock>
     <class final="false" abstract="false" line="27" namespace="default">
-      <name>fiHooks</name>
+      <name>fiDictionary</name>
       <extends/>
-      <full_name>\fiHooks</full_name>
+      <full_name>\fiDictionary</full_name>
       <docblock>
-        <description>Base Hooks handling class</description>
+        <description>Abstracts storage of values of posted fields and fields set by hooks.</description>
         <long-description>
 </long-description>
         <tag name="package" description="formit" line="22"/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="33">
+      <property final="false" static="false" visibility="public" line="32">
+        <name>$modx</name>
+        <default/>
+        <docblock>
+          <description>A reference to the modX instance</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\modX" line="28">
+            <type by_reference="false">\modX</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="37">
+        <name>$formit</name>
+        <default/>
+        <docblock>
+          <description>A reference to the FormIt instance</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\FormIt" line="33">
+            <type by_reference="false">\FormIt</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="42">
+        <name>$config</name>
+        <default>array</default>
+        <docblock>
+          <description>A configuration array</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="array" line="38">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="47">
+        <name>$fields</name>
+        <default>array</default>
+        <docblock>
+          <description>An array of key-&gt;name pairs storing the fields passed</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="array" line="43">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" line="53">
+        <name>__construct</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="\FormIt" variable="$formit" line="49">
+            <type by_reference="false">\FormIt</type>
+          </tag>
+          <tag name="param" description="" type="array" variable="$config" line="49">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="53">
+          <name>$formit</name>
+          <default/>
+          <type>FormIt</type>
+        </argument>
+        <argument line="53">
+          <name>$config</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="65">
+        <name>gather</name>
+        <docblock>
+          <description>Get the fields from POST</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="A default set of fields to load" type="array" variable="$fields" line="59">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="void" line="59">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="65">
+          <name>$fields</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="77">
+        <name>set</name>
+        <docblock>
+          <description>Set a value</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$field" line="71">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="mixed" variable="$value" line="71">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag name="return" description="" type="void" line="71">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="77">
+          <name>$field</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="77">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="86">
+        <name>get</name>
+        <docblock>
+          <description>Get a field value</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$field" line="81">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="mixed" line="81">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="86">
+          <name>$field</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="94">
+        <name>toArray</name>
+        <docblock>
+          <description>Return all field values in an array of key-&gt;name pairs</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="90">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="103">
+        <name>fromArray</name>
+        <docblock>
+          <description>Set a variable number of fields by passing in a key-&gt;name pair array</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="array" variable="$array" line="98">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="void" line="98">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="103">
+          <name>$array</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="114">
+        <name>remove</name>
+        <docblock>
+          <description>Remove a field from the stack</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$key" line="109">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="void" line="109">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="114">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="123">
+        <name>store</name>
+        <docblock>
+          <description>Stash the fields into the cache</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="void" line="118">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="fihooks.class.php" hash="ea20fa614409510f9f702330f06e4582">
+    <docblock>
+      <description>FormIt</description>
+      <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.&lt;/p&gt;
+
+&lt;p&gt;FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.&lt;/p&gt;
+
+&lt;p&gt;You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
+</long-description>
+      <tag name="package" description="formit"/>
+    </docblock>
+    <class final="false" abstract="false" line="32" namespace="default">
+      <name>fiHooks</name>
+      <extends/>
+      <full_name>\fiHooks</full_name>
+      <docblock>
+        <description>Base Hooks handling class. Hooks can be used to run scripts prior to loading the form, or after a form has been
+submitted.</description>
+        <long-description>&lt;p&gt;Hooks can be either a predefined list by FormIt, or custom MODX Snippets. They can also be chained to allow for
+order-of-execution processing. Returning false from a Hook will end the chain. Returning false in a postHook will
+prevent the form from being further submitted.&lt;/p&gt;
+</long-description>
+        <tag name="package" description="formit" line="22"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="38">
         <name>$errors</name>
         <default>array</default>
         <docblock>
           <description>A collection of all the processed errors so far.</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="array" line="28">
+          <tag name="var" description="" type="array" line="33">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="access" description="public" line="28"/>
+          <tag name="access" description="public" line="33"/>
         </docblock>
       </property>
-      <property final="false" static="false" visibility="public" line="39">
+      <property final="false" static="false" visibility="public" line="44">
         <name>$hooks</name>
         <default>array</default>
         <docblock>
           <description>A collection of all the processed hooks so far.</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="array" line="34">
+          <tag name="var" description="" type="array" line="39">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="access" description="public" line="34"/>
+          <tag name="access" description="public" line="39"/>
         </docblock>
       </property>
-      <property final="false" static="false" visibility="public" line="45">
+      <property final="false" static="false" visibility="public" line="50">
         <name>$modx</name>
         <default>null</default>
         <docblock>
           <description>A reference to the modX instance.</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="\modX" line="40">
+          <tag name="var" description="" type="\modX" line="45">
             <type by_reference="false">\modX</type>
           </tag>
-          <tag name="access" description="public" line="40"/>
+          <tag name="access" description="public" line="45"/>
         </docblock>
       </property>
-      <property final="false" static="false" visibility="public" line="51">
+      <property final="false" static="false" visibility="public" line="56">
         <name>$formit</name>
         <default>null</default>
         <docblock>
           <description>A reference to the FormIt instance.</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="\FormIt" line="46">
+          <tag name="var" description="" type="\FormIt" line="51">
             <type by_reference="false">\FormIt</type>
           </tag>
-          <tag name="access" description="public" line="46"/>
+          <tag name="access" description="public" line="51"/>
         </docblock>
       </property>
-      <property final="false" static="false" visibility="public" line="57">
+      <property final="false" static="false" visibility="public" line="62">
         <name>$redirectUrl</name>
         <default>null</default>
         <docblock>
           <description>If a hook redirects, it needs to set this var to use proper order of execution on redirects/stores</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="string" line="52">
+          <tag name="var" description="" type="string" line="57">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="access" description="public" line="52"/>
+          <tag name="access" description="public" line="57"/>
         </docblock>
       </property>
-      <property final="false" static="false" visibility="public" line="63">
+      <property final="false" static="false" visibility="public" line="68">
         <name>$fields</name>
         <default>array</default>
         <docblock>
           <description>The current stored and parsed fields for the FormIt call.</description>
           <long-description>
 </long-description>
-          <tag name="var" description="" type="array" line="59">
+          <tag name="var" description="" type="array" line="64">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" line="72">
+      <method final="false" abstract="false" static="false" visibility="public" line="77">
         <name>__construct</name>
         <docblock>
           <description>The constructor for the fiHooks class</description>
           <long-description>
 </long-description>
-          <tag name="param" description="&amp;amp;$formit A reference to the FormIt class instance." type="\FormIt" variable="$formit" line="65">
+          <tag name="param" description="&amp;amp;$formit A reference to the FormIt class instance." type="\FormIt" variable="$formit" line="70">
             <type by_reference="false">\FormIt</type>
           </tag>
-          <tag name="param" description="Optional. An array of configuration parameters." type="array" variable="$config" line="65">
+          <tag name="param" description="Optional. An array of configuration parameters." type="array" variable="$config" line="70">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="" type="\fiHooks" line="65">
+          <tag name="return" description="" type="\fiHooks" line="70">
             <type by_reference="false">\fiHooks</type>
           </tag>
         </docblock>
-        <argument line="72">
+        <argument line="77">
           <name>$formit</name>
           <default/>
           <type>FormIt</type>
         </argument>
-        <argument line="72">
+        <argument line="77">
           <name>$config</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="88">
+      <method final="false" abstract="false" static="false" visibility="public" line="100">
         <name>loadMultiple</name>
         <docblock>
           <description>Loads an array of hooks. If one fails, will not proceed.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="79"/>
-          <tag name="param" description="The hooks to run." type="array" variable="$hooks" line="79">
+          <tag name="access" description="public" line="91"/>
+          <tag name="param" description="The hooks to run." type="array" variable="$hooks" line="91">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="param" description="The fields and values of the form" type="array" variable="$fields" line="79">
+          <tag name="param" description="The fields and values of the form" type="array" variable="$fields" line="91">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="param" description="An array of extra properties to send to the hook" type="array" variable="$customProperties" line="79">
+          <tag name="param" description="An array of extra properties to send to the hook" type="array" variable="$customProperties" line="91">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="An array of field name =&amp;gt; value pairs." type="array" line="79">
+          <tag name="return" description="An array of field name =&amp;gt; value pairs." type="array" line="91">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="88">
+        <argument line="100">
           <name>$hooks</name>
           <default/>
           <type/>
         </argument>
-        <argument line="88">
+        <argument line="100">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
-        <argument line="88">
+        <argument line="100">
           <name>$customProperties</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="112">
+      <method final="false" abstract="false" static="false" visibility="public" line="124">
         <name>load</name>
         <docblock>
           <description>Load a hook. Stores any errors for the hook to $this-&gt;errors.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="103"/>
-          <tag name="param" description="The name of the hook. May be a Snippet name." type="string" variable="$hook" line="103">
+          <tag name="access" description="public" line="115"/>
+          <tag name="param" description="The name of the hook. May be a Snippet name." type="string" variable="$hook" line="115">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The fields and values of the form." type="array" variable="$fields" line="103">
+          <tag name="param" description="The fields and values of the form." type="array" variable="$fields" line="115">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="param" description="Any other custom properties to load into a custom hook." type="array" variable="$customProperties" line="103">
+          <tag name="param" description="Any other custom properties to load into a custom hook." type="array" variable="$customProperties" line="115">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="True if hook was successful." type="boolean" line="103">
+          <tag name="return" description="True if hook was successful." type="boolean" line="115">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="112">
+        <argument line="124">
           <name>$hook</name>
           <default/>
           <type/>
         </argument>
-        <argument line="112">
+        <argument line="124">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
-        <argument line="112">
+        <argument line="124">
           <name>$customProperties</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="154">
+      <method final="false" abstract="false" static="false" visibility="public" line="166">
         <name>getErrorMessage</name>
         <docblock>
           <description>Gets the error messages compiled into a single string.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="147"/>
-          <tag name="param" description="The delimiter between each message." type="string" variable="$delim" line="147">
+          <tag name="access" description="public" line="159"/>
+          <tag name="param" description="The delimiter between each message." type="string" variable="$delim" line="159">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="The concatenated error message" type="string" line="147">
+          <tag name="return" description="The concatenated error message" type="string" line="159">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="154">
+        <argument line="166">
           <name>$delim</name>
           <default>\n</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="166">
+      <method final="false" abstract="false" static="false" visibility="public" line="178">
         <name>addError</name>
         <docblock>
           <description>Adds an error to the stack.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="private" line="158"/>
-          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="158">
+          <tag name="access" description="private" line="170"/>
+          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="170">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The error message." type="string" variable="$value" line="158">
+          <tag name="param" description="The error message." type="string" variable="$value" line="170">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="The added error message with the error wrapper." type="string" line="158">
+          <tag name="return" description="The added error message with the error wrapper." type="string" line="170">
             <type by_reference="false">string</type>
-          </tag>
-        </docblock>
-        <argument line="166">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="166">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="178">
-        <name>setValue</name>
-        <docblock>
-          <description>Sets the value of a field.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The field name to set." type="string" variable="$key" line="171">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value to set to the field." type="mixed" variable="$value" line="171">
-            <type by_reference="false">mixed</type>
-          </tag>
-          <tag name="return" description="The set value." type="mixed" line="171">
-            <type by_reference="false">mixed</type>
           </tag>
         </docblock>
         <argument line="178">
@@ -282,72 +487,121 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" line="188">
+        <name>hasErrors</name>
+        <docblock>
+          <description>See if there are any errors in the stack.</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="boolean" line="183">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="197">
+        <name>getErrors</name>
+        <docblock>
+          <description>Get all errors for this current request</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="192">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="208">
+        <name>setValue</name>
+        <docblock>
+          <description>Sets the value of a field.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The field name to set." type="string" variable="$key" line="201">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value to set to the field." type="mixed" variable="$value" line="201">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag name="return" description="The set value." type="mixed" line="201">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="208">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="208">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="218">
         <name>setValues</name>
         <docblock>
           <description>Sets an associative array of field name and values.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="A key/name pair of fields and values to set." type="array" variable="$values" line="183">
+          <tag name="param" description="A key/name pair of fields and values to set." type="array" variable="$values" line="213">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="188">
+        <argument line="218">
           <name>$values</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="200">
+      <method final="false" abstract="false" static="false" visibility="public" line="230">
         <name>getValue</name>
         <docblock>
           <description>Gets the value of a field.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The field name to get." type="string" variable="$key" line="194">
+          <tag name="param" description="The field name to get." type="string" variable="$key" line="224">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="The value of the key, or null if non-existent." type="mixed" line="194">
+          <tag name="return" description="The value of the key, or null if non-existent." type="mixed" line="224">
             <type by_reference="false">mixed</type>
           </tag>
         </docblock>
-        <argument line="200">
+        <argument line="230">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="212">
+      <method final="false" abstract="false" static="false" visibility="public" line="242">
         <name>getValues</name>
         <docblock>
           <description>Gets an associative array of field name and values.</description>
           <long-description>
 </long-description>
-          <tag name="return" description="$values A key/name pair of fields and values." type="array" line="207">
+          <tag name="return" description="$values A key/name pair of fields and values." type="array" line="237">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="225">
+      <method final="false" abstract="false" static="false" visibility="public" line="255">
         <name>redirect</name>
         <docblock>
           <description>Redirect to a specified URL.</description>
           <long-description>&lt;p&gt;Properties needed:
 - redirectTo - the ID of the Resource to redirect to.&lt;/p&gt;
 </long-description>
-          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="216">
+          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="246">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="False if unsuccessful." type="boolean" line="216">
+          <tag name="return" description="False if unsuccessful." type="boolean" line="246">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="225">
+        <argument line="255">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="263">
+      <method final="false" abstract="false" static="false" visibility="public" line="293">
         <name>email</name>
         <docblock>
           <description>Send an email of the form.</description>
@@ -362,127 +616,161 @@ field or the emailsender setting.
 - emailSubject - The subject of the email.
 - emailHtml - Boolean, if true, email will be in HTML mode.&lt;/p&gt;
 </long-description>
-          <tag name="access" description="public" line="245"/>
-          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="245">
+          <tag name="access" description="public" line="275"/>
+          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="275">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="True if email was successfully sent." type="boolean" line="245">
+          <tag name="return" description="True if email was successfully sent." type="boolean" line="275">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="263">
+        <argument line="293">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="444">
+      <method final="false" abstract="false" static="false" visibility="public" line="474">
         <name>_process</name>
         <docblock>
           <description>Processes string and sets placeholders</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The string to process" type="string" variable="$str" line="437">
+          <tag name="param" description="The string to process" type="string" variable="$str" line="467">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="An array of placeholders to replace with values" type="array" variable="$placeholders" line="437">
+          <tag name="param" description="An array of placeholders to replace with values" type="array" variable="$placeholders" line="467">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="The parsed string" type="string" line="437">
+          <tag name="return" description="The parsed string" type="string" line="467">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="444">
+        <argument line="474">
           <name>$str</name>
           <default/>
           <type/>
         </argument>
-        <argument line="444">
+        <argument line="474">
           <name>$placeholders</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="461">
+      <method final="false" abstract="false" static="false" visibility="public" line="491">
         <name>spam</name>
         <docblock>
           <description>Ensure the a field passes a spam filter.</description>
           <long-description>&lt;p&gt;Properties:
 - spamEmailFields - The email fields to check. A comma-delimited list.&lt;/p&gt;
 </long-description>
-          <tag name="access" description="public" line="451"/>
-          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="451">
+          <tag name="access" description="public" line="481"/>
+          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="481">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="True if email was successfully sent." type="boolean" line="451">
+          <tag name="return" description="True if email was successfully sent." type="boolean" line="481">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="461">
+        <argument line="491">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="492">
+      <method final="false" abstract="false" static="false" visibility="public" line="522">
         <name>recaptcha</name>
         <docblock>
           <description>Adds in reCaptcha support to FormIt</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="485"/>
-          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="485">
+          <tag name="access" description="public" line="515"/>
+          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="515">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="True if email was successfully sent." type="boolean" line="485">
+          <tag name="return" description="True if email was successfully sent." type="boolean" line="515">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="492">
+        <argument line="522">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="514">
+      <method final="false" abstract="false" static="false" visibility="public" line="544">
         <name>setRedirectUrl</name>
         <docblock>
           <description>Set a URL to redirect to after all hooks run successfully.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The URL to redirect to after all hooks execute" type="string" variable="$url" line="509">
+          <tag name="param" description="The URL to redirect to after all hooks execute" type="string" variable="$url" line="539">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="514">
+        <argument line="544">
           <name>$url</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="525">
+      <method final="false" abstract="false" static="false" visibility="public" line="553">
+        <name>getRedirectUrl</name>
+        <docblock>
+          <description>Get the specified redirection url</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="null|string" line="548">
+            <type by_reference="false">null</type>
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="564">
         <name>math</name>
         <docblock>
           <description>Math field hook for anti-spam math input field.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="518"/>
-          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="518">
+          <tag name="access" description="public" line="557"/>
+          <tag name="param" description="An array of cleaned POST fields" type="array" variable="$fields" line="557">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="True if email was successfully sent." type="boolean" line="518">
+          <tag name="return" description="True if email was successfully sent." type="boolean" line="557">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="525">
+        <argument line="564">
           <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="596">
+        <name>processErrors</name>
+        <docblock>
+          <description>Process any errors returned by the hooks and set them to placeholders</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="void" line="592">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="614">
+        <name>gatherFields</name>
+        <docblock>
+          <description>Gather fields and set them into placeholders for pre-fetching</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="610">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
     </class>
   </file>
-  <file path="fivalidator.class.php" hash="fa0771b1db800383d466549c823912fe">
+  <file path="firequest.class.php" hash="997ff2e9e04073d49d1da286fe601aa1">
     <docblock>
       <description>FormIt</description>
       <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
@@ -503,790 +791,318 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
       <tag name="package" description="formit"/>
     </docblock>
     <class final="false" abstract="false" line="27" namespace="default">
-      <name>fiValidator</name>
+      <name>fiRequest</name>
       <extends/>
-      <full_name>\fiValidator</full_name>
+      <full_name>\fiRequest</full_name>
       <docblock>
-        <description>Handles custom validaton</description>
+        <description>Handles all POST requests for FormIt and abstracts postHook and validation processing.</description>
         <long-description>
 </long-description>
         <tag name="package" description="formit" line="22"/>
       </docblock>
       <property final="false" static="false" visibility="public" line="32">
-        <name>$errors</name>
-        <default>array</default>
+        <name>$formit</name>
+        <default/>
         <docblock>
-          <description/>
+          <description>A reference to the FormIt instance</description>
           <long-description>
 </long-description>
-          <tag name="var" description="A collection of all the processed errors so far." type="array" line="28">
-            <type by_reference="false">array</type>
+          <tag name="var" description="" type="\FormIt" line="28">
+            <type by_reference="false">\FormIt</type>
           </tag>
-          <tag name="access" description="public" line="28"/>
         </docblock>
       </property>
       <property final="false" static="false" visibility="public" line="37">
-        <name>$errorsRaw</name>
-        <default>array</default>
+        <name>$modx</name>
+        <default/>
         <docblock>
-          <description/>
+          <description>A reference to the modX instance</description>
           <long-description>
 </long-description>
-          <tag name="var" description="A collection of all the non-processed errors so far." type="array" line="33">
-            <type by_reference="false">array</type>
+          <tag name="var" description="" type="\modX" line="33">
+            <type by_reference="false">\modX</type>
           </tag>
-          <tag name="access" description="public" line="33"/>
         </docblock>
       </property>
       <property final="false" static="false" visibility="public" line="42">
-        <name>$fields</name>
+        <name>$config</name>
         <default>array</default>
         <docblock>
-          <description/>
+          <description>An array of configuration properties</description>
           <long-description>
 </long-description>
-          <tag name="var" description="A collection of all the validated fields so far." type="array" line="38">
+          <tag name="var" description="" type="array" line="38">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="access" description="public" line="38"/>
         </docblock>
       </property>
       <property final="false" static="false" visibility="public" line="47">
-        <name>$modx</name>
-        <default>null</default>
+        <name>$clearFieldsAtEnd</name>
+        <default>false</default>
+        <docblock>
+          <description>Set to true if wanting to prevent the clearing of fields at the end</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="boolean" line="43">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="51">
+        <name>$validator</name>
+        <default/>
         <docblock>
           <description/>
           <long-description>
 </long-description>
-          <tag name="var" description="A reference to the modX instance." type="\modX" line="43">
-            <type by_reference="false">\modX</type>
-          </tag>
-          <tag name="access" description="public" line="43"/>
-        </docblock>
-      </property>
-      <property final="false" static="false" visibility="public" line="52">
-        <name>$formit</name>
-        <default>null</default>
-        <docblock>
-          <description/>
-          <long-description>
-</long-description>
-          <tag name="var" description="A reference to the FormIt instance." type="\FormIt" line="48">
-            <type by_reference="false">\FormIt</type>
-          </tag>
-          <tag name="access" description="public" line="48"/>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" line="61">
-        <name>__construct</name>
-        <docblock>
-          <description>The constructor for the fiValidator class</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="&amp;amp;$formit A reference to the FormIt class instance." type="\FormIt" variable="$formit" line="54">
-            <type by_reference="false">\FormIt</type>
-          </tag>
-          <tag name="param" description="Optional. An array of configuration parameters." type="array" variable="$config" line="54">
-            <type by_reference="false">array</type>
-          </tag>
-          <tag name="return" description="" type="\fiValidator" line="54">
+          <tag name="var" description="" type="\fiValidator" line="48">
             <type by_reference="false">\fiValidator</type>
           </tag>
         </docblock>
-        <argument line="61">
+      </property>
+      <property final="false" static="false" visibility="public" line="55">
+        <name>$dictionary</name>
+        <default/>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\fiDictionary" line="52">
+            <type by_reference="false">\fiDictionary</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="59">
+        <name>$reCaptcha</name>
+        <default/>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\FormItReCaptcha" line="56">
+            <type by_reference="false">\FormItReCaptcha</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" line="66">
+        <name>__construct</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="param" description="&amp;amp;$formit A reference to the FormIt class instance." type="\FormIt" variable="$formit" line="61">
+            <type by_reference="false">\FormIt</type>
+          </tag>
+          <tag name="param" description="Optional. An array of configuration parameters." type="array" variable="$config" line="61">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="\fiRequest" line="61">
+            <type by_reference="false">\fiRequest</type>
+          </tag>
+        </docblock>
+        <argument line="66">
           <name>$formit</name>
           <default/>
           <type>FormIt</type>
         </argument>
-        <argument line="61">
+        <argument line="66">
           <name>$config</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" line="84">
-        <name>validateFields</name>
+        <name>prepare</name>
         <docblock>
-          <description>Validates an array of fields. Returns the field names and values, with
-the field names stripped of their validators.</description>
-          <long-description>&lt;p&gt;The key names can be in this format:&lt;/p&gt;
-
-&lt;p&gt;name:validator=param:anotherValidator:oneMoreValidator=&lt;code&gt;param&lt;/code&gt;&lt;/p&gt;
+          <description>Handle all pre-request data, including loading of preHooks, reCaptcha preparation, and the math hook.</description>
+          <long-description>
 </long-description>
-          <tag name="access" description="public" line="71"/>
-          <tag name="param" description="The fields to validate." type="array" variable="$keys" line="71">
-            <type by_reference="false">array</type>
-          </tag>
-          <tag name="param" description="" type="string" variable="$validationFields" line="71">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="An array of field name =&amp;gt; value pairs." type="array" line="71">
+          <tag name="return" description="An array of pre-fetched fields and their data, possibly set by preHooks" type="array" line="80">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="84">
-          <name>$keys</name>
-          <default>array</default>
-          <type>array</type>
-        </argument>
-        <argument line="84">
-          <name>$validationFields</name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="124">
+        <name>runPreHooks</name>
+        <docblock>
+          <description>Load and run preHooks, setting any fields passed.</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="120">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="149">
+        <name>hasHook</name>
+        <docblock>
+          <description>Check to see if a hook has been passed</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$hook" line="144">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="144">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="149">
+          <name>$hook</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" line="137">
-        <name>_validate</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="157">
+        <name>hasSubmission</name>
         <docblock>
-          <description>Helper method for validating fields</description>
+          <description>Checks to see if a POST submission for this form has occurred</description>
           <long-description>
 </long-description>
-          <tag name="param" description="" type="string" variable="$k" line="130">
-            <type by_reference="false">string</type>
+          <tag name="return" description="" type="boolean" line="153">
+            <type by_reference="false">boolean</type>
           </tag>
-          <tag name="param" description="" type="string" variable="$v" line="130">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="" type="array" variable="$fieldValidators" line="130">
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="174">
+        <name>loadReCaptcha</name>
+        <docblock>
+          <description>Load the reCaptcha service class</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="An array of configuration parameters for the reCaptcha class" type="array" variable="$config" line="168">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="" type="void" line="130">
+          <tag name="return" description="An instance of the reCaptcha class" type="\reCaptcha" line="168">
+            <type by_reference="false">\reCaptcha</type>
+          </tag>
+        </docblock>
+        <argument line="174">
+          <name>$config</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="192">
+        <name>handle</name>
+        <docblock>
+          <description>Handle the POST request</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="array" variable="$fields" line="186">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="string|void" line="186">
+            <type by_reference="false">string</type>
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="137">
-          <name>$k</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="137">
-          <name>$v</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="137">
-          <name>$fieldValidators</name>
+        <argument line="192">
+          <name>$fields</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="187">
+      <method final="false" abstract="false" static="false" visibility="public" line="217">
+        <name>loadValidator</name>
+        <docblock>
+          <description>Loads the Validator class.</description>
+          <long-description>
+</long-description>
+          <tag name="access" description="public" line="211"/>
+          <tag name="return" description="An instance of the fiValidator class." type="\fiValidator" line="211">
+            <type by_reference="false">\fiValidator</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="230">
+        <name>loadDictionary</name>
+        <docblock>
+          <description>Load the dictionary storage mechanism</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="null|\fiDictionary" line="226">
+            <type by_reference="false">null</type>
+            <type by_reference="false">\fiDictionary</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="246">
         <name>validate</name>
         <docblock>
-          <description>Validates a field based on a custom rule, if specified</description>
+          <description>Validate all fields prior to post processing</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="176"/>
-          <tag name="param" description="The key of the field" type="string" variable="$key" line="176">
+          <tag name="param" description="" type="string" variable="$validationString" line="240">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="mixed" variable="$value" line="176">
-            <type by_reference="false">mixed</type>
-          </tag>
-          <tag name="param" description="Optional. The type of the validator to apply. Can either be a method name of fiValidator or a Snippet name." type="string" variable="$type" line="176">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="True if validation was successful. If not, will store error messages to $this-&amp;gt;errors." type="boolean" line="176">
-            <type by_reference="false">boolean</type>
+          <tag name="return" description="" type="bool" line="240">
+            <type by_reference="false">bool</type>
           </tag>
         </docblock>
-        <argument line="187">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="187">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="187">
-          <name>$type</name>
+        <argument line="246">
+          <name>$validationString</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="250">
-        <name>addError</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="261">
+        <name>postProcess</name>
         <docblock>
-          <description>Adds an error to the stack.</description>
+          <description>Handle post-processing through postHooks</description>
           <long-description>
 </long-description>
-          <tag name="access" description="private" line="242"/>
-          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="242">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The error message." type="string" variable="$value" line="242">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="The added error message with the error wrapper." type="string" line="242">
-            <type by_reference="false">string</type>
+          <tag name="return" description="" type="bool" line="257">
+            <type by_reference="false">bool</type>
           </tag>
         </docblock>
-        <argument line="250">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="250">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="266">
-        <name>required</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="290">
+        <name>runPostHooks</name>
         <docblock>
-          <description>Checks to see if field is required.</description>
+          <description>Run any postHooks that were specified.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="260">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="260">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="260">
+          <tag name="return" description="True if all hooks executed successfully." type="boolean" line="285">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="266">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="266">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="282">
-        <name>blank</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="311">
+        <name>checkForRedirect</name>
         <docblock>
-          <description>Checks to see if field is blank.</description>
+          <description>Check to see if the redirect URL was set; if so, redirect</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="276">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="276">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="276">
-            <type by_reference="false">boolean</type>
+          <tag name="return" description="" type="void" line="307">
+            <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="282">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="282">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="293">
-        <name>password_confirm</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="322">
+        <name>setSuccessMessage</name>
         <docblock>
-          <description>Checks to see if passwords match.</description>
+          <description>Sets the success message placeholders</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="286">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="286">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The parameter passed into the validator that contains the field to check the password against" type="string" variable="$param" line="286">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="286">
-            <type by_reference="false">boolean</type>
+          <tag name="return" description="" type="void" line="318">
+            <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="293">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="293">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="293">
-          <name>$param</name>
-          <default>password_confirm</default>
-          <type/>
-        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="307">
-        <name>email</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="336">
+        <name>setFieldsAsPlaceholders</name>
         <docblock>
-          <description>Checks to see if field value is an actual email address.</description>
+          <description>Sets the fields to MODX placeholders</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="301">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="301">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="301">
-            <type by_reference="false">boolean</type>
+          <tag name="return" description="" type="void" line="332">
+            <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="307">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="307">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="353">
-        <name>minLength</name>
-        <docblock>
-          <description>Checks to see if field value is shorter than $param.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="346">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="346">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The minimum length the field can be" type="int" variable="$param" line="346">
-            <type by_reference="false">int</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="346">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="353">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="353">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="353">
-          <name>$param</name>
-          <default>0</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="368">
-        <name>maxLength</name>
-        <docblock>
-          <description>Checks to see if field value is longer than $param.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="361">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="361">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The maximum length the field can be" type="int" variable="$param" line="361">
-            <type by_reference="false">int</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="361">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="368">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="368">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="368">
-          <name>$param</name>
-          <default>999</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="383">
-        <name>minValue</name>
-        <docblock>
-          <description>Checks to see if field value is less than $param.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="376">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="376">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The minimum value the field can be" type="int" variable="$param" line="376">
-            <type by_reference="false">int</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="376">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="383">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="383">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="383">
-          <name>$param</name>
-          <default>0</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="397">
-        <name>maxValue</name>
-        <docblock>
-          <description>Checks to see if field value is greater than $param.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="390">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="390">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The maximum value the field can be" type="int" variable="$param" line="390">
-            <type by_reference="false">int</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="390">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="397">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="397">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="397">
-          <name>$param</name>
-          <default>0</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="411">
-        <name>contains</name>
-        <docblock>
-          <description>See if field contains a certain value.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="404">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="404">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The regular expression to check against the field" type="string" variable="$expr" line="404">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="404">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="411">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="411">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="411">
-          <name>$expr</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="425">
-        <name>strip</name>
-        <docblock>
-          <description>Strip a string from the value.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="418">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="418">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value to strip from the field" type="string" variable="$param" line="418">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="418">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="425">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="425">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="425">
-          <name>$param</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="437">
-        <name>stripTags</name>
-        <docblock>
-          <description>Strip all tags in the field. The parameter can be a string of allowed
-tags.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="429">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="429">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value" type="string" variable="$allowedTags" line="429">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="429">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="437">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="437">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="437">
-          <name>$allowedTags</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="450">
-        <name>allowTags</name>
-        <docblock>
-          <description>Strip all tags in the field. The parameter can be a string of allowed
-tags.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="442">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="442">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value. Leave blank to allow all." type="string" variable="$allowedTags" line="442">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="442">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="450">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="450">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="450">
-          <name>$allowedTags</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="463">
-        <name>range</name>
-        <docblock>
-          <description>Validates value between a range, specified by min-max.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="456">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="456">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The range the value should reside in" type="string" variable="$ranges" line="456">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="456">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="463">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="463">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="463">
-          <name>$ranges</name>
-          <default>0-1</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="485">
-        <name>isNumber</name>
-        <docblock>
-          <description>Checks to see if the field is a number.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="479">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="479">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="479">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="485">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="485">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="500">
-        <name>isDate</name>
-        <docblock>
-          <description>Checks to see if the field is a valid date. Allows for date formatting as
-well.</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="492">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="492">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The format of the date" type="string" variable="$format" line="492">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="492">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="500">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="500">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="500">
-          <name>$format</name>
-          <default>%m/%d/%Y</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="517">
-        <name>islowercase</name>
-        <docblock>
-          <description>Checks to see if a string is all lowercase</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="511">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="511">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="511">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="517">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="517">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="528">
-        <name>isuppercase</name>
-        <docblock>
-          <description>Checks to see if a string is all uppercase</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="522">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="522">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag name="return" description="" type="boolean" line="522">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-        <argument line="528">
-          <name>$key</name>
-          <default/>
-          <type/>
-        </argument>
-        <argument line="528">
-          <name>$value</name>
-          <default/>
-          <type/>
-        </argument>
       </method>
     </class>
   </file>
-  <file path="formit.class.php" hash="7369dc743bb4f6d55971dc56a7f9bd7f">
+  <file path="fivalidator.class.php" hash="a88c62e4cde9fe4e7d6ac8e9ec40e7f3">
     <docblock>
       <description>FormIt</description>
       <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
@@ -1306,214 +1122,1083 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
 </long-description>
       <tag name="package" description="formit"/>
     </docblock>
-    <class final="false" abstract="false" line="25" namespace="default">
-      <name>FormIt</name>
+    <class final="false" abstract="false" line="30" namespace="default">
+      <name>fiValidator</name>
       <extends/>
-      <full_name>\FormIt</full_name>
+      <full_name>\fiValidator</full_name>
       <docblock>
-        <description/>
-        <long-description>
+        <description>Handles custom validation on fields. Allows for specific, defined validators by FormIt, or custom Validators
+that are MODX Snippets.</description>
+        <long-description>&lt;p&gt;Validation can be chained to do proper order-of-execution for field value checking.&lt;/p&gt;
 </long-description>
         <tag name="package" description="formit" line="22"/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="30">
-        <name>$debugTimer</name>
-        <default>0</default>
+      <property final="false" static="false" visibility="public" line="35">
+        <name>$errors</name>
+        <default>array</default>
         <docblock>
           <description/>
           <long-description>
 </long-description>
-          <tag name="var" description="In debug mode, will monitor execution time." type="int" line="26">
-            <type by_reference="false">int</type>
-          </tag>
-          <tag name="access" description="public" line="26"/>
-        </docblock>
-      </property>
-      <property final="false" static="false" visibility="private" line="34">
-        <name>$_initialized</name>
-        <default>false</default>
-        <docblock>
-          <description/>
-          <long-description>
-</long-description>
-          <tag name="var" description="True if the class has been initialized or not." type="boolean" line="31">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" line="42">
-        <name>__construct</name>
-        <docblock>
-          <description>FormIt constructor</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="&amp;amp;$modx A reference to the modX instance." type="\modX" variable="$modx" line="36">
-            <type by_reference="false">\modX</type>
-          </tag>
-          <tag name="param" description="An array of configuration options. Optional." type="array" variable="$config" line="36">
+          <tag name="var" description="A collection of all the processed errors so far." type="array" line="31">
             <type by_reference="false">array</type>
           </tag>
+          <tag name="access" description="public" line="31"/>
         </docblock>
-        <argument line="42">
-          <name>$modx</name>
+      </property>
+      <property final="false" static="false" visibility="public" line="40">
+        <name>$errorsRaw</name>
+        <default>array</default>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="A collection of all the non-processed errors so far." type="array" line="36">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="access" description="public" line="36"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="45">
+        <name>$fields</name>
+        <default>array</default>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="A collection of all the validated fields so far." type="array" line="41">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="access" description="public" line="41"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="50">
+        <name>$modx</name>
+        <default>null</default>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="A reference to the modX instance." type="\modX" line="46">
+            <type by_reference="false">\modX</type>
+          </tag>
+          <tag name="access" description="public" line="46"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="55">
+        <name>$formit</name>
+        <default>null</default>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="var" description="A reference to the FormIt instance." type="\FormIt" line="51">
+            <type by_reference="false">\FormIt</type>
+          </tag>
+          <tag name="access" description="public" line="51"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" line="64">
+        <name>__construct</name>
+        <docblock>
+          <description>The constructor for the fiValidator class</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="&amp;amp;$formit A reference to the FormIt class instance." type="\FormIt" variable="$formit" line="57">
+            <type by_reference="false">\FormIt</type>
+          </tag>
+          <tag name="param" description="Optional. An array of configuration parameters." type="array" variable="$config" line="57">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="\fiValidator" line="57">
+            <type by_reference="false">\fiValidator</type>
+          </tag>
+        </docblock>
+        <argument line="64">
+          <name>$formit</name>
           <default/>
-          <type>modX</type>
+          <type>FormIt</type>
         </argument>
-        <argument line="42">
+        <argument line="64">
           <name>$config</name>
           <default>array</default>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="85">
+      <method final="false" abstract="false" static="false" visibility="public" line="91">
+        <name>validateFields</name>
+        <docblock>
+          <description>Validates an array of fields. Returns the field names and values, with
+the field names stripped of their validators.</description>
+          <long-description>&lt;p&gt;The key names can be in this format:&lt;/p&gt;
+
+&lt;p&gt;name:validator=param:anotherValidator:oneMoreValidator=&lt;code&gt;param&lt;/code&gt;&lt;/p&gt;
+</long-description>
+          <tag name="access" description="public" line="78"/>
+          <tag name="param" description="" type="\fiDictionary" variable="$dictionary" line="78">
+            <type by_reference="false">\fiDictionary</type>
+          </tag>
+          <tag name="param" description="" type="string" variable="$validationFields" line="78">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="An array of field name =&amp;gt; value pairs." type="array" line="78">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="91">
+          <name>$dictionary</name>
+          <default/>
+          <type>fiDictionary</type>
+        </argument>
+        <argument line="91">
+          <name>$validationFields</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" line="151">
+        <name>_validate</name>
+        <docblock>
+          <description>Helper method for validating fields</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$k" line="144">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="string" variable="$v" line="144">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="array" variable="$fieldValidators" line="144">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="void" line="144">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="151">
+          <name>$k</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="151">
+          <name>$v</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="151">
+          <name>$fieldValidators</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="201">
+        <name>validate</name>
+        <docblock>
+          <description>Validates a field based on a custom rule, if specified</description>
+          <long-description>
+</long-description>
+          <tag name="access" description="public" line="190"/>
+          <tag name="param" description="The key of the field" type="string" variable="$key" line="190">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="mixed" variable="$value" line="190">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag name="param" description="Optional. The type of the validator to apply. Can either be a method name of fiValidator or a Snippet name." type="string" variable="$type" line="190">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="True if validation was successful. If not, will store error messages to $this-&amp;gt;errors." type="boolean" line="190">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="201">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="201">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="201">
+          <name>$type</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="269">
+        <name>addError</name>
+        <docblock>
+          <description>Adds an error to the stack.</description>
+          <long-description>
+</long-description>
+          <tag name="access" description="private" line="261"/>
+          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="261">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The error message." type="string" variable="$value" line="261">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="The added error message with the error wrapper." type="string" line="261">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="269">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="269">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="284">
+        <name>hasErrors</name>
+        <docblock>
+          <description>Check to see if there are any validator errors in the stack</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="boolean" line="279">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="293">
+        <name>getErrors</name>
+        <docblock>
+          <description>Get all errors in the stack</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="288">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="301">
+        <name>getRawErrors</name>
+        <docblock>
+          <description>Get all raw errors in the stack (errors without the wrapper)</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="array" line="297">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="311">
+        <name>required</name>
+        <docblock>
+          <description>Checks to see if field is required.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="305">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="305">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="305">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="311">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="311">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="327">
+        <name>blank</name>
+        <docblock>
+          <description>Checks to see if field is blank.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="321">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="321">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="321">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="327">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="327">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="338">
+        <name>password_confirm</name>
+        <docblock>
+          <description>Checks to see if passwords match.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="331">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="331">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The parameter passed into the validator that contains the field to check the password against" type="string" variable="$param" line="331">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="331">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="338">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="338">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="338">
+          <name>$param</name>
+          <default>password_confirm</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="352">
+        <name>email</name>
+        <docblock>
+          <description>Checks to see if field value is an actual email address.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="346">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="346">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="346">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="352">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="352">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="398">
+        <name>minLength</name>
+        <docblock>
+          <description>Checks to see if field value is shorter than $param.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="391">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="391">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The minimum length the field can be" type="int" variable="$param" line="391">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="391">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="398">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="398">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="398">
+          <name>$param</name>
+          <default>0</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="413">
+        <name>maxLength</name>
+        <docblock>
+          <description>Checks to see if field value is longer than $param.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="406">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="406">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The maximum length the field can be" type="int" variable="$param" line="406">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="406">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="413">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="413">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="413">
+          <name>$param</name>
+          <default>999</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="428">
+        <name>minValue</name>
+        <docblock>
+          <description>Checks to see if field value is less than $param.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="421">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="421">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The minimum value the field can be" type="int" variable="$param" line="421">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="421">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="428">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="428">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="428">
+          <name>$param</name>
+          <default>0</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="442">
+        <name>maxValue</name>
+        <docblock>
+          <description>Checks to see if field value is greater than $param.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="435">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="435">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The maximum value the field can be" type="int" variable="$param" line="435">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="435">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="442">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="442">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="442">
+          <name>$param</name>
+          <default>0</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="456">
+        <name>contains</name>
+        <docblock>
+          <description>See if field contains a certain value.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="449">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="449">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The regular expression to check against the field" type="string" variable="$expr" line="449">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="449">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="456">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="456">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="456">
+          <name>$expr</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="470">
+        <name>strip</name>
+        <docblock>
+          <description>Strip a string from the value.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="463">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="463">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value to strip from the field" type="string" variable="$param" line="463">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="463">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="470">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="470">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="470">
+          <name>$param</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="482">
+        <name>stripTags</name>
+        <docblock>
+          <description>Strip all tags in the field. The parameter can be a string of allowed
+tags.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="474">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="474">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value" type="string" variable="$allowedTags" line="474">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="474">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="482">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="482">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="482">
+          <name>$allowedTags</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="495">
+        <name>allowTags</name>
+        <docblock>
+          <description>Strip all tags in the field. The parameter can be a string of allowed
+tags.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="487">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="487">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value. Leave blank to allow all." type="string" variable="$allowedTags" line="487">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="487">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="495">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="495">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="495">
+          <name>$allowedTags</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="508">
+        <name>range</name>
+        <docblock>
+          <description>Validates value between a range, specified by min-max.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="501">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="501">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The range the value should reside in" type="string" variable="$ranges" line="501">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="501">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="508">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="508">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="508">
+          <name>$ranges</name>
+          <default>0-1</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="530">
+        <name>isNumber</name>
+        <docblock>
+          <description>Checks to see if the field is a number.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="524">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="524">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="524">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="530">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="530">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="545">
+        <name>isDate</name>
+        <docblock>
+          <description>Checks to see if the field is a valid date. Allows for date formatting as
+well.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="537">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="537">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The format of the date" type="string" variable="$format" line="537">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="537">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="545">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="545">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="545">
+          <name>$format</name>
+          <default>%m/%d/%Y</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="562">
+        <name>islowercase</name>
+        <docblock>
+          <description>Checks to see if a string is all lowercase</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="556">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="556">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="556">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="562">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="562">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="573">
+        <name>isuppercase</name>
+        <docblock>
+          <description>Checks to see if a string is all uppercase</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="567">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="567">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="567">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="573">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="573">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="582">
+        <name>processErrors</name>
+        <docblock>
+          <description>Process the errors that have occurred and setup the appropriate placeholders</description>
+          <long-description>
+</long-description>
+          <tag name="return" description="" type="void" line="578">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="formit.class.php" hash="97367783ab8f31883f155d10c0014fa2">
+    <docblock>
+      <description>FormIt</description>
+      <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.&lt;/p&gt;
+
+&lt;p&gt;FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.&lt;/p&gt;
+
+&lt;p&gt;You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
+</long-description>
+      <tag name="package" description="formit"/>
+    </docblock>
+    <class final="false" abstract="false" line="27" namespace="default">
+      <name>FormIt</name>
+      <extends/>
+      <full_name>\FormIt</full_name>
+      <docblock>
+        <description>Base class for FormIt. Used for initializing the form processing engine, handling templating and running snippets.</description>
+        <long-description>
+</long-description>
+        <tag name="package" description="formit" line="22"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="33">
+        <name>$debugTimer</name>
+        <default>0</default>
+        <docblock>
+          <description>In debug mode, will monitor execution time.</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="int" line="28">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag name="access" description="public" line="28"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="38">
+        <name>$_initialized</name>
+        <default>false</default>
+        <docblock>
+          <description>True if the class has been initialized or not.</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="boolean" line="34">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="43">
+        <name>$preHooks</name>
+        <default/>
+        <docblock>
+          <description>The fiHooks instance for processing preHooks</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\fiHooks" line="39">
+            <type by_reference="false">\fiHooks</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="48">
+        <name>$postHooks</name>
+        <default/>
+        <docblock>
+          <description>The fiHooks instance for processing postHooks</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\fiHooks" line="44">
+            <type by_reference="false">\fiHooks</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="53">
+        <name>$request</name>
+        <default/>
+        <docblock>
+          <description>The request handling class</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="\fiRequest" line="49">
+            <type by_reference="false">\fiRequest</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="58">
+        <name>$chunks</name>
+        <default/>
+        <docblock>
+          <description>An array of cached chunk tpls for processing</description>
+          <long-description>
+</long-description>
+          <tag name="var" description="" type="array" line="54">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" line="66">
+        <name>__construct</name>
+        <docblock>
+          <description>FormIt constructor</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="&amp;amp;$modx A reference to the modX instance." type="\modX" variable="$modx" line="60">
+            <type by_reference="false">\modX</type>
+          </tag>
+          <tag name="param" description="An array of configuration options. Optional." type="array" variable="$config" line="60">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="66">
+          <name>$modx</name>
+          <default/>
+          <type>modX</type>
+        </argument>
+        <argument line="66">
+          <name>$config</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="109">
         <name>initialize</name>
         <docblock>
           <description>Initialize the component into a context and provide context-specific
 handling actions.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="77"/>
-          <tag name="param" description="The context to initialize FormIt into" type="string" variable="$context" line="77">
+          <tag name="access" description="public" line="101"/>
+          <tag name="param" description="The context to initialize FormIt into" type="string" variable="$context" line="101">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="mixed" line="77">
+          <tag name="return" description="" type="mixed" line="101">
             <type by_reference="false">mixed</type>
           </tag>
         </docblock>
-        <argument line="85">
+        <argument line="109">
           <name>$context</name>
           <default>web</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="106">
-        <name>loadValidator</name>
+      <method final="false" abstract="false" static="false" visibility="public" line="126">
+        <name>loadRequest</name>
         <docblock>
-          <description>Loads the Validator class.</description>
+          <description>Load the fiRequest class</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="98"/>
-          <tag name="param" description="array An array of configuration parameters for the validator class" type="\$config" variable="$config" line="98">
-            <type by_reference="false">\$config</type>
-          </tag>
-          <tag name="return" description="An instance of the fiValidator class." type="\fiValidator" line="98">
-            <type by_reference="false">\fiValidator</type>
+          <tag name="return" description="" type="\fiRequest" line="122">
+            <type by_reference="false">\fiRequest</type>
           </tag>
         </docblock>
-        <argument line="106">
-          <name>$config</name>
-          <default>array</default>
-          <type/>
-        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="125">
+      <method final="false" abstract="false" static="false" visibility="public" line="148">
         <name>loadHooks</name>
         <docblock>
           <description>Loads the Hooks class.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="public" line="116"/>
-          <tag name="param" description="string The type of hook to load." type="\$type" variable="$type" line="116">
+          <tag name="access" description="public" line="139"/>
+          <tag name="param" description="string The type of hook to load." type="\$type" variable="$type" line="139">
             <type by_reference="false">\$type</type>
           </tag>
-          <tag name="param" description="array An array of configuration parameters for the hooks class" type="\$config" variable="$config" line="116">
+          <tag name="param" description="array An array of configuration parameters for the hooks class" type="\$config" variable="$config" line="139">
             <type by_reference="false">\$config</type>
           </tag>
-          <tag name="return" description="An instance of the fiHooks class." type="\fiHooks" line="116">
+          <tag name="return" description="An instance of the fiHooks class." type="\fiHooks" line="139">
             <type by_reference="false">\fiHooks</type>
           </tag>
         </docblock>
-        <argument line="125">
+        <argument line="148">
           <name>$type</name>
           <default>post</default>
           <type/>
         </argument>
-        <argument line="125">
+        <argument line="148">
           <name>$config</name>
           <default>array</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="140">
+      <method final="false" abstract="false" static="false" visibility="public" line="163">
         <name>getStoreKey</name>
         <docblock>
           <description>Gets a unique session-based store key for storing form submissions.</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="string" line="135">
+          <tag name="return" description="" type="string" line="158">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="151">
-        <name>loadReCaptcha</name>
-        <docblock>
-          <description>Load the reCaptcha service class</description>
-          <long-description>
-</long-description>
-          <tag name="param" description="An array of configuration parameters for the reCaptcha class" type="array" variable="$config" line="144">
-            <type by_reference="false">array</type>
-          </tag>
-          <tag name="return" description="An instance of the reCaptcha class" type="\reCaptcha" line="144">
-            <type by_reference="false">\reCaptcha</type>
-          </tag>
-        </docblock>
-        <argument line="151">
-          <name>$config</name>
-          <default>array</default>
-          <type>array</type>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="174">
+      <method final="false" abstract="false" static="false" visibility="public" line="179">
         <name>getChunk</name>
         <docblock>
           <description>Gets a Chunk and caches it; also falls back to file-based templates
 for easier debugging.</description>
           <long-description>&lt;p&gt;Will always use the file-based chunk if $debug is set to true.&lt;/p&gt;
 </long-description>
-          <tag name="access" description="public" line="163"/>
-          <tag name="param" description="The name of the Chunk" type="string" variable="$name" line="163">
+          <tag name="access" description="public" line="168"/>
+          <tag name="param" description="The name of the Chunk" type="string" variable="$name" line="168">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The properties for the Chunk" type="array" variable="$properties" line="163">
+          <tag name="param" description="The properties for the Chunk" type="array" variable="$properties" line="168">
             <type by_reference="false">array</type>
           </tag>
-          <tag name="return" description="The processed content of the Chunk" type="string" line="163">
+          <tag name="return" description="The processed content of the Chunk" type="string" line="168">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="174">
+        <argument line="179">
           <name>$name</name>
           <default/>
           <type/>
         </argument>
-        <argument line="174">
+        <argument line="179">
           <name>$properties</name>
           <default>array</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" line="201">
+      <method final="false" abstract="false" static="false" visibility="private" line="206">
         <name>_getTplChunk</name>
         <docblock>
           <description>Returns a modChunk object from a template file.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="private" line="193"/>
-          <tag name="param" description="The name of the Chunk. Will parse to name.chunk.tpl" type="string" variable="$name" line="193">
+          <tag name="access" description="private" line="198"/>
+          <tag name="param" description="The name of the Chunk. Will parse to name.chunk.tpl" type="string" variable="$name" line="198">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="Returns the modChunk object if found, otherwise false." type="\modChunk/boolean" line="193">
+          <tag name="return" description="Returns the modChunk object if found, otherwise false." type="\modChunk/boolean" line="198">
             <type by_reference="false">\modChunk/boolean</type>
           </tag>
         </docblock>
-        <argument line="201">
+        <argument line="206">
           <name>$name</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="225">
+      <method final="false" abstract="false" static="false" visibility="public" line="231">
         <name>output</name>
         <docblock>
           <description>Output the final output and wrap in the wrapper chunk. Optional, but
@@ -1521,41 +2206,41 @@ recommended for debugging as it outputs the execution time to the output.</descr
           <long-description>&lt;p&gt;Also, it is good to output your snippet code with wrappers for easier
 CSS isolation and styling.&lt;/p&gt;
 </long-description>
-          <tag name="access" description="public" line="214"/>
-          <tag name="param" description="The output to process" type="string" variable="$output" line="214">
+          <tag name="access" description="public" line="220"/>
+          <tag name="param" description="The output to process" type="string" variable="$output" line="220">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="The final wrapped output" type="string" line="214">
+          <tag name="return" description="The final wrapped output" type="string" line="220">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="225">
+        <argument line="231">
           <name>$output</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" line="238">
+      <method final="false" abstract="false" static="false" visibility="protected" line="244">
         <name>startDebugTimer</name>
         <docblock>
           <description>Starts the debug timer.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="protected" line="232"/>
-          <tag name="return" description="The start time." type="int" line="232">
+          <tag name="access" description="protected" line="238"/>
+          <tag name="return" description="The start time." type="int" line="238">
             <type by_reference="false">int</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" line="254">
+      <method final="false" abstract="false" static="false" visibility="protected" line="260">
         <name>endDebugTimer</name>
         <docblock>
           <description>Ends the debug timer and returns the total number of seconds script took
 to run.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="protected" line="247"/>
-          <tag name="return" description="The end total time to execute the script." type="int" line="247">
+          <tag name="access" description="protected" line="253"/>
+          <tag name="return" description="The end total time to execute the script." type="int" line="253">
             <type by_reference="false">int</type>
           </tag>
         </docblock>

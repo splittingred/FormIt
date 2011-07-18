@@ -1,0 +1,814 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>FormIt API Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script>
+      $(document).ready(function() {
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().css('cursor', 'pointer');
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().click(function() {
+          if ($(this).next().is(':hidden'))
+          {
+            $(this).children('img')[0].src = 'images/arrow_down.gif';
+          } else
+          {
+            $(this).children('img')[0].src = 'images/arrow_right.gif';
+          }
+          $(this).next().slideToggle();
+        });
+      $('dl.function-info, dl.constant-info, dl.property-info').hide();
+      $('dl.function-info img, dl.constant-info img, dl.property-info img').show();
+      });
+    </script><a name="top"></a><h1 class="file">firequest.class.php</h1>
+<div class="file_menu">
+<a href="#classes">Classes</a> </div>
+<dl class="file-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt>Classes</dt>
+<dd><a class="class" href="#%5CfiRequest">fiRequest</a></dd>
+</dl>
+<h2>Description</h2>
+<p class="short-description">FormIt</p>
+<div class="long-description"><p>Copyright 2009-2011 by Shaun McCormick <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;">&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;</a></p>
+
+<p>FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.</p>
+
+<p>FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA</p>
+</div>
+<a name="classes"></a><a id="\fiRequest"></a><h2 class="class">\fiRequest<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div class="class">
+<dl class="class-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Properties
+              </a></dt>
+<dd><a class="property public" href="#%5CfiRequest::%24clearFieldsAtEnd">$clearFieldsAtEnd</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24config">$config</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24dictionary">$dictionary</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24formit">$formit</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24modx">$modx</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24reCaptcha">$reCaptcha</a></dd>
+<dd><a class="property public" href="#%5CfiRequest::%24validator">$validator</a></dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Methods
+              </a></dt>
+<dd><a class="method public" href="#%5CfiRequest::__construct()">__construct</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::checkForRedirect()">checkForRedirect</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::handle()">handle</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::hasHook()">hasHook</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::hasSubmission()">hasSubmission</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::loadDictionary()">loadDictionary</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::loadReCaptcha()">loadReCaptcha</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::loadValidator()">loadValidator</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::postProcess()">postProcess</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::prepare()">prepare</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::runPostHooks()">runPostHooks</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::runPreHooks()">runPreHooks</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::setFieldsAsPlaceholders()">setFieldsAsPlaceholders</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::setSuccessMessage()">setSuccessMessage</a></dd>
+<dd><a class="method public" href="#%5CfiRequest::validate()">validate</a></dd>
+</dl>
+<dl></dl>
+<h3>Description</h3>
+<p class="short-description">Handles all POST requests for FormIt and abstracts postHook and validation processing.</p>
+<div class="long-description">
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\fiRequest::$clearFieldsAtEnd"></a><h4 class="property public">$clearFieldsAtEnd<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code>boolean <span class="highlight">$clearFieldsAtEnd</span> = 'false'</code><p class="short-description">Set to true if wanting to prevent the clearing of fields at the end</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>boolean<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>false</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$config"></a><h4 class="property public">$config<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$config</span> = 'array'</code><p class="short-description">An array of configuration properties</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$dictionary"></a><h4 class="property public">$dictionary<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code><a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a> <span class="highlight">$dictionary</span> = ''</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>
+<a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a><br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$formit"></a><h4 class="property public">$formit<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code><a href="_formit.class.html#%5CFormIt">\FormIt</a> <span class="highlight">$formit</span> = ''</code><p class="short-description">A reference to the FormIt instance</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>
+<a href="_formit.class.html#%5CFormIt">\FormIt</a><br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code>\modX <span class="highlight">$modx</span> = ''</code><p class="short-description">A reference to the modX instance</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>\modX<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$reCaptcha"></a><h4 class="property public">$reCaptcha<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code>\FormItReCaptcha <span class="highlight">$reCaptcha</span> = ''</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>\FormItReCaptcha<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::$validator"></a><h4 class="property public">$validator<div class="to-top"><a href="#%5CfiRequest">jump to class</a></div>
+</h4>
+<div class="property">
+<code><a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a> <span class="highlight">$validator</span> = ''</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>
+<a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a><br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\fiRequest::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="_formit.class.html#%5CFormIt">\FormIt</a> $formit, array $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_firequest.class.html#%5CfiRequest">\fiRequest</a></code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$formit</dt>
+<dd>\FormIt<br><em>&amp;amp;$formit A reference to the FormIt class instance.</em>
+</dd>
+<dt>$config</dt>
+<dd>array<br><em>Optional. An array of configuration parameters.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_firequest.class.html#%5CfiRequest">\fiRequest</a></dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::checkForRedirect()"></a><h4 class="method public">checkForRedirect<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">checkForRedirect</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Check to see if the redirect URL was set; if so, redirect</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::handle()"></a><h4 class="method public">handle<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">handle</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        string|void</code><p class="short-description">Handle the POST request</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string|void</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::hasHook()"></a><h4 class="method public">hasHook<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasHook</span><span class="nb-faded-text">(
+          string $hook
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Check to see if a hook has been passed</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$hook</dt>
+<dd>string<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::hasSubmission()"></a><h4 class="method public">hasSubmission<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasSubmission</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if a POST submission for this form has occurred</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::loadDictionary()"></a><h4 class="method public">loadDictionary<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadDictionary</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        null|<a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a></code><p class="short-description">Load the dictionary storage mechanism</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>null|<a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a>
+</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::loadReCaptcha()"></a><h4 class="method public">loadReCaptcha<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadReCaptcha</span><span class="nb-faded-text">(
+          array $config
+              =
+              array
+          )
+        </span>
+        :
+        \reCaptcha</code><p class="short-description">Load the reCaptcha service class</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$config</dt>
+<dd>array<br><em>An array of configuration parameters for the reCaptcha class</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>\reCaptcha</dt>
+<dd><em>An instance of the reCaptcha class</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::loadValidator()"></a><h4 class="method public">loadValidator<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadValidator</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></code><p class="short-description">Loads the Validator class.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></dt>
+<dd><em>An instance of the fiValidator class.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::postProcess()"></a><h4 class="method public">postProcess<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">postProcess</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        bool</code><p class="short-description">Handle post-processing through postHooks</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>bool</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::prepare()"></a><h4 class="method public">prepare<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">prepare</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Handle all pre-request data, including loading of preHooks, reCaptcha preparation, and the math hook.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em>An array of pre-fetched fields and their data, possibly set by preHooks</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::runPostHooks()"></a><h4 class="method public">runPostHooks<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">runPostHooks</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Run any postHooks that were specified.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if all hooks executed successfully.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::runPreHooks()"></a><h4 class="method public">runPreHooks<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">runPreHooks</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Load and run preHooks, setting any fields passed.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::setFieldsAsPlaceholders()"></a><h4 class="method public">setFieldsAsPlaceholders<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setFieldsAsPlaceholders</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Sets the fields to MODX placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::setSuccessMessage()"></a><h4 class="method public">setSuccessMessage<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setSuccessMessage</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Sets the success message placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiRequest::validate()"></a><h4 class="method public">validate<div class="to-top"><a href="#fiRequest">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">validate</span><span class="nb-faded-text">(
+          string $validationString
+          )
+        </span>
+        :
+        bool</code><p class="short-description">Validate all fields prior to post processing</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$validationString</dt>
+<dd>string<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>bool</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.13-DEV</a>.
+    </small></body></html>
