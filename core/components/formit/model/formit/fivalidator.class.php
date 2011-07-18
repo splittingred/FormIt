@@ -107,10 +107,9 @@ class fiValidator {
                 }
             }
         }
-
-        /* do it the old way, through name:validator on the POST */
+        
         /** @var string|array $v */
-        foreach ($this->fields as $k => $v) {
+        foreach ($keys as $k => $v) {
             /* is a array field, ie contact[name] */
             if (is_array($v) && !isset($_FILES[$k]) && is_string($k) && intval($k) == 0 && $k !== 0) {
                 $isCheckbox = false;

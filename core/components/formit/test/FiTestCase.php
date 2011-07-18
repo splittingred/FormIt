@@ -9,9 +9,12 @@
  */
 class FiTestCase extends PHPUnit_Framework_TestCase {
     /**
-     * @var modX
+     * @var modX $modx
      */
     protected $modx = null;
+    /**
+     * @var FormIt $formit
+     */
     protected $formit = null;
 
     /**

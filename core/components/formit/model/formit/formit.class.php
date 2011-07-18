@@ -26,6 +26,16 @@
  */
 class FormIt {
     /**
+     * A reference to the modX instance
+     * @var modX $modx
+     */
+    public $modx;
+    /**
+     * A configuration array
+     * @var array $config
+     */
+    public $config;
+    /**
      * In debug mode, will monitor execution time.
      * @var int $debugTimer
      * @access public
