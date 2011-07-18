@@ -9,14 +9,15 @@
          bootstrap="FiTestHarness.php"
          strict="true">
     <testsuites>
-    <!--
+
       <testsuite name="Core">
           <file>Tests/Core/FormItClassTest.php</file>
-      </testsuite>-->
+      </testsuite>
       <testsuite name="Cases">
           <file>Tests/Cases/Basic/SingleFieldTest.php</file>
           <file>Tests/Cases/Basic/PreHookTest.php</file>
           <file>Tests/Cases/Basic/PostHookTest.php</file>
+          <!--<file>Tests/Cases/Basic/SpamHookTest.php</file>-->
       </testsuite>
     </testsuites>
 </phpunit>
