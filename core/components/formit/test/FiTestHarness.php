@@ -72,8 +72,4 @@ class FiTestHarness {
         FiTestHarness::$modx = $modx;
         return $modx;
     }
-
-    public function getFormIt() {
-        
-    }
 }
