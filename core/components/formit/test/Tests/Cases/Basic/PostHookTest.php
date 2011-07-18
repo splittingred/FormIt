@@ -41,6 +41,25 @@ class PostHookTest extends FiTestCase {
     }
 
     /**
+     * Ensure that a failed hook stops the request cycle and prevents another hook from executing
+     * @return void
+     * @depends testSetRedirectUrl
+     */
+    public function testFailedHook() {
+        $this->formit->config['hooks'] = $this->formit->config['testsPath'].'hooks/post/posthooktest.fail.php';
+        $this->formit->config['hooks'] .= ','.$this->formit->config['testsPath'].'hooks/post/posthooktest.redirecturl.php';
+        $this->processForm();
+
+        $success = empty($this->modx->placeholders['fi.success']);
+        $this->assertTrue($success,'The fi.success placeholder was set to true when it should not have ever been set, due to a failed hook.');
+
+
+        $url = $this->formit->postHooks->getRedirectUrl();
+        $success = empty($url);
+        $this->assertTrue($success,'The failed hook did not stop propagation along the hook chain and set the redirectUrl, which never should have occurred.');
+    }
+
+    /**
      * Test fiHooks::gatherFields method, specifically with checkbox values
      * @return void
      */
