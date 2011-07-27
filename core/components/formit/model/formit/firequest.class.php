@@ -338,14 +338,23 @@ class fiRequest {
 
         /* better handling of checkbox values when input name is an array[] */
         $fs = array();
+        /** @var mixed $v */
         foreach ($fields as $k => $v) {
             if (is_array($v) && !isset($_FILES[$k])) {
+                foreach ($v as $sk => $sv) {
+                    $fs[$k.'.'.$sk] = $this->convertMODXTags($sv);
+                }
                 $v = implode(',',$v);
             }
             /* str_replace to prevent showing of placeholders */
-            $fs[$k] = str_replace(array('[',']'),array('&#91;','&#93;'),$v);
+            $fs[$k] = $this->convertMODXTags($v);
         }
+        echo '</pre>';
         $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+    }
+
+    public function convertMODXTags($v) {
+        return str_replace(array('[',']'),array('&#91;','&#93;'),$v);
     }
 }
  
