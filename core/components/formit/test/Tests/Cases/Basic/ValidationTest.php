@@ -319,4 +319,57 @@ class ValidationTest extends FiTestCase {
             array(false,'z232sdaczx'),
         );
     }
+
+    /**
+     * Test :islowercase provider
+     *
+     * @param boolean $shouldPass
+     * @param string|int $value
+     * @dataProvider providerIsLowerCase
+     */
+    public function testIsLowerCase($shouldPass,$value) {
+        $_POST['case_name'] = $value;
+        $this->formit->config['validate'] = 'case_name:islowercase';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :islowercase validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerIsLowerCase() {
+        return array(
+            array(true,'abc'),
+            array(true,'1'),
+            array(true,123),
+            array(true,'a b c'),
+            array(false,'aBc'),
+            array(false,'ABC'),
+            array(false,'aaaaaaaaC'),
+        );
+    }
+
+    /**
+     * Test :isuppercase provider
+     *
+     * @param boolean $shouldPass
+     * @param string|int $value
+     * @dataProvider providerIsUpperCase
+     */
+    public function testIsUpperCase($shouldPass,$value) {
+        $_POST['case_name'] = $value;
+        $this->formit->config['validate'] = 'case_name:isuppercase';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :isuppercase validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerIsUpperCase() {
+        return array(
+            array(true,'ABC'),
+            array(true,'A B C'),
+            array(true,123),
+            array(true,'1'),
+            array(false,'aBc'),
+            array(false,'abc'),
+            array(false,'AAAAAAAAAAc'),
+            array(false,'AAAAAAcAAAA'),
+        );
+    }
 }
