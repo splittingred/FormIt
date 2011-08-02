@@ -38,7 +38,7 @@ $countries = include $fi->config['includesPath'].'us.states.inc.php';
 foreach ($countries as $stateKey => $stateName) {
     $stateArray = array(
         'text' => $stateName,
-        'value' => $stateKey,
+        'value' => $useAbbr ? $stateKey : $stateName,
         'selected' => '',
     );
     if ($selected == $$selectedKey) {

@@ -1,5 +1,12 @@
 Changelog for FormIt.
 
+FormIt 2.0.0
+====================================
+- Major reworking of main FormIt script to be OOP
+- Add over 150 unit tests to prevent regression
+- [#5388], [#5240] Fix issue with FormItCountryOptions and &useIsoCode
+- Fix issue with FormItStateOptions and &useAbbr
+
 FormIt 1.7.0
 ====================================
 - Add ability to have "Frequent Visitors" optgroup in FormItCountryOptions, moving specified countries to the top of the list in an optgroup

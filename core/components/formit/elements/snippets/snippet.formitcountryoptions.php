@@ -59,7 +59,7 @@ $prioritizedList = array();
 foreach ($countries as $countryKey => $countryName) {
     $countryArray = array(
         'text' => $countryName,
-        'value' => $countryKey,
+        'value' => $useIsoCode ? $countryKey : $countryName,
         'selected' => '',
     );
     if ($selected == $$selectedKey) {
