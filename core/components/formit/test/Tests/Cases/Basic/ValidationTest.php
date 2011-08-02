@@ -230,4 +230,93 @@ class ValidationTest extends FiTestCase {
             array(false,0,'abcdef'),
         );
     }
+
+    /**
+     * Test :range provider
+     *
+     * @param boolean $shouldPass
+     * @param string|int $value
+     * @param string $range
+     * @dataProvider providerRange
+     */
+    public function testRange($shouldPass,$value,$range) {
+        $_POST['firing-range'] = $value;
+        $this->formit->config['validate'] = 'firing-range:range=^'.$range.'^';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :range validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerRange() {
+        return array(
+            array(true,5,'0-10'),
+            array(true,0,'0-10'),
+            array(true,10,'0-10'),
+            array(true,0,'0-0'),
+            array(false,'','0-0'),
+            array(false,33,'0-10'),
+            array(false,'-1','0-10'),
+            array(false,1,'0-0'),
+        );
+    }
+
+    /**
+     * Test :isNumber provider
+     *
+     * @param boolean $shouldPass
+     * @param string|int $value
+     * @dataProvider providerIsNumber
+     */
+    public function testIsNumber($shouldPass,$value) {
+        $_POST['holidays'] = $value;
+        $this->formit->config['validate'] = 'holidays:isNumber';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :isNumber validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerIsNumber() {
+        return array(
+            array(true,1),
+            array(true,0),
+            array(true,'1'),
+            array(true,' 1'),
+            array(true,'1 '),
+            array(false,''),
+            array(false,'abc'),
+            array(false,'one'),
+        );
+    }
+
+    /**
+     * Test :isDate provider
+     *
+     * @param boolean $shouldPass
+     * @param string $value
+     * @dataProvider providerIsDate
+     */
+    public function testIsDate($shouldPass,$value) {
+        $_POST['birthday'] = $value;
+        $this->formit->config['validate'] = 'birthday:isDate';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :isDate validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerIsDate() {
+        return array(
+            array(true,'03/07/2009'),
+            array(true,'03-07-2009'),
+            array(true,'2009/03/07'),
+            array(true,'2009-03-07'),
+            array(true,'07.03.09'),
+            array(true,'Mar 7 2009'),
+            array(true,'Mar 7, 2009'),
+            array(true,'March 7th 2009'),
+            array(true,'March 7th, 2009'),
+            array(true,'+1 day'),
+            array(true,'now'),
+            array(true,'last Tuesday'),
+            array(true,'June 2008'),
+            array(true,'May.9,78'),
+            array(false,'z232sdaczx'),
+        );
+    }
 }

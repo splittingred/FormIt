@@ -197,6 +197,7 @@ class fiRequest {
 
         /* validate fields */
         $this->loadValidator();
+        $this->validator->reset();
         $validated = $this->validate($this->config['validate']);
 
         if ($validated) {

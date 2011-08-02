@@ -527,7 +527,7 @@ class fiValidator {
      * @return boolean
      */
      public function isNumber($key,$value) {
-         if (!is_numeric($value)) {
+         if (!is_numeric(trim($value))) {
              return $this->modx->lexicon('formit.not_number',array('field' => $key,'value' => $value));
          }
          return true;
@@ -542,7 +542,10 @@ class fiValidator {
      * @return boolean
      */
     public function isDate($key,$value,$format = '%m/%d/%Y') {
-        $ts = strtotime($value);
+        $ts = false;
+        if (!empty($value)) {
+            $ts = strtotime($value);
+        }
         if ($ts === false || empty($value)) {
             return $this->modx->lexicon('formit.not_date',array('format' => $format,'field' => $key, 'value' => $value));
         }
@@ -589,5 +592,14 @@ class fiValidator {
         $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->config['validationErrorMessage']);
         $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error',true);
         $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error_message',$validationErrorMessage);
+    }
+
+    /**
+     * Resets the validator
+     * @return void
+     */
+    public function reset() {
+        $this->errors = array();
+        $this->errorsRaw = array();
     }
 }
