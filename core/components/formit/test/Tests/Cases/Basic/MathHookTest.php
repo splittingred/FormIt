@@ -6,7 +6,10 @@
  * Creates a test for the 'math' hook
  *
  * @package formit-test
+ * @group Cases
  * @group Cases.Basic
+ * @group Cases.Basic.Math
+ * @group Hooks
  */
 class MathHookTest extends FiTestCase {
     /**

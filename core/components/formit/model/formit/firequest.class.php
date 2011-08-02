@@ -349,7 +349,6 @@ class fiRequest {
             /* str_replace to prevent showing of placeholders */
             $fs[$k] = $this->convertMODXTags($v);
         }
-        echo '</pre>';
         $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
     }
 

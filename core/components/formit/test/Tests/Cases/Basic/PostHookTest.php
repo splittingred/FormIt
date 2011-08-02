@@ -6,7 +6,9 @@
  * Creates a test for a form with a posthook with various actions.
  *
  * @package formit-test
- * @group Cases.Basic
+ * @group Cases
+ * @group Cases.Basic.PostHook
+ * @group Hooks
  */
 class PostHookTest extends FiTestCase {
     /**

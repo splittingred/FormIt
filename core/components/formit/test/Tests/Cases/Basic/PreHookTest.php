@@ -6,7 +6,10 @@
  * Creates a test for a form with a prehook that sets fields.
  *
  * @package formit-test
+ * @group Cases
  * @group Cases.Basic
+ * @group Cases.Basic.PreHook
+ * @group Hooks
  */
 class PreHookTest extends FiTestCase {
 

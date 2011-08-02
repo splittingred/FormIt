@@ -6,7 +6,9 @@
  * Creates a test for a form that submits only a single field, "name", as its value.
  *
  * @package formit-test
+ * @group Cases
  * @group Cases.Basic
+ * @group Cases.Basic.SingleField
  */
 class SingleFieldTest extends FiTestCase {
 

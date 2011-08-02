@@ -6,7 +6,10 @@
  * Creates a test for the 'spam' hook, specifically for the StopForumSpam checking
  *
  * @package formit-test
+ * @group Cases
  * @group Cases.Basic
+ * @group Cases.Basic.Spam
+ * @group Hooks
  */
 class SpamHookTest extends FiTestCase {
     /**
