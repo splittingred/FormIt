@@ -318,10 +318,12 @@ class fiRequest {
 
     /**
      * Sets the success message placeholders
+     *
+     * @param string $message
      * @return void
      */
-    public function setSuccessMessage() {
-        $successMsg = $this->modx->getOption('successMessage',$this->config,'');
+    public function setSuccessMessage($message = '') {
+        $successMsg = $this->modx->getOption('successMessage',$this->config,$message);
 
         $this->modx->setPlaceholder($this->config['placeholderPrefix'].'success',true);
         if (!empty($successMsg)) {
