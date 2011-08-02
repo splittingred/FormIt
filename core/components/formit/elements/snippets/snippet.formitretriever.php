@@ -22,6 +22,9 @@
 /**
  * Retrieves a prior form submission that was stored with the &store property
  * in a FormIt call.
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
  * 
  * @package formit
  */
@@ -34,15 +37,16 @@ $eraseOnLoad = $modx->getOption('eraseOnLoad',$scriptProperties,false);
 $redirectToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
 
 /* fetch data from cache and set to placeholders */
-$cacheKey = $fi->getStoreKey();
-$data = $modx->cacheManager->get($cacheKey);
+$fi->loadRequest();
+$fi->request->loadDictionary();
+$data = $fi->request->dictionary->retrieve();
 if (!empty($data)) {
     /* set data to placeholders */
     $modx->setPlaceholders($data,$placeholderPrefix);
     
     /* if set, erase the data on load, otherwise depend on cache expiry time */
     if ($eraseOnLoad) {
-        $modx->cacheManager->delete($cacheKey);
+        $fi->request->dictionary->erase();
     }
 /* if the data's not found, and we want to redirect somewhere if so, do here */
 } else if (!empty($redirectToOnNotFound)) {

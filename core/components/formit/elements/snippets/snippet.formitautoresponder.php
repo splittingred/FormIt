@@ -21,6 +21,10 @@
  */
 /**
  * A custom FormIt hook for auto-responders.
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
+ * @var FormIt $formit
  * 
  * @package formit
  */

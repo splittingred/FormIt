@@ -22,6 +22,8 @@
 /**
  * Custom output filter that returns checked="checked" if the value is set
  *
+ * @var string $input
+ * @var string $options
  * @package formit
  */
 $output = ' ';

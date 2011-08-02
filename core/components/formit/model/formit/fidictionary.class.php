@@ -129,6 +129,26 @@ class fiDictionary {
     }
 
     /**
+     * Retrieve the fields from the cache
+     * 
+     * @return mixed
+     */
+    public function retrieve() {
+        $cacheKey = $this->formit->getStoreKey();
+        return $this->modx->cacheManager->get($cacheKey);
+    }
+
+    /**
+     * Erase the stored fields
+     * 
+     * @return boolean
+     */
+    public function erase() {
+        $cacheKey = $this->formit->getStoreKey();
+        return $this->modx->cacheManager->delete($cacheKey);
+    }
+
+    /**
      * @return void
      */
     public function reset() {

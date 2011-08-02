@@ -21,7 +21,9 @@
  */
 /**
  * Automatically generates and outputs a country list for usage in forms
- * 
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
  * @package formit
  */
 require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
