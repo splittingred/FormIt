@@ -31,7 +31,7 @@ $fi = new FormIt($modx,$scriptProperties);
 /* setup properties */
 $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
 $eraseOnLoad = $modx->getOption('eraseOnLoad',$scriptProperties,false);
-$redirecToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
+$redirectToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
 
 /* fetch data from cache and set to placeholders */
 $cacheKey = $fi->getStoreKey();
@@ -45,8 +45,8 @@ if (!empty($data)) {
         $modx->cacheManager->delete($cacheKey);
     }
 /* if the data's not found, and we want to redirect somewhere if so, do here */
-} else if (!empty($redirecToOnNotFound)) {
-    $url = $modx->makeUrl($redirecToOnNotFound);
+} else if (!empty($redirectToOnNotFound)) {
+    $url = $modx->makeUrl($redirectToOnNotFound);
     $modx->sendRedirect($url);
 }
 return '';

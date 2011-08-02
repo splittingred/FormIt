@@ -127,4 +127,11 @@ class fiDictionary {
         $cacheKey = $this->formit->getStoreKey();
         $this->modx->cacheManager->set($cacheKey,$this->toArray(),$storeTime);
     }
+
+    /**
+     * @return void
+     */
+    public function reset() {
+        $this->fields = array();
+    }
 }

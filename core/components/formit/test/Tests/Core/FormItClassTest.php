@@ -3,7 +3,7 @@
  * @package formit-test
  */
 /**
- * Tests related to basic MODX class methods
+ * Tests related to basic FormIt class methods
  *
  * @package formit-test
  * @group Core

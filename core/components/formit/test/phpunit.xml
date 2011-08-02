@@ -11,7 +11,7 @@
     <testsuites>
 
       <testsuite name="Core">
-          <file>Tests/Core/FormItClassTest.php</file>
+          <directory>Tests/Core/</directory>
       </testsuite>
       <testsuite name="Cases">
           <file>Tests/Cases/Basic/SingleFieldTest.php</file>
