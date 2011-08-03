@@ -3,7 +3,7 @@
  * @package formit-test
  */
 /**
- * Tests related to fiDictionary methods
+ * Tests related to the FiCountryOptions snippet
  *
  * @package formit-test
  * @group Modules
