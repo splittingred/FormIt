@@ -42,7 +42,7 @@ $fi->request->loadDictionary();
 $data = $fi->request->dictionary->retrieve();
 if (!empty($data)) {
     /* set data to placeholders */
-    $modx->setPlaceholders($data,$placeholderPrefix);
+    $modx->toPlaceholders($data,$placeholderPrefix,'');
     
     /* if set, erase the data on load, otherwise depend on cache expiry time */
     if ($eraseOnLoad) {

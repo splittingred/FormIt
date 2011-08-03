@@ -6,6 +6,7 @@ FormIt 2.0.0
 - Add over 150 unit tests to prevent regression
 - [#5388], [#5240] Fix issue with FormItCountryOptions and &useIsoCode
 - Fix issue with FormItStateOptions and &useAbbr
+- [#5267] Fix issue with FormItRetriever and array fields
 
 FormIt 1.7.0
 ====================================
