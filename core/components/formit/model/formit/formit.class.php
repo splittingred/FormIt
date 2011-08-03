@@ -161,6 +161,24 @@ class FormIt {
     }
 
     /**
+     * @param string $className
+     * @param string $serviceName
+     * @param array $config
+     * @return fiModule
+     */
+    public function loadModule($className,$serviceName,array $config = array()) {
+        if (empty($this->$serviceName)) {
+            $classPath = $this->modx->getOption('formit.modules_path',null,$this->config['modelPath'].'formit/module/');
+            if ($this->modx->loadClass($className,$classPath,true,true)) {
+                $this->$serviceName = new $className($this,$config);
+            } else {
+                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load module: '.$className.' from '.$classPath);
+            }
+        }
+        return $this->$serviceName;
+    }
+
+    /**
      * Loads the Hooks class.
      *
      * @access public

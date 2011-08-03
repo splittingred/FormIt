@@ -13,6 +13,9 @@
       <testsuite name="Core">
           <directory>Tests/Core/</directory>
       </testsuite>
+      <testsuite name="Modules">
+          <directory>Tests/Modules/</directory>
+      </testsuite>
       <testsuite name="Cases">
           <file>Tests/Cases/Basic/SingleFieldTest.php</file>
           <file>Tests/Cases/Basic/PreHookTest.php</file>
