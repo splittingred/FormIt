@@ -174,7 +174,7 @@ class fiRequest {
     public function loadReCaptcha(array $config = array()) {
         if (empty($this->reCaptcha)) {
             if ($this->modx->loadClass('recaptcha.FormItReCaptcha',$this->config['modelPath'],true,true)) {
-                $this->reCaptcha = new FormItReCaptcha($this->modx,$config);
+                $this->reCaptcha = new FormItReCaptcha($this->formit,$config);
             } else {
                 $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
                 return false;

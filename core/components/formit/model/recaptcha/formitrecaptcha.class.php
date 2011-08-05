@@ -36,8 +36,14 @@ class FormItReCaptcha {
     const OPT_PUBLIC_KEY = 'publicKey';
     const OPT_USE_SSL = 'use_ssl';
 
-    function __construct(modX &$modx,array $config = array()) {
-        $this->modx =& $modx;
+    /** @var modX $modX */
+    public $modx;
+    /** @var FormIt $formit */
+    public $formit;
+
+    function __construct(FormIt &$formit,array $config = array()) {
+        $this->formit =& $formit;
+        $this->modx =& $formit->modx;
         $this->modx->lexicon->load('formit:recaptcha');
         $this->config = array_merge(array(
             FormItReCaptcha::OPT_PRIVATE_KEY => $this->modx->getOption('formit.recaptcha_private_key',$config,''),
@@ -121,6 +127,7 @@ class FormItReCaptcha {
         <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
 </noscript>';
         $this->modx->setPlaceholder('formit.recaptcha_html',$html);
+        $this->modx->setPlaceholder($scriptProperties['placeholderPrefix'].'recaptcha_html',$html);
         return $html;
     }
 
@@ -147,6 +154,11 @@ class FormItReCaptcha {
         return $opt;
     }
 
+    /**
+     * State there is an error with reCaptcha
+     * @param string $message
+     * @return string
+     */
     protected function error($message = '') {
         $response = new FormItReCaptchaResponse();
         $response->is_valid = false;
@@ -160,7 +172,7 @@ class FormItReCaptcha {
      * @param string $challenge
      * @param string $responseField
      * @param array $extraParams An array of extra variables to post to the server
-     * @return ReCaptchaResponse
+     * @return FormItReCaptchaResponse
      */
     public function checkAnswer ($remoteIp, $challenge, $responseField, $extraParams = array()) {
         if (empty($this->config[FormItReCaptcha::OPT_PRIVATE_KEY])) {
@@ -284,9 +296,14 @@ class FormItReCaptcha {
 
 /**
  * A reCaptchaResponse is returned from reCaptcha::check_answer()
+ *
+ * @package formit
+ * @subpackage recaptcha
  */
 class FormItReCaptchaResponse {
+    /** @var boolean $is_valid */
     public $is_valid;
+    /** @var string $error */
     public $error;
 }
 }

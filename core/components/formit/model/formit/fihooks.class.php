@@ -546,10 +546,11 @@ class fiHooks {
      */
     public function recaptcha(array $fields = array()) {
         $passed = false;
-        $recaptcha = $this->formit->loadReCaptcha();
-        if (empty($recaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
+        /** @var FormItReCaptcha $reCaptcha */
+        $reCaptcha = $this->formit->request->loadReCaptcha();
+        if (empty($reCaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
 
-        $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
+        $response = $reCaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 
         if (!$response->is_valid) {
             $this->addError('recaptcha',$this->modx->lexicon('recaptcha.incorrect',array(
