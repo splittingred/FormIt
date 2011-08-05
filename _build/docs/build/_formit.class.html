@@ -67,7 +67,10 @@ Suite 330, Boston, MA 02111-1307 USA</p>
               </a></dt>
 <dd><a class="property private" href="#%5CFormIt::%24_initialized">$_initialized</a></dd>
 <dd><a class="property public" href="#%5CFormIt::%24chunks">$chunks</a></dd>
+<dd><a class="property public" href="#%5CFormIt::%24config">$config</a></dd>
 <dd><a class="property public" href="#%5CFormIt::%24debugTimer">$debugTimer</a></dd>
+<dd><a class="property public" href="#%5CFormIt::%24inTestMode">$inTestMode</a></dd>
+<dd><a class="property public" href="#%5CFormIt::%24modx">$modx</a></dd>
 <dd><a class="property public" href="#%5CFormIt::%24postHooks">$postHooks</a></dd>
 <dd><a class="property public" href="#%5CFormIt::%24preHooks">$preHooks</a></dd>
 <dd><a class="property public" href="#%5CFormIt::%24request">$request</a></dd>
@@ -80,12 +83,13 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd><a class="method public" href="#%5CFormIt::getChunk()">getChunk</a></dd>
 <dd><a class="method public" href="#%5CFormIt::getStoreKey()">getStoreKey</a></dd>
 <dd><a class="method public" href="#%5CFormIt::initialize()">initialize</a></dd>
+<dd><a class="method public" href="#%5CFormIt::isInitialized()">isInitialized</a></dd>
 <dd><a class="method public" href="#%5CFormIt::loadHooks()">loadHooks</a></dd>
+<dd><a class="method public" href="#%5CFormIt::loadModule()">loadModule</a></dd>
 <dd><a class="method public" href="#%5CFormIt::loadRequest()">loadRequest</a></dd>
 <dd><a class="method public" href="#%5CFormIt::output()">output</a></dd>
 <dd><a class="method protected" href="#%5CFormIt::startDebugTimer()">startDebugTimer</a></dd>
 </dl>
-<dl></dl>
 <h3>Description</h3>
 <p class="short-description">Base class for FormIt. Used for initializing the form processing engine, handling templating and running snippets.</p>
 <div class="long-description">
@@ -142,6 +146,31 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
+<a id="\FormIt::$config"></a><h4 class="property public">$config<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$config</span> = ''</code><p class="short-description">A configuration array</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
 <a id="\FormIt::$debugTimer"></a><h4 class="property public">$debugTimer<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
 </h4>
 <div class="property">
@@ -165,6 +194,56 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <dd>false</dd>
 <dt>access</dt>
 <dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::$inTestMode"></a><h4 class="property public">$inTestMode<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
+</h4>
+<div class="property">
+<code>boolean <span class="highlight">$inTestMode</span> = 'false'</code><p class="short-description">Used when running unit tests to prevent emails/headers from being sent</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>boolean<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>false</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CFormIt">jump to class</a></div>
+</h4>
+<div class="property">
+<code>\modX <span class="highlight">$modx</span> = ''</code><p class="short-description">A reference to the modX instance</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>\modX<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd></dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
 </dl>
 <div class="clear"></div>
 </div>
@@ -499,6 +578,39 @@ handling actions.</p>
 <div class="clear"></div>
 </div>
 </div>
+<a id="\FormIt::isInitialized()"></a><h4 class="method public">isInitialized<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">isInitialized</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Sees if the FormIt class has been initialized already</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
 <a id="\FormIt::loadHooks()"></a><h4 class="method public">loadHooks<div class="to-top"><a href="#FormIt">jump to class</a></div>
 </h4>
 <div class="method">
@@ -546,6 +658,56 @@ handling actions.</p>
 <dd>false</dd>
 <dt>access</dt>
 <dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\FormIt::loadModule()"></a><h4 class="method public">loadModule<div class="to-top"><a href="#FormIt">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadModule</span><span class="nb-faded-text">(
+          string $className, string $serviceName, array $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_module_fimodule.class.html#%5CfiModule">\fiModule</a></code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$className</dt>
+<dd>string<br><em></em>
+</dd>
+<dt>$serviceName</dt>
+<dd>string<br><em></em>
+</dd>
+<dt>$config</dt>
+<dd>array<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_module_fimodule.class.html#%5CfiModule">\fiModule</a></dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
 </dl>
 <div class="clear"></div>
 </div>
@@ -667,5 +829,5 @@ CSS isolation and styling.</p>
 </div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.13-DEV</a>.
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.12.2</a>.
     </small></body></html>

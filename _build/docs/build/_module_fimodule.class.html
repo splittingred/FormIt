@@ -30,14 +30,14 @@
       $('dl.function-info, dl.constant-info, dl.property-info').hide();
       $('dl.function-info img, dl.constant-info img, dl.property-info img').show();
       });
-    </script><a name="top"></a><h1 class="file">fidictionary.class.php</h1>
+    </script><a name="top"></a><h1 class="file">module/fimodule.class.php</h1>
 <div class="file_menu">
 <a href="#classes">Classes</a> </div>
 <dl class="file-info">
 <dt>package</dt>
 <dd>formit</dd>
 <dt>Classes</dt>
-<dd><a class="class" href="#%5CfiDictionary">fiDictionary</a></dd>
+<dd><a class="class" href="#%5CfiModule">fiModule</a></dd>
 </dl>
 <h2>Description</h2>
 <p class="short-description">FormIt</p>
@@ -56,44 +56,41 @@ A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
 Suite 330, Boston, MA 02111-1307 USA</p>
 </div>
-<a name="classes"></a><a id="\fiDictionary"></a><h2 class="class">\fiDictionary<div class="to-top"><a href="#top">jump to top</a></div>
+<a name="classes"></a><a id="\fiModule"></a><h2 class="class">\fiModule<div class="to-top"><a href="#top">jump to top</a></div>
 </h2>
 <div class="class">
 <dl class="class-info">
 <dt>package</dt>
 <dd>formit</dd>
+<dt>subpackage</dt>
+<dd>modules</dd>
 <dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
                 Properties
               </a></dt>
-<dd><a class="property public" href="#%5CfiDictionary::%24config">$config</a></dd>
-<dd><a class="property public" href="#%5CfiDictionary::%24fields">$fields</a></dd>
-<dd><a class="property public" href="#%5CfiDictionary::%24formit">$formit</a></dd>
-<dd><a class="property public" href="#%5CfiDictionary::%24modx">$modx</a></dd>
+<dd><a class="property public" href="#%5CfiModule::%24config">$config</a></dd>
+<dd><a class="property public" href="#%5CfiModule::%24formit">$formit</a></dd>
+<dd><a class="property public" href="#%5CfiModule::%24modx">$modx</a></dd>
 <dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
                 Methods
               </a></dt>
-<dd><a class="method public" href="#%5CfiDictionary::__construct()">__construct</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::erase()">erase</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::fromArray()">fromArray</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::gather()">gather</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::get()">get</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::remove()">remove</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::reset()">reset</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::retrieve()">retrieve</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::set()">set</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::store()">store</a></dd>
-<dd><a class="method public" href="#%5CfiDictionary::toArray()">toArray</a></dd>
+<dd><a class="method public" href="#%5CfiModule::__construct()">__construct</a></dd>
+<dd><a class="method public" href="#%5CfiModule::getOption()">getOption</a></dd>
+<dd><a class="method public" href="#%5CfiModule::initialize()">initialize</a></dd>
+<dd><a class="method public" href="#%5CfiModule::output()">output</a></dd>
+<dd><a class="method protected" href="#%5CfiModule::setDefaultOptions()">setDefaultOptions</a></dd>
+<dd><a class="method public" href="#%5CfiModule::setOption()">setOption</a></dd>
+<dd><a class="method public" href="#%5CfiModule::setOptions()">setOptions</a></dd>
 </dl>
 <h3>Description</h3>
-<p class="short-description">Abstracts storage of values of posted fields and fields set by hooks.</p>
+<p class="short-description">Abstract class for all FormIt modules</p>
 <div class="long-description">
 </div>
 <h3>Properties</h3>
 <div>
-<a id="\fiDictionary::$config"></a><h4 class="property public">$config<div class="to-top"><a href="#%5CfiDictionary">jump to class</a></div>
+<a id="\fiModule::$config"></a><h4 class="property public">$config<div class="to-top"><a href="#%5CfiModule">jump to class</a></div>
 </h4>
 <div class="property">
-<code>array <span class="highlight">$config</span> = 'array'</code><p class="short-description">A configuration array</p>
+<code>array <span class="highlight">$config</span> = 'array'</code><p class="short-description"></p>
 <div class="long-description">
 </div>
 <div class="api-section">
@@ -115,35 +112,10 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::$fields"></a><h4 class="property public">$fields<div class="to-top"><a href="#%5CfiDictionary">jump to class</a></div>
+<a id="\fiModule::$formit"></a><h4 class="property public">$formit<div class="to-top"><a href="#%5CfiModule">jump to class</a></div>
 </h4>
 <div class="property">
-<code>array <span class="highlight">$fields</span> = 'array'</code><p class="short-description">An array of key-&gt;name pairs storing the fields passed</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h4 class="info">
-<img src="images/arrow_right.gif"> Details</h4>
-<dl class="property-info">
-<dt></dt>
-<dd>array<br><em></em>
-</dd>
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>default</dt>
-<dd>array</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::$formit"></a><h4 class="property public">$formit<div class="to-top"><a href="#%5CfiDictionary">jump to class</a></div>
-</h4>
-<div class="property">
-<code><a href="_formit.class.html#%5CFormIt">\FormIt</a> <span class="highlight">$formit</span> = ''</code><p class="short-description">A reference to the FormIt instance</p>
+<code><a href="_formit.class.html#%5CFormIt">\FormIt</a> <span class="highlight">$formit</span> = ''</code><p class="short-description"></p>
 <div class="long-description">
 </div>
 <div class="api-section">
@@ -166,10 +138,10 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CfiDictionary">jump to class</a></div>
+<a id="\fiModule::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CfiModule">jump to class</a></div>
 </h4>
 <div class="property">
-<code>\modX <span class="highlight">$modx</span> = ''</code><p class="short-description">A reference to the modX instance</p>
+<code>\modX <span class="highlight">$modx</span> = ''</code><p class="short-description"></p>
 <div class="long-description">
 </div>
 <div class="api-section">
@@ -194,7 +166,7 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 </div>
 <h3>Methods</h3>
 <div>
-<a id="\fiDictionary::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
+<a id="\fiModule::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#fiModule">jump to class</a></div>
 </h4>
 <div class="method">
 <code><span class="highlight">__construct</span><span class="nb-faded-text">(
@@ -233,21 +205,40 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::erase()"></a><h4 class="method public">erase<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
+<a id="\fiModule::getOption()"></a><h4 class="method public">getOption<div class="to-top"><a href="#fiModule">jump to class</a></div>
 </h4>
 <div class="method">
-<code><span class="highlight">erase</span><span class="nb-faded-text">(
-          
+<code><span class="highlight">getOption</span><span class="nb-faded-text">(
+          string $key, mixed $default
+              =
+              null, string $method
+              =
+              !empty
           )
         </span>
         :
-        boolean</code><p class="short-description">Erase the stored fields</p>
+        null</code><p class="short-description"></p>
 <div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em></em>
+</dd>
+<dt>$default</dt>
+<dd>mixed<br><em></em>
+</dd>
+<dt>$method</dt>
+<dd>string<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
 </div>
 <div class="api-section">
 <h5 class="output">Output</h5>
 <dl class="return-info">
-<dt>boolean</dt>
+<dt>null</dt>
 <dd><em></em></dd>
 </dl>
 <div class="clear"></div>
@@ -266,21 +257,77 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::fromArray()"></a><h4 class="method public">fromArray<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
+<a id="\fiModule::initialize()"></a><h4 class="method public">initialize<div class="to-top"><a href="#fiModule">jump to class</a></div>
 </h4>
 <div class="method">
-<code><span class="highlight">fromArray</span><span class="nb-faded-text">(
-          array $array
+<code><span class="highlight">initialize</span><span class="nb-faded-text">(
+          
           )
         </span>
         :
-        void</code><p class="short-description">Set a variable number of fields by passing in a key-&gt;name pair array</p>
+        void</code><p class="short-description">Runs after instantiation of the module</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>abstract</dt>
+<dd></dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiModule::output()"></a><h4 class="method public">output<div class="to-top"><a href="#fiModule">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">output</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Returns the output of the module</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>abstract</dt>
+<dd></dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiModule::setDefaultOptions()"></a><h4 class="method protected">setDefaultOptions<div class="to-top"><a href="#fiModule">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setDefaultOptions</span><span class="nb-faded-text">(
+          array $defaults
+              =
+              array
+          )
+        </span>
+        :
+        void</code><p class="short-description">Set the default options for this module</p>
 <div class="long-description">
 </div>
 <div class="api-section">
 <h5 class="arguments">Arguments</h5>
 <dl class="argument-info">
-<dt>$array</dt>
+<dt>$defaults</dt>
 <dd>array<br><em></em>
 </dd>
 </dl>
@@ -291,7 +338,7 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <img src="images/arrow_right.gif"> Details</h5>
 <dl class="function-info">
 <dt>visibility</dt>
-<dd>public</dd>
+<dd>protected</dd>
 <dt>final</dt>
 <dd>false</dd>
 <dt>static</dt>
@@ -300,191 +347,21 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::gather()"></a><h4 class="method public">gather<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
+<a id="\fiModule::setOption()"></a><h4 class="method public">setOption<div class="to-top"><a href="#fiModule">jump to class</a></div>
 </h4>
 <div class="method">
-<code><span class="highlight">gather</span><span class="nb-faded-text">(
-          array $fields
-              =
-              array
+<code><span class="highlight">setOption</span><span class="nb-faded-text">(
+          string $key, mixed $value
           )
         </span>
         :
-        void</code><p class="short-description">Get the fields from POST</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="arguments">Arguments</h5>
-<dl class="argument-info">
-<dt>$fields</dt>
-<dd>array<br><em>A default set of fields to load</em>
-</dd>
-</dl>
-<div class="clear"></div>
-</div>
-<div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::get()"></a><h4 class="method public">get<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">get</span><span class="nb-faded-text">(
-          string $field
-          )
-        </span>
-        :
-        mixed</code><p class="short-description">Get a field value</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="arguments">Arguments</h5>
-<dl class="argument-info">
-<dt>$field</dt>
-<dd>string<br><em></em>
-</dd>
-</dl>
-<div class="clear"></div>
-</div>
-<div class="api-section">
-<h5 class="output">Output</h5>
-<dl class="return-info">
-<dt>mixed</dt>
-<dd><em></em></dd>
-</dl>
-<div class="clear"></div>
-</div>
-<div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::remove()"></a><h4 class="method public">remove<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">remove</span><span class="nb-faded-text">(
-          string $key
-          )
-        </span>
-        :
-        void</code><p class="short-description">Remove a field from the stack</p>
+        void</code><p class="short-description">Set an option for this module</p>
 <div class="long-description">
 </div>
 <div class="api-section">
 <h5 class="arguments">Arguments</h5>
 <dl class="argument-info">
 <dt>$key</dt>
-<dd>string<br><em></em>
-</dd>
-</dl>
-<div class="clear"></div>
-</div>
-<div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::reset()"></a><h4 class="method public">reset<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">reset</span><span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        void</code><p class="short-description"></p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::retrieve()"></a><h4 class="method public">retrieve<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">retrieve</span><span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        mixed</code><p class="short-description">Retrieve the fields from the cache</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="output">Output</h5>
-<dl class="return-info">
-<dt>mixed</dt>
-<dd><em></em></dd>
-</dl>
-<div class="clear"></div>
-</div>
-<div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::set()"></a><h4 class="method public">set<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">set</span><span class="nb-faded-text">(
-          string $field, mixed $value
-          )
-        </span>
-        :
-        void</code><p class="short-description">Set a value</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="arguments">Arguments</h5>
-<dl class="argument-info">
-<dt>$field</dt>
 <dd>string<br><em></em>
 </dd>
 <dt>$value</dt>
@@ -507,47 +384,23 @@ Suite 330, Boston, MA 02111-1307 USA</p>
 <div class="clear"></div>
 </div>
 </div>
-<a id="\fiDictionary::store()"></a><h4 class="method public">store<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
+<a id="\fiModule::setOptions()"></a><h4 class="method public">setOptions<div class="to-top"><a href="#fiModule">jump to class</a></div>
 </h4>
 <div class="method">
-<code><span class="highlight">store</span><span class="nb-faded-text">(
-          
+<code><span class="highlight">setOptions</span><span class="nb-faded-text">(
+          array $array
           )
         </span>
         :
-        void</code><p class="short-description">Stash the fields into the cache</p>
+        void</code><p class="short-description">Set an array of options</p>
 <div class="long-description">
 </div>
 <div class="api-section">
-<h5 class="info">
-<img src="images/arrow_right.gif"> Details</h5>
-<dl class="function-info">
-<dt>visibility</dt>
-<dd>public</dd>
-<dt>final</dt>
-<dd>false</dd>
-<dt>static</dt>
-<dd>false</dd>
-</dl>
-<div class="clear"></div>
-</div>
-</div>
-<a id="\fiDictionary::toArray()"></a><h4 class="method public">toArray<div class="to-top"><a href="#fiDictionary">jump to class</a></div>
-</h4>
-<div class="method">
-<code><span class="highlight">toArray</span><span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        array</code><p class="short-description">Return all field values in an array of key-&gt;name pairs</p>
-<div class="long-description">
-</div>
-<div class="api-section">
-<h5 class="output">Output</h5>
-<dl class="return-info">
-<dt>array</dt>
-<dd><em></em></dd>
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$array</dt>
+<dd>array<br><em></em>
+</dd>
 </dl>
 <div class="clear"></div>
 </div>
