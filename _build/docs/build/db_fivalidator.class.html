@@ -196,6 +196,59 @@ that are MODX Snippets.</p>
 </div>
 <div class="clear"></div>
 </div>
+<a id="\fiValidator::_getErrorMessage()"></a><div class="method">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"> 
+            <span class="highlight">_getErrorMessage</span><span class="nb-faded-text">(
+          string $field, string $parameter, string $lexiconKey, array $properties
+              =
+              array
+          )
+        </span>
+        :
+        null|string</code><div class="description">Check for a custom error message, otherwise use a lexicon entry.</div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$field</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$parameter</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$lexiconKey</th>
+<td>string</td>
+<td><em></em></td>
+</tr>
+<tr>
+<th>$properties</th>
+<td>array</td>
+<td><em></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>nullstring</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
 <a id="\fiValidator::_validate()"></a><div class="method">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"> 
             <span class="highlight">_validate</span><span class="nb-faded-text">(
@@ -984,6 +1037,52 @@ well.</div>
 <th>$ranges</th>
 <td>string</td>
 <td><em>The range the value should reside in</em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>boolean</td>
+<td></td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\fiValidator::regexp()"></a><div class="method">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"> 
+            <span class="highlight">regexp</span><span class="nb-faded-text">(
+          string $key, string $value, string $expression
+          )
+        </span>
+        :
+        boolean</code><div class="description"></div>
+<div class="code-tabs">
+<div class="long-description">
+</div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$key</th>
+<td>string</td>
+<td><em>The name of the field</em></td>
+</tr>
+<tr>
+<th>$value</th>
+<td>string</td>
+<td><em>The value of the field</em></td>
+</tr>
+<tr>
+<th>$expression</th>
+<td>string</td>
+<td><em>The regexp to use</em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">

@@ -1178,7 +1178,7 @@ Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;
       </method>
     </class>
   </file>
-  <file path="fivalidator.class.php" hash="b3d481473a592c7566f623baa86856b2">
+  <file path="fivalidator.class.php" hash="1c2c8f18cc0d660d7537642b4deccb56">
     <docblock>
       <description>FormIt</description>
       <long-description>&lt;p&gt;Copyright 2009-2011 by Shaun McCormick &lt;a href="&amp;#x6d;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#111;&amp;#58;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;"&gt;&amp;#115;&amp;#104;&amp;#x61;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#x6d;&amp;#111;&amp;#100;&amp;#120;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
@@ -1403,635 +1403,714 @@ the field names stripped of their validators.</description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="268">
+      <method final="false" abstract="false" static="false" visibility="public" line="269">
         <name>addError</name>
         <docblock>
           <description>Adds an error to the stack.</description>
           <long-description>
 </long-description>
-          <tag name="access" description="private" line="260"/>
-          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="260">
+          <tag name="access" description="private" line="261"/>
+          <tag name="param" description="The field to add the error to." type="string" variable="$key" line="261">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The error message." type="string" variable="$value" line="260">
+          <tag name="param" description="The error message." type="string" variable="$value" line="261">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="The added error message with the error wrapper." type="string" line="260">
+          <tag name="return" description="The added error message with the error wrapper." type="string" line="261">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="268">
+        <argument line="269">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="268">
+        <argument line="269">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="283">
+      <method final="false" abstract="false" static="false" visibility="public" line="284">
         <name>hasErrors</name>
         <docblock>
           <description>Check to see if there are any validator errors in the stack</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="boolean" line="278">
+          <tag name="return" description="" type="boolean" line="279">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="292">
+      <method final="false" abstract="false" static="false" visibility="public" line="293">
         <name>getErrors</name>
         <docblock>
           <description>Get all errors in the stack</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="array" line="287">
+          <tag name="return" description="" type="array" line="288">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="300">
+      <method final="false" abstract="false" static="false" visibility="public" line="301">
         <name>getRawErrors</name>
         <docblock>
           <description>Get all raw errors in the stack (errors without the wrapper)</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="array" line="296">
+          <tag name="return" description="" type="array" line="297">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="310">
+      <method final="false" abstract="false" static="false" visibility="public" line="311">
         <name>required</name>
         <docblock>
           <description>Checks to see if field is required.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="304">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="305">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="304">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="305">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="304">
+          <tag name="return" description="" type="boolean" line="305">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="310">
+        <argument line="311">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="310">
+        <argument line="311">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="326">
+      <method final="false" abstract="false" static="false" visibility="public" line="330">
         <name>blank</name>
         <docblock>
           <description>Checks to see if field is blank.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="320">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="324">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="320">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="324">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="320">
+          <tag name="return" description="" type="boolean" line="324">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="326">
+        <argument line="330">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="326">
+        <argument line="330">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="337">
+      <method final="false" abstract="false" static="false" visibility="public" line="344">
         <name>password_confirm</name>
         <docblock>
           <description>Checks to see if passwords match.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="330">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="337">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="330">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="337">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The parameter passed into the validator that contains the field to check the password against" type="string" variable="$param" line="330">
+          <tag name="param" description="The parameter passed into the validator that contains the field to check the password against" type="string" variable="$param" line="337">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="330">
+          <tag name="return" description="" type="boolean" line="337">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="337">
+        <argument line="344">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="337">
+        <argument line="344">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="337">
+        <argument line="344">
           <name>$param</name>
           <default>password_confirm</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="351">
+      <method final="false" abstract="false" static="false" visibility="public" line="362">
         <name>email</name>
         <docblock>
           <description>Checks to see if field value is an actual email address.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="345">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="356">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="345">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="356">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="345">
+          <tag name="return" description="" type="boolean" line="356">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="351">
+        <argument line="362">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="351">
+        <argument line="362">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="397">
+      <method final="false" abstract="false" static="false" visibility="public" line="420">
         <name>minLength</name>
         <docblock>
           <description>Checks to see if field value is shorter than $param.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="390">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="413">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="390">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="413">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The minimum length the field can be" type="int" variable="$param" line="390">
+          <tag name="param" description="The minimum length the field can be" type="int" variable="$param" line="413">
             <type by_reference="false">int</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="390">
+          <tag name="return" description="" type="boolean" line="413">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="397">
+        <argument line="420">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="397">
+        <argument line="420">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="397">
+        <argument line="420">
           <name>$param</name>
           <default>0</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="412">
+      <method final="false" abstract="false" static="false" visibility="public" line="439">
         <name>maxLength</name>
         <docblock>
           <description>Checks to see if field value is longer than $param.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="405">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="432">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="405">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="432">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The maximum length the field can be" type="int" variable="$param" line="405">
+          <tag name="param" description="The maximum length the field can be" type="int" variable="$param" line="432">
             <type by_reference="false">int</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="405">
+          <tag name="return" description="" type="boolean" line="432">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="412">
+        <argument line="439">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="412">
+        <argument line="439">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="412">
+        <argument line="439">
           <name>$param</name>
           <default>999</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="427">
+      <method final="false" abstract="false" static="false" visibility="public" line="458">
         <name>minValue</name>
         <docblock>
           <description>Checks to see if field value is less than $param.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="420">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="451">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="420">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="451">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The minimum value the field can be" type="int" variable="$param" line="420">
+          <tag name="param" description="The minimum value the field can be" type="int" variable="$param" line="451">
             <type by_reference="false">int</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="420">
+          <tag name="return" description="" type="boolean" line="451">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="427">
+        <argument line="458">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="427">
+        <argument line="458">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="427">
+        <argument line="458">
           <name>$param</name>
           <default>0</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="441">
+      <method final="false" abstract="false" static="false" visibility="public" line="476">
         <name>maxValue</name>
         <docblock>
           <description>Checks to see if field value is greater than $param.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="434">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="469">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="434">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="469">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The maximum value the field can be" type="int" variable="$param" line="434">
+          <tag name="param" description="The maximum value the field can be" type="int" variable="$param" line="469">
             <type by_reference="false">int</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="434">
+          <tag name="return" description="" type="boolean" line="469">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="441">
+        <argument line="476">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="441">
+        <argument line="476">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="441">
+        <argument line="476">
           <name>$param</name>
           <default>0</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="455">
+      <method final="false" abstract="false" static="false" visibility="public" line="494">
         <name>contains</name>
         <docblock>
           <description>See if field contains a certain value.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="448">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="487">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="448">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="487">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The regular expression to check against the field" type="string" variable="$expr" line="448">
+          <tag name="param" description="The regular expression to check against the field" type="string" variable="$expr" line="487">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="448">
+          <tag name="return" description="" type="boolean" line="487">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="455">
+        <argument line="494">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="455">
+        <argument line="494">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="455">
+        <argument line="494">
           <name>$expr</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="469">
+      <method final="false" abstract="false" static="false" visibility="public" line="512">
         <name>strip</name>
         <docblock>
           <description>Strip a string from the value.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="462">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="505">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="462">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="505">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value to strip from the field" type="string" variable="$param" line="462">
+          <tag name="param" description="The value to strip from the field" type="string" variable="$param" line="505">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="462">
+          <tag name="return" description="" type="boolean" line="505">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="469">
+        <argument line="512">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="469">
+        <argument line="512">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="469">
+        <argument line="512">
           <name>$param</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="481">
+      <method final="false" abstract="false" static="false" visibility="public" line="524">
         <name>stripTags</name>
         <docblock>
           <description>Strip all tags in the field. The parameter can be a string of allowed
 tags.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="473">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="516">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="473">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="516">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value" type="string" variable="$allowedTags" line="473">
+          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value" type="string" variable="$allowedTags" line="516">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="473">
+          <tag name="return" description="" type="boolean" line="516">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="481">
+        <argument line="524">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="481">
+        <argument line="524">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="481">
+        <argument line="524">
           <name>$allowedTags</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="494">
+      <method final="false" abstract="false" static="false" visibility="public" line="537">
         <name>allowTags</name>
         <docblock>
           <description>Strip all tags in the field. The parameter can be a string of allowed
 tags.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="486">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="529">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="486">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="529">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value. Leave blank to allow all." type="string" variable="$allowedTags" line="486">
+          <tag name="param" description="A comma-separated list of tags to allow in the field&amp;#039;s value. Leave blank to allow all." type="string" variable="$allowedTags" line="529">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="486">
+          <tag name="return" description="" type="boolean" line="529">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="494">
+        <argument line="537">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="494">
+        <argument line="537">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="494">
+        <argument line="537">
           <name>$allowedTags</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="507">
+      <method final="false" abstract="false" static="false" visibility="public" line="550">
         <name>range</name>
         <docblock>
           <description>Validates value between a range, specified by min-max.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="500">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="543">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="500">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="543">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The range the value should reside in" type="string" variable="$ranges" line="500">
+          <tag name="param" description="The range the value should reside in" type="string" variable="$ranges" line="543">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="500">
+          <tag name="return" description="" type="boolean" line="543">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="507">
+        <argument line="550">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="507">
+        <argument line="550">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="507">
+        <argument line="550">
           <name>$ranges</name>
           <default>0-1</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="529">
+      <method final="false" abstract="false" static="false" visibility="public" line="572">
         <name>isNumber</name>
         <docblock>
           <description>Checks to see if the field is a number.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="523">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="566">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="523">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="566">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="523">
+          <tag name="return" description="" type="boolean" line="566">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="529">
+        <argument line="572">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="529">
+        <argument line="572">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="544">
+      <method final="false" abstract="false" static="false" visibility="public" line="590">
         <name>isDate</name>
         <docblock>
           <description>Checks to see if the field is a valid date. Allows for date formatting as
 well.</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="536">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="582">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="536">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="582">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The format of the date" type="string" variable="$format" line="536">
+          <tag name="param" description="The format of the date" type="string" variable="$format" line="582">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="536">
+          <tag name="return" description="" type="boolean" line="582">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="544">
+        <argument line="590">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="544">
+        <argument line="590">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
-        <argument line="544">
+        <argument line="590">
           <name>$format</name>
           <default>%m/%d/%Y</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="564">
+      <method final="false" abstract="false" static="false" visibility="public" line="614">
         <name>islowercase</name>
         <docblock>
           <description>Checks to see if a string is all lowercase</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="558">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="608">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="558">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="608">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="558">
+          <tag name="return" description="" type="boolean" line="608">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="564">
+        <argument line="614">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="564">
+        <argument line="614">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="575">
+      <method final="false" abstract="false" static="false" visibility="public" line="628">
         <name>isuppercase</name>
         <docblock>
           <description>Checks to see if a string is all uppercase</description>
           <long-description>
 </long-description>
-          <tag name="param" description="The name of the field" type="string" variable="$key" line="569">
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="622">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="param" description="The value of the field" type="string" variable="$value" line="569">
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="622">
             <type by_reference="false">string</type>
           </tag>
-          <tag name="return" description="" type="boolean" line="569">
+          <tag name="return" description="" type="boolean" line="622">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="575">
+        <argument line="628">
           <name>$key</name>
           <default/>
           <type/>
         </argument>
-        <argument line="575">
+        <argument line="628">
           <name>$value</name>
           <default/>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="584">
+      <method final="false" abstract="false" static="false" visibility="public" line="642">
+        <name>regexp</name>
+        <docblock>
+          <description/>
+          <long-description>
+</long-description>
+          <tag name="param" description="The name of the field" type="string" variable="$key" line="636">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The value of the field" type="string" variable="$value" line="636">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="The regexp to use" type="string" variable="$expression" line="636">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="return" description="" type="boolean" line="636">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="642">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="642">
+          <name>$value</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="642">
+          <name>$expression</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" line="659">
+        <name>_getErrorMessage</name>
+        <docblock>
+          <description>Check for a custom error message, otherwise use a lexicon entry.</description>
+          <long-description>
+</long-description>
+          <tag name="param" description="" type="string" variable="$field" line="651">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="string" variable="$parameter" line="651">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="string" variable="$lexiconKey" line="651">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag name="param" description="" type="array" variable="$properties" line="651">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag name="return" description="" type="null|string" line="651">
+            <type by_reference="false">null</type>
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="659">
+          <name>$field</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="659">
+          <name>$parameter</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="659">
+          <name>$lexiconKey</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="659">
+          <name>$properties</name>
+          <default>array</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" line="678">
         <name>processErrors</name>
         <docblock>
           <description>Process the errors that have occurred and setup the appropriate placeholders</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="void" line="580">
+          <tag name="return" description="" type="void" line="674">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" line="601">
+      <method final="false" abstract="false" static="false" visibility="public" line="695">
         <name>reset</name>
         <docblock>
           <description>Resets the validator</description>
           <long-description>
 </long-description>
-          <tag name="return" description="" type="void" line="597">
+          <tag name="return" description="" type="void" line="691">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
