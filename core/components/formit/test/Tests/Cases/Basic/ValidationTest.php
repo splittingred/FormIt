@@ -372,4 +372,25 @@ class ValidationTest extends FiTestCase {
             array(false,'AAAAAAcAAAA'),
         );
     }
+
+    /**
+     * @param boolean $shouldPass
+     * @param string $value
+     * @param string $regexp
+     * @dataProvider providerRegexp
+     */
+    public function testRegexp($shouldPass,$value,$regexp) {
+        $_POST['case_name'] = $value;
+        $this->formit->config['validate'] = 'case_name:regexp=^'.$regexp.'^';
+        $this->processForm();
+        $passed = !$this->formit->request->validator->hasErrors();
+        $this->assertEquals($shouldPass,$passed,'The :regexp validation failed, which should not have occurred: '.print_r($this->formit->request->validator->errors,true));
+    }
+    public function providerRegexp() {
+        return array(
+            array(true,'abcdef','/^bcd/'),
+            array(true,'This is written in PHP, a programming language','/php/i'),
+            array(false,'This is not written in LOLCode, o hai','/php/i'),
+        );
+    }
 }

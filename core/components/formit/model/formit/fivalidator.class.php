@@ -315,7 +315,10 @@ class fiValidator {
         } else {
             $success = !empty($value) ? true : false;
         }
-        return $success ? true : $this->modx->lexicon('formit.field_required',array('field' => $key, 'value' => $value));
+        return $success ? true : $this->_getErrorMessage($key,'vTextRequired','formit.field_required',array(
+            'field' => $key,
+            'value' => $value,
+        ));
     }
 
     /**
@@ -325,7 +328,10 @@ class fiValidator {
      * @return boolean
      */
     public function blank($key,$value) {
-        return empty($value) ? true : $this->modx->lexicon('formit.field_not_empty',array('field' => $key, 'value' => $value));
+        return empty($value) ? true : $this->_getErrorMessage($key,'vTextBlank','formit.field_not_empty',array(
+            'field' => $key,
+            'value' => $value,
+        ));
     }
 
     /**
@@ -338,7 +344,11 @@ class fiValidator {
     public function password_confirm($key,$value,$param = 'password_confirm') {
         if (empty($value)) return $this->modx->lexicon('formit.password_not_confirmed');
         if ($this->fields[$param] != $value) {
-            return $this->modx->lexicon('formit.password_dont_match',array('field' => $key, 'password' => $value, 'password_confirm' => $this->fields[$param]));
+            return $this->_getErrorMessage($key,'vTextPasswordConfirm','formit.password_dont_match',array(
+                'field' => $key,
+                'password' => $value,
+                'password_confirm' => $this->fields[$param],
+            ));
         }
         return true;
     }
@@ -357,7 +367,10 @@ class fiValidator {
         $pattern = "^[^@]{1,64}\@[^\@]{1,255}$";
         $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$value) : @ereg($pattern, $value);
         if (!$condition) {
-            return $this->modx->lexicon('formit.email_invalid',array('field' => $key, 'value' => $value));
+            return $this->_getErrorMessage($key,'vTextEmailInvalid','formit.email_invalid',array(
+                'field' => $key,
+                'value' => $value,
+            ));
         }
 
         $email_array = explode("@", $value);
@@ -366,7 +379,10 @@ class fiValidator {
             $pattern = "^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$";
             $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$local_array[$i]) : @ereg($pattern,$local_array[$i]);
             if (!$condition) {
-                return $this->modx->lexicon('formit.email_invalid',array('field' => $key, 'value' => $value));
+                return $this->_getErrorMessage($key,'vTextEmailInvalid','formit.email_invalid',array(
+                    'field' => $key,
+                    'value' => $value,
+                ));
             }
         }
         /* validate domain */
@@ -375,13 +391,19 @@ class fiValidator {
         if (!$condition) {
             $domain_array = explode(".", $email_array[1]);
             if (sizeof($domain_array) < 2) {
-                return $this->modx->lexicon('formit.email_invalid_domain',array('field' => $key, 'value' => $value));
+                return $this->_getErrorMessage($key,'vTextEmailInvalidDomain','formit.email_invalid_domain',array(
+                    'field' => $key,
+                    'value' => $value,
+                ));
             }
             for ($i = 0; $i < sizeof($domain_array); $i++) {
                 $pattern = "^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$";
                 $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$domain_array[$i]) : @ereg($pattern,$domain_array[$i]);
                 if (!$condition) {
-                    return $this->modx->lexicon('formit.email_invalid_domain',array('field' => $key, 'value' => $value));
+                    return $this->_getErrorMessage($key,'vTextEmailInvalidDomain','formit.email_invalid_domain',array(
+                        'field' => $key,
+                        'value' => $value,
+                    ));
                 }
             }
         }
@@ -398,7 +420,11 @@ class fiValidator {
     public function minLength($key,$value,$param = 0) {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
         if ($v < $param) {
-            return $this->modx->lexicon('formit.min_length',array('length' => $param, 'field' => $key, 'value' => $value));
+            return $this->_getErrorMessage($key,'vTextMinLength','formit.min_length',array(
+                'length' => $param,
+                'field' => $key,
+                'value' => $value,
+            ));
         }
         return true;
     }
@@ -413,7 +439,11 @@ class fiValidator {
     public function maxLength($key,$value,$param = 999) {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
         if ($v > $param) {
-            return $this->modx->lexicon('formit.max_length',array('length' => $param, 'field' => $key, 'value' => $value));
+            return $this->_getErrorMessage($key,'vTextMaxLength','formit.max_length',array(
+                'length' => $param,
+                'field' => $key,
+                'value' => $value,
+            ));
         }
         return true;
     }
@@ -427,7 +457,11 @@ class fiValidator {
      */
     public function minValue($key,$value,$param = 0) {
         if ((float)$value < (float)$param) {
-            return $this->modx->lexicon('formit.min_value',array('field' => $key,'value' => $param));
+            return $this->_getErrorMessage($key,'vTextMinValue','formit.min_value',array(
+                'field' => $key,
+                'passedValue' => $value,
+                'value' => $param,
+            ));
         }
         return true;
     }
@@ -441,7 +475,11 @@ class fiValidator {
      */
     public function maxValue($key,$value,$param = 0) {
         if ((float)$value > (float)$param) {
-            return $this->modx->lexicon('formit.max_value',array('field' => $key,'value' => $param));
+            return $this->_getErrorMessage($key,'vTextMaxValue','formit.max_value',array(
+                'field' => $key,
+                'passedValue' => $value,
+                'value' => $param,
+            ));
         }
         return true;
     }
@@ -455,7 +493,11 @@ class fiValidator {
      */
     public function contains($key,$value,$expr = '') {
         if (!preg_match('/'.$expr.'/i',$value)) {
-            return $this->modx->lexicon('formit.contains',array('field' => $key,'value' => $expr));
+            return $this->_getErrorMessage($key,'vTextContains','formit.contains',array(
+                'field' => $key,
+                'passedValue' => $value,
+                'value' => $expr,
+            ));
         }
         return true;
     }
@@ -510,7 +552,7 @@ class fiValidator {
         if (count($range) < 2) return $this->modx->lexicon('formit.range_invalid');
 
         if ($value < $range[0] || $value > $range[1]) {
-            return $this->modx->lexicon('formit.range',array(
+            return $this->_getErrorMessage($key,'vTextRange','formit.range',array(
                 'min' => $range[0],
                 'max' => $range[1],
                 'field' => $key,
@@ -529,7 +571,10 @@ class fiValidator {
      */
      public function isNumber($key,$value) {
          if (!is_numeric(trim($value))) {
-             return $this->modx->lexicon('formit.not_number',array('field' => $key,'value' => $value));
+             return $this->_getErrorMessage($key,'vTextIsNumber','formit.not_number',array(
+                'field' => $key,
+                'value' => $value,
+             ));
          }
          return true;
      }
@@ -548,7 +593,11 @@ class fiValidator {
             $ts = strtotime($value);
         }
         if ($ts === false || empty($value)) {
-            return $this->modx->lexicon('formit.not_date',array('format' => $format,'field' => $key, 'value' => $value));
+            return $this->_getErrorMessage($key,'vTextIsDate','formit.not_date',array(
+                'format' => $format,
+                'field' => $key,
+                'value' => $value,
+            ));
         }
         if (!empty($format)) {
             $this->fields[$key] = strftime($format,$ts);
@@ -564,7 +613,10 @@ class fiValidator {
      */
     public function islowercase($key,$value) {
         $v = $this->config['use_multibyte'] ? mb_strtolower($value,$this->config['encoding']) : strtolower($value);
-        return strcmp($v,$value) == 0 ? true : $this->modx->lexicon('formit.not_lowercase',array('field' => $key,'value' => $value));
+        return strcmp($v,$value) == 0 ? true : $this->_getErrorMessage($key,'vTextIsLowerCase','formit.not_lowercase',array(
+            'field' => $key,
+            'value' => $value,
+        ));
     }
 
     /**
@@ -575,7 +627,48 @@ class fiValidator {
      */
     public function isuppercase($key,$value) {
         $v = $this->config['use_multibyte'] ? mb_strtoupper($value,$this->config['encoding']) : strtoupper($value);
-        return strcmp($v,$value) == 0 ? true : $this->modx->lexicon('formit.not_lowercase',array('field' => $key,'value' => $value));
+        return strcmp($v,$value) == 0 ? true : $this->_getErrorMessage($key,'vTextIsUpperCase','formit.not_lowercase',array(
+            'field' => $key,
+            'value' => $value,
+        ));
+    }
+
+    /**
+     * @param string $key The name of the field
+     * @param string $value The value of the field
+     * @param string $expression The regexp to use
+     * @return boolean
+     */
+    public function regexp($key,$value,$expression) {
+        preg_match($expression,$value,$matches);
+        return !empty($matches) && !empty($matches[0]) == true ? true : $this->_getErrorMessage($key,'vTextRegexp','formit.not_regexp',array(
+            'field' => $key,
+            'value' => $value,
+            'regexp' => $expression,
+        ));
+    }
+
+    /**
+     * Check for a custom error message, otherwise use a lexicon entry.
+     * @param string $field
+     * @param string $parameter
+     * @param string $lexiconKey
+     * @param array $properties
+     * @return null|string
+     */
+    protected function _getErrorMessage($field,$parameter,$lexiconKey,array $properties = array()) {
+        if (!empty($this->formit->config[$field.'.'.$parameter])) {
+            $message = $this->formit->config[$field.'.'.$parameter];
+            $this->modx->lexicon->set($lexiconKey,$message);
+            $this->modx->lexicon($lexiconKey,$properties);
+        } else if (!empty($this->formit->config[$parameter])) {
+            $message = $this->formit->config[$parameter];
+            $this->modx->lexicon->set($lexiconKey,$message);
+            $this->modx->lexicon($lexiconKey,$properties);
+        } else {
+            $message = $this->modx->lexicon($lexiconKey,$properties);
+        }
+        return $message;
     }
 
     /**

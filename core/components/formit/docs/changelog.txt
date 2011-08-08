@@ -2,6 +2,8 @@ Changelog for FormIt.
 
 FormIt 2.0.0
 ====================================
+- [#3514] Add ability to customize validator error messages per FormIt form and per field
+- [#4705] Add regexp validator
 - [#5454] Fix issue with customValidators property in 2.0.0-rc2
 - Major reworking of main FormIt script to be OOP
 - Add over 150 unit tests to prevent regression
