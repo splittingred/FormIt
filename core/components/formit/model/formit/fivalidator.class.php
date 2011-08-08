@@ -198,7 +198,7 @@ class fiValidator {
      * error messages to $this->errors.
      */
     public function validate($key,$value,$type = '') {
-        /** @var boolean $validated */
+        /** @var boolean|array $validated */
         $validated = false;
 
         /** @var boolean $hasParams */
@@ -214,12 +214,13 @@ class fiValidator {
 
         /** @var array $invNames An array of invalid hook names to skip */
         $invNames = array('validate','validateFields','addError','__construct');
+        $customValidators = explode(',',$this->config['customValidators']);
         if (method_exists($this,$type) && !in_array($type,$invNames)) {
             /* built-in validator */
             $validated = $this->$type($key,$value,$param);
 
         /* only allow specified validators to prevent brute force execution of unwanted snippets */
-        } else if (in_array($type,$this->config['customValidators'])) {
+        } else if (in_array($type,$customValidators)) {
             /* attempt to grab custom validator */
             /** @var modSnippet|null $snippet */
             $snippet = $this->modx->getObject('modSnippet',array('name' => $type));

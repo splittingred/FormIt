@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.0.0
 ====================================
+- [#5454] Fix issue with customValidators property in 2.0.0-rc2
 - Major reworking of main FormIt script to be OOP
 - Add over 150 unit tests to prevent regression
 - [#5388], [#5240] Fix issue with FormItCountryOptions and &useIsoCode
