@@ -291,7 +291,7 @@ class fiRequest {
     public function runPostHooks() {
         $success = true;
         /* load posthooks */
-        $this->formit->loadHooks('post');
+        $this->formit->loadHooks('post',$this->config);
         $this->formit->postHooks->loadMultiple($this->config['hooks'],$this->dictionary->toArray());
 
         /* process form */
