@@ -245,14 +245,17 @@ class fiValidator {
             $validated = true;
         }
 
-        if (is_array($validated) && !empty($validated)) {
-            foreach ($validated as $key => $errMsg) {
-                $this->addError($key,$errMsg);
+        /** handle return value errors */
+        if (!empty($validated)) {
+            if (is_array($validated)) {
+                foreach ($validated as $key => $errMsg) {
+                    $this->addError($key,$errMsg);
+                }
+                $validated = false;
+            } elseif ($validated !== '1' && $validated !== 1 && $validated !== true) {
+                $this->addError($key,$validated);
+                $validated = false;
             }
-            $validated = false;
-        } elseif ($validated !== '1' && $validated !== 1 && $validated !== true) {            
-            $this->addError($key,$validated);
-            $validated = false;
         }
 
         return $validated;

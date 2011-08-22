@@ -1,5 +1,11 @@
 Changelog for FormIt.
 
+FormIt 2.0.1
+====================================
+- [#5484] Fix issue with double validation error spans
+- Fix issue where config was not passed to hooks
+- Update German translation
+
 FormIt 2.0.0
 ====================================
 - [#3514] Add ability to customize validator error messages per FormIt form and per field
