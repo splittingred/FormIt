@@ -210,6 +210,21 @@ class fiRequest {
     }
 
     /**
+     * Removes files if allowFiles is set to 0
+     * @return void
+     */
+    public function checkForFiles() {
+        if (!$this->modx->getOption('allowFiles',$this->config,true)) {
+            $fields = $this->dictionary->toArray();
+            foreach ($fields as $key => $value) {
+                if (is_array($value) && !empty($value['tmp_name'])) {
+                    $this->dictionary->remove($key);
+                }
+            }
+        }
+    }
+
+    /**
      * Loads the Validator class.
      *
      * @access public

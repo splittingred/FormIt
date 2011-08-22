@@ -40,6 +40,7 @@ $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
 $_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
 $_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
+$_lang['prop_formit.allowfiles_desc'] = 'If set to 0, will prevent files from being submitted on the form.';
 $_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
 $_lang['prop_formit.redirectparams_desc'] = 'A JSON array of parameters to pass to the redirect hook that will be passed when redirecting.';

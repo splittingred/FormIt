@@ -138,6 +138,14 @@ $properties = array(
         'value' => 300,
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'allowFiles',
+        'desc' => 'prop_formit.allowfiles_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => true,
+        'lexicon' => 'formit:properties',
+    ),
     /* spam hook */
     array(
         'name' => 'spamEmailFields',

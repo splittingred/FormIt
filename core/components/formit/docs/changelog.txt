@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.0.1
 ====================================
+- [#5525] Add &allowFiles property, that when set to 0, prevents file submissions on form
 - [#5484] Fix issue with double validation error spans
 - Fix issue where config was not passed to hooks
 - Update German translation
