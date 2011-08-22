@@ -123,7 +123,7 @@ class fiRequest {
      */
     public function runPreHooks() {
         $fields = array();
-        $this->formit->loadHooks('pre');
+        $this->formit->loadHooks('pre',$this->config);
         $this->formit->preHooks->loadMultiple($this->config['preHooks'],array(),array(
             'submitVar' => $this->config['submitVar'],
             'hooks' => $this->config['preHooks'],
@@ -291,7 +291,7 @@ class fiRequest {
     public function runPostHooks() {
         $success = true;
         /* load posthooks */
-        $this->formit->loadHooks('post');
+        $this->formit->loadHooks('post',$this->config);
         $this->formit->postHooks->loadMultiple($this->config['hooks'],$this->dictionary->toArray());
 
         /* process form */
