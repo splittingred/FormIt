@@ -30,7 +30,7 @@
 if (!class_exists('FormItReCaptcha')) {
 class FormItReCaptcha {
     const API_SERVER = 'http://api.recaptcha.net/';
-    const API_SECURE_SERVER = 'https://api-secure.recaptcha.net/';
+    const API_SECURE_SERVER = 'https://www.google.com/recaptcha/api/';
     const VERIFY_SERVER = 'api-verify.recaptcha.net';
     const OPT_PRIVATE_KEY = 'privateKey';
     const OPT_PUBLIC_KEY = 'publicKey';
