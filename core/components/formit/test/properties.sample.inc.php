@@ -39,3 +39,4 @@ $properties['modx_config_path'] = '';
 $properties['logLevel']= modX::LOG_LEVEL_INFO;
 $properties['ctx'] = 'web';
 $properties['debug'] = false;
+$properties['email'] = 'test@email.com';

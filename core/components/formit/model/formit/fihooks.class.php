@@ -352,18 +352,27 @@ class fiHooks {
         if (empty($tpl)) {
             $tpl = 'email';
             $f = '';
+            $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
+            $multiWrapper = $this->modx->getOption('emailMultiWrapper',$this->formit->config,"[[+value]]");
+
             foreach ($fields as $k => $v) {
                 if ($k == 'nospam') continue;
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
                     $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
                 } else if (is_array($v)) {
+                    $vOpts = array();
                     foreach ($v as $vKey => $vValue) {
                         if (is_string($vKey) && !empty($vKey)) {
                             $vKey = $k.'.'.$vKey;
+                            $f[$vKey] = '<strong>'.$vKey.'</strong>: '.$vValue.'<br />';
+                        } else {
+                            $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
                         }
-                        if (empty($vKey)) $vKey = $k;
-                        $f[$vKey] = '<strong>'.$vKey.'</strong>: '.$vValue.'<br />';
+                    }
+                    $newValue = implode($multiSeparator,$vOpts);
+                    if (!empty($vOpts)) {
+                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue;
                     }
                 } else {
                     $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
@@ -384,7 +393,13 @@ class fiHooks {
                 } else if (is_array($v)) {
                     $vOpts = array();
                     foreach ($v as $vKey => $vValue) {
-                        $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                        if (is_string($vKey) && !empty($vKey)) {
+                            $vKey = $k.'.'.$vKey;
+                            $fields[$vKey] = $vValue;
+                            unset($fields[$k]);
+                        } else {
+                            $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                        }
                     }
                     $v = implode($multiSeparator,$vOpts);
                 }
@@ -475,7 +490,11 @@ class fiHooks {
         }
 
         /* send email */
-        $sent = $this->modx->mail->send();
+        if (!$this->formit->inTestMode) {
+            $sent = $this->modx->mail->send();
+        } else {
+            $sent = true;
+        }
         $this->modx->mail->reset(array(
             modMail::MAIL_CHARSET => $this->modx->getOption('mail_charset',null,'UTF-8'),
             modMail::MAIL_ENCODING => $this->modx->getOption('mail_encoding',null,'8bit'),

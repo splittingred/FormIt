@@ -247,8 +247,12 @@ class FormIt {
      */
     private function _getTplChunk($name) {
         $chunk = false;
-        $lname = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
-        $f = $this->config['chunksPath'].$lname.'.chunk.tpl';
+        if (file_exists($name)) {
+            $f = $name;
+        } else {
+            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
+            $f = $this->config['chunksPath'].$lowerCaseName.'.chunk.tpl';
+        }
         if (file_exists($f)) {
             $o = file_get_contents($f);
             /** @var modChunk $chunk */
@@ -308,5 +312,14 @@ class FormIt {
         $totalTime= sprintf("%2.4f s", $totalTime);
         $this->debugTimer = false;
         return $totalTime;
+    }
+
+    public function setOption($key,$value) {
+        $this->config[$key] = $value;
+    }
+    public function setOptions($array) {
+        foreach ($array as $k => $v) {
+            $this->setOption($k,$v);
+        }
     }
 }
