@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.0.2
 ====================================
+- [#5404] Fix issues with checkboxes and array fields in FormItAutoResponder
 - [#5269] Fix issues with checkboxes in various forms in emails
 - [#5792] Update reCaptcha URLs
 

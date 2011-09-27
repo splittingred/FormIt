@@ -25,6 +25,8 @@
           <file>Tests/Cases/Basic/ValidationTest.php</file>
           <file>Tests/Cases/Basic/InlineValidatorTest.php</file>
           <file>Tests/Cases/Basic/EmailHookTest.php</file>
+          
+          <file>Tests/Cases/AutoResponder/AutoResponderBasicTest.php</file>
       </testsuite>
     </testsuites>
 </phpunit>

@@ -131,6 +131,7 @@ class fiHooks {
             /* built-in hooks */
             $success = $this->$hookName($this->fields);
 
+        /** @var modSnippet $snippet */
         } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hookName))) {
             /* custom snippet hook */
             $properties = array_merge($this->formit->config,$customProperties);
@@ -173,6 +174,7 @@ class fiHooks {
         $hook =& $this;
         $fields = $this->fields;
         $errors =& $this->errors;
+        $modx =& $this->modx;
         try {
             $success = include $path;
         } catch (Exception $e) {

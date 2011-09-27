@@ -68,6 +68,8 @@ class FiTestHarness {
         $modx->getRequest();
         $modx->getParser();
         $modx->request->loadErrorHandler();
+        @error_reporting(E_ALL);
+        @ini_set('display_errors',true);
         
         FiTestHarness::$modx = $modx;
         return $modx;

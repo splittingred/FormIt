@@ -39,9 +39,30 @@ $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($m
 $mailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
 $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
+$multiSeparator = $modx->getOption('fiarMultiSeparator',$formit->config,"\n");
+$multiWrapper = $modx->getOption('fiarMultiWrapper',$formit->config,"[[+value]]");
 if (empty($fields[$toField])) {
     $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.');
     return false;
+}
+
+/* handle checkbox and array fields */
+foreach ($fields as $k => &$v) {
+    if (is_array($v)) {
+        $vOpts = array();
+        foreach ($v as $vKey => $vValue) {
+            if (is_string($vKey) && !empty($vKey)) {
+                $vKey = $k.'.'.$vKey;
+                $fields[$vKey] = $vValue;
+            } else {
+                $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+            }
+        }
+        $newValue = implode($multiSeparator,$vOpts);
+        if (!empty($vOpts)) {
+            $fields[$k] = $newValue;
+        }
+    }
 }
 
 /* setup placeholders */
