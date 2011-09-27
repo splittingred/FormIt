@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.0.2
+====================================
+- [#5792] Update reCaptcha URLs
+
 FormIt 2.0.1
 ====================================
 - [#5525] Add &allowFiles property, that when set to 0, prevents file submissions on form
