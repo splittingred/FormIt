@@ -518,8 +518,12 @@ class fiHooks {
      * @return string The parsed string
      */
     public function _process($str,array $placeholders = array()) {
-        foreach ($placeholders as $k => $v) {
-            $str = str_replace('[[+'.$k.']]',$v,$str);
+        if (is_string($str)) {
+            foreach ($placeholders as $k => $v) {
+                if (is_scalar($k) && is_scalar($v)) {
+                    $str = str_replace('[[+'.$k.']]',$v,$str);
+                }
+            }
         }
         return $str;
     }

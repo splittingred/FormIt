@@ -214,7 +214,8 @@ class fiValidator {
 
         /** @var array $invNames An array of invalid hook names to skip */
         $invNames = array('validate','validateFields','addError','__construct');
-        $customValidators = explode(',',$this->config['customValidators']);
+        $customValidators = !empty($this->config['customValidators']) ? $this->config['customValidators'] : '';
+        $customValidators = explode(',',$customValidators);
         if (method_exists($this,$type) && !in_array($type,$invNames)) {
             /* built-in validator */
             $validated = $this->$type($key,$value,$param);
