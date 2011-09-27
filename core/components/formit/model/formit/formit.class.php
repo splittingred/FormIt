@@ -107,8 +107,6 @@ class FormIt {
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
         ),$config);
-
-        $this->modx->addPackage('formit',$this->config['modelPath']);
         if ($this->modx->getOption('formit.debug',$this->config,true)) {
             $this->startDebugTimer();
         }
