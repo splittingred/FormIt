@@ -280,7 +280,7 @@ class ValidationTest extends FiTestCase {
             array(true,'1'),
             array(true,' 1'),
             array(true,'1 '),
-            array(false,''),
+            array(true,''),
             array(false,'abc'),
             array(false,'one'),
         );

@@ -574,7 +574,7 @@ class fiValidator {
      * @return boolean
      */
      public function isNumber($key,$value) {
-         if (!is_numeric(trim($value))) {
+         if (!empty($value) && !is_numeric(trim($value))) {
              return $this->_getErrorMessage($key,'vTextIsNumber','formit.not_number',array(
                 'field' => $key,
                 'value' => $value,
