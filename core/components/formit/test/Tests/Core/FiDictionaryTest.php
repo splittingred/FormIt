@@ -60,7 +60,7 @@ class FiDictionaryClassTest extends FiTestCase {
             array(true,'one',1,array(),array('one' => 1)),
             array(true,'one',1,array('one' => 1),array('one' => 1)),
             array(true,'one',1,array('two' => 2,'one' => 1)),
-            array(false,'one'),
+            array(false,'one',array()),
         );
     }
 
@@ -121,9 +121,16 @@ class FiDictionaryClassTest extends FiTestCase {
     public function testFromArray($shouldPass,$fields,$key,$value) {
         $this->dictionary->fromArray($fields);
         if ($shouldPass) {
-            $this->assertEquals($this->dictionary->fields[$key],$value);
+            $this->assertArrayHasKey($key,$this->dictionary->fields);
+            if (isset($this->dictionary->fields[$key])) {
+                $this->assertEquals($this->dictionary->fields[$key],$value);
+            }
         } else {
-            $this->assertNotEquals($this->dictionary->fields[$key],$value);
+            if (isset($this->dictionary->fields[$key])) {
+                $this->assertNotEquals($this->dictionary->fields[$key],$value);
+            } else {
+                $this->assertTrue(true);
+            }
         }
     }
     /**
@@ -132,7 +139,7 @@ class FiDictionaryClassTest extends FiTestCase {
     public function providerFromArray() {
         return array(
             array(true,array('two' => 2),'two',2),
-            array(true,array('one' => array('two' => 2)),'one' => array('two' => 2)),
+            array(true,array('one' => array('two' => 2)),'one',array('two' => 2)),
             array(false,array('two' => 2),'three',3),
         );
     }

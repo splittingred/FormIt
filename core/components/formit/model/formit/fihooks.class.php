@@ -156,6 +156,7 @@ class fiHooks {
             $this->errors = array_merge($this->errors,$success);
             $success = false;
         } else if ($success != true) {
+            if (!isset($this->errors[$hookName])) $this->errors[$hookName] = '';
             $this->errors[$hookName] .= ' '.$success;
             $success = false;
         }
@@ -175,6 +176,7 @@ class fiHooks {
         $fields = $this->fields;
         $errors =& $this->errors;
         $modx =& $this->modx;
+        $success = false;
         try {
             $success = include $path;
         } catch (Exception $e) {
@@ -203,6 +205,7 @@ class fiHooks {
      * @return string The added error message with the error wrapper.
      */
     public function addError($key,$value) {
+        if (!isset($this->errors[$key])) $this->errors[$key] = '';
         $this->errors[$key] .= $value;
         return $this->errors[$key];
     }
