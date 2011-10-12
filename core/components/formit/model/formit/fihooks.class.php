@@ -411,7 +411,7 @@ class fiHooks {
             }
         }
         $message = $this->formit->getChunk($tpl,$fields);
-
+        
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
 
@@ -425,6 +425,14 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
+        /* set values for mymail log to use: */
+        $this->setValue('emailMessage', $message);
+        $this->setValue('emailFrom', $emailFrom );
+        $this->setValue('emailFromName', $emailFromName);
+        $this->setValue('emailSubject', $subject);
+        $this->setValue('emailHtml', $emailHtml );
+        $this->setValue('emailTo', $emailTo);
+        $this->setValue('emailToName', $emailToName);
         
         /* handle file fields */
         foreach ($origFields as $k => $v) {
@@ -459,11 +467,18 @@ class fiHooks {
         if (!empty($emailReplyTo)) {
             $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
         }
-
+        /* set values for mymail log to use: */
+        $this->setValue('emailReplyTo', $emailReplyTo); 
+        $this->setValue('emailReplyToName', $emailReplyToName);
+        
         /* cc */
         $emailCC = $this->modx->getOption('emailCC',$this->formit->config,'');
         if (!empty($emailCC)) {
             $emailCCName = $this->modx->getOption('emailCCName',$this->formit->config,'');
+            // set values for mymail log to use:
+            $this->setValue('emailCC', $emailCC);
+            $this->setValue('emailCCName', $emailCCName);
+            
             $emailCC = explode(',',$emailCC);
             $emailCCName = explode(',',$emailCCName);
             $numAddresses = count($emailCC);
@@ -481,6 +496,10 @@ class fiHooks {
         $emailBCC = $this->modx->getOption('emailBCC',$this->formit->config,'');
         if (!empty($emailBCC)) {
             $emailBCCName = $this->modx->getOption('emailBCCName',$this->formit->config,'');
+            /* set values for mymail log to use: */
+            $this->setValue('emailBCC', $emailBCC);
+            $this->setValue('emailBCCName', $emailBCCName);
+            
             $emailBCC = explode(',',$emailBCC);
             $emailBCCName = explode(',',$emailBCCName);
             $numAddresses = count($emailBCC);
