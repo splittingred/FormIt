@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model package="formit" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" tablePrefix="formit_">
+    <object class="FormItLog" table="formit_log" extends="xPDOSimpleObject">
+        <field key="from" dbtype="varchar" precision="128" phptype="string" null="true" />
+        <field key="to" dbtype="text" phptype="string" null="true" />
+        <field key="cc" dbtype="text" phptype="string" null="true" />
+        <field key="bcc" dbtype="text" phptype="string" null="true" />
+        <field key="subject" dbtype="varchar" precision="255" phptype="string" null="true" />
+        <field key="message" dbtype="text" phptype="string" null="true" />
+        <field key="is_html" dbtype="set" precision="'Y','N'" phptype="string" null="true" default="Y" />
+        <field key="sender_ip" dbtype="varchar" precision="39" phptype="string" null="true" />
+        <field key="sender_pcname" dbtype="varchar" precision="128" phptype="string" null="true" />
+        <field key="category" dbtype="varchar" precision="64" phptype="string" null="true" />
+        <field key="status" dbtype="set" precision="'sent','failed','resent'" phptype="string" null="true" default="sent" />
+        <field key="date_sent" dbtype="datetime" phptype="datetime" null="true" />
+        <field key="from_uri" dbtype="text" phptype="string" null="true" />
+        <field key="resend_info" dbtype="text" phptype="string" null="true" />
+    </object>
 </model>

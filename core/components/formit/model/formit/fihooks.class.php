@@ -66,7 +66,12 @@ class fiHooks {
      * @var array $fields
      */
     public $fields = array();
-
+    
+    /**
+     * The generated email data in that can be logged.
+     * @var array $logData
+     */
+    public $logData = array();
     /**
      * The constructor for the fiHooks class
      *
@@ -323,6 +328,7 @@ class fiHooks {
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
         $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
+        $emailLog = (boolean)$this->modx->getOption('emailLog',$this->formit->config, false);
         $emailConvertNewlines = (boolean)$this->modx->getOption('emailConvertNewlines',$this->formit->config,false);
 
         /* get from name */
@@ -426,13 +432,13 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
         /* set values for mymail log to use: */
-        $this->setValue('emailMessage', $message);
-        $this->setValue('emailFrom', $emailFrom );
-        $this->setValue('emailFromName', $emailFromName);
-        $this->setValue('emailSubject', $subject);
-        $this->setValue('emailHtml', $emailHtml );
-        $this->setValue('emailTo', $emailTo);
-        $this->setValue('emailToName', $emailToName);
+        $this->logData['emailMessage'] = $message;
+        $this->logData['emailFrom'] = $emailFrom;
+        $this->logData['emailFromName'] = $emailFromName;
+        $this->logData['emailSubject'] = $subject;
+        $this->logData['emailHtml'] = $emailHtml;
+        $this->logData['emailTo'] = $emailTo;
+        $this->logData['emailToName'] = $emailToName;
         
         /* handle file fields */
         foreach ($origFields as $k => $v) {
@@ -468,16 +474,16 @@ class fiHooks {
             $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
         }
         /* set values for mymail log to use: */
-        $this->setValue('emailReplyTo', $emailReplyTo); 
-        $this->setValue('emailReplyToName', $emailReplyToName);
+        $this->logData['emailReplyTo'] = $emailReplyTo; 
+        $this->logData['emailReplyToName'] = $emailReplyToName;
         
         /* cc */
         $emailCC = $this->modx->getOption('emailCC',$this->formit->config,'');
         if (!empty($emailCC)) {
             $emailCCName = $this->modx->getOption('emailCCName',$this->formit->config,'');
             // set values for mymail log to use:
-            $this->setValue('emailCC', $emailCC);
-            $this->setValue('emailCCName', $emailCCName);
+            $this->logData['emailCC'] = $emailCC;
+            $this->logData['emailCCName'] = $emailCCName;
             
             $emailCC = explode(',',$emailCC);
             $emailCCName = explode(',',$emailCCName);
@@ -497,8 +503,8 @@ class fiHooks {
         if (!empty($emailBCC)) {
             $emailBCCName = $this->modx->getOption('emailBCCName',$this->formit->config,'');
             /* set values for mymail log to use: */
-            $this->setValue('emailBCC', $emailBCC);
-            $this->setValue('emailBCCName', $emailBCCName);
+            $this->logData['emailBCC'] = $emailBCC;
+            $this->logData['emailBCCName'] = $emailBCCName;
             
             $emailBCC = explode(',',$emailBCC);
             $emailBCCName = explode(',',$emailBCCName);
@@ -528,8 +534,53 @@ class fiHooks {
             $this->errors[] = $this->modx->lexicon('formit.email_not_sent').' '.print_r($this->modx->mail->mailer->ErrorInfo,true);
             $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.email_not_sent').' '.print_r($this->modx->mail->mailer->ErrorInfo,true));
         }
-
+        $this->logData['emailStatus'] = $sent;
+        if ( $emailLog ) {
+            $this->logEmail($this->logData);
+        }
         return $sent;
+    }
+    /**
+     * Log the Email data into a database table
+     * 
+     * @param array $data The data array, name=>value
+     */
+    public function logEmail(array $data=array() ){
+        $log_category = $this->modx->getOption('logCategory',$this->formit->config,'');
+        $remoteIP = '';
+        $pcName = '';
+        if ( isset($_SERVER['REMOTE_ADDR']) ) {
+            /* I use these if we have to track down bad users */
+            $remoteIP = rtrim($_SERVER['REMOTE_ADDR']);
+            /* computer name */
+            $pcName = gethostbyaddr($remoteIP);
+        }
+        $logData = array(
+            'to' => $data['emailTo'].'=>'.$data['emailToName'],
+            'cc' => $data['emailCC'].'=>'.$data['emailCCName'],
+            'bcc' => $data['emailBCC'].'=>'.$data['emailBCCName'],
+            'from' => $data['emailFrom'].'=>'.$data['emailFromName'],
+            'reply_to' => $data['emailReplyTo'].'=>'.$data['emailReplyToName'],
+            'subject' => $data['emailSubject'],
+            'message' => $data['emailMessage'], 
+            'is_html' => ($data['emailHtml'] ? 'Y' : 'N' ),
+            'sender_ip' => $remoteIP,
+            'sender_pcname' => $pcName,
+            'category' => $log_category,
+            'status' => ($data['emailStatus'] ? 'sent' : 'failed' ),
+            'date_sent' => date("Y-m-d H:i:s"),
+            'from_uri' => $_SERVER['REQUEST_URI'],
+            //'resend_info' => ''
+        );
+        
+        $formitLog = $this->modx->newObject('FormItLog');
+        $formitLog->fromArray($logData);
+        /* save */
+        if ( $formitLog->save() == false) {
+            $this->addError('email', $this->modx('formit.log_error'));
+            return false;
+        }
+        return true;
     }
 
     /**
