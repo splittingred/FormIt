@@ -73,7 +73,7 @@ $generator->mapHeader= <<<EOD
  * [+phpdoc-package+]
  */
 EOD;
-$generator->parseSchema(dirname(__FILE__) . '/formit.mysql.schema.xml', $sources['model']);
+$generator->parseSchema(dirname(__FILE__) . '/schema/formit.mysql.schema.xml', $sources['model']);
 
 
 $mtime= microtime();
