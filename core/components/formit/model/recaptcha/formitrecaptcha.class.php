@@ -121,10 +121,10 @@ class FormItReCaptcha {
 
         $opt = $this->getOptions($scriptProperties);
         $html = '<script type="text/javascript">var RecaptchaOptions = '.$this->modx->toJSON($opt).';</script><script type="text/javascript" src="'. $server . 'challenge?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '"></script>
-<noscript>
-        <iframe src="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '" height="'.$opt['height'].'" width="'.$opt['width'].'" frameborder="0" style="width: '.$opt['width'].'px; height: '.$opt['height'].'px;"></iframe><br />
+<noscript><div>
+        <object data="'. $server . 'noscript?k=' . $this->config[FormItReCaptcha::OPT_PUBLIC_KEY] . '" height="'.$opt['height'].'" width="'.$opt['width'].'" style="width: '.$opt['width'].'px; height: '.$opt['height'].'px;"></object>
         <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
-        <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+        <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/></div>
 </noscript>';
         $this->modx->setPlaceholder('formit.recaptcha_html',$html);
         $this->modx->setPlaceholder($scriptProperties['placeholderPrefix'].'recaptcha_html',$html);

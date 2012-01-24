@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.0.3
+====================================
+- [#6618] Standardize XHTML in reCaptcha usage
+
 FormIt 2.0.2
 ====================================
 - [#4864] Fix issue with isNumber not allowing blank fields
