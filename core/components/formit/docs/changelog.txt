@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.0.3
 ====================================
+- Fix issue with French accents in translation
 - [#6021] Refactor Russian reCaptcha translations
 - [#6618] Standardize XHTML in reCaptcha usage
 
