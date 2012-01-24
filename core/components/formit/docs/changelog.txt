@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.0.3
 ====================================
+- [#6021] Refactor Russian reCaptcha translations
 - [#6618] Standardize XHTML in reCaptcha usage
 
 FormIt 2.0.2
