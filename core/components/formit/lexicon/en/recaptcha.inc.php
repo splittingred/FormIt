@@ -23,7 +23,7 @@
  * reCaptcha Lexicon Topic
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
  */
 $_lang['recaptcha.empty_answer'] = 'Incorrect captcha words. Please check your answer and try again.';
 $_lang['recaptcha.incorrect'] = 'The reCAPTCHA wasn\'t entered correctly. Go back and try it again. [[+error]]';

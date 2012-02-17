@@ -24,7 +24,7 @@
  *
  * @package formit
  * @subpackage lexicon
- * @language en
+ * @language de
  */
 /* FormIt properties */
 $_lang['prop_formit.hooks_desc'] = 'What scripts to fire, if any, after the form passes validation. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
