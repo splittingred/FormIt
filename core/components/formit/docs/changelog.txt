@@ -1,5 +1,74 @@
 Changelog for FormIt.
 
+FormIt 2.0.3
+====================================
+- Update Czech translation
+- Fix issue with French accents in translation
+- [#6021] Refactor Russian reCaptcha translations
+- [#6618] Standardize XHTML in reCaptcha usage
+
+FormIt 2.0.2
+====================================
+- [#4864] Fix issue with isNumber not allowing blank fields
+- [#5404] Fix issues with checkboxes and array fields in FormItAutoResponder
+- [#5269] Fix issues with checkboxes in various forms in emails
+- [#5792] Update reCaptcha URLs
+
+FormIt 2.0.1
+====================================
+- [#5525] Add &allowFiles property, that when set to 0, prevents file submissions on form
+- [#5484] Fix issue with double validation error spans
+- Fix issue where config was not passed to hooks
+- Update German translation
+
+FormIt 2.0.0
+====================================
+- [#3514] Add ability to customize validator error messages per FormIt form and per field
+- [#4705] Add regexp validator
+- [#5454] Fix issue with customValidators property in 2.0.0-rc2
+- Major reworking of main FormIt script to be OOP
+- Add over 150 unit tests to prevent regression
+- [#5388], [#5240] Fix issue with FormItCountryOptions and &useIsoCode
+- Fix issue with FormItStateOptions and &useAbbr
+- [#5267] Fix issue with FormItRetriever and array fields
+
+FormIt 1.7.0
+====================================
+- Add ability to have "Frequent Visitors" optgroup in FormItCountryOptions, moving specified countries to the top of the list in an optgroup
+- Add missing property translations for FormItStateOptions snippet
+- Fix small issue with stored values after validation of fields
+- Add FormItStateOptions snippet for easy U.S. state dropdowns
+- Add FormItCountryOptions snippet for easy country dropdowns
+- [#5101] Fix issue with emailMultiSeparator and emailMultiWrapper default values
+- Fix issue with bracketed field names being added as extra fields post-validation with . prefix
+
+FormIt 1.6.0
+====================================
+- [#4708] Add support for bracketed fields, such as contact[name]
+- [#5038] Fix uninitialized variable warnings in reCaptcha service
+- [#4993] Add Italian translation and fix recaptcha links
+- Fix issue where fields could be removed via DOM from form and be bypassed
+- Add &emailMultiSeparator and &emailMultiWrapper for handling display of checkboxes/multi-selects in email hook
+
+FormIt 1.5.6
+====================================
+- [#4564] Fix redirectTo with non-web contexts
+
+FormIt 1.5.5
+====================================
+- [#4168] Add emailConvertNewlines property for handling newlines in HTML emails
+- [#4057] Prevent math hook from generating similar numbers
+- [#4302] Cleanups to FormItAutoResponder snippet
+- [#3991] Fix issue with checkbox values in emails
+
+FormIt 1.5.4
+====================================
+- Fix issue with math hook where error placeholders were incorrect
+- Fix issue where emailHtml property was not respected in email hook
+- Fix issue where hooks were not passed customProperties array
+- [#51] Allow blank fields to be passed with :email validator
+- [#55] Allow all fields to be accessed in custom validators
+
 FormIt 1.5.3
 ====================================
 - [#40] Add ability to display all error messages in bulk at top, added validationErrorBulkTpl for templating each one

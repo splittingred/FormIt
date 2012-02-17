@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -40,6 +40,7 @@ $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
 $_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
 $_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
+$_lang['prop_formit.allowfiles_desc'] = 'If set to 0, will prevent files from being submitted on the form.';
 $_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
 $_lang['prop_formit.redirectparams_desc'] = 'A JSON array of parameters to pass to the redirect hook that will be passed when redirecting.';
@@ -62,6 +63,9 @@ $_lang['prop_formit.emailreplytoname_desc'] = 'Optional. If `email` is set as a 
 $_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is required as a subject line for the email.';
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
+$_lang['prop_formit.emailconvertnewlines_desc'] = 'If true and emailHtml is set to 1, will convert newlines to BR tags in the email.';
+$_lang['prop_formit.emailmulitseparator_desc'] = 'The default separator for collections of items sent through checkboxes/multi-selects. Defaults to a newline.';
+$_lang['prop_formit.emailmultiwrapper_desc'] = 'Will wrap each item in a collection of fields sent via checkboxes/multi-selects. Defaults to just the value.';
 
 /* FormIt Auto-Responder properties */
 $_lang['prop_fiar.fiartpl_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies auto-response template to send as the email.';
@@ -89,6 +93,24 @@ $_lang['prop_math.mathfield_desc'] = 'If `math` is set as a hook, the name of th
 $_lang['prop_math.mathop1field_desc'] = 'If `math` is set as a hook, the name of the field for the 1st number in the equation.';
 $_lang['prop_math.mathop2field_desc'] = 'If `math` is set as a hook, the name of the field for the 2nd number in the equation.';
 $_lang['prop_math.mathoperatorfield_desc'] = 'If `math` is set as a hook, the name of the field for the operator in the equation.';
+
+/* FormItCountryOptions properties */
+$_lang['prop_fico.allgrouptext_desc'] = 'Optional. If set and &prioritized is in use, will be the text label for the all other countries option group.';
+$_lang['prop_fico.optgroup_desc'] = 'Optional. If set and &prioritized is in use, will be the chunk tpl to use for the option group markup.';
+$_lang['prop_fico.prioritized_desc'] = 'Optional. A comma-separated list of ISO codes for countries that will move them into a prioritized "Frequent Visitors" group at the top of the dropdown. This can be used for your commonly-selected countries.';
+$_lang['prop_fico.prioritizedgrouptext_desc'] = 'Optional. If set and &prioritized is in use, will be the text label for the prioritized option group.';
+$_lang['prop_fico.selected_desc'] = 'The country value to select.';
+$_lang['prop_fico.selectedattribute_desc'] = 'Optional. The HTML attribute to add to a selected country.';
+$_lang['prop_fico.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';
+$_lang['prop_fico.tpl_desc'] = 'Optional. The chunk to use for each country dropdown option.';
+$_lang['prop_fico.useisocode_desc'] = 'If 1, will use the ISO country code for the value. If 0, will use the country name.';
+
+/* FormItStateOptions properties */
+$_lang['prop_fiso.selected_desc'] = 'The country value to select.';
+$_lang['prop_fiso.selectedattribute_desc'] = 'Optional. The HTML attribute to add to a selected country.';
+$_lang['prop_fiso.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';
+$_lang['prop_fiso.tpl_desc'] = 'Optional. The chunk to use for each country dropdown option.';
+$_lang['prop_fiso.useabbr_desc'] = 'If 1, will use the state abbreviation for the value. If 0, will use the full state name.';
 
 /* FormIt Options */
 $_lang['formit.opt_blackglass'] = 'Black Glass';

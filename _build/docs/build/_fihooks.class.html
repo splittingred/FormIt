@@ -1,0 +1,1205 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>FormIt API Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script>
+      $(document).ready(function() {
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().css('cursor', 'pointer');
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().click(function() {
+          if ($(this).next().is(':hidden'))
+          {
+            $(this).children('img')[0].src = 'images/arrow_down.gif';
+          } else
+          {
+            $(this).children('img')[0].src = 'images/arrow_right.gif';
+          }
+          $(this).next().slideToggle();
+        });
+      $('dl.function-info, dl.constant-info, dl.property-info').hide();
+      $('dl.function-info img, dl.constant-info img, dl.property-info img').show();
+      });
+    </script><a name="top"></a><h1 class="file">fihooks.class.php</h1>
+<div class="file_menu">
+<a href="#classes">Classes</a> </div>
+<dl class="file-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt>Classes</dt>
+<dd><a class="class" href="#%5CfiHooks">fiHooks</a></dd>
+</dl>
+<h2>Description</h2>
+<p class="short-description">FormIt</p>
+<div class="long-description"><p>Copyright 2009-2011 by Shaun McCormick <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;">&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;</a></p>
+
+<p>FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.</p>
+
+<p>FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA</p>
+</div>
+<a name="classes"></a><a id="\fiHooks"></a><h2 class="class">\fiHooks<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div class="class">
+<dl class="class-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Properties
+              </a></dt>
+<dd><a class="property public" href="#%5CfiHooks::%24errors">$errors</a></dd>
+<dd><a class="property public" href="#%5CfiHooks::%24fields">$fields</a></dd>
+<dd><a class="property public" href="#%5CfiHooks::%24formit">$formit</a></dd>
+<dd><a class="property public" href="#%5CfiHooks::%24hooks">$hooks</a></dd>
+<dd><a class="property public" href="#%5CfiHooks::%24modx">$modx</a></dd>
+<dd><a class="property public" href="#%5CfiHooks::%24redirectUrl">$redirectUrl</a></dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Methods
+              </a></dt>
+<dd><a class="method public" href="#%5CfiHooks::__construct()">__construct</a></dd>
+<dd><a class="method private" href="#%5CfiHooks::_loadFileBasedHook()">_loadFileBasedHook</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::_process()">_process</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::addError()">addError</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::email()">email</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::gatherFields()">gatherFields</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getErrorMessage()">getErrorMessage</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getErrors()">getErrors</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getRedirectUrl()">getRedirectUrl</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getValue()">getValue</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::getValues()">getValues</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::hasErrors()">hasErrors</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::load()">load</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::loadMultiple()">loadMultiple</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::math()">math</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::processErrors()">processErrors</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::recaptcha()">recaptcha</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::redirect()">redirect</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::setRedirectUrl()">setRedirectUrl</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::setValue()">setValue</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::setValues()">setValues</a></dd>
+<dd><a class="method public" href="#%5CfiHooks::spam()">spam</a></dd>
+</dl>
+<h3>Description</h3>
+<p class="short-description">Base Hooks handling class. Hooks can be used to run scripts prior to loading the form, or after a form has been
+submitted.</p>
+<div class="long-description"><p>Hooks can be either a predefined list by FormIt, or custom MODX Snippets. They can also be chained to allow for
+order-of-execution processing. Returning false from a Hook will end the chain. Returning false in a postHook will
+prevent the form from being further submitted.</p>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\fiHooks::$errors"></a><h4 class="property public">$errors<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$errors</span> = 'array'</code><p class="short-description">A collection of all the processed errors so far.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::$fields"></a><h4 class="property public">$fields<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$fields</span> = 'array'</code><p class="short-description">The current stored and parsed fields for the FormIt call.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::$formit"></a><h4 class="property public">$formit<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code><a href="_formit.class.html#%5CFormIt">\FormIt</a> <span class="highlight">$formit</span> = 'null'</code><p class="short-description">A reference to the FormIt instance.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>
+<a href="_formit.class.html#%5CFormIt">\FormIt</a><br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>null</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::$hooks"></a><h4 class="property public">$hooks<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$hooks</span> = 'array'</code><p class="short-description">A collection of all the processed hooks so far.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code>\modX <span class="highlight">$modx</span> = 'null'</code><p class="short-description">A reference to the modX instance.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>\modX<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>null</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::$redirectUrl"></a><h4 class="property public">$redirectUrl<div class="to-top"><a href="#%5CfiHooks">jump to class</a></div>
+</h4>
+<div class="property">
+<code>string <span class="highlight">$redirectUrl</span> = 'null'</code><p class="short-description">If a hook redirects, it needs to set this var to use proper order of execution on redirects/stores</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>string<br><em></em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>null</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\fiHooks::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="_formit.class.html#%5CFormIt">\FormIt</a> $formit, array $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_fihooks.class.html#%5CfiHooks">\fiHooks</a></code><p class="short-description">The constructor for the fiHooks class</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$formit</dt>
+<dd>\FormIt<br><em>&amp;amp;$formit A reference to the FormIt class instance.</em>
+</dd>
+<dt>$config</dt>
+<dd>array<br><em>Optional. An array of configuration parameters.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_fihooks.class.html#%5CfiHooks">\fiHooks</a></dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::_loadFileBasedHook()"></a><h4 class="method private">_loadFileBasedHook<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">_loadFileBasedHook</span><span class="nb-faded-text">(
+          string $path, array $customProperties
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Attempt to load a file-based hook given a name</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$path</dt>
+<dd>string<br><em>The absolute path of the hook file</em>
+</dd>
+<dt>$customProperties</dt>
+<dd>array<br><em>An array of custom properties to run with the hook</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if the hook succeeded</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>private</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::_process()"></a><h4 class="method public">_process<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">_process</span><span class="nb-faded-text">(
+          string $str, array $placeholders
+              =
+              array
+          )
+        </span>
+        :
+        string</code><p class="short-description">Processes string and sets placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$str</dt>
+<dd>string<br><em>The string to process</em>
+</dd>
+<dt>$placeholders</dt>
+<dd>array<br><em>An array of placeholders to replace with values</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The parsed string</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::addError()"></a><h4 class="method public">addError<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">addError</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        string</code><p class="short-description">Adds an error to the stack.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The field to add the error to.</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The error message.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The added error message with the error wrapper.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>private</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::email()"></a><h4 class="method public">email<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">email</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Send an email of the form.</p>
+<div class="long-description"><p>Properties:
+- emailTpl - The chunk name of the chunk that will be the email template.
+This will send the values of the form as placeholders.
+- emailTo - A comma separated list of email addresses to send to
+- emailToName - A comma separated list of names to pair with addresses.
+- emailFrom - The From: email address. Defaults to either the email
+field or the emailsender setting.
+- emailFromName - The name of the From: user.
+- emailSubject - The subject of the email.
+- emailHtml - Boolean, if true, email will be in HTML mode.</p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em>An array of cleaned POST fields</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if email was successfully sent.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::gatherFields()"></a><h4 class="method public">gatherFields<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">gatherFields</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Gather fields and set them into placeholders for pre-fetching</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getErrorMessage()"></a><h4 class="method public">getErrorMessage<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getErrorMessage</span><span class="nb-faded-text">(
+          string $delim
+              =
+              \n
+          )
+        </span>
+        :
+        string</code><p class="short-description">Gets the error messages compiled into a single string.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$delim</dt>
+<dd>string<br><em>The delimiter between each message.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The concatenated error message</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getErrors()"></a><h4 class="method public">getErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all errors for this current request</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getRedirectUrl()"></a><h4 class="method public">getRedirectUrl<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getRedirectUrl</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        null|string</code><p class="short-description">Get the specified redirection url</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>null|string</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getValue()"></a><h4 class="method public">getValue<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getValue</span><span class="nb-faded-text">(
+          string $key
+          )
+        </span>
+        :
+        mixed</code><p class="short-description">Gets the value of a field.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The field name to get.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>mixed</dt>
+<dd><em>The value of the key, or null if non-existent.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::getValues()"></a><h4 class="method public">getValues<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getValues</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Gets an associative array of field name and values.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em>$values A key/name pair of fields and values.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::hasErrors()"></a><h4 class="method public">hasErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">See if there are any errors in the stack.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::load()"></a><h4 class="method public">load<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">load</span><span class="nb-faded-text">(
+          string $hookName, array $fields
+              =
+              array, array $customProperties
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Load a hook. Stores any errors for the hook to $this-&gt;errors.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$hookName</dt>
+<dd>string<br><em>The name of the hook. May be a Snippet name.</em>
+</dd>
+<dt>$fields</dt>
+<dd>array<br><em>The fields and values of the form.</em>
+</dd>
+<dt>$customProperties</dt>
+<dd>array<br><em>Any other custom properties to load into a custom hook.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if hook was successful.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::loadMultiple()"></a><h4 class="method public">loadMultiple<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">loadMultiple</span><span class="nb-faded-text">(
+          array $hooks, array $fields
+              =
+              array, array $customProperties
+              =
+              array
+          )
+        </span>
+        :
+        array</code><p class="short-description">Loads an array of hooks. If one fails, will not proceed.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$hooks</dt>
+<dd>array<br><em>The hooks to run.</em>
+</dd>
+<dt>$fields</dt>
+<dd>array<br><em>The fields and values of the form</em>
+</dd>
+<dt>$customProperties</dt>
+<dd>array<br><em>An array of extra properties to send to the hook</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em>An array of field name =&gt; value pairs.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::math()"></a><h4 class="method public">math<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">math</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Math field hook for anti-spam math input field.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em>An array of cleaned POST fields</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if email was successfully sent.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::processErrors()"></a><h4 class="method public">processErrors<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">processErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Process any errors returned by the hooks and set them to placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::recaptcha()"></a><h4 class="method public">recaptcha<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">recaptcha</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Adds in reCaptcha support to FormIt</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em>An array of cleaned POST fields</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if email was successfully sent.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::redirect()"></a><h4 class="method public">redirect<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">redirect</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Redirect to a specified URL.</p>
+<div class="long-description"><p>Properties needed:
+- redirectTo - the ID of the Resource to redirect to.</p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em>An array of cleaned POST fields</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>False if unsuccessful.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::setRedirectUrl()"></a><h4 class="method public">setRedirectUrl<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setRedirectUrl</span><span class="nb-faded-text">(
+          string $url
+          )
+        </span>
+        :
+        </code><p class="short-description">Set a URL to redirect to after all hooks run successfully.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$url</dt>
+<dd>string<br><em>The URL to redirect to after all hooks execute</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::setValue()"></a><h4 class="method public">setValue<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setValue</span><span class="nb-faded-text">(
+          string $key, mixed $value
+          )
+        </span>
+        :
+        mixed</code><p class="short-description">Sets the value of a field.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The field name to set.</em>
+</dd>
+<dt>$value</dt>
+<dd>mixed<br><em>The value to set to the field.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>mixed</dt>
+<dd><em>The set value.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::setValues()"></a><h4 class="method public">setValues<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">setValues</span><span class="nb-faded-text">(
+          array $values
+              =
+              array
+          )
+        </span>
+        :
+        </code><p class="short-description">Sets an associative array of field name and values.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$values</dt>
+<dd>array<br><em>A key/name pair of fields and values to set.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiHooks::spam()"></a><h4 class="method public">spam<div class="to-top"><a href="#fiHooks">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">spam</span><span class="nb-faded-text">(
+          array $fields
+              =
+              array
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Ensure the a field passes a spam filter.</p>
+<div class="long-description"><p>Properties:
+- spamEmailFields - The email fields to check. A comma-delimited list.</p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$fields</dt>
+<dd>array<br><em>An array of cleaned POST fields</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if email was successfully sent.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.12.2</a>.
+    </small></body></html>

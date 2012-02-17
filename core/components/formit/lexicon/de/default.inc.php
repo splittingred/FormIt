@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modxcms.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modxcms.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,11 +20,12 @@
  * @package formit
  */
 /**
- * German translation by Jörg Lippmann
+ * German translation by Jörg Lippmann and Anselm Hannemann
  *
  * @package formit
  * @subpackge lexicon
  */
+$_lang['formit.all_group_text'] = 'Alle Länder';
 $_lang['formit.contains'] = 'Ihre Eingabe muss die "[[+value]]" enthalten.';
 $_lang['formit.email_invalid'] = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
 $_lang['formit.email_invalid_domain'] = 'Ihre E-Mail-Adresse enthält keinen gültigen Domainnamen.';
@@ -33,6 +34,8 @@ $_lang['formit.email_not_sent'] = 'Beim E-Mail-Versand ist ein Fehler aufgetrete
 $_lang['formit.email_tpl_nf'] = 'Bitte geben Sie eine E-Mail-Vorlage an.';
 $_lang['formit.field_not_empty'] = 'Dieses Feld muss leer bleiben.';
 $_lang['formit.field_required'] = 'Dieses Feld muss ausgefüllt werden.';
+$_lang['formit.math_incorrect'] = 'Falsche Antwort!';
+$_lang['formit.math_field_nf'] = '[[+field]] Eingabefeld nicht im Formular definiert.';
 $_lang['formit.max_length'] = 'Dieses Feld darf nicht mehr als [[+length]] Zeichen enthalten.';
 $_lang['formit.max_value'] = 'Dieser Wert darf nicht größer als [[+value]] sein.';
 $_lang['formit.min_length'] = 'Dieses Feld muss mindestens [[+length]] Zeichen lang sein.';
@@ -43,6 +46,7 @@ $_lang['formit.not_number'] = 'Dieses Feld darf nur eine Zahl enthalten.';
 $_lang['formit.not_uppercase'] = 'Dieses Feld bitte nur in Großbuchstaben ausfüllen.';
 $_lang['formit.password_dont_match'] = 'Passworte stimmen nicht überein.';
 $_lang['formit.password_not_confirmed'] = 'Bitte bestätigen Sie das Passwort.';
+$_lang['formit.prioritized_group_text'] = 'Häufige Besucher';
 $_lang['formit.range_invalid'] = 'Unzulässiger Wertebereich.';
 $_lang['formit.range'] = 'Dieser Wert muss zwischen [[+min]] und [[+max]] liegen.';
 $_lang['formit.recaptcha_err_load'] = 'Konnte reCaptcha service class nicht laden.';

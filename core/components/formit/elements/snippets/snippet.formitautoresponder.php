@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,7 +20,12 @@
  * @package formit
  */
 /**
- * A custom hook for auto-responders.
+ * A custom FormIt hook for auto-responders.
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
+ * @var FormIt $formit
+ * @var fiHooks $hook
  * 
  * @package formit
  */
@@ -34,31 +39,53 @@ $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($m
 $mailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
 $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
-if (empty($scriptProperties['fields'][$toField])) {
+$multiSeparator = $modx->getOption('fiarMultiSeparator',$formit->config,"\n");
+$multiWrapper = $modx->getOption('fiarMultiWrapper',$formit->config,"[[+value]]");
+if (empty($fields[$toField])) {
     $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.');
     return false;
 }
 
-/* setup placeholders */
-$placeholders = $scriptProperties['fields'];
-$mailTo= $scriptProperties['fields'][$toField];
+/* handle checkbox and array fields */
+foreach ($fields as $k => &$v) {
+    if (is_array($v)) {
+        $vOpts = array();
+        foreach ($v as $vKey => $vValue) {
+            if (is_string($vKey) && !empty($vKey)) {
+                $vKey = $k.'.'.$vKey;
+                $fields[$vKey] = $vValue;
+            } else {
+                $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+            }
+        }
+        $newValue = implode($multiSeparator,$vOpts);
+        if (!empty($vOpts)) {
+            $fields[$k] = $newValue;
+        }
+    }
+}
 
-$message = $scriptProperties['formit']->getChunk($tpl,$placeholders);
+/* setup placeholders */
+$placeholders = $fields;
+$mailTo= $fields[$toField];
+
+$message = $formit->getChunk($tpl,$placeholders);
 
 $modx->getService('mail', 'mail.modPHPMailer');
+$modx->mail->reset();
 $modx->mail->set(modMail::MAIL_BODY,$message);
-$modx->mail->set(modMail::MAIL_FROM,$scriptProperties['hook']->_process($mailFrom,$placeholders));
-$modx->mail->set(modMail::MAIL_FROM_NAME,$scriptProperties['hook']->_process($mailFromName,$placeholders));
-$modx->mail->set(modMail::MAIL_SENDER,$scriptProperties['hook']->_process($mailSender,$placeholders));
-$modx->mail->set(modMail::MAIL_SUBJECT,$scriptProperties['hook']->_process($mailSubject,$placeholders));
+$modx->mail->set(modMail::MAIL_FROM,$hook->_process($mailFrom,$placeholders));
+$modx->mail->set(modMail::MAIL_FROM_NAME,$hook->_process($mailFromName,$placeholders));
+$modx->mail->set(modMail::MAIL_SENDER,$hook->_process($mailSender,$placeholders));
+$modx->mail->set(modMail::MAIL_SUBJECT,$hook->_process($mailSubject,$placeholders));
 $modx->mail->address('to',$mailTo);
 $modx->mail->setHTML($isHtml);
 
 /* reply to */
-$emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$emailFrom);
-$emailReplyTo = $scriptProperties['hook']->_process($emailReplyTo,$fields);
-$emailReplyToName = $modx->getOption('fiarReplyToName',$scriptProperties,$emailFromName);
-$emailReplyToName = $scriptProperties['hook']->_process($emailReplyToName,$fields);
+$emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
+$emailReplyTo = $hook->_process($emailReplyTo,$fields);
+$emailReplyToName = $modx->getOption('fiarReplyToName',$scriptProperties,$mailFromName);
+$emailReplyToName = $hook->_process($emailReplyToName,$fields);
 $modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
 
 /* cc */
@@ -70,8 +97,8 @@ if (!empty($emailCC)) {
     $numAddresses = count($emailCC);
     for ($i=0;$i<$numAddresses;$i++) {
         $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
-        if (!empty($etn)) $etn = $scriptProperties['hook']->_process($etn,$fields);
-        $emailCC[$i] = $scriptProperties['hook']->_process($emailCC[$i],$fields);
+        if (!empty($etn)) $etn = $hook->_process($etn,$fields);
+        $emailCC[$i] = $hook->_process($emailCC[$i],$fields);
         $modx->mail->address('cc',$emailCC[$i],$etn);
     }
 }
@@ -85,15 +112,17 @@ if (!empty($emailBCC)) {
     $numAddresses = count($emailBCC);
     for ($i=0;$i<$numAddresses;$i++) {
         $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
-        if (!empty($etn)) $etn = $scriptProperties['hook']->_process($etn,$fields);
-        $emailBCC[$i] = $scriptProperties['hook']->_process($emailBCC[$i],$fields);
+        if (!empty($etn)) $etn = $hook->_process($etn,$fields);
+        $emailBCC[$i] = $hook->_process($emailBCC[$i],$fields);
         $modx->mail->address('bcc',$emailBCC[$i],$etn);
     }
 }
 
-if (!$modx->mail->send()) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] An error occurred while trying to send the auto-responder email: '.$modx->mail->mailer->ErrorInfo);
-    return false;
+if (!$formit->inTestMode) {
+    if (!$modx->mail->send()) {
+        $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] An error occurred while trying to send the auto-responder email: '.$modx->mail->mailer->ErrorInfo);
+        return false;
+    }
 }
 $modx->mail->reset();
 return true;

@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -23,8 +23,9 @@
  * Default Lexicon Topic
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
  */
+$_lang['formit.all_group_text'] = 'All Countries';
 $_lang['formit.contains'] = 'Your value must contain the phrase "[[+value]]".';
 $_lang['formit.email_invalid'] = 'Please enter a valid email address.';
 $_lang['formit.email_invalid_domain'] = 'Your email address does not have a valid domain name.';
@@ -45,6 +46,7 @@ $_lang['formit.not_number'] = 'This field must be a valid number.';
 $_lang['formit.not_uppercase'] = 'This field must be all uppercase.';
 $_lang['formit.password_dont_match'] = 'Your passwords do not match.';
 $_lang['formit.password_not_confirmed'] = 'Please confirm your password.';
+$_lang['formit.prioritized_group_text'] = 'Frequent Visitors';
 $_lang['formit.range_invalid'] = 'Invalid range specification.';
 $_lang['formit.range'] = 'Your value must be between [[+min]] and [[+max]].';
 $_lang['formit.recaptcha_err_load'] = 'Could not load FormItReCaptcha service class.';

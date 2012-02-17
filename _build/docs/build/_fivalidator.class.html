@@ -1,0 +1,1454 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>FormIt API Documentation</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><div xmlns="" id="content">
+<script>
+      $(document).ready(function() {
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().css('cursor', 'pointer');
+        $('dl.function-info, dl.constant-info, dl.property-info').prev().click(function() {
+          if ($(this).next().is(':hidden'))
+          {
+            $(this).children('img')[0].src = 'images/arrow_down.gif';
+          } else
+          {
+            $(this).children('img')[0].src = 'images/arrow_right.gif';
+          }
+          $(this).next().slideToggle();
+        });
+      $('dl.function-info, dl.constant-info, dl.property-info').hide();
+      $('dl.function-info img, dl.constant-info img, dl.property-info img').show();
+      });
+    </script><a name="top"></a><h1 class="file">fivalidator.class.php</h1>
+<div class="file_menu">
+<a href="#classes">Classes</a> </div>
+<dl class="file-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt>Classes</dt>
+<dd><a class="class" href="#%5CfiValidator">fiValidator</a></dd>
+</dl>
+<h2>Description</h2>
+<p class="short-description">FormIt</p>
+<div class="long-description"><p>Copyright 2009-2011 by Shaun McCormick <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;">&#115;&#104;&#x61;&#x75;&#x6e;&#x40;&#x6d;&#111;&#100;&#120;&#46;&#99;&#x6f;&#x6d;</a></p>
+
+<p>FormIt is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option) any
+later version.</p>
+
+<p>FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with
+FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA</p>
+</div>
+<a name="classes"></a><a id="\fiValidator"></a><h2 class="class">\fiValidator<div class="to-top"><a href="#top">jump to top</a></div>
+</h2>
+<div class="class">
+<dl class="class-info">
+<dt>package</dt>
+<dd>formit</dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Properties
+              </a></dt>
+<dd><a class="property public" href="#%5CfiValidator::%24errors">$errors</a></dd>
+<dd><a class="property public" href="#%5CfiValidator::%24errorsRaw">$errorsRaw</a></dd>
+<dd><a class="property public" href="#%5CfiValidator::%24fields">$fields</a></dd>
+<dd><a class="property public" href="#%5CfiValidator::%24formit">$formit</a></dd>
+<dd><a class="property public" href="#%5CfiValidator::%24modx">$modx</a></dd>
+<dt><a href="#" onclick="$(this).children('img').toggle().parents('dt').nextUntil('dt').slideToggle(); return false;"><img src="images/arrow_down.gif"><img src="images/arrow_right.gif" style="display: none">
+                Methods
+              </a></dt>
+<dd><a class="method public" href="#%5CfiValidator::__construct()">__construct</a></dd>
+<dd><a class="method private" href="#%5CfiValidator::_validate()">_validate</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::addError()">addError</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::allowTags()">allowTags</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::blank()">blank</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::contains()">contains</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::email()">email</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::getErrors()">getErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::getRawErrors()">getRawErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::hasErrors()">hasErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::isDate()">isDate</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::isNumber()">isNumber</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::islowercase()">islowercase</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::isuppercase()">isuppercase</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::maxLength()">maxLength</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::maxValue()">maxValue</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::minLength()">minLength</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::minValue()">minValue</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::password_confirm()">password_confirm</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::processErrors()">processErrors</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::range()">range</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::required()">required</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::reset()">reset</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::strip()">strip</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::stripTags()">stripTags</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::validate()">validate</a></dd>
+<dd><a class="method public" href="#%5CfiValidator::validateFields()">validateFields</a></dd>
+</dl>
+<h3>Description</h3>
+<p class="short-description">Handles custom validation on fields. Allows for specific, defined validators by FormIt, or custom Validators
+that are MODX Snippets.</p>
+<div class="long-description"><p>Validation can be chained to do proper order-of-execution for field value checking.</p>
+</div>
+<h3>Properties</h3>
+<div>
+<a id="\fiValidator::$errors"></a><h4 class="property public">$errors<div class="to-top"><a href="#%5CfiValidator">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$errors</span> = 'array'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em>A collection of all the processed errors so far.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::$errorsRaw"></a><h4 class="property public">$errorsRaw<div class="to-top"><a href="#%5CfiValidator">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$errorsRaw</span> = 'array'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em>A collection of all the non-processed errors so far.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::$fields"></a><h4 class="property public">$fields<div class="to-top"><a href="#%5CfiValidator">jump to class</a></div>
+</h4>
+<div class="property">
+<code>array <span class="highlight">$fields</span> = 'array'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>array<br><em>A collection of all the validated fields so far.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>array</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::$formit"></a><h4 class="property public">$formit<div class="to-top"><a href="#%5CfiValidator">jump to class</a></div>
+</h4>
+<div class="property">
+<code><a href="_formit.class.html#%5CFormIt">\FormIt</a> <span class="highlight">$formit</span> = 'null'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>
+<a href="_formit.class.html#%5CFormIt">\FormIt</a><br><em>A reference to the FormIt instance.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>null</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::$modx"></a><h4 class="property public">$modx<div class="to-top"><a href="#%5CfiValidator">jump to class</a></div>
+</h4>
+<div class="property">
+<code>\modX <span class="highlight">$modx</span> = 'null'</code><p class="short-description"></p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h4 class="info">
+<img src="images/arrow_right.gif"> Details</h4>
+<dl class="property-info">
+<dt></dt>
+<dd>\modX<br><em>A reference to the modX instance.</em>
+</dd>
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>default</dt>
+<dd>null</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<h3>Methods</h3>
+<div>
+<a id="\fiValidator::__construct()"></a><h4 class="method public">__construct<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">__construct</span><span class="nb-faded-text">(
+          <a href="_formit.class.html#%5CFormIt">\FormIt</a> $formit, array $config
+              =
+              array
+          )
+        </span>
+        :
+        <a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></code><p class="short-description">The constructor for the fiValidator class</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$formit</dt>
+<dd>\FormIt<br><em>&amp;amp;$formit A reference to the FormIt class instance.</em>
+</dd>
+<dt>$config</dt>
+<dd>array<br><em>Optional. An array of configuration parameters.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt><a href="_fivalidator.class.html#%5CfiValidator">\fiValidator</a></dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::_validate()"></a><h4 class="method private">_validate<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">_validate</span><span class="nb-faded-text">(
+          string $k, string $v, array $fieldValidators
+              =
+              array
+          )
+        </span>
+        :
+        void</code><p class="short-description">Helper method for validating fields</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$k</dt>
+<dd>string<br><em></em>
+</dd>
+<dt>$v</dt>
+<dd>string<br><em></em>
+</dd>
+<dt>$fieldValidators</dt>
+<dd>array<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>private</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::addError()"></a><h4 class="method public">addError<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">addError</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        string</code><p class="short-description">Adds an error to the stack.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The field to add the error to.</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The error message.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>string</dt>
+<dd><em>The added error message with the error wrapper.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>private</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::allowTags()"></a><h4 class="method public">allowTags<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">allowTags</span><span class="nb-faded-text">(
+          string $key, string $value, string $allowedTags
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Strip all tags in the field. The parameter can be a string of allowed
+tags.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$allowedTags</dt>
+<dd>string<br><em>A comma-separated list of tags to allow in the field&amp;#039;s value. Leave blank to allow all.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::blank()"></a><h4 class="method public">blank<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">blank</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field is blank.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::contains()"></a><h4 class="method public">contains<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">contains</span><span class="nb-faded-text">(
+          string $key, string $value, string $expr
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">See if field contains a certain value.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$expr</dt>
+<dd>string<br><em>The regular expression to check against the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::email()"></a><h4 class="method public">email<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">email</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field value is an actual email address.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::getErrors()"></a><h4 class="method public">getErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all errors in the stack</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::getRawErrors()"></a><h4 class="method public">getRawErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">getRawErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        array</code><p class="short-description">Get all raw errors in the stack (errors without the wrapper)</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::hasErrors()"></a><h4 class="method public">hasErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">hasErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Check to see if there are any validator errors in the stack</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::isDate()"></a><h4 class="method public">isDate<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">isDate</span><span class="nb-faded-text">(
+          string $key, string $value, string $format
+              =
+              %m/%d/%Y
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if the field is a valid date. Allows for date formatting as
+well.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$format</dt>
+<dd>string<br><em>The format of the date</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::isNumber()"></a><h4 class="method public">isNumber<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">isNumber</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if the field is a number.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::islowercase()"></a><h4 class="method public">islowercase<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">islowercase</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if a string is all lowercase</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::isuppercase()"></a><h4 class="method public">isuppercase<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">isuppercase</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if a string is all uppercase</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::maxLength()"></a><h4 class="method public">maxLength<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">maxLength</span><span class="nb-faded-text">(
+          string $key, string $value, int $param
+              =
+              999
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field value is longer than $param.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>int<br><em>The maximum length the field can be</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::maxValue()"></a><h4 class="method public">maxValue<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">maxValue</span><span class="nb-faded-text">(
+          string $key, string $value, int $param
+              =
+              0
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field value is greater than $param.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>int<br><em>The maximum value the field can be</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::minLength()"></a><h4 class="method public">minLength<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">minLength</span><span class="nb-faded-text">(
+          string $key, string $value, int $param
+              =
+              0
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field value is shorter than $param.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>int<br><em>The minimum length the field can be</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::minValue()"></a><h4 class="method public">minValue<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">minValue</span><span class="nb-faded-text">(
+          string $key, string $value, int $param
+              =
+              0
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field value is less than $param.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>int<br><em>The minimum value the field can be</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::password_confirm()"></a><h4 class="method public">password_confirm<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">password_confirm</span><span class="nb-faded-text">(
+          string $key, string $value, string $param
+              =
+              password_confirm
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if passwords match.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>string<br><em>The parameter passed into the validator that contains the field to check the password against</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::processErrors()"></a><h4 class="method public">processErrors<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">processErrors</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Process the errors that have occurred and setup the appropriate placeholders</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::range()"></a><h4 class="method public">range<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">range</span><span class="nb-faded-text">(
+          string $key, string $value, string $ranges
+              =
+              0-1
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Validates value between a range, specified by min-max.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$ranges</dt>
+<dd>string<br><em>The range the value should reside in</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::required()"></a><h4 class="method public">required<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">required</span><span class="nb-faded-text">(
+          string $key, string $value
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Checks to see if field is required.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::reset()"></a><h4 class="method public">reset<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">reset</span><span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        void</code><p class="short-description">Resets the validator</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::strip()"></a><h4 class="method public">strip<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">strip</span><span class="nb-faded-text">(
+          string $key, string $value, string $param
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Strip a string from the value.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$param</dt>
+<dd>string<br><em>The value to strip from the field</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::stripTags()"></a><h4 class="method public">stripTags<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">stripTags</span><span class="nb-faded-text">(
+          string $key, string $value, string $allowedTags
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Strip all tags in the field. The parameter can be a string of allowed
+tags.</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The name of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>string<br><em>The value of the field</em>
+</dd>
+<dt>$allowedTags</dt>
+<dd>string<br><em>A comma-separated list of tags to allow in the field&amp;#039;s value</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em></em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::validate()"></a><h4 class="method public">validate<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">validate</span><span class="nb-faded-text">(
+          string $key, mixed $value, string $type
+          )
+        </span>
+        :
+        boolean</code><p class="short-description">Validates a field based on a custom rule, if specified</p>
+<div class="long-description">
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$key</dt>
+<dd>string<br><em>The key of the field</em>
+</dd>
+<dt>$value</dt>
+<dd>mixed<br><em>The value of the field</em>
+</dd>
+<dt>$type</dt>
+<dd>string<br><em>Optional. The type of the validator to apply. Can either be a method name of fiValidator or a Snippet name.</em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>boolean</dt>
+<dd><em>True if validation was successful. If not, will store error messages to $this-&gt;errors.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+<a id="\fiValidator::validateFields()"></a><h4 class="method public">validateFields<div class="to-top"><a href="#fiValidator">jump to class</a></div>
+</h4>
+<div class="method">
+<code><span class="highlight">validateFields</span><span class="nb-faded-text">(
+          <a href="_fidictionary.class.html#%5CfiDictionary">\fiDictionary</a> $dictionary, string $validationFields
+          )
+        </span>
+        :
+        array</code><p class="short-description">Validates an array of fields. Returns the field names and values, with
+the field names stripped of their validators.</p>
+<div class="long-description"><p>The key names can be in this format:</p>
+
+<p>name:validator=param:anotherValidator:oneMoreValidator=<code>param</code></p>
+</div>
+<div class="api-section">
+<h5 class="arguments">Arguments</h5>
+<dl class="argument-info">
+<dt>$dictionary</dt>
+<dd>\fiDictionary<br><em></em>
+</dd>
+<dt>$validationFields</dt>
+<dd>string<br><em></em>
+</dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="output">Output</h5>
+<dl class="return-info">
+<dt>array</dt>
+<dd><em>An array of field name =&gt; value pairs.</em></dd>
+</dl>
+<div class="clear"></div>
+</div>
+<div class="api-section">
+<h5 class="info">
+<img src="images/arrow_right.gif"> Details</h5>
+<dl class="function-info">
+<dt>visibility</dt>
+<dd>public</dd>
+<dt>final</dt>
+<dd>false</dd>
+<dt>static</dt>
+<dd>false</dd>
+<dt>access</dt>
+<dd>public</dd>
+</dl>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://docblox-project.org">DocBlox 0.12.2</a>.
+    </small></body></html>

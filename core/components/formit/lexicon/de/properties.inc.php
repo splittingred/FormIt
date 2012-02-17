@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -14,84 +14,105 @@
  * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+ * FormIt; Falls not, write to the Free Software Foundation, Inc., 59 Temple Place,
  * Suite 330, Boston, MA 02111-1307 USA
  *
  * @package formit
  */
 /**
- * Properties Lexicon Topic
+ * Properties Lexicon Topic : translation from Anselm Hannemann
  *
  * @package formit
  * @subpackage lexicon
- * @language de
+ * @language en
  */
 /* FormIt properties */
-$_lang['prop_formit.hooks_desc'] = 'What scripts to fire, if any, after the form passes validation. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
-$_lang['prop_formit.prehooks_desc'] = 'What scripts to fire, if any, once the form loads. You can pre-set form fields via $scriptProperties[`hook`]->fields[`fieldname`]. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
-$_lang['prop_formit.submitvar_desc'] = 'If set, will not begin form processing if this POST variable is not passed.';
-$_lang['prop_formit.validate_desc'] = 'A comma-separated list of fields to validate, with each field name as name:validator (eg: username:required,email:required). Validators can also be chained, like email:email:required. This property can be specified on multiple lines.';
-$_lang['prop_formit.errtpl_desc'] = 'The wrapper template for error messages.';
-$_lang['prop_formit.validationerrormessage_desc'] = 'A general error message to set to a placeholder if validation fails. Can contain [[+errors]] if you want to display a list of all errors at the top.';
-$_lang['prop_formit.validationerrorbulktpl_desc'] = 'HTML tpl that is used for each individual error in the generic validation error message value.';
-$_lang['prop_formit.customvalidators_desc'] = 'A comma-separated list of custom validator names (snippets) you plan to use in this form. They must be explicitly stated here, or they will not be run.';
-$_lang['prop_formit.clearfieldsonsuccess_desc'] = 'If true, will clear the fields on a successful form submission that does not redirect.';
-$_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder with the name of the value of the property &successMessagePlaceholder, which defaults to `fi.successMessage`.';
-$_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
-$_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
-$_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
-$_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
-$_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
-$_lang['prop_formit.redirectparams_desc'] = 'A JSON array of parameters to pass to the redirect hook that will be passed when redirecting.';
-$_lang['prop_formit.recaptchajs_desc'] = 'If `recaptcha` is set as a hook, this can be a JSON object that will be set to the JS RecaptchaOptions variable, which configures options for reCaptcha.';
-$_lang['prop_formit.recaptchaheight_desc'] = 'If `recaptcha` is set as a hook, this will select the height for the reCaptcha widget.';
-$_lang['prop_formit.recaptchatheme_desc'] = 'If `recaptcha` is set as a hook, this will select a theme for the reCaptcha widget.';
-$_lang['prop_formit.recaptchawidth_desc'] = 'If `recaptcha` is set as a hook, this will set the width for the reCaptcha widget.';
-$_lang['prop_formit.spamemailfields_desc'] = 'If `spam` is set as a hook, a comma-separated list of fields containing emails to check spam against.';
-$_lang['prop_formit.spamcheckip_desc'] = 'If `spam` is set as a hook, and this is true, will check the IP as well.';
-$_lang['prop_formit.emailbcc_desc'] = 'If `email` is set as a hook, then this specifies the email(s) to send the email to as a BCC. Can be a comma-separated list of email addresses.';
-$_lang['prop_formit.emailbccname_desc'] = 'Optional. If `email` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailBCC` property.';
-$_lang['prop_formit.emailcc_desc'] = 'If `email` is set as a hook, then this specifies the email(s) to send the email to as a CC. Can be a comma-separated list of email addresses.';
-$_lang['prop_formit.emailccname_desc'] = 'Optional. If `email` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailCC` property.';
-$_lang['prop_formit.emailto_desc'] = 'If `email` is set as a hook, then this specifies the email(s) to send the email to. Can be a comma-separated list of email addresses.';
-$_lang['prop_formit.emailtoname_desc'] = 'Optional. If `email` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailTo` property.';
-$_lang['prop_formit.emailfrom_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the From: address for the email. If not set, will first look for an `email` form field. If none is found, will default to the `emailsender` system setting.';
-$_lang['prop_formit.emailfromname_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the From: name for the email.';
-$_lang['prop_formit.emailreplyto_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the Reply-To: address for the email.';
-$_lang['prop_formit.emailreplytoname_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the Reply-To: name for the email.';
-$_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is required as a subject line for the email.';
-$_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
-$_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
+$_lang['prop_formit.hooks_desc'] = 'Welche Scripts ausgeführt werden sollen nachdem das Formular validiert wurde. Dies kann eine Kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden folgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
+$_lang['prop_formit.prehooks_desc'] = 'Welche Scripts ausgeführt werden sollen (falls vorhanden) sobald das Formular geladen wird. Sie können Formularfelder vorausfüllen: $scriptProperties[`hook`]->fields[`fieldname`]. Dies kann eine Kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden folgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
+$_lang['prop_formit.submitvar_desc'] = 'Falls gesetzt, wird das Formular nicht ausgewertet, wenn die POST Variable nicht übergeben wurde.';
+$_lang['prop_formit.validate_desc'] = 'Dies kann eine Kommaseparierte Liste von Feldern, die validiert werden sollen mit jeweils dem Feldnamen als Validator (Bsp.: username:required,email:required). Validatoren können auch verkettet werden, z.B. email:email:required. Diese Eigenschaft kann in mehreren Zeilen angegeben werden.';
+$_lang['prop_formit.errtpl_desc'] = 'Das Wrapper-Template für Fehlermeldungen.';
+$_lang['prop_formit.validationerrormessage_desc'] = 'Eine generelle Fehlermeldung, die angezeigt wird, wenn eine Validierung nicht bestanden wurde. Kann die Variable [[+errors]] enthalten, wenn die genaue Liste an Fehlern mit angezeigt werden soll.';
+$_lang['prop_formit.validationerrorbulktpl_desc'] = 'HTML Template, das für die individuelle Fehlermeldungsanzeige benutzt wird, wenn eine Validierung nicht bestanden wurde.';
+$_lang['prop_formit.customvalidators_desc'] = 'Eine Kommaseparierte Liste an eigenen Validatoren (snippets), die auf das Formular angewandt werden sollen. Sie müssen hier explizit angegeben werden, um abzulaufen.';
+$_lang['prop_formit.clearfieldsonsuccess_desc'] = 'Falls gesetzt, werden die Formularinhalte nach dem Absenden gelöscht, wenn kein Redirect gesetzt wurde.';
+$_lang['prop_formit.successmessage_desc'] = 'Falls gesetz, wird ein Platzhalter mit dem Wert ausgegeben, der von &successMessagePlaceholder mitgegeben wird. Standardwert ist: `fi.successMessage`.';
+$_lang['prop_formit.successmessageplaceholder_desc'] = 'Der Platzhalter mit der Erfolgsnachricht.';
+$_lang['prop_formit.store_desc'] = 'Falls gesetzt, werden die eingegebenen Daten im Cache gespeichert, um vom FormItRetriever Snippet weiterverwendet zu werden.';
+$_lang['prop_formit.storetime_desc'] = 'Falls `store` auf `zutreffende` gesetzt wurde, wird hier die zeit in Sekunden angegeben, um die Daten zu speichern. Standardwert sit 5 Minuten.';
+$_lang['prop_formit.placeholderprefix_desc'] = 'Der zu nutzende Prefix für alle Platzhalter, die von FormIt für Felder gesetzt wurden. Standard ist `fi.`';
+$_lang['prop_formit.redirectto_desc'] = 'Falls `redirect` als Hook gesetzt wurde, geben Sie hier die Ressourcen ID an, zu der weitergeleitet werden soll.';
+$_lang['prop_formit.redirectparams_desc'] = 'Ein JSON Array mit Parametern, die an den redirect-hoook mitgegeben werden sollen.';
+$_lang['prop_formit.recaptchajs_desc'] = 'Falls `recaptcha` als Hook gesetzt wurde, ist dies ein JSON Objektc, das als JS RecaptchaOPtions Variable gesetzt wird und die Optionen für ReCaptcha definiert.';
+$_lang['prop_formit.recaptchaheight_desc'] = 'Falls `recaptcha` als Hook gesetzt wurde, wird hier die Höhe des reCaptcha Widgets festgelegt.';
+$_lang['prop_formit.recaptchatheme_desc'] = 'Falls `recaptcha` als Hook gesetzt wurde, wird hier das Theme des reCaptcha Widgets festgelegt.';
+$_lang['prop_formit.recaptchawidth_desc'] = 'Falls `recaptcha` als Hook gesetzt wurde, wird hier die Breite des reCaptcha Widgets festgelegt.';
+$_lang['prop_formit.spamemailfields_desc'] = 'Falls `spam` als Hook gesetzt wurde, geben Sie hier eine kommaseparierte Liste an Feldern an, die E-mail Adressen enthalten und gegen Spam geprüft werden sollen.';
+$_lang['prop_formit.spamcheckip_desc'] = 'Falls `spam` als Hook gesetzt wurde, und dies zutrifft, wird die IP ebenfalls geprüft.';
+$_lang['prop_formit.emailbcc_desc'] = 'Falls `email` als Hook gesetzt wurde, werden hier E-Mails angegeben, an die die E-mail per BCC gesendet wird. Kann eine kommaseparierte Liste an E-Mail Adressen sein.';
+$_lang['prop_formit.emailbccname_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, muss dies eine parallele Liste an kommaseparierten Namen für die entsprechenden E-Mail Adressen sein, die im `emailBCC` festgelegt wurden.';
+$_lang['prop_formit.emailcc_desc'] = 'Falls `email` als Hook gesetzt wurde, werden hier E-Mails angegeben, an die die E-mail per CC gesendet wird. Kann eine kommaseparierte Liste an E-Mail Adressen sein.';
+$_lang['prop_formit.emailccname_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, muss dies eine parallele Liste an kommaseparierten Namen für die entsprechenden E-Mail Adressen sein, die im `emailCC` festgelegt wurden.';
+$_lang['prop_formit.emailto_desc'] = 'Falls `email` als Hook gesetzt wurde, werden hier E-Mails angegeben, an die die E-mail gesendet wird. Kann eine kommaseparierte Liste an E-Mail Adressen sein.';
+$_lang['prop_formit.emailtoname_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, muss dies eine parallele Liste an kommaseparierten Namen für die entsprechenden E-Mail Adressen sein, die im `emailTo` festgelegt wurden.';
+$_lang['prop_formit.emailfrom_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, und dies zutrifft, wird hier die Absenderadresse gesetzt. Falls nicht gesetzt, wird nach einem email-Feld gesucht. Wird keins gefunden, wird die E-mail aus den Systemeinstellungen verwendet.';
+$_lang['prop_formit.emailfromname_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, und dies zutrifft, wird hier der Name des Absenders zur passenden E-Mail angegeben.';
+$_lang['prop_formit.emailreplyto_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, und dies zutrifft, wird hier die Antwort-E-Mail-Adresse angegeben.';
+$_lang['prop_formit.emailreplytoname_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, und dies zutrifft, wird hier der Name des Antwortadresskontakts zur passenden E-Mail angegeben.';
+$_lang['prop_formit.emailsubject_desc'] = 'Falls `email` als Hook gesetzt wurde, ist dies der Betreff für die E-Mail.';
+$_lang['prop_formit.emailusefieldforsubject_desc'] = 'Falls ein Formularfeld `subject` im Formular mit übergeben wird und dies einen Wert enthält, wird dieser Wert als Betreff verwendet.';
+$_lang['prop_formit.emailhtml_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, kann hier zwischen Plaintext und HTML-Mail gewählt werden. Standard ist HTML.';
+$_lang['prop_formit.emailconvertnewlines_desc'] = 'Falls true und emailHtml ist auf 1 gesetzt, werden Umbrüche in br-tags konvertiert.';
+$_lang['prop_formit.emailmulitseparator_desc'] = 'Der Standardseparator für Sammlungen von Einträgen, die mit Checkboxen oder Multi-Auswahlfeldern übergeben werden. Standard ist \newline';
+$_lang['prop_formit.emailmultiwrapper_desc'] = 'Umfasst jeden Eintrag einer Sammlung von Feldern, die aus Checkboxen oder Multi-Auswahlfeldern übergeben werden. Standard ist `value`';
 
 /* FormIt Auto-Responder properties */
-$_lang['prop_fiar.fiartpl_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies auto-response template to send as the email.';
-$_lang['prop_fiar.fiartofield_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies which form field shall be used for the To: address in the auto-response email.';
-$_lang['prop_fiar.fiarbcc_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies the email(s) to send the email to as a BCC. Can be a comma-separated list of email addresses.';
-$_lang['prop_fiar.fiarbccname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailBCC` property.';
-$_lang['prop_fiar.fiarcc_desc'] = 'If `FormItAutoResponder` is set as a hook, then this specifies the email(s) to send the email to as a CC. Can be a comma-separated list of email addresses.';
-$_lang['prop_fiar.fiarccname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, then this must be a parallel list of comma-separated names for the email addresses specified in the `emailCC` property.';
-$_lang['prop_fiar.fiarfrom_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the From: address for the email. If not set, will first look for an `email` form field. If none is found, will default to the `emailsender` system setting.';
-$_lang['prop_fiar.fiarfromname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the From: name for the email.';
-$_lang['prop_fiar.fiarreplyto_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the Reply-To: address for the email.';
-$_lang['prop_fiar.fiarreplytoname_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, and this is set, will specify the Reply-To: name for the email.';
-$_lang['prop_fiar.fiarsubject_desc'] = 'If `FormItAutoResponder` is set as a hook, this is required as a subject line for the email.';
-$_lang['prop_fiar.fiarhtml_desc'] = 'Optional. If `FormItAutoResponder` is set as a hook, this toggles HTML emails or not. Defaults to true.';
+$_lang['prop_fiar.fiartpl_desc'] = 'Falls `FormItAutoResponder` als Hook gesetzt wurde, wird hier das Template für die Auto-Antwort angebeben.';
+$_lang['prop_fiar.fiartofield_desc'] = 'Falls `FormItAutoResponder` als Hook gesetzt wurde, wird hier angegeben, welches Formularfeld für To: address in der Auto-Antwort-Mail verwendet werden soll.';
+$_lang['prop_fiar.fiarbcc_desc'] = 'Falls `FormItAutoResponder` als Hook gesetzt wurde, wird hier die E-Mail Adresse/n angebeben, an die die E-Mail als BCC gesendet wird. Kann eine kommaseparierte Liste sein.';
+$_lang['prop_fiar.fiarbccname_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, muss dies eine parallele Liste an kommaseparierten Namen für die entsprechenden E-Mail Adressen sein, die im `emailBCC` festgelegt wurden.';
+$_lang['prop_fiar.fiarcc_desc'] = 'Falls `FormItAutoResponder` als Hook gesetzt wurde, werden hier E-Mails angegeben, an die die E-mail per CC gesendet wird. Kann eine kommaseparierte Liste an E-Mail Adressen sein.';
+$_lang['prop_fiar.fiarccname_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, muss dies eine parallele Liste an kommaseparierten Namen für die entsprechenden E-Mail Adressen sein, die im `emailCC` festgelegt wurden.';
+$_lang['prop_fiar.fiarfrom_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, und dies zutrifft, wird hier die Absenderadresse gesetzt. Falls nicht gesetzt, wird nach einem email-Feld gesucht. Wird keins gefunden, wird die E-mail aus den Systemeinstellungen verwendet.';
+$_lang['prop_fiar.fiarfromname_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, und dies zutrifft, wird hier der Name des Absenders zur passenden E-Mail angegeben.';
+$_lang['prop_fiar.fiarreplyto_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, und dies zutrifft, wird hier die Antwort-E-Mail-Adresse angegeben.';
+$_lang['prop_fiar.fiarreplytoname_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, und dies zutrifft, wird hier der Name des Antwortadresskontakts zur passenden E-Mail angegeben.';
+$_lang['prop_fiar.fiarsubject_desc'] = 'Falls `FormItAutoResponder` als Hook gesetzt wurde, ist dies der Betreff für die E-Mail.';
+$_lang['prop_fiar.fiarhtml_desc'] = 'Optional. Falls `FormItAutoResponder` als Hook gesetzt wurde, kann hier zwischen Plaintext und HTML-Mail gewählt werden. Standard ist HTML.';
 
 /* FormItRetriever properties */
-$_lang['prop_fir.placeholderprefix_desc'] = 'The prefix to use with placeholders from the form data.';
-$_lang['prop_fir.redirecttoonnotfound_desc'] = 'If the data is not found, if this is set, redirect to the Resource with this ID.';
-$_lang['prop_fir.eraseonload_desc'] = 'If true, will erase the stored form data on load. Strongly recommended to leave to false unless you only want the data to load once.';
+$_lang['prop_fir.placeholderprefix_desc'] = 'Der Prefix, der für Daten aus Platzhaltern der Formularfelder genutzt werden soll.';
+$_lang['prop_fir.redirecttoonnotfound_desc'] = 'Falls kein redirect gefunden wurde, leite zur angegebenen Ressourcen ID weiter.';
+$_lang['prop_fir.eraseonload_desc'] = 'Falls zutreffend, werden die gespeicherten Daten beim Laden gelöscht. Wird nicht empfohlen auf true zu setzen, wenn Sie nicht die Daten nur ein einziges mal wiederverwenden wollen.';
 
 /* FormIt Math hook properties */
-$_lang['prop_math.mathminrange_desc'] = 'If `math` is set as a hook, the minimum range for each number in the equation.';
-$_lang['prop_math.mathmaxrange_desc'] = 'If `math` is set as a hook, the maximum range for each number in the equation.';
-$_lang['prop_math.mathfield_desc'] = 'If `math` is set as a hook, the name of the input field for the answer.';
-$_lang['prop_math.mathop1field_desc'] = 'If `math` is set as a hook, the name of the field for the 1st number in the equation.';
-$_lang['prop_math.mathop2field_desc'] = 'If `math` is set as a hook, the name of the field for the 2nd number in the equation.';
-$_lang['prop_math.mathoperatorfield_desc'] = 'If `math` is set as a hook, the name of the field for the operator in the equation.';
+$_lang['prop_math.mathminrange_desc'] = 'Falls `math` als Hook gesetzt wurde, die minimale Zahlenfolge für jede Zahl in der Gleichung.';
+$_lang['prop_math.mathmaxrange_desc'] = 'Falls `math` als Hook gesetzt wurde, die maximale Zahlenfolge für jede Zahl in der Gleichung.';
+$_lang['prop_math.mathfield_desc'] = 'Falls `math` als Hook gesetzt wurde, der Name des Formularfeldes für die Antwort.';
+$_lang['prop_math.mathop1field_desc'] = 'Falls `math` als Hook gesetzt wurde, der Name des Formularfeldes für die 1. Zahl in der Gleichung.';
+$_lang['prop_math.mathop2field_desc'] = 'Falls `math` als Hook gesetzt wurde, der Name des Formularfeldes für die 2. Zahl in der Gleichung.';
+$_lang['prop_math.mathoperatorfield_desc'] = 'Falls `math` als Hook gesetzt wurde, der Name des Formularfeldes für den Operator in der Gleichung.';
+
+/* FormItCountryOptions properties */
+$_lang['prop_fico.allgrouptext_desc'] = 'Optional. Falls gesetzt und &prioritized wird genutzt, wird hier ein Text-Label für alle anderen Länder gesetzt.';
+$_lang['prop_fico.optgroup_desc'] = 'Optional. Falls gesetzt und &prioritized wird genutzt, ist dies das chunk Template, das für das option group markup genutzt wird.';
+$_lang['prop_fico.prioritized_desc'] = 'Optional. Eine kommaspearierte Liste an ISO Codes für Länder, die in die priorisierte / oft besuchte Listengruppe gehören sollen.';
+$_lang['prop_fico.prioritizedgrouptext_desc'] = 'Optional. Falls gesetzt und &prioritized wird genutzt, wird hier ein Text-Label für die priorisierten Länder gesetzt.';
+$_lang['prop_fico.selected_desc'] = 'Die zu setzende Länderwert.';
+$_lang['prop_fico.selectedattribute_desc'] = 'Optional. Die zu setzenden HTML Attribute für ein ausgewähltes Land.';
+$_lang['prop_fico.toplaceholder_desc'] = 'Optional. Verwenden Sie dies, um den Wert in einen Platzhalter auszugeben statt direkt auszugeben.';
+$_lang['prop_fico.tpl_desc'] = 'Optional. Der zu nutzende Chunk für jede Länderauswahl.';
+$_lang['prop_fico.useisocode_desc'] = 'Falls 1, wird der ISO Ländercode als Wert gesetzt. Falls 0, wird der Ländername ausgegeben.';
+
+/* FormItStateOptions properties */
+$_lang['prop_fiso.selected_desc'] = 'Der auszuwählende Länderwert.';
+$_lang['prop_fiso.selectedattribute_desc'] = 'Optional. Das HTML Attribut, das einem ausgewählten Land hinzugefügt werden soll.';
+$_lang['prop_fiso.toplaceholder_desc'] = 'Optional. Verwenden Sie dies, um den Wert in einen Platzhalter auszugeben statt direkt auszugeben.';
+$_lang['prop_fiso.tpl_desc'] = 'Optional. Der zu nutzende Chunk für jede Länderauswahl.';
+$_lang['prop_fiso.useabbr_desc'] = 'Falls 1, wird die Abkürzung des Staates verwendet. Falls 0, wird der komplette Name des Staates verwendet.';
 
 /* FormIt Options */
-$_lang['formit.opt_blackglass'] = 'Black Glass';
-$_lang['formit.opt_clean'] = 'Clean';
-$_lang['formit.opt_red'] = 'Red';
-$_lang['formit.opt_white'] = 'White';
+$_lang['formit.opt_blackglass'] = 'schwarzes Glas';
+$_lang['formit.opt_clean'] = 'aufgeräumt';
+$_lang['formit.opt_red'] = 'rot';
+$_lang['formit.opt_white'] = 'weiß';

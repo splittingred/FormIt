@@ -1,0 +1,32 @@
+<phpunit colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         verbose="true"
+         bootstrap="FiTestHarness.php"
+         strict="true">
+    <testsuites>
+
+      <testsuite name="Core">
+          <directory>Tests/Core/</directory>
+      </testsuite>
+      <testsuite name="Modules">
+          <directory>Tests/Modules/</directory>
+      </testsuite>
+      <testsuite name="Cases">
+          <file>Tests/Cases/Basic/SingleFieldTest.php</file>
+          <file>Tests/Cases/Basic/PreHookTest.php</file>
+          <file>Tests/Cases/Basic/PostHookTest.php</file>
+          <!--<file>Tests/Cases/Basic/SpamHookTest.php</file>-->
+          <file>Tests/Cases/Basic/MathHookTest.php</file>
+          <file>Tests/Cases/Basic/ValidationTest.php</file>
+          <file>Tests/Cases/Basic/InlineValidatorTest.php</file>
+          <file>Tests/Cases/Basic/EmailHookTest.php</file>
+          
+          <file>Tests/Cases/AutoResponder/AutoResponderBasicTest.php</file>
+      </testsuite>
+    </testsuites>
+</phpunit>

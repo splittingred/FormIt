@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -136,6 +136,14 @@ $properties = array(
         'type' => 'textfield',
         'options' => '',
         'value' => 300,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'allowFiles',
+        'desc' => 'prop_formit.allowfiles_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => true,
         'lexicon' => 'formit:properties',
     ),
     /* spam hook */
@@ -315,6 +323,30 @@ $properties = array(
         'type' => 'combo-boolean',
         'options' => '',
         'value' => true,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'emailConvertNewlines',
+        'desc' => 'prop_formit.emailconvertnewlines_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'emailMultiWrapper',
+        'desc' => 'prop_formit.emailmultiwrapper_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '[[+value]]',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'emailMultiSeparator',
+        'desc' => 'prop_formit.emailmultiseparator_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => '',
         'lexicon' => 'formit:properties',
     ),
 

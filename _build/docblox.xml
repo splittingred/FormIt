@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<docblox>
+  <title>FormIt API Documentation</title>
+  <force />
+  <parser>
+    <target>./docs/build/</target>
+    <markers>
+      <item>TODO</item>
+      <item>FIXME</item>
+    </markers>
+    <extensions>
+      <extension>php</extension>
+    </extensions>
+  </parser>
+  <transformer>
+    <target>./docs/build/</target>
+  </transformer>
+  <files>
+    <directory>../core/components/formit/model/formit/</directory>
+  </files>
+  <!--
+  <logging>
+    <level>warn</level>
+    <paths>
+      <default>./doc/log/{DATE}.log</default>
+      <errors>./doc/log/{DATE}.errors.log</errors>
+    </paths>
+  </logging>
+  -->
+  <transformations>
+    <template name="default" />
+  </transformations>
+  <ignore>
+    <item>*.inc</item>
+    <item>*.cache.php</item>
+  </ignore>
+</docblox>

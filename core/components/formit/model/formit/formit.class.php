@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,18 +20,57 @@
  * @package formit
  */
 /**
+ * Base class for FormIt. Used for initializing the form processing engine, handling templating and running snippets.
+ * 
  * @package formit
  */
 class FormIt {
     /**
-     * @var int $debugTimer In debug mode, will monitor execution time.
+     * A reference to the modX instance
+     * @var modX $modx
+     */
+    public $modx;
+    /**
+     * A configuration array
+     * @var array $config
+     */
+    public $config;
+    /**
+     * In debug mode, will monitor execution time.
+     * @var int $debugTimer
      * @access public
      */
     public $debugTimer = 0;
     /**
-     * @var boolean $_initialized True if the class has been initialized or not.
+     * True if the class has been initialized or not.
+     * @var boolean $_initialized
      */
     private $_initialized = false;
+    /**
+     * The fiHooks instance for processing preHooks
+     * @var fiHooks $preHooks
+     */
+    public $preHooks;
+    /**
+     * The fiHooks instance for processing postHooks
+     * @var fiHooks $postHooks
+     */
+    public $postHooks;
+    /**
+     * The request handling class
+     * @var fiRequest $request
+     */
+    public $request;
+    /**
+     * An array of cached chunk tpls for processing
+     * @var array $chunks
+     */
+    public $chunks;
+    /**
+     * Used when running unit tests to prevent emails/headers from being sent
+     * @var boolean $inTestMode
+     */
+    public $inTestMode = false;
 
     /**
      * FormIt constructor
@@ -56,6 +95,8 @@ class FormIt {
             'chunksPath' => $corePath.'elements/chunks/',
             'snippetsPath' => $corePath.'elements/snippets/',
             'controllersPath' => $corePath.'controllers/',
+            'includesPath' => $corePath.'includes/',
+            'testsPath' => $corePath.'test/',
 
             'assetsPath' => $assetsPath,
             'assetsUrl' => $assetsUrl,
@@ -66,8 +107,6 @@ class FormIt {
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
         ),$config);
-
-        $this->modx->addPackage('formit',$this->config['modelPath']);
         if ($this->modx->getOption('formit.debug',$this->config,true)) {
             $this->startDebugTimer();
         }
@@ -78,6 +117,7 @@ class FormIt {
      * handling actions.
      *
      * @access public
+     * @param string $context The context to initialize FormIt into
      * @return mixed
      */
     public function initialize($context = 'web') {
@@ -94,28 +134,53 @@ class FormIt {
     }
 
     /**
-     * Loads the Validator class.
-     *
-     * @access public
-     * @param $config array An array of configuration parameters for the
-     * validator class
-     * @return fiValidator An instance of the fiValidator class.
+     * Sees if the FormIt class has been initialized already
+     * @return boolean
      */
-    public function loadValidator($config = array()) {
-        if (!$this->modx->loadClass('formit.fiValidator',$this->config['modelPath'],true,true)) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Validator class.');
-            return false;
-        }
-        $this->validator = new fiValidator($this,$config);
-        return $this->validator;
+    public function isInitialized() {
+        return $this->_initialized;
     }
 
+    /**
+     * Load the fiRequest class
+     * @return fiRequest
+     */
+    public function loadRequest() {
+        $className = $this->modx->getOption('request_class',$this->config,'fiRequest');
+        $classPath = $this->modx->getOption('request_class_path',$this->config,'');
+        if (empty($classPath)) $classPath = $this->config['modelPath'].'formit/';
+        if ($this->modx->loadClass($className,$classPath,true,true)) {
+            $this->request = new fiRequest($this,$this->config);
+        } else {
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load fiRequest class.');
+        }
+        return $this->request;
+
+    }
+
+    /**
+     * @param string $className
+     * @param string $serviceName
+     * @param array $config
+     * @return fiModule
+     */
+    public function loadModule($className,$serviceName,array $config = array()) {
+        if (empty($this->$serviceName)) {
+            $classPath = $this->modx->getOption('formit.modules_path',null,$this->config['modelPath'].'formit/module/');
+            if ($this->modx->loadClass($className,$classPath,true,true)) {
+                $this->$serviceName = new $className($this,$config);
+            } else {
+                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load module: '.$className.' from '.$classPath);
+            }
+        }
+        return $this->$serviceName;
+    }
 
     /**
      * Loads the Hooks class.
      *
      * @access public
-     * @param $type The type of hook to load.
+     * @param $type string The type of hook to load.
      * @param $config array An array of configuration parameters for the
      * hooks class
      * @return fiHooks An instance of the fiHooks class.
@@ -139,24 +204,6 @@ class FormIt {
         return $this->modx->context->get('key').'/elements/formit/submission/'.md5(session_id());
     }
 
-    /**
-     * Load the reCaptcha service class
-     * 
-     * @param array $config An array of configuration parameters for the
-     * reCaptcha class
-     * @return reCaptcha An instance of the reCaptcha class
-     */
-    public function loadReCaptcha(array $config = array()) {
-        if (empty($this->recaptcha)) {
-            if ($this->modx->loadClass('recaptcha.FormItReCaptcha',$this->config['modelPath'],true,true)) {
-                $this->recaptcha = new FormItReCaptcha($this->modx,$config);
-            } else {
-                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
-                return false;
-            }
-        }
-        return $this->recaptcha;
-    }
 
     /**
      * Gets a Chunk and caches it; also falls back to file-based templates
@@ -198,10 +245,15 @@ class FormIt {
      */
     private function _getTplChunk($name) {
         $chunk = false;
-        $lname = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
-        $f = $this->config['chunksPath'].$lname.'.chunk.tpl';
+        if (file_exists($name)) {
+            $f = $name;
+        } else {
+            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
+            $f = $this->config['chunksPath'].$lowerCaseName.'.chunk.tpl';
+        }
         if (file_exists($f)) {
             $o = file_get_contents($f);
+            /** @var modChunk $chunk */
             $chunk = $this->modx->newObject('modChunk');
             $chunk->set('name',$name);
             $chunk->setContent($o);
@@ -258,5 +310,14 @@ class FormIt {
         $totalTime= sprintf("%2.4f s", $totalTime);
         $this->debugTimer = false;
         return $totalTime;
+    }
+
+    public function setOption($key,$value) {
+        $this->config[$key] = $value;
+    }
+    public function setOptions($array) {
+        foreach ($array as $k => $v) {
+            $this->setOption($k,$v);
+        }
     }
 }

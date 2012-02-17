@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,37 +20,52 @@
  * @package formit
  */
 /**
- * Base Hooks handling class
+ * Base Hooks handling class. Hooks can be used to run scripts prior to loading the form, or after a form has been
+ * submitted.
+ *
+ * Hooks can be either a predefined list by FormIt, or custom MODX Snippets. They can also be chained to allow for
+ * order-of-execution processing. Returning false from a Hook will end the chain. Returning false in a postHook will
+ * prevent the form from being further submitted.
  *
  * @package formit
  */
 class fiHooks {
     /**
-     * @var array $errors A collection of all the processed errors so far.
+     * A collection of all the processed errors so far.
+     * @var array $errors
      * @access public
      */
     public $errors = array();
     /**
-     * @var array $hooks A collection of all the processed hooks so far.
+     * A collection of all the processed hooks so far.
+     * @var array $hooks
      * @access public
      */
     public $hooks = array();
     /**
-     * @var modX $modx A reference to the modX instance.
+     * A reference to the modX instance.
+     * @var modX $modx
      * @access public
      */
     public $modx = null;
     /**
-     * @var FormIt $formit A reference to the FormIt instance.
+     * A reference to the FormIt instance.
+     * @var FormIt $formit
      * @access public
      */
     public $formit = null;
     /**
-     * @var string If a hook redirects, it needs to set this var to use proper
-     * order of execution on redirects/stores
+     * If a hook redirects, it needs to set this var to use proper order of execution on redirects/stores
+     * @var string
      * @access public
      */
     public $redirectUrl = null;
+
+    /**
+     * The current stored and parsed fields for the FormIt call.
+     * @var array $fields
+     */
+    public $fields = array();
 
     /**
      * The constructor for the fiHooks class
@@ -63,6 +78,13 @@ class fiHooks {
         $this->formit =& $formit;
         $this->modx =& $formit->modx;
         $this->config = array_merge(array(
+            'placeholderPrefix' => 'fi.',
+            'errTpl' => '<span class="error">[[+error]]</span>',
+
+            'mathField' => 'math',
+            'mathOp1Field' => 'op1',
+            'mathOp2Field' => 'op2',
+            'mathOperatorField' => 'operator',
         ),$config);
     }
 
@@ -71,10 +93,11 @@ class fiHooks {
      *
      * @access public
      * @param array $hooks The hooks to run.
-     * @parma array $fields The fields and values of the form
+     * @param array $fields The fields and values of the form
+     * @param array $customProperties An array of extra properties to send to the hook
      * @return array An array of field name => value pairs.
      */
-    public function loadMultiple($hooks,array $fields = array()) {
+    public function loadMultiple($hooks,array $fields = array(),array $customProperties = array()) {
         if (empty($hooks)) return array();
         if (is_string($hooks)) $hooks = explode(',',$hooks);
 
@@ -82,7 +105,7 @@ class fiHooks {
         $this->fields =& $fields;
         foreach ($hooks as $hook) {
             $hook = trim($hook);
-            $success = $this->load($hook,$this->fields);
+            $success = $this->load($hook,$this->fields,$customProperties);
             if (!$success) return $this->hooks;
             /* dont proceed if hook fails */
         }
@@ -93,22 +116,23 @@ class fiHooks {
      * Load a hook. Stores any errors for the hook to $this->errors.
      *
      * @access public
-     * @param string $hook The name of the hook. May be a Snippet name.
+     * @param string $hookName The name of the hook. May be a Snippet name.
      * @param array $fields The fields and values of the form.
      * @param array $customProperties Any other custom properties to load into a custom hook.
      * @return boolean True if hook was successful.
      */
-    public function load($hook,array $fields = array(),array $customProperties = array()) {
+    public function load($hookName,array $fields = array(),array $customProperties = array()) {
         $success = false;
         if (!empty($fields)) $this->fields =& $fields;
-        $this->hooks[] = $hook;
+        $this->hooks[] = $hookName;
 
         $reserved = array('load','_process','__construct','getErrorMessage');
-        if (method_exists($this,$hook) && !in_array($hook,$reserved)) {
+        if (method_exists($this,$hookName) && !in_array($hookName,$reserved)) {
             /* built-in hooks */
-            $success = $this->$hook($this->fields);
+            $success = $this->$hookName($this->fields);
 
-        } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hook))) {
+        /** @var modSnippet $snippet */
+        } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hookName))) {
             /* custom snippet hook */
             $properties = array_merge($this->formit->config,$customProperties);
             $properties['formit'] =& $this->formit;
@@ -116,19 +140,47 @@ class fiHooks {
             $properties['fields'] = $this->fields;
             $properties['errors'] =& $this->errors;
             $success = $snippet->process($properties);
-
         } else {
-            /* no hook found */
-            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find hook "'.$hook.'".');
-            $success = true;
+            /* search for a file-based hook */
+            $this->modx->parser->processElementTags('',$hookName,true,true);
+            if (file_exists($hookName)) {
+                $success = $this->_loadFileBasedHook($hookName,$customProperties);
+            } else {
+                /* no hook found */
+                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find hook "'.$hookName.'".');
+                $success = true;
+            }
         }
 
         if (is_array($success) && !empty($success)) {
             $this->errors = array_merge($this->errors,$success);
             $success = false;
         } else if ($success != true) {
-            $this->errors[$hook] .= ' '.$success;
+            if (!isset($this->errors[$hookName])) $this->errors[$hookName] = '';
+            $this->errors[$hookName] .= ' '.$success;
             $success = false;
+        }
+        return $success;
+    }
+
+    /**
+     * Attempt to load a file-based hook given a name
+     * @param string $path The absolute path of the hook file
+     * @param array $customProperties An array of custom properties to run with the hook
+     * @return boolean True if the hook succeeded
+     */
+    private function _loadFileBasedHook($path,array $customProperties = array()) {
+        $scriptProperties = array_merge($this->formit->config,$customProperties);
+        $formit =& $this->formit;
+        $hook =& $this;
+        $fields = $this->fields;
+        $errors =& $this->errors;
+        $modx =& $this->modx;
+        $success = false;
+        try {
+            $success = include $path;
+        } catch (Exception $e) {
+            $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$e->getMessage());
         }
         return $success;
     }
@@ -153,8 +205,27 @@ class fiHooks {
      * @return string The added error message with the error wrapper.
      */
     public function addError($key,$value) {
+        if (!isset($this->errors[$key])) $this->errors[$key] = '';
         $this->errors[$key] .= $value;
         return $this->errors[$key];
+    }
+
+    /**
+     * See if there are any errors in the stack.
+     *
+     * @return boolean
+     */
+    public function hasErrors() {
+        return !empty($this->errors);
+    }
+
+    /**
+     * Get all errors for this current request
+     * 
+     * @return array
+     */
+    public function getErrors() {
+        return $this->errors;
     }
 
     /**
@@ -221,7 +292,12 @@ class fiHooks {
             $redirectParams = $this->modx->fromJSON($redirectParams);
             if (empty($redirectParams)) $redirectParams = '';
         }
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],'',$redirectParams,'abs');
+        $contextKey = $this->modx->context->get('key');
+        $resource = $this->modx->getObject('modResource',$this->formit->config['redirectTo']);
+        if ($resource) {
+            $contextKey = $resource->get('context_key');
+        }
+        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
         $this->setRedirectUrl($url);
         return true;
     }
@@ -246,6 +322,8 @@ class fiHooks {
      */
     public function email(array $fields = array()) {
         $tpl = $this->modx->getOption('emailTpl',$this->formit->config,'');
+        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
+        $emailConvertNewlines = (boolean)$this->modx->getOption('emailConvertNewlines',$this->formit->config,false);
 
         /* get from name */
         $emailFrom = $this->modx->getOption('emailFrom',$this->formit->config,'');
@@ -275,30 +353,81 @@ class fiHooks {
         }
 
         /* compile message */
+        $origFields = $fields;
         if (empty($tpl)) {
             $tpl = 'email';
             $f = '';
+            $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
+            $multiWrapper = $this->modx->getOption('emailMultiWrapper',$this->formit->config,"[[+value]]");
+
             foreach ($fields as $k => $v) {
                 if ($k == 'nospam') continue;
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
+                    $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
+                } else if (is_array($v)) {
+                    $vOpts = array();
+                    foreach ($v as $vKey => $vValue) {
+                        if (is_string($vKey) && !empty($vKey)) {
+                            $vKey = $k.'.'.$vKey;
+                            $f[$vKey] = '<strong>'.$vKey.'</strong>: '.$vValue.'<br />';
+                        } else {
+                            $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                        }
+                    }
+                    $newValue = implode($multiSeparator,$vOpts);
+                    if (!empty($vOpts)) {
+                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue;
+                    }
+                } else {
+                    $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
                 }
-                $f .= '<strong>'.$k.'</strong>: '.$v.'<br />'."\n";
             }
-            $fields['fields'] = $f;
+            $fields['fields'] = implode("\n",$f);
+        } else {
+            /* handle file/checkboxes in email tpl */
+            $multiSeparator = $this->modx->getOption('emailMultiSeparator',$this->formit->config,"\n");
+            if (empty($multiSeparator)) $multiSeparator = "\n";
+            if ($multiSeparator == '\n') $multiSeparator = "\n"; /* allow for inputted newlines */
+            $multiWrapper = $this->modx->getOption('emailMultiWrapper',$this->formit->config,"[[+value]]");
+            if (empty($multiWrapper)) $multiWrapper = '[[+value]]';
+            
+            foreach ($fields as $k => &$v) {
+                if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
+                    $v = $v['name'];
+                } else if (is_array($v)) {
+                    $vOpts = array();
+                    foreach ($v as $vKey => $vValue) {
+                        if (is_string($vKey) && !empty($vKey)) {
+                            $vKey = $k.'.'.$vKey;
+                            $fields[$vKey] = $vValue;
+                            unset($fields[$k]);
+                        } else {
+                            $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                        }
+                    }
+                    $v = implode($multiSeparator,$vOpts);
+                }
+            }
         }
         $message = $this->formit->getChunk($tpl,$fields);
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
-        $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml ? nl2br($message) : $message);
+
+        /* set HTML */
+        $this->modx->mail->setHTML($emailHtml);
+
+        /* set email main properties */
+        $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml && $emailConvertNewlines ? nl2br($message) : $message);
         $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
         $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
+        
         /* handle file fields */
-        foreach ($fields as $k => $v) {
+        foreach ($origFields as $k => $v) {
             $attachmentIndex = 0;
             if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                 if (empty($v['name'])) {
@@ -365,12 +494,12 @@ class fiHooks {
             }
         }
 
-        /* set HTML */
-        $emailHtml = (boolean)$this->modx->getOption('emailHtml',$this->formit->config,true);
-        $this->modx->mail->setHTML($emailHtml);
-
         /* send email */
-        $sent = $this->modx->mail->send();
+        if (!$this->formit->inTestMode) {
+            $sent = $this->modx->mail->send();
+        } else {
+            $sent = true;
+        }
         $this->modx->mail->reset(array(
             modMail::MAIL_CHARSET => $this->modx->getOption('mail_charset',null,'UTF-8'),
             modMail::MAIL_ENCODING => $this->modx->getOption('mail_encoding',null,'8bit'),
@@ -392,8 +521,12 @@ class fiHooks {
      * @return string The parsed string
      */
     public function _process($str,array $placeholders = array()) {
-        foreach ($placeholders as $k => $v) {
-            $str = str_replace('[[+'.$k.']]',$v,$str);
+        if (is_string($str)) {
+            foreach ($placeholders as $k => $v) {
+                if (is_scalar($k) && is_scalar($v)) {
+                    $str = str_replace('[[+'.$k.']]',$v,$str);
+                }
+            }
         }
         return $str;
     }
@@ -420,9 +553,9 @@ class fiHooks {
                 $spamResult = $sfspam->check($ip,$fields[$email]);
                 if (!empty($spamResult)) {
                     $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
-                    $this->errors[$email] = $this->modx->lexicon('formit.spam_blocked',array(
+                    $this->addError($email,$this->modx->lexicon('formit.spam_blocked',array(
                         'fields' => $spamFields,
-                    ));
+                    )));
                     $passed = false;
                 }
             }
@@ -441,15 +574,16 @@ class fiHooks {
      */
     public function recaptcha(array $fields = array()) {
         $passed = false;
-        $recaptcha = $this->formit->loadReCaptcha();
-        if (empty($recaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
+        /** @var FormItReCaptcha $reCaptcha */
+        $reCaptcha = $this->formit->request->loadReCaptcha();
+        if (empty($reCaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
 
-        $response = $recaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
+        $response = $reCaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 
         if (!$response->is_valid) {
-            $this->errors['recaptcha'] = $this->modx->lexicon('recaptcha.incorrect',array(
+            $this->addError('recaptcha',$this->modx->lexicon('recaptcha.incorrect',array(
                 'error' => $response->error != 'incorrect-captcha-sol' ? $response->error : '',
-            ));
+            )));
         } else {
             $passed = true;
         }
@@ -466,6 +600,15 @@ class fiHooks {
     }
 
     /**
+     * Get the specified redirection url
+     *
+     * @return null|string
+     */
+    public function getRedirectUrl() {
+        return $this->redirectUrl;
+    }
+
+    /**
      * Math field hook for anti-spam math input field.
      *
      * @access public
@@ -473,14 +616,16 @@ class fiHooks {
      * @return boolean True if email was successfully sent.
      */
     public function math(array $fields = array()) {
-        $op1Field = $this->modx->getOption('mathOp1Field',$this->formit->config,'op1');
+        $mathField = $this->modx->getOption('mathField',$this->config,'math');
+        if (!isset($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $mathField)); return false; }
+        if (empty($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.field_required',array('field' => $mathField)); return false; }
+        
+        $op1Field = $this->modx->getOption('mathOp1Field',$this->config,'op1');
         if (empty($fields[$op1Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op1Field)); return false; }
-        $op2Field = $this->modx->getOption('mathOp2Field',$this->formit->config,'op2');
+        $op2Field = $this->modx->getOption('mathOp2Field',$this->config,'op2');
         if (empty($fields[$op2Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op2Field)); return false; }
-        $operatorField = $this->modx->getOption('mathOperatorField',$this->formit->config,'operator');
+        $operatorField = $this->modx->getOption('mathOperatorField',$this->config,'operator');
         if (empty($fields[$operatorField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $operatorField)); return false; }
-        $mathField = $this->modx->getOption('mathField',$this->formit->config,'math');
-        if (empty($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $mathField)); return false; }
 
         $answer = false;
         $op1 = (int)$fields[$op1Field];
@@ -493,8 +638,44 @@ class fiHooks {
         $guess = (int)$fields[$mathField];
         $passed = (boolean)($guess == $answer);
         if (!$passed) {
-            $this->errors[$mathField] = $this->modx->lexicon('formit.math_incorrect');
+            $this->addError($mathField,$this->modx->lexicon('formit.math_incorrect'));
         }
         return $passed;
+    }
+
+    /**
+     * Process any errors returned by the hooks and set them to placeholders
+     * @return void
+     */
+    public function processErrors() {
+        $errors = array();
+        $placeholderErrors = $this->getErrors();
+        foreach ($placeholderErrors as $key => $error) {
+            $errors[$key] = str_replace('[[+error]]',$error,$this->config['errTpl']);
+        }
+        $this->modx->toPlaceholders($errors,$this->config['placeholderPrefix'].'error');
+
+        $errorMsg = $this->getErrorMessage();
+        if (!empty($errorMsg)) {
+            $this->modx->setPlaceholder($this->config['placeholderPrefix'].'error_message',$errorMsg);
+        }
+    }
+
+    /**
+     * Gather fields and set them into placeholders for pre-fetching
+     * @return array
+     */
+    public function gatherFields() {
+        if (empty($this->fields)) return array();
+
+        $fs = $this->getValues();
+        /* better handling of checkbox values when input name is an array[] */
+        foreach ($fs as $f => $v) {
+            if (is_array($v)) { $v = implode(',',$v); }
+            $fs[$f] = $v;
+        }
+        $this->modx->toPlaceholders($fs,$this->config['placeholderPrefix'],'');
+        
+        return $this->getValues();
     }
 }

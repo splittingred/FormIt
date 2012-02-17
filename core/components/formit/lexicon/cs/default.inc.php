@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -23,11 +23,12 @@
  * Default Lexicon Topic
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
  *
  * @author modxcms.cz
- * @updated 2010-12-29
+ * @updated 2012-01-20
  */
+$_lang['formit.all_group_text'] = 'Všechny země';
 $_lang['formit.contains'] = 'Hodnota musí obsahovat frázi "[[+value]]".';
 $_lang['formit.email_invalid'] = 'Zadejte platnou e-mailovou adresu.';
 $_lang['formit.email_invalid_domain'] = 'Doménové jméno zadané e-mailové adresy není platné.';
@@ -48,6 +49,7 @@ $_lang['formit.not_number'] = 'Obsah tohoto políčka musí být číslo.';
 $_lang['formit.not_uppercase'] = 'Obsah tohoto políčka musí být velkými písmeny.';
 $_lang['formit.password_dont_match'] = 'Vaše hesla se neshodují.';
 $_lang['formit.password_not_confirmed'] = 'Prosím, potvrďte heslo.';
+$_lang['formit.prioritized_group_text'] = 'Častí návštěvníci';
 $_lang['formit.range_invalid'] = 'Zadán neplatný rozsah.';
 $_lang['formit.range'] = 'Hodnota musí být mezi [[+min]] a [[+max]].';
 $_lang['formit.recaptcha_err_load'] = 'Nelze načíst třídu služby FormItReCaptcha.';

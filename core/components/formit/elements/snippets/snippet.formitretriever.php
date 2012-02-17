@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2010 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2009-2011 by Shaun McCormick <shaun@modx.com>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -22,6 +22,9 @@
 /**
  * Retrieves a prior form submission that was stored with the &store property
  * in a FormIt call.
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
  * 
  * @package formit
  */
@@ -31,22 +34,23 @@ $fi = new FormIt($modx,$scriptProperties);
 /* setup properties */
 $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
 $eraseOnLoad = $modx->getOption('eraseOnLoad',$scriptProperties,false);
-$redirecToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
+$redirectToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
 
 /* fetch data from cache and set to placeholders */
-$cacheKey = $fi->getStoreKey();
-$data = $modx->cacheManager->get($cacheKey);
+$fi->loadRequest();
+$fi->request->loadDictionary();
+$data = $fi->request->dictionary->retrieve();
 if (!empty($data)) {
     /* set data to placeholders */
-    $modx->setPlaceholders($data,$placeholderPrefix);
+    $modx->toPlaceholders($data,$placeholderPrefix,'');
     
     /* if set, erase the data on load, otherwise depend on cache expiry time */
     if ($eraseOnLoad) {
-        $modx->cacheManager->delete($cacheKey);
+        $fi->request->dictionary->erase();
     }
 /* if the data's not found, and we want to redirect somewhere if so, do here */
-} else if (!empty($redirecToOnNotFound)) {
-    $url = $modx->makeUrl($redirecToOnNotFound);
+} else if (!empty($redirectToOnNotFound)) {
+    $url = $modx->makeUrl($redirectToOnNotFound);
     $modx->sendRedirect($url);
 }
 return '';
