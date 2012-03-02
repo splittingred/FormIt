@@ -52,7 +52,7 @@ class fiCountryOptions extends fiModule {
             'outputSeparator' => "\n",
             'toPlaceholder' => '',
         ));
-        $this->setOption('selectedKey',$this->getOption('useIsoCode',true) ? 'countryKey' : 'countryName');
+        $this->setOption('selectedKey',$this->getOption('useIsoCode',true,'isset') ? 'countryKey' : 'countryName');
     }
 
     /**
