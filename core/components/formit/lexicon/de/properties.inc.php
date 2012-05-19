@@ -27,8 +27,8 @@
  * @language de
  */
 /* FormIt properties */
-$_lang['prop_formit.hooks_desc'] = 'Welche Scripts ausgeführt werden sollen, nachdem das Formular validiert wurde. Dies kann eine kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden nachfolgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
-$_lang['prop_formit.prehooks_desc'] = 'Welche Scripts ausgeführt werden sollen (falls vorhanden), sobald das Formular geladen wird. Sie können Formularfelder vorausfüllen: $scriptProperties[`hook`]->fields[`fieldname`]. Dies kann eine kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden nachfolgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
+$_lang['prop_formit.hooks_desc'] = 'Gibt an, welche Scripts ausgeführt werden sollen, nachdem das Formular validiert wurde. Dies kann eine kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden nachfolgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
+$_lang['prop_formit.prehooks_desc'] = 'Gibt an, welche Scripts ausgeführt werden sollen (falls vorhanden), sobald das Formular geladen wird. Sie können Formularfelder vorausfüllen: $scriptProperties[`hook`]->fields[`fieldname`]. Dies kann eine kommaseparierte Liste von Hooks sein. Schlägt ein Hook fehl, werden nachfolgende nicht ausgeführt. Ein Hook kann ebenfalls ein Name eines Snippets sein, das daraufhin ausgeführt wird.';
 $_lang['prop_formit.submitvar_desc'] = 'Falls gesetzt, wird das Formular nicht ausgewertet, wenn die POST-Variable nicht übergeben wurde.';
 $_lang['prop_formit.validate_desc'] = 'Dies kann eine kommaseparierte Liste von Feldern, die validiert werden sollen, mit jeweils dem Feldnamen als Validator (Bsp.: username:required,email:required) sein. Validatoren können auch verkettet werden, z.B. email:email:required. Diese Eigenschaft kann in mehreren Zeilen angegeben werden.';
 $_lang['prop_formit.errtpl_desc'] = 'Das Wrapper-Template für Fehlermeldungen.';
