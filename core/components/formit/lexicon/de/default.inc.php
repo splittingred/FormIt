@@ -23,7 +23,8 @@
  * German translation by Jörg Lippmann and Anselm Hannemann
  *
  * @package formit
- * @subpackge lexicon
+ * @subpackage lexicon
+ * @language de
  */
 $_lang['formit.all_group_text'] = 'Alle Länder';
 $_lang['formit.contains'] = 'Ihre Eingabe muss die "[[+value]]" enthalten.';
@@ -49,7 +50,7 @@ $_lang['formit.password_not_confirmed'] = 'Bitte bestätigen Sie das Passwort.';
 $_lang['formit.prioritized_group_text'] = 'Häufige Besucher';
 $_lang['formit.range_invalid'] = 'Unzulässiger Wertebereich.';
 $_lang['formit.range'] = 'Dieser Wert muss zwischen [[+min]] und [[+max]] liegen.';
-$_lang['formit.recaptcha_err_load'] = 'Konnte reCaptcha service class nicht laden.';
+$_lang['formit.recaptcha_err_load'] = 'Konnte reCaptcha-Service-Klasse nicht laden.';
 $_lang['formit.spam_blocked'] = 'Ihre Eingabe wurde durch einen Spamfilter blockiert: ';
 $_lang['formit.spam_marked'] = ' - als Spam markiert.';
 $_lang['formit.username_taken'] = 'Benutzername schon vergeben, bitte wählen Sie einen anderen.';
