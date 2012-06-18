@@ -683,8 +683,10 @@ class fiValidator {
         $this->modx->toPlaceholders($this->getErrors(),$this->config['placeholderPrefix'].'error');
         $errs = array();
         foreach ($this->getRawErrors() as $field => $err) {
-            $err = $field.': '.$err;
-            $errs[] = str_replace('[[+error]]',$err,$this->config['validationErrorBulkTpl']);
+            $haystack = $this->config['validationErrorBulkTpl'];
+            $search   = array('[[+field]]','[[+error]]');
+            $replace  = array($field,$err);
+            $errs[]   = str_replace( $search , $replace , $haystack );
         }
         $errs = implode($this->config['validationErrorBulkSeparator'],$errs);
         $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->config['validationErrorMessage']);
