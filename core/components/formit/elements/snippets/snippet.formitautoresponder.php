@@ -36,7 +36,6 @@ $mailFromName = $modx->getOption('fiarFromName',$scriptProperties,$modx->getOpti
 $mailSender = $modx->getOption('fiarSender',$scriptProperties,$modx->getOption('emailsender'));
 $mailSubject = $modx->getOption('fiarSubject',$scriptProperties,'[[++site_name]] Auto-Responder');
 $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($modx->getOption('site_name'),$modx->getOption('emailsender')),$mailSubject);
-$mailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
 $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
 $multiSeparator = $modx->getOption('fiarMultiSeparator',$formit->config,"\n");
@@ -86,7 +85,9 @@ $emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
 $emailReplyTo = $hook->_process($emailReplyTo,$fields);
 $emailReplyToName = $modx->getOption('fiarReplyToName',$scriptProperties,$mailFromName);
 $emailReplyToName = $hook->_process($emailReplyToName,$fields);
-$modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+if (!empty($emailReplyTo)) {
+    $modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+}
 
 /* cc */
 $emailCC = $modx->getOption('fiarCC',$scriptProperties,'');
@@ -99,7 +100,9 @@ if (!empty($emailCC)) {
         $etn = !empty($emailCCName[$i]) ? $emailCCName[$i] : '';
         if (!empty($etn)) $etn = $hook->_process($etn,$fields);
         $emailCC[$i] = $hook->_process($emailCC[$i],$fields);
-        $modx->mail->address('cc',$emailCC[$i],$etn);
+        if (!empty($emailCC[$i])) {
+            $modx->mail->address('cc',$emailCC[$i],$etn);
+        }
     }
 }
 
@@ -114,7 +117,9 @@ if (!empty($emailBCC)) {
         $etn = !empty($emailBCCName[$i]) ? $emailBCCName[$i] : '';
         if (!empty($etn)) $etn = $hook->_process($etn,$fields);
         $emailBCC[$i] = $hook->_process($emailBCC[$i],$fields);
-        $modx->mail->address('bcc',$emailBCC[$i],$etn);
+        if (!empty($emailBCC[$i])) {
+            $modx->mail->address('bcc',$emailBCC[$i],$etn);
+        }
     }
 }
 
