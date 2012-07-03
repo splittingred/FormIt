@@ -2,6 +2,8 @@ Changelog for FormIt.
 
 FormIt 2.1.0
 ====================================
+- Fix useIsoCode issue in FormItCountryOptions
+- Update German translation
 - Enhance validation templating for validationErrorBulkTpl
 - Add &country option to FormItStateOptions to allow loading of non-US states (currently us/de)
 
