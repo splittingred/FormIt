@@ -419,6 +419,7 @@ class fiHooks {
             }
         }
         $message = $this->formit->getChunk($tpl,$fields);
+        $message = $this->_process($message,$this->config);
 
         /* load mail service */
         $this->modx->getService('mail', 'mail.modPHPMailer');
@@ -536,6 +537,7 @@ class fiHooks {
                 }
             }
         }
+        $this->modx->parser->processElementTags('',$str,true,false);
         return $str;
     }
 

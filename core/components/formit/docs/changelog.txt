@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.1.0
 ====================================
+- [#7620] Allow for MODX tags in email templates, as well as pass-through of snippet properties to tpl
 - [#7502] Add ability to find type of hook by using $hook->type
 - [#8151] More sanity checking for FormItAutoResponder and replyTo addresses
 - Fix useIsoCode issue in FormItCountryOptions
