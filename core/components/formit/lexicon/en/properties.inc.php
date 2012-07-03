@@ -106,6 +106,7 @@ $_lang['prop_fico.tpl_desc'] = 'Optional. The chunk to use for each country drop
 $_lang['prop_fico.useisocode_desc'] = 'If 1, will use the ISO country code for the value. If 0, will use the country name.';
 
 /* FormItStateOptions properties */
+$_lang['prop_fiso.country_desc'] = 'Optional. Set to use a different states file when loading a list of states.';
 $_lang['prop_fiso.selected_desc'] = 'The country value to select.';
 $_lang['prop_fiso.selectedattribute_desc'] = 'Optional. The HTML attribute to add to a selected country.';
 $_lang['prop_fiso.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';

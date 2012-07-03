@@ -43,6 +43,7 @@ class fiStateOptions extends fiModule {
             'selectedAttribute' => ' selected="selected"',
             'outputSeparator' => "\n",
             'toPlaceholder' => '',
+			'country' => 'us',
         ));
         $this->setOption('selectedKey',$this->getOption('useAbbr',true) ? 'stateKey' : 'stateName');
     }
@@ -52,8 +53,14 @@ class fiStateOptions extends fiModule {
      * @return array
      */
     public function getData() {
-        $this->states = include $this->formit->config['includesPath'].'us.states.inc.php';
-        return $this->states;
+        $country = $this->getOption('country','us');
+		$statesFile = $this->getOption('statesDirectory',$this->formit->config['includesPath']).$country.'.states.inc.php';
+		if (file_exists($statesFile)) {
+			$this->states = include $statesFile;
+		} else {
+		    $this->states = include $this->formit->config['includesPath'].'us.states.inc.php';
+		}
+		return $this->states;
     }
 
     /**

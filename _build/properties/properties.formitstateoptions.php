@@ -59,6 +59,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'country',
+        'desc' => 'prop_fiso.country_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'us',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'toPlaceholder',
         'desc' => 'prop_fiso.toplaceholder_desc',
         'type' => 'textfield',
