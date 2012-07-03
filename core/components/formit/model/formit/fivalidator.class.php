@@ -76,6 +76,34 @@ class fiValidator {
     }
 
     /**
+     * Get an option passed in from parameters
+     *
+     * @param string $key
+     * @param mixed $default
+     * @param string $method
+     * @return null
+     */
+    public function getOption($key,$default = null,$method = '!empty') {
+        $v = $default;
+
+        switch ($method) {
+            case 'empty':
+            case '!empty':
+                if (!empty($this->config[$key])) {
+                    $v = $this->config[$key];
+                }
+                break;
+            case 'isset':
+            default:
+                if (isset($this->config[$key])) {
+                    $v = $this->config[$key];
+                }
+                break;
+        }
+        return $v;
+    }
+
+    /**
      * Validates an array of fields. Returns the field names and values, with
      * the field names stripped of their validators.
      *
@@ -681,15 +709,15 @@ class fiValidator {
      */
     public function processErrors() {
         $this->modx->toPlaceholders($this->getErrors(),$this->config['placeholderPrefix'].'error');
+        $bulkErrTpl = $this->getOption('validationErrorBulkTpl');
         $errs = array();
         foreach ($this->getRawErrors() as $field => $err) {
-            $err = $field.': '.$err;
-            $errs[] = str_replace('[[+error]]',$err,$this->config['validationErrorBulkTpl']);
+            $errs[] = str_replace(array('[[+field]]','[[+error]]'),array($field,$err),$bulkErrTpl);
         }
-        $errs = implode($this->config['validationErrorBulkSeparator'],$errs);
-        $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->config['validationErrorMessage']);
-        $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error',true);
-        $this->modx->setPlaceholder($this->config['placeholderPrefix'].'validation_error_message',$validationErrorMessage);
+        $errs = implode($this->getOption('validationErrorBulkSeparator'),$errs);
+        $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->getOption('validationErrorMessage'));
+        $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error',true);
+        $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error_message',$validationErrorMessage);
     }
 
     /**
