@@ -68,13 +68,20 @@ class fiHooks {
     public $fields = array();
 
     /**
+     * The type of Hook request that this represents
+     * @var string $type
+     */
+    public $type;
+
+    /**
      * The constructor for the fiHooks class
      *
      * @param FormIt &$formit A reference to the FormIt class instance.
      * @param array $config Optional. An array of configuration parameters.
+     * @param string $type The type of hooks this service class is loading
      * @return fiHooks
      */
-    function __construct(FormIt &$formit,array $config = array()) {
+    function __construct(FormIt &$formit,array $config = array(),$type = '') {
         $this->formit =& $formit;
         $this->modx =& $formit->modx;
         $this->config = array_merge(array(
@@ -86,6 +93,7 @@ class fiHooks {
             'mathOp2Field' => 'op2',
             'mathOperatorField' => 'operator',
         ),$config);
+        $this->type = $type;
     }
 
     /**

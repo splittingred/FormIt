@@ -190,9 +190,9 @@ class FormIt {
             $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
             return false;
         }
-        $type = $type.'Hooks';
-        $this->$type = new fiHooks($this,$config);
-        return $this->$type;
+        $typeVar = $type.'Hooks';
+        $this->$typeVar = new fiHooks($this,$config,$type);
+        return $this->$typeVar;
     }
 
     /**
