@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.1.1
+====================================
+- [#8204] Fix issue with FormItAutoResponder and processing of MODX tags
+
 FormIt 2.1.0
 ====================================
 - [#7620] Allow for MODX tags in email templates, as well as pass-through of snippet properties to tpl
