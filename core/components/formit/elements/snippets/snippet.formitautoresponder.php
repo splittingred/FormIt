@@ -69,7 +69,7 @@ $placeholders = $fields;
 $mailTo= $fields[$toField];
 
 $message = $formit->getChunk($tpl,$placeholders);
-$message = $modx->parser->processElementTags('',$message,true,false);
+$modx->parser->processElementTags('',$message,true,false);
 
 $modx->getService('mail', 'mail.modPHPMailer');
 $modx->mail->reset();
