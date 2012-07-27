@@ -688,7 +688,7 @@ class fiValidator {
      * @param array $properties
      * @return null|string
      */
-    protected function _getErrorMessage($field,$parameter,$lexiconKey,array $properties = array()) {
+    public function _getErrorMessage($field,$parameter,$lexiconKey,array $properties = array()) {
         if (!empty($this->formit->config[$field.'.'.$parameter])) {
             $message = $this->formit->config[$field.'.'.$parameter];
             $this->modx->lexicon->set($lexiconKey,$message);
