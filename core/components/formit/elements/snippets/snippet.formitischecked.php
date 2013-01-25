@@ -30,10 +30,8 @@ $output = ' ';
 if ($input == $options) {
     $output = ' checked="checked"';
 }
-if (strpos($input,',') !== false) {
-    $input = explode(',',$input);
-    if (in_array($options,$input)) {
-        $output = ' checked="checked"';
-    }
+$input = $modx->fromJSON($input);
+if (in_array($options,$input)) {
+  $output = ' checked="checked"';
 }
 return $output;
