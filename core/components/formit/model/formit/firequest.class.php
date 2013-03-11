@@ -310,7 +310,7 @@ class fiRequest {
         $this->formit->postHooks->loadMultiple($this->config['hooks'],$this->dictionary->toArray());
 
         /* process form */
-        if ($this->formit->postHooks->hasErrors()) {
+        if ($this->formit->preHooks->hasErrors() || $this->formit->postHooks->hasErrors()) {
             $success = false;
             $this->formit->postHooks->processErrors();
         } else {
