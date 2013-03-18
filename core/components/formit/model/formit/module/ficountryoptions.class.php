@@ -60,7 +60,13 @@ class fiCountryOptions extends fiModule {
      * @return array
      */
     public function getData() {
-        $this->countries = include $this->formit->config['includesPath'].'countries.inc.php';
+        $cultureKey = $this->modx->getOption('cultureKey', array(), '', true);
+        $countriesFile = $this->getOption('countriesDirectory',$this->formit->config['includesPath']).$cultureKey.'.countries.inc.php';
+        if (file_exists($countriesFile)) {
+            $this->countries = include $countriesFile;
+        } else {
+            $this->countries = include $this->formit->config['includesPath'].'us.countries.inc.php';
+        }
         return $this->countries;
     }
 
