@@ -7,6 +7,7 @@ FormIt 2.2.0
 - [#9576] Add ability to translate country options
 - Add check for preHook errors before processing postHooks
 - Add option, defaulting true, to trim spaces from sides of values before validation
+- [#8785] Fix E_STRICT error in fiDictionary
 
 FormIt 2.1.2
 ====================================

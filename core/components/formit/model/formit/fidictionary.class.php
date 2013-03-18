@@ -125,7 +125,9 @@ class fiDictionary {
         $storeTime = $this->modx->getOption('storeTime',$this->config,300);
         /* create the hash to store */
         $cacheKey = $this->formit->getStoreKey();
-        $this->modx->cacheManager->set($cacheKey,$this->toArray(),$storeTime);
+        $data = $this->toArray();
+        $this->modx->cacheManager->set($cacheKey,$data,$storeTime);
+        unset($data);
     }
 
     /**
