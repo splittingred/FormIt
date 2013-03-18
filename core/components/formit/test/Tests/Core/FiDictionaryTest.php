@@ -28,8 +28,10 @@ class FiDictionaryClassTest extends FiTestCase {
     }
 
     public function tearDown() {
+        if ($this->dictionary) {
+            $this->dictionary->reset();
+        }
         parent::tearDown();
-        $this->dictionary->reset();
     }
 
     /**

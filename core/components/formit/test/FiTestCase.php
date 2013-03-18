@@ -21,7 +21,7 @@ class FiTestCase extends PHPUnit_Framework_TestCase {
      * Ensure all tests have a reference to the MODX and FormIt objects
      */
     public function setUp() {
-        $this->modx =& FiTestHarness::_getConnection();
+        $this->modx = FiTestHarness::_getConnection();
         $fiCorePath = $this->modx->getOption('formit.core_path',null,$this->modx->getOption('core_path',null,MODX_CORE_PATH).'components/formit/');
         require_once $fiCorePath.'model/formit/formit.class.php';
         $this->formit = new FormIt($this->modx);

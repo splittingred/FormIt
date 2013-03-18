@@ -21,8 +21,8 @@ class FiStateOptionsTest extends FiTestCase {
     }
 
     public function tearDown() {
-        parent::tearDown();
         $this->formit->stateOptions = null;
+        parent::tearDown();
     }
 
     /**

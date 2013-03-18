@@ -21,8 +21,8 @@ class FiCountryOptionsTest extends FiTestCase {
     }
 
     public function tearDown() {
-        parent::tearDown();
         $this->formit->countryOptions = null;
+        parent::tearDown();
     }
 
     /**
