@@ -375,7 +375,7 @@ class fiRequest {
     }
 
     public function convertMODXTags($v) {
-        return str_replace(array('[',']'),array('&#91;','&#93;'),$v);
+        return htmlentities(str_replace(array('[',']'),array('&#91;','&#93;'),$v),ENT_QUOTES);
     }
 }
  
