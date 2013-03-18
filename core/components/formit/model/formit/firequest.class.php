@@ -366,7 +366,7 @@ class fiRequest {
                 foreach ($v as $sk => $sv) {
                     $fs[$k.'.'.$sk] = $this->convertMODXTags($sv);
                 }
-                $v = implode(',',$v);
+                 $v = $this->modx->toJSON($v);
             }
             /* str_replace to prevent showing of placeholders */
             $fs[$k] = $this->convertMODXTags($v);
@@ -375,7 +375,7 @@ class fiRequest {
     }
 
     public function convertMODXTags($v) {
-        return str_replace(array('[',']'),array('&#91;','&#93;'),$v);
+        return str_replace(array('[[',']]'),array('&#91;&#91;','&#93;&#93;'),$v);
     }
 }
  

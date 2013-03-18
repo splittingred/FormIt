@@ -30,10 +30,8 @@ $output = ' ';
 if ($input == $options) {
     $output = ' selected="selected"';
 }
-if (strpos($input,',') !== false) {
-    $input = explode(',',$input);
-    if (in_array($options,$input)) {
-        $output = ' selected="selected"';
-    }
+$input = $modx->fromJSON($input);
+if (in_array($options,$input)) {
+  $output = ' selected="selected"';
 }
 return $output;
