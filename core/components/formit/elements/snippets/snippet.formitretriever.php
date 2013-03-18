@@ -42,6 +42,12 @@ $fi->request->loadDictionary();
 $data = $fi->request->dictionary->retrieve();
 if (!empty($data)) {
     /* set data to placeholders */
+    foreach ($data as $k=>$v) {
+        /*checkboxes & other multi-values are stored as arrays, must be imploded*/
+        if (is_array($v)) {
+            $data[$k] = implode(',',$v);
+        }
+    }
     $modx->toPlaceholders($data,$placeholderPrefix,'');
     
     /* if set, erase the data on load, otherwise depend on cache expiry time */
