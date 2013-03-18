@@ -2,6 +2,7 @@ Changelog for FormIt.
 
 FormIt 2.2.0
 ====================================
+- [#8382] Prevent issue with checkboxes/radios causing text-parsing problems with required validator
 - Fixed issue with custom error message for vTextPasswordConfirm not respected
 - [#9457] Fixed issue with commas in values causing errors with FormItIsChecked & FormItIsSelected
 - [#9576] Add ability to translate country options

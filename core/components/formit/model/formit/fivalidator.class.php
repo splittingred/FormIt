@@ -355,7 +355,7 @@ class fiValidator {
         }
         return $success ? true : $this->_getErrorMessage($key,'vTextRequired','formit.field_required',array(
             'field' => $key,
-            'value' => $value,
+            'value' => is_array($value) ? implode(',',$value) : $value,
         ));
     }
 
