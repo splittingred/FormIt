@@ -35,6 +35,7 @@ $_lang['prop_formit.errtpl_desc'] = 'The wrapper template for error messages.';
 $_lang['prop_formit.validationerrormessage_desc'] = 'A general error message to set to a placeholder if validation fails. Can contain [[+errors]] if you want to display a list of all errors at the top.';
 $_lang['prop_formit.validationerrorbulktpl_desc'] = 'HTML tpl that is used for each individual error in the generic validation error message value.';
 $_lang['prop_formit.customvalidators_desc'] = 'A comma-separated list of custom validator names (snippets) you plan to use in this form. They must be explicitly stated here, or they will not be run.';
+$_lang['prop_formit.trimvaluesdeforevalidation_desc'] = 'Whether or not to trim spaces from the beginning and end of values before attempting validation. Defaults to true.';
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'If true, will clear the fields on a successful form submission that does not redirect.';
 $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder with the name of the value of the property &successMessagePlaceholder, which defaults to `fi.successMessage`.';
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';

@@ -83,6 +83,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'trimValuesBeforeValidation',
+        'desc' => 'prop_formit.trimvaluesdeforevalidation_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => true,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'customValidators',
         'desc' => 'prop_formit.customvalidators_desc',
         'type' => 'textfield',

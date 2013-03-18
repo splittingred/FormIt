@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.2.0
+====================================
+- Add option, defaulting true, to trim spaces from sides of values before validation
+
 FormIt 2.1.2
 ====================================
 - Various language updates

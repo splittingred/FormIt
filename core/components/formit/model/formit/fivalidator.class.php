@@ -70,6 +70,7 @@ class fiValidator {
             'validationErrorBulkSeparator' => "\n",
             'validationErrorMessage' => '<p class="error">A form validation error occurred. Please check the values you have entered.</p>',
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
+            'trimValuesBeforeValidation' => (boolean)$this->modx->getOption('trimValuesBeforeValidation',$this->formit->config,true),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
             'customValidators' => !empty($this->formit->config['customValidators']) ? explode(',',$this->formit->config['customValidators']) : array(),
         ),$config);
@@ -230,7 +231,9 @@ class fiValidator {
         $validated = false;
 
         /** @var mixed $value Trim spaces from the value before validating **/
-        $value = trim($value);
+        if (!empty($this->config['trim_values_before_validation'])) {
+            $value = trim($value);
+        }
 
         /** @var boolean $hasParams */
         $hasParams = $this->config['use_multibyte'] ? mb_strpos($type,'=',0,$this->config['encoding']) : strpos($type,'=');
