@@ -380,8 +380,7 @@ class fiValidator {
      * @return boolean
      */
     public function password_confirm($key,$value,$param = 'password_confirm') {
-        if (empty($value)) return $this->modx->lexicon('formit.password_not_confirmed');
-        if ($this->fields[$param] != $value) {
+        if (empty($value) || $this->fields[$param] != $value) {
             return $this->_getErrorMessage($key,'vTextPasswordConfirm','formit.password_dont_match',array(
                 'field' => $key,
                 'password' => $value,
