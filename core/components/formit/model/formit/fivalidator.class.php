@@ -229,6 +229,9 @@ class fiValidator {
         /** @var boolean|array $validated */
         $validated = false;
 
+        /** @var mixed $value Trim spaces from the value before validating **/
+        $value = trim($value);
+
         /** @var boolean $hasParams */
         $hasParams = $this->config['use_multibyte'] ? mb_strpos($type,'=',0,$this->config['encoding']) : strpos($type,'=');
         /** @var string|null $param The parameter value, if one is set */
