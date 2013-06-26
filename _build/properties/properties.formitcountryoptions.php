@@ -98,6 +98,14 @@ $properties = array(
         'value' => '',
         'lexicon' => 'formit:properties',
     ),
+    array(
+        'name' => 'country',
+        'desc' => 'prop_fico.country_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '[[++cultureKey]]',
+        'lexicon' => 'formit:properties',
+    ),
 );
 
 return $properties;

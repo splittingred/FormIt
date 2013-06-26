@@ -105,6 +105,7 @@ $_lang['prop_fico.selectedattribute_desc'] = 'Optional. The HTML attribute to ad
 $_lang['prop_fico.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';
 $_lang['prop_fico.tpl_desc'] = 'Optional. The chunk to use for each country dropdown option.';
 $_lang['prop_fico.useisocode_desc'] = 'If 1, will use the ISO country code for the value. If 0, will use the country name.';
+$_lang['prop_fico.country_desc'] = 'Optional. Set to use a different countries file when loading a list of countries.';
 
 /* FormItStateOptions properties */
 $_lang['prop_fiso.country_desc'] = 'Optional. Set to use a different states file when loading a list of states.';
