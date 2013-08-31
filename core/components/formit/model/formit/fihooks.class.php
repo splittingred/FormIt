@@ -537,7 +537,10 @@ class fiHooks {
                 }
             }
         }
-        $this->modx->parser->processElementTags('',$str,true,false);
+        // parse all cacheable tags first
+        $this->modx->getParser()->processElementTags('', $str, true, false, '[[', ']]', array(), 10);
+        // parse all non-cacheable and remove unprocessed tags
+        $this->modx->getParser()->processElementTags('', $str, true, true, '[[', ']]', array(), 10);    
         return $str;
     }
 
