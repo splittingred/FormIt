@@ -31,7 +31,7 @@ if ($input == $options) {
     $output = ' checked="checked"';
 }
 $input = $modx->fromJSON($input);
-if (in_array($options,$input)) {
+if (!empty($input) && is_array($input) && in_array($options,$input)) {
   $output = ' checked="checked"';
 }
 return $output;
