@@ -445,6 +445,14 @@ class fiHooks {
                 $this->modx->mail->mailer->AddAttachment($v['tmp_name'],$v['name'],'base64',!empty($v['type']) ? $v['type'] : 'application/octet-stream');
                 $attachmentIndex++;
             }
+            elseif (is_array($v) && isset($v['tmp_name']) && is_array($v['tmp_name']) && isset($v['error']) && is_array($v['error'])) 
+            	foreach ($v['tmp_name'] as $k => $vv) {
+                	if (empty($v['name'][$k])) {
+                    	$v['name'][$k] = 'attachment'.$attachmentIndex;
+                	}
+                	$this->modx->mail->mailer->AddAttachment($v['tmp_name'][$k],$v['name'][$k],'base64',!empty($v['type'][$k]) ? $v['type'][$k] : 'application/octet-stream');
+                	$attachmentIndex++;
+            }
         }
 
         /* add to: with support for multiple addresses */
