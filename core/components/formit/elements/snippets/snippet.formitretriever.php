@@ -40,6 +40,10 @@ $redirectToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptPropertie
 $fi->loadRequest();
 $fi->request->loadDictionary();
 $data = $fi->request->dictionary->retrieve();
+if (empty($data)) {
+    $data = $fi->request->runPreHooks();
+}
+
 if (!empty($data)) {
     /* set data to placeholders */
     foreach ($data as $k=>$v) {
