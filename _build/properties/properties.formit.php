@@ -310,6 +310,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'emailReturnPath',
+        'desc' => 'prop_formit.emailreturnpath_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'emailSubject',
         'desc' => 'prop_formit.emailsubject_desc',
         'type' => 'textfield',
