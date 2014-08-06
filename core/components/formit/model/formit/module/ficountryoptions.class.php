@@ -54,6 +54,7 @@ class fiCountryOptions extends fiModule {
             'country' => $this->modx->getOption('cultureKey', array(), 'us', true),
         ));
         $this->setOption('selectedKey',$this->getOption('useIsoCode',true,'isset') ? 'countryKey' : 'countryName');
+        $this->modx->lexicon->load('formit:default');
     }
 
     /**
