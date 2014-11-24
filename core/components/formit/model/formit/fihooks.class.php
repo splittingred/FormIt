@@ -305,7 +305,14 @@ class fiHooks {
         if ($resource) {
             $contextKey = $resource->get('context_key');
         }
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
+        if (!is_numeric($this->formit->config['redirectTo']) &&
+            isset($fields[$this->formit->config['redirectTo']]) &&
+            is_numeric($fields[$this->formit->config['redirectTo']]) 
+            ) {
+            $url = $this->modx->makeUrl($fields[$this->formit->config['redirectTo']],$contextKey,$redirectParams,'full');
+        } else {
+            $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
+        }
         $this->setRedirectUrl($url);
         return true;
     }
