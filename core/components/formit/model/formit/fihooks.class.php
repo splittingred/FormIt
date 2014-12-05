@@ -462,11 +462,19 @@ class fiHooks {
 
         /* reply to */
         $emailReplyTo = $this->modx->getOption('emailReplyTo',$this->formit->config,$emailFrom);
-        $emailReplyTo = $this->_process($emailReplyTo,$fields);
-        $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
-        $emailReplyToName = $this->_process($emailReplyToName,$fields);
         if (!empty($emailReplyTo)) {
-            $this->modx->mail->address('reply-to',$emailReplyTo,$emailReplyToName);
+            $emailReplyToName = $this->modx->getOption('emailReplyToName',$this->formit->config,$emailFromName);
+            $emailReplyTo = explode(',',$emailReplyTo);
+            $emailReplyToName = explode(',',$emailReplyToName);
+            $numAddresses = count($emailReplyTo);
+            for ($i=0;$i<$numAddresses;$i++) {
+                $etn = !empty($emailReplyToName[$i]) ? $emailReplyToName[$i] : '';
+                if (!empty($etn)) $etn = $this->_process($etn,$fields);
+                $emailReplyTo[$i] = $this->_process($emailReplyTo[$i],$fields);
+                if (!empty($emailReplyTo[$i])) {
+                    $this->modx->mail->address('reply-to',$emailReplyTo[$i],$etn);
+                }
+            }
         }
 
         /* cc */
