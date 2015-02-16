@@ -218,7 +218,11 @@ class FormIt {
      */
     public function getChunk($name,$properties = array()) {
         $chunk = null;
-        if (!isset($this->chunks[$name])) {
+        if(substr($name, 0, 6) == "@CODE:"){
+            $content = substr($name, 6);
+            $chunk = $this->modx->newObject('modChunk');
+            $chunk->setContent($content);
+        } elseif (!isset($this->chunks[$name])) {
             if (!$this->config['debug']) {
                 $chunk = $this->modx->getObject('modChunk',array('name' => $name),true);
             }
