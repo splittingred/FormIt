@@ -1,5 +1,18 @@
 Changelog for FormIt.
 
+FormIt 2.2.1
+====================================
+- Updated numbers generation for math captcha #5
+- German translation #10
+- Added missing formit.not_regexp lexicon #15
+- Specify explicitely return-path fixes #19 #20
+- fix addAttachment() typo #23
+- Fixed typo in adding of the attachments #24
+- Add the possibility of redirectTo=`formfield` #26
+- Added attachments for auto-reply and Added ability to use @CODE as tpl #29
+- Update snippet.formitisselected.php #12
+- Canadian options for FormitStateOptions
+
 FormIt 2.2.0
 ====================================
 - [#8382] Prevent issue with checkboxes/radios causing text-parsing problems with required validator
