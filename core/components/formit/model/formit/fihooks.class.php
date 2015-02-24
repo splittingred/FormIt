@@ -442,8 +442,8 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
         /* handle file fields */
+        $attachmentIndex = 0;
         foreach ($origFields as $k => $v) {
-            $attachmentIndex = 0;
             if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                 if (empty($v['name'])) {
                     $v['name'] = 'attachment'.$attachmentIndex;
