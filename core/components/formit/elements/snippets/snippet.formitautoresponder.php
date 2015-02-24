@@ -36,6 +36,7 @@ $mailFromName = $modx->getOption('fiarFromName',$scriptProperties,$modx->getOpti
 $mailSender = $modx->getOption('fiarSender',$scriptProperties,$modx->getOption('emailsender'));
 $mailSubject = $modx->getOption('fiarSubject',$scriptProperties,'[[++site_name]] Auto-Responder');
 $mailSubject = str_replace(array('[[++site_name]]','[[++emailsender]]'),array($modx->getOption('site_name'),$modx->getOption('emailsender')),$mailSubject);
+$fiarFiles = $modx->getOption('fiarFiles',$scriptProperties,false);
 $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
 $multiSeparator = $modx->getOption('fiarMultiSeparator',$formit->config,"\n");
@@ -80,6 +81,14 @@ $modx->mail->set(modMail::MAIL_SENDER,$hook->_process($mailSender,$placeholders)
 $modx->mail->set(modMail::MAIL_SUBJECT,$hook->_process($mailSubject,$placeholders));
 $modx->mail->address('to',$mailTo);
 $modx->mail->setHTML($isHtml);
+
+/* add attachments */
+if($fiarFiles){
+    $fiarFiles = explode(',', $fiarFiles);
+    foreach($fiarFiles AS $file){
+        $modx->mail->mailer->AddAttachment($file);
+    }
+}
 
 /* reply to */
 $emailReplyTo = $modx->getOption('fiarReplyTo',$scriptProperties,$mailFrom);
