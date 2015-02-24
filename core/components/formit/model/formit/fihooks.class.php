@@ -342,6 +342,13 @@ class fiHooks {
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailFromName = $this->_process($emailFromName,$fields);
 
+        /* get returnPath */
+        $emailReturnPath = $this->modx->getOption('emailReturnPath',$this->formit->config,'');
+        if (empty($emailReturnPath)) {
+            $emailReturnPath = $emailFrom;
+        }
+        $emailReturnPath = $this->_process($emailReturnPath,$fields);
+
         /* get subject */
         $useEmailFieldForSubject = $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true);
         if (!empty($fields['subject']) && $useEmailFieldForSubject) {
@@ -431,10 +438,9 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml && $emailConvertNewlines ? nl2br($message) : $message);
         $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
-        $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
+        $this->modx->mail->set(modMail::MAIL_SENDER, $emailReturnPath);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
-        
         /* handle file fields */
         foreach ($origFields as $k => $v) {
             $attachmentIndex = 0;
