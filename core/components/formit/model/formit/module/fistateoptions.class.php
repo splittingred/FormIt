@@ -53,7 +53,7 @@ class fiStateOptions extends fiModule {
      * @return array
      */
     public function getData() {
-        $country = $this->getOption('country','us');
+        $country = strtolower( $this->getOption('country','us') );
 		    $statesFile = $this->getOption('statesDirectory',$this->formit->config['includesPath']).$country.'.states.inc.php';
 		    if (file_exists($statesFile)) {
 			     $this->states = include $statesFile;
