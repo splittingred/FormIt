@@ -117,12 +117,12 @@ class fiValidator {
      * @param string $validationFields
      * @return array An array of field name => value pairs.
      */
-    public function validateFields(fiDictionary $dictionary,$validationFields = '', $validationSeperator = ',') {
+    public function validateFields(fiDictionary $dictionary,$validationFields = '', $validationSeparator = ',') {
         $keys = $dictionary->toArray();
         $this->fields = $keys;
 
         /* process the list of fields that will be validated */
-        $validationFields = explode($validationSeperator,$validationFields);
+        $validationFields = explode($validationSeparator,$validationFields);
         $fieldValidators = array();
         foreach ($validationFields as $idx => $v) {
             $v = trim(ltrim($v),' '); /* allow multi-line definitions */
