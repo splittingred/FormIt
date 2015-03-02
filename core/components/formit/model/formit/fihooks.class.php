@@ -310,6 +310,10 @@ class fiHooks {
             is_numeric($fields[$this->formit->config['redirectTo']]) 
             ) {
             $url = $this->modx->makeUrl($fields[$this->formit->config['redirectTo']],$contextKey,$redirectParams,'full');
+        } elseif (!is_numeric($this->formit->config['redirectTo']) &&
+            substr($this->formit->config['redirectTo'], 0, 4 ) === "http"
+            ) {
+            $url = $this->formit->config['redirectTo'];
         } else {
             $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
         }
