@@ -74,7 +74,7 @@ class fiRequest {
             'store' => false,
             'submitVar' => '',
             'validate' => '',
-            'validateSeperator' => ',',
+            'validateSeparator' => ',',
         ),$config);
     }
 
@@ -197,7 +197,7 @@ class fiRequest {
         /* validate fields */
         $this->loadValidator();
         $this->validator->reset();
-        $validated = $this->validate($this->config['validate'], $this->config['validateSeperator']);
+        $validated = $this->validate($this->config['validate'], $this->config['validateSeparator']);
 
         if ($validated) {
             $this->postProcess();
@@ -258,9 +258,9 @@ class fiRequest {
      * @param string $validationString
      * @return bool
      */
-    public function validate($validationString, $validationSeperator) {
+    public function validate($validationString, $validationSeparator) {
         $success = true;
-        $this->validator->validateFields($this->dictionary,$validationString,$validationSeperator);
+        $this->validator->validateFields($this->dictionary,$validationString,$validationSeparator);
 
         if ($this->validator->hasErrors()) {
             $success = false;
