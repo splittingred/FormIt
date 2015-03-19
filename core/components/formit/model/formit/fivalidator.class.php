@@ -351,7 +351,7 @@ class fiValidator {
         if (is_array($value) && isset($_FILES[$key])) { /* handling file uploads */
             $success = !empty($value['tmp_name']) && isset($value['error']) && $value['error'] == UPLOAD_ERR_OK ? true : false;
         } else {
-            $v = trim($value,' ');
+            $v = (is_array($value)) ? $value : trim($value,' ');
             $success = (!empty($v) || is_numeric($v)) ? true : false;
         }
         return $success ? true : $this->_getErrorMessage($key,'vTextRequired','formit.field_required',array(
