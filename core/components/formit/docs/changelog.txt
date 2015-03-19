@@ -1,5 +1,10 @@
 Changelog for FormIt.
 
+FormIt 2.2.2
+====================================
+- Added CMP for the saved forms
+- Fixed whitespace PR on required checkboxes
+
 FormIt 2.2.1
 ====================================
 - Updated numbers generation for math captcha #5
