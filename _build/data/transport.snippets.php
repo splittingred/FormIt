@@ -94,6 +94,15 @@ $properties = include $sources['properties'].'properties.formitstateoptions.php'
 $snippets[6]->setProperties($properties);
 unset($properties);
 
+$snippets[7]= $modx->newObject('modSnippet');
+$snippets[7]->fromArray(array(
+    'id' => 7,
+    'name' => 'FormItSaveForm',
+    'description' => 'Save any form and export them to csv.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitsaveform.php'),
+),'',true,true);
+unset($properties);
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(

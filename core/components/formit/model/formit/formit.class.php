@@ -87,6 +87,7 @@ class FormIt {
         $corePath = $this->modx->getOption('formit.core_path',null,MODX_CORE_PATH.'components/formit/');
         $assetsPath = $this->modx->getOption('formit.assets_path',null,MODX_ASSETS_PATH.'components/formit/');
         $assetsUrl = $this->modx->getOption('formit.assets_url',null,MODX_ASSETS_URL.'components/formit/');
+        $connectorUrl = $assetsUrl.'connector.php';
 
         /* loads some default paths for easier management */
         $this->config = array_merge(array(
@@ -103,6 +104,8 @@ class FormIt {
             'cssUrl' => $assetsUrl.'css/',
             'jsUrl' => $assetsUrl.'js/',
 
+            'connectorUrl' => $connectorUrl,
+
             'debug' => $this->modx->getOption('formit.debug',null,false),
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
@@ -110,6 +113,7 @@ class FormIt {
         if ($this->modx->getOption('formit.debug',$this->config,true)) {
             $this->startDebugTimer();
         }
+        $this->modx->addPackage('formit',$this->config['modelPath']);
     }
 
     /**

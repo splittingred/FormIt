@@ -54,4 +54,13 @@ $settings['formit.recaptcha_use_ssl']->fromArray(array(
     'area' => 'reCaptcha',
 ),'',true,true);
 
+$settings['formit.exclude_contexts']= $modx->newObject('modSystemSetting');
+$settings['formit.exclude_contexts']->fromArray(array(
+    'key' => 'formit.exclude_contexts',
+    'value' => 'mgr',
+    'xtype' => 'textfield',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
 return $settings;
