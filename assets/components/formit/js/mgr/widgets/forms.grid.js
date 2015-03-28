@@ -104,6 +104,7 @@ Ext.extend(FormIt.grid.Forms,MODx.grid.Grid,{
                 ,context_key: Ext.getCmp('context').getValue()
                 ,startDate: Ext.getCmp('startdate').getValue()
                 ,endDate: Ext.getCmp('enddate').getValue()
+                ,limit: 0
             }
             ,listeners: {
                 'success': {fn:function(r) {
