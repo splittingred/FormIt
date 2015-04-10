@@ -3,9 +3,6 @@ require_once dirname(__FILE__) . '/model/formit/formit.class.php';
 /**
  * @package formit
  */
-class IndexManagerController extends FormItBaseManagerController {
-    public static function getDefaultController() { return 'home'; }
-}
 
 abstract class FormItBaseManagerController extends modExtraManagerController {
     /** @var FormIt $bxrextra */
@@ -27,4 +24,8 @@ abstract class FormItBaseManagerController extends modExtraManagerController {
         return array('formit:mgr');
     }
     public function checkPermissions() { return true;}
+}
+
+class IndexManagerController extends FormItBaseManagerController {
+    public static function getDefaultController() { return 'home'; }
 }
