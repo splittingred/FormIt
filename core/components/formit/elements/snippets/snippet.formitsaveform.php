@@ -33,6 +33,7 @@
 /* setup default properties */
 $values = $hook->getValues();
 $formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->get('id'));
+$formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
 
@@ -72,14 +73,24 @@ if($fieldNames){
     $dataArray = $newDataArray;
 }
 
+
+
 // Create obj
 $newForm = $modx->newObject('FormItForm');
+
+if($formEncrypt){
+    $dataArray = $newForm->encrypt($modx->toJSON($dataArray));
+}else{
+    $dataArray = $modx->toJSON($dataArray);
+}
+
 $newForm->fromArray(array(
     'form' => $formName,
     'date' => time(),
     'values' => $dataArray,
     'ip' => $_SERVER['REMOTE_ADDR'],
-    'context_key' => $modx->resource->get('context_key')
+    'context_key' => $modx->resource->get('context_key'),
+    'encrypted' => $formEncrypt
 ));
 $newForm->save();
 

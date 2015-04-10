@@ -29,6 +29,7 @@ $_lang['formit'] = 'FormIt';
 $_lang['formit.menu_desc'] = 'Просмотреть все заполненные формы';
 $_lang['formit.intro_msg'] = 'Просмотреть все заполненные формы';
 
+$_lang['formit.form'] = 'форму';
 $_lang['formit.forms'] = 'Формы';
 $_lang['formit.values'] = 'Значения';
 $_lang['formit.date'] = 'Дата';

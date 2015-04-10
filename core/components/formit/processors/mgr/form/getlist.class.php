@@ -34,5 +34,15 @@ class FormItGetListProcessor extends modObjectGetListProcessor {
 
         return $c;
     }
+    public function prepareRow(xPDOObject $object) {
+        $ff = $object->toArray();
+        
+        if($ff['encrypted']){
+            $ff['values'] = $object->decrypt();
+        }else{
+            $ff['values'] = $this->modx->fromJSON($ff['values']);
+        }
+        return $ff;
+    }
 }
 return 'FormItGetListProcessor';

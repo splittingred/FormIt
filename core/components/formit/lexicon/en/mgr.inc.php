@@ -29,6 +29,7 @@ $_lang['formit'] = 'FormIt';
 $_lang['formit.menu_desc'] = 'View all your filled in forms';
 $_lang['formit.intro_msg'] = 'View all your filled in forms';
 
+$_lang['formit.form'] = 'Form';
 $_lang['formit.forms'] = 'Forms';
 $_lang['formit.values'] = 'Values';
 $_lang['formit.date'] = 'Date';

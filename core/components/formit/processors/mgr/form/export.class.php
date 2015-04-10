@@ -24,12 +24,12 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
 
         $startDate = $this->getProperty('startDate');
         if ($startDate != '') {
-            $c->andCondition(array('date:>' => strtotime($startDate)));
+            $c->andCondition(array('date:>' => strtotime($startDate.' 00:00:00')));
         }
 
         $endDate = $this->getProperty('endDate');
         if ($endDate != '') {
-            $c->andCondition(array('date:<' => strtotime($endDate)));
+            $c->andCondition(array('date:<' => strtotime($endDate.' 23:59:59')));
         }
         $c->prepare();
         return $c;
@@ -44,7 +44,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
 
         $exportPath = $this->modx->getOption('core_path',null,MODX_CORE_PATH).'export/'.$this->classKey.'/';
 
-        $fileName = time().'.csv';
+        $fileName = 'formit-export-'.time().'.csv';
         if(!is_dir($exportPath)){
             mkdir($exportPath);
         }
@@ -86,6 +86,17 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
         }
         fclose($fp);
         return array('file' =>$exportPath.$file, 'filename' => $file);
+    }
+
+    public function prepareRow(xPDOObject $object) {
+        $ff = $object->toArray();
+        
+        if($ff['encrypted']){
+            $ff['values'] = $object->decrypt();
+        }else{
+            $ff['values'] = $this->modx->fromJSON($ff['values']);
+        }
+        return $ff;
     }
 }
 return 'FormItFormExportProcessor';

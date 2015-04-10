@@ -8,7 +8,6 @@
 if ($object->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
-        case xPDOTransport::ACTION_UPGRADE:
             $modx =& $object->xpdo;
             $modelPath = $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/';
             $modx->addPackage('formit',$modelPath);
@@ -16,6 +15,16 @@ if ($object->xpdo) {
             $manager = $modx->getManager();
 
             $manager->createObjectContainer('FormItForm');
+
+            break;
+        case xPDOTransport::ACTION_UPGRADE:
+            $modx =& $object->xpdo;
+            $modelPath = $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/';
+            $modx->addPackage('formit',$modelPath);
+
+            $manager = $modx->getManager();
+            $manager->addField('FormItForm', 'encrypted');
+
 
             break;
     }

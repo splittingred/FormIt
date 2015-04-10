@@ -15,6 +15,9 @@ FormIt.grid.Forms = function(config) {
             header: _('id')
             ,dataIndex: 'id'
         },{
+            header: _('formit.form')
+            ,dataIndex: 'form'
+        },{
             header: _('formit.values')
             ,dataIndex: 'values'
             ,width: 250
