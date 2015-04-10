@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.2.4
+====================================
+- Fixed bug inside FormItSaveForm and PR #43
+
 FormIt 2.2.3
 ====================================
 - Added encryption to saved forms
