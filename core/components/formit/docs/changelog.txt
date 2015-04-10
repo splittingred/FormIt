@@ -1,5 +1,13 @@
 Changelog for FormIt.
 
+FormIt 2.2.3
+====================================
+- Added encryption to saved forms
+- Added formname to grid
+- Saved form is now returned from the hook
+- Export unlimited items
+- Add RU translation
+
 FormIt 2.2.2
 ====================================
 - Added CMP for the saved forms
