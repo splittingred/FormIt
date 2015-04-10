@@ -32,7 +32,7 @@
  */
 /* setup default properties */
 $values = $hook->getValues();
-$formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->get('id'));
+$formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->id);
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
@@ -82,7 +82,7 @@ $newForm = $modx->newObject('FormItForm', array(
     'date' => time(),
     'values' => $dataArray,
     'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
-    'context_key' => $modx->resource->get('context_key'),
+    'context_key' => $modx->context->key,
     'encrypted' => $formEncrypt
 ));
 if (!$newForm->save()) {
