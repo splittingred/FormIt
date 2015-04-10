@@ -32,18 +32,16 @@
  */
 /* setup default properties */
 $values = $hook->getValues();
-$formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->id);
+$formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->get('id'));
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
-
 if ($formFields) {
     $formFields = explode(',', $formFields);
     foreach($formFields as $k => $v) {
         $formFields[$k] = trim($v);
     }
 }
-
 // Build the data array
 $dataArray = array();
 if($formFields){
@@ -53,7 +51,6 @@ if($formFields){
 }else{
     $dataArray = $values;
 }
-
 //Change the fieldnames
 if($fieldNames){
     $newDataArray = array();
@@ -72,19 +69,22 @@ if($fieldNames){
     }
     $dataArray = $newDataArray;
 }
-
-
-
-
 // Create obj
-$newForm = $modx->newObject('FormItForm', array(
+$newForm = $modx->newObject('FormItForm');
+if($formEncrypt){
+    $dataArray = $newForm->encrypt($modx->toJSON($dataArray));
+}else{
+    $dataArray = $modx->toJSON($dataArray);
+}
+$newForm->fromArray(array(
     'form' => $formName,
     'date' => time(),
     'values' => $dataArray,
     'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
-    'context_key' => $modx->context->key,
+    'context_key' => $modx->resource->get('context_key'),
     'encrypted' => $formEncrypt
 ));
+
 if (!$newForm->save()) {
     $modx->log(modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
     return false;
