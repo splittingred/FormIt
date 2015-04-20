@@ -33,6 +33,16 @@
 /* setup default properties */
 $values = $hook->getValues();
 $formName = $modx->getOption('formName', $formit->config, 'form-'.$modx->resource->get('id'));
+// process formName. Pick a value from the form
+// Inspired from the email's hook of formit (fihooks.class.php)
+if (is_string($formName)) {
+    foreach ($fields as $k => $v) {
+        if (is_scalar($k) && is_scalar($v)) {
+            $formName = str_replace('[[+'.$k.']]',$v,$formName);
+        }
+    }
+}
+
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
