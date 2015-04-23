@@ -403,7 +403,7 @@ class fiHooks {
                     }
                     $newValue = implode($multiSeparator,$vOpts);
                     if (!empty($vOpts)) {
-                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue;
+                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue.'<br />';
                     }
                 } else {
                     $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
