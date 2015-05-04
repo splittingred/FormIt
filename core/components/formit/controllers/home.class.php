@@ -12,6 +12,7 @@ class FormItHomeManagerController extends FormItBaseManagerController {
     public function getPageTitle() { return $this->modx->lexicon('formit'); }
     public function loadCustomCssJs() {
         $this->addJavascript($this->formit->config['jsUrl'].'mgr/widgets/forms.grid.js');
+        $this->addJavascript($this->formit->config['jsUrl'].'mgr/widgets/forms-encryption.grid.js');
         $this->addJavascript($this->formit->config['jsUrl'].'mgr/widgets/home.panel.js');
         $this->addLastJavascript($this->formit->config['jsUrl'].'mgr/sections/home.js');
     }

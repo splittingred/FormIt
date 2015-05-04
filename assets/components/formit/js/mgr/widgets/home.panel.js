@@ -140,6 +140,17 @@ FormIt.panel.Home = function(config) {
                     ,preventRender: true
                     ,cls: 'main-wrapper'
                 }]
+            },{
+                title: _('formit.encryption')
+                ,items: [{
+                    html: '<p>'+_('formit.encryption_msg')+'</p>'
+                    ,border: false
+                    ,bodyCssClass: 'panel-desc'
+                },{
+                    xtype: 'formit-grid-forms-encryption'
+                    ,preventRender: true
+                    ,cls: 'main-wrapper'
+                }]
             }]
         }]
     });

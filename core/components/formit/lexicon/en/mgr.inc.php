@@ -2,7 +2,7 @@
 /**
  * FormIt
  *
- * Copyright 2009-2012 by Shaun McCormick <shaun@modx.com>
+ * Copyright 2015 by Wieger Sloot <wieger@sterc.nl>
  *
  * FormIt is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -36,19 +36,21 @@ $_lang['formit.date'] = 'Date';
 $_lang['formit.ip'] = 'IP Address';
 $_lang['formit.form_view'] = 'View form';
 $_lang['formit.form_remove'] = 'Remove form';
-$_lang['formit.form_remove_confirm'] = 'FormIt';
+$_lang['formit.form_remove_confirm'] = 'Are you sure you want to remove this submitted form?';
 $_lang['formit.select_context'] = 'Select context';
 $_lang['formit.select_form'] = 'Select form';
 $_lang['formit.select_start_date'] = 'Select start date';
 $_lang['formit.select_end_date'] = 'Select end date';
 $_lang['formit.clear'] = 'Clear filter';
 $_lang['formit.export'] = 'Export';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
-$_lang['formit.'] = 'FormIt';
+$_lang['formit.encryption'] = 'Encryption';
+$_lang['formit.encryption_msg'] = 'Manage all the submitted forms encryption.';
+$_lang['formit.encrypted'] = 'Encrypted';
+$_lang['formit.total'] = 'Total';
+$_lang['formit.form_encryptall'] = 'Encrypt all submitted forms';
+$_lang['formit.form_decryptall'] = 'Decrypt all submitted forms';
+$_lang['formit.form_encrypt'] = 'Encrypt';
+$_lang['formit.form_encrypt_confirm'] = 'Are you sure you want to encrypt all the submitted forms?';
+$_lang['formit.form_decrypt'] = 'Decrypt';
+$_lang['formit.form_decrypt_confirm'] = 'Are you sure you want to decrypt all the submitted forms?';
 $_lang['formit.'] = 'FormIt';
