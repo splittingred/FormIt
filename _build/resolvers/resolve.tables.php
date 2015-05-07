@@ -23,6 +23,7 @@ if ($object->xpdo) {
             $modx->addPackage('formit',$modelPath);
 
             $manager = $modx->getManager();
+            $manager->createObjectContainer('FormItForm'); // Dirty fix for upgrading from an older FormIt 
             $manager->addField('FormItForm', 'encrypted');
 
 
