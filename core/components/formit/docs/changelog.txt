@@ -1,5 +1,11 @@
 Changelog for FormIt.
 
+FormIt 2.2.5
+====================================
+- Fixed creating table on update
+- Added new tab inside CMP for managing encryption
+- Added missing br on auto emailTpl
+
 FormIt 2.2.4
 ====================================
 - Fixed bug inside FormItSaveForm and PR #43
