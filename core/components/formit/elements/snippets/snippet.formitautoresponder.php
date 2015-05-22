@@ -48,7 +48,9 @@ if (empty($fields[$toField])) {
 
 /* handle checkbox and array fields */
 foreach ($fields as $k => &$v) {
-    if (is_array($v)) {
+    if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
+        $fields[$k] = $v['name'];
+    } else if (is_array($v)) {
         $vOpts = array();
         foreach ($v as $vKey => $vValue) {
             if (is_string($vKey) && !empty($vKey)) {

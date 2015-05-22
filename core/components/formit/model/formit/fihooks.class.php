@@ -436,6 +436,7 @@ class fiHooks {
                 }
             }
         }
+
         $message = $this->formit->getChunk($tpl,$fields);
         $message = $this->_process($message,$this->config);
 

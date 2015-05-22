@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.2.6
+====================================
+- Fixed empty placeholder for file field in autoresponder
+
 FormIt 2.2.5
 ====================================
 - Fixed creating table on update
