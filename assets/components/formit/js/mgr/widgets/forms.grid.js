@@ -99,22 +99,20 @@ Ext.extend(FormIt.grid.Forms,MODx.grid.Grid,{
     }
 
     ,export: function(btn,e) {
-        MODx.Ajax.request({
-            url: FormIt.config.connectorUrl
-            ,params: {
+        var _params = {
                 action: 'mgr/form/export'
                 ,form: Ext.getCmp('form').getValue()
                 ,context_key: Ext.getCmp('context').getValue()
                 ,startDate: Ext.getCmp('startdate').getValue()
                 ,endDate: Ext.getCmp('enddate').getValue()
-                ,limit: 0
+                ,download: false
+                ,HTTP_MODAUTH: MODx.siteId
             }
-            ,listeners: {
-                'success': {fn:function(r) {
-                    location.href = FormIt.config.connectorUrl+'?HTTP_MODAUTH='+MODx.siteId+'&action=mgr/form/download&file='+r.results.filename
-                },scope:this}
-            }
-        });
+            ,_link = FormIt.config.connectorUrl+'?'+Ext.urlEncode(_params);
+ 
+        var win = window.open(_link, '_blank');
+        win.focus();
+        return;
     }
 
 });

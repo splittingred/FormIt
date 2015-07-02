@@ -58,7 +58,12 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
 
         $keys = array('IP', 'Date');
 
-        $fp = fopen($exportPath.$file, 'w+');
+        $handle = $exportPath.$file;
+        if($this->getProperty('download')) {
+            ob_start();
+            $handle = 'php://output';
+        }
+        $fp = fopen($handle, 'w');
 
         foreach ($data['results'] as $object) {
             if ($this->checkListPermission && $object instanceof modAccessibleObject && !$object->checkPolicy('list')) continue;
@@ -85,9 +90,20 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
             }
         }
         fclose($fp);
-        return array('file' =>$exportPath.$file, 'filename' => $file);
-    }
 
+        if($this->getProperty('download')) {
+            $str = ob_get_clean();
+            header('Content-type: text/csv');
+            header('Content-Disposition: attachment; filename="'.$file.'"');
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            echo $str;
+            exit;
+        }
+ 
+        return array('file' =>$handle, 'filename' => $file, 'content' => ob_get_clean());
+    }
+ 
     public function prepareRow(xPDOObject $object) {
         $ff = $object->toArray();
         
