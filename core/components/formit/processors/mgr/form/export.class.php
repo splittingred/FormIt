@@ -97,6 +97,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor {
             header('Content-Disposition: attachment; filename="'.$file.'"');
             header("Pragma: no-cache");
             header("Expires: 0");
+            echo "\xEF\xBB\xBF";
             echo $str;
             exit;
         }
