@@ -92,6 +92,7 @@ class fiHooks {
             'mathOp1Field' => 'op1',
             'mathOp2Field' => 'op2',
             'mathOperatorField' => 'operator',
+            'jsonOutputPlaceholder' => ''
         ),$config);
         $this->type = $type;
     }
@@ -691,16 +692,34 @@ class fiHooks {
      */
     public function processErrors() {
         $errors = array();
+        $jsonerrors = array();
+        if (!empty($jsonOutputPlaceholder)) {
+            $jsonerrors = array(
+                'errors' => array(),
+                'success' => false,
+                'message' => '',
+            );
+        }
+        
         $placeholderErrors = $this->getErrors();
         foreach ($placeholderErrors as $key => $error) {
             $errors[$key] = str_replace('[[+error]]',$error,$this->config['errTpl']);
+            if (!empty($jsonOutputPlaceholder)) $jsonerrors['errors'][$key] = $errors[$key];
         }
         $this->modx->toPlaceholders($errors,$this->config['placeholderPrefix'].'error');
 
         $errorMsg = $this->getErrorMessage();
         if (!empty($errorMsg)) {
             $this->modx->setPlaceholder($this->config['placeholderPrefix'].'error_message',$errorMsg);
+            if (!empty($jsonOutputPlaceholder)) {
+                $jsonerrors['message'] = $errorMsg;
+            }
         }
+        if (!empty($jsonOutputPlaceholder)) {
+            $jsonoutput = $this->modx->toJSON($jsonerrors);
+            $this->modx->setPlaceholder($jsonOutputPlaceholder,$jsonoutput);
+        }
+        
     }
 
     /**
