@@ -68,6 +68,7 @@ class fiValidator {
             'placeholderPrefix' => 'fi.',
             'validationErrorBulkTpl' => '<li>[[+error]]</li>',
             'validationErrorBulkSeparator' => "\n",
+            'validationErrorBulkFormatJson' => false,
             'validationErrorMessage' => '<p class="error">A form validation error occurred. Please check the values you have entered.</p>',
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
             'trimValuesBeforeValidation' => (boolean)$this->modx->getOption('trimValuesBeforeValidation',$this->formit->config,true),
@@ -720,7 +721,8 @@ class fiValidator {
         foreach ($this->getRawErrors() as $field => $err) {
             $errs[] = str_replace(array('[[+field]]','[[+error]]'),array($field,$err),$bulkErrTpl);
         }
-        $errs = implode($this->getOption('validationErrorBulkSeparator'),$errs);
+        $formatJson = $this->getOption('validationErrorBulkFormatJson');
+        $errs = ($formatJson) ? $this->modx->toJSON($errs) : implode($this->getOption('validationErrorBulkSeparator'),$errs);
         $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->getOption('validationErrorMessage'));
         $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error',true);
         $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error_message',$validationErrorMessage);
