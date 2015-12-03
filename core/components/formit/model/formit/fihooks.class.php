@@ -92,7 +92,7 @@ class fiHooks {
             'mathOp1Field' => 'op1',
             'mathOp2Field' => 'op2',
             'mathOperatorField' => 'operator',
-            'jsonOutputPlaceholder' => ''
+            'hookErrorJsonOutputPlaceholder' => ''
         ),$config);
         $this->type = $type;
     }
@@ -693,6 +693,7 @@ class fiHooks {
     public function processErrors() {
         $errors = array();
         $jsonerrors = array();
+        $jsonOutputPlaceholder = $this->config['hookErrorJsonOutputPlaceholder'];
         if (!empty($jsonOutputPlaceholder)) {
             $jsonerrors = array(
                 'errors' => array(),
