@@ -717,12 +717,18 @@ class fiValidator {
     public function processErrors() {
         $this->modx->toPlaceholders($this->getErrors(),$this->config['placeholderPrefix'].'error');
         $bulkErrTpl = $this->getOption('validationErrorBulkTpl');
+        $rawErrs = $this->getRawErrors();
         $errs = array();
-        foreach ($this->getRawErrors() as $field => $err) {
-            $errs[] = str_replace(array('[[+field]]','[[+error]]'),array($field,$err),$bulkErrTpl);
-        }
         $formatJson = $this->getOption('validationErrorBulkFormatJson');
-        $errs = ($formatJson) ? $this->modx->toJSON($errs) : implode($this->getOption('validationErrorBulkSeparator'),$errs);
+        if ($formatJson) {
+            $errs = '';
+            $errs = $this->modx->toJSON($rawErrs);
+        } else {
+            foreach ($rawErrs as $field => $err) {
+                $errs[] = str_replace(array('[[+field]]','[[+error]]'),array($field,$err),$bulkErrTpl);
+            }
+            $errs = implode($this->getOption('validationErrorBulkSeparator'),$errs);
+        }
         $validationErrorMessage = str_replace('[[+errors]]',$errs,$this->getOption('validationErrorMessage'));
         $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error',true);
         $this->modx->setPlaceholder($this->getOption('placeholderPrefix').'validation_error_message',$validationErrorMessage);
