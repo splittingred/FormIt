@@ -1,5 +1,13 @@
 Changelog for FormIt.
 
+FormIt 2.2.8
+====================================
+- Fixed export limit and added form dropdown paging #60
+- Fixed typo property lexicons #57
+- Added templates path to config #63
+- Added loading lexicons in ficountryoptions class #21
+- Added ability to dynamically set formName by setting placeholder inside formName equal to an existing form field key #45
+
 FormIt 2.2.7
 ====================================
 - Optimised export
