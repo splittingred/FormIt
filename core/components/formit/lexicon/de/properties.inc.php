@@ -65,7 +65,7 @@ $_lang['prop_formit.emailsubject_desc'] = 'Falls `email` als Hook gesetzt wurde,
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'Falls ein Formularfeld `subject` im Formular mit übergeben wird und dieses einen Wert enthält, wird dieser Wert als Betreff verwendet.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, kann hier zwischen Plaintext und HTML-Mail gewählt werden. Standard ist HTML.';
 $_lang['prop_formit.emailconvertnewlines_desc'] = 'Falls sowohl diese Einstellung als auch emailHtml auf "Ja" gesetzt wurden, werden Zeilenumbrüche in BR-Tags konvertiert.';
-$_lang['prop_formit.emailmulitseparator_desc'] = 'Der Standardseparator für Sammlungen von Einträgen, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist \newline';
+$_lang['prop_formit.emailmultiseparator_desc'] = 'Der Standardseparator für Sammlungen von Einträgen, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist \newline';
 $_lang['prop_formit.emailmultiwrapper_desc'] = 'Umfasst jeden Eintrag einer Sammlung von Feldern, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist `value`';
 
 /* FormIt Auto-Responder properties */

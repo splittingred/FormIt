@@ -63,7 +63,7 @@ $_lang['prop_formit.emailsubject_desc'] = 'Se `email` è impostato come hook, qu
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'Se il campo `oggetto` è passato nel modulo, se questo è VERO, sarà utilizzato il campo contenuto come linea dell\'oggetto e-mail.';
 $_lang['prop_formit.emailhtml_desc'] = 'Opzionale. Se `email` è impostato come hook, questo alterna le e-mail in HTML oppure no. Il valore predefinito è settato a VERO.';
 $_lang['prop_formit.emailconvertnewlines_desc'] = 'Se VERO ed emailHtml è impostato a 1, convertirà le Nuove linee al marcatore BR nelle e-mail.';
-$_lang['prop_formit.emailmulitseparator_desc'] = 'Il separatore predefinito per le collezioni di voci inviate attraverso campi di controllo/multi-selezioni.Valore predefinito settato a Nuova linea.';
+$_lang['prop_formit.emailmultiseparator_desc'] = 'Il separatore predefinito per le collezioni di voci inviate attraverso campi di controllo/multi-selezioni.Valore predefinito settato a Nuova linea.';
 $_lang['prop_formit.emailmultiwrapper_desc'] = 'Includerà ogni voce in una collezione di campi inviati attraverso Controlli di campo/selezioni-multiple. I valori predefiniti sono impostati giusto al valore.';
 
 /* FormIt Auto-Responder properties */
