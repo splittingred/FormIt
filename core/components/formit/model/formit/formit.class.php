@@ -98,7 +98,7 @@ class FormIt {
             'controllersPath' => $corePath.'controllers/',
             'includesPath' => $corePath.'includes/',
             'testsPath' => $corePath.'test/',
-
+            'templatesPath' => $corePath.'templates/',
             'assetsPath' => $assetsPath,
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl.'css/',
