@@ -61,6 +61,8 @@ FormIt.panel.Home = function(config) {
                         ,fieldLabel: _('formit.select_form')
                         ,id: 'form'
                         ,width: 400
+                        ,paging:true
+                        ,pageSize:20
                         ,listeners: {
                             select: {
                                 scope: this,
