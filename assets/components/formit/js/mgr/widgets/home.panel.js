@@ -43,7 +43,7 @@ FormIt.panel.Home = function(config) {
                             select: {
                                 scope: this,
                                 fn: function(contextField, Obj) {
-                                    Ext.getCmp('formit-grid-forms').baseParams.context_key = Obj.data.key
+                                    Ext.getCmp('formit-grid-forms').baseParams.context_key = Obj.data.key;
                                     Ext.getCmp('formit-grid-forms').getBottomToolbar().changePage(1);
                                     Ext.getCmp('formit-grid-forms').refresh();
                                 }
@@ -67,7 +67,7 @@ FormIt.panel.Home = function(config) {
                             select: {
                                 scope: this,
                                 fn: function(formField, Obj) {
-                                    Ext.getCmp('formit-grid-forms').baseParams.form = Obj.data.form
+                                    Ext.getCmp('formit-grid-forms').baseParams.form = Obj.data.form;
                                     Ext.getCmp('formit-grid-forms').getBottomToolbar().changePage(1);
                                     Ext.getCmp('formit-grid-forms').refresh();
                                 }

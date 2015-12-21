@@ -27,7 +27,7 @@ Ext.onReady(function() {
                 this.dateRangeMax = date;
             }
             else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
-            	console.log(field)
+            	console.log(field);
                 var end = Ext.getCmp(field.endDateField);
                 end.setMinValue(date);
                 end.validate();
@@ -40,7 +40,7 @@ Ext.onReady(function() {
             return true;
         },
 
-        daterangeText: 'Start date must be less than end date',
+        daterangeText: 'Start date must be less than end date'
 
     });
 });
