@@ -204,7 +204,7 @@ class fiValidator {
 
         /* htmlspecialchars by default */
         if ($replaceSpecialChars && !is_array($v)) {
-            $v = htmlspecialchars($v);
+            $v = htmlspecialchars($v, ENT_QUOTES, $this->modx->getOption('modx_charset', null, 'UTF-8'));
         }
 
         /* handle checkboxes/radios with empty hiddens before that are field[] names */
