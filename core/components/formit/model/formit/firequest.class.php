@@ -94,7 +94,7 @@ class fiRequest {
         }
 
         /* if using math hook, load default placeholders */
-        if ($this->hasHook('math') && !$this->hasSubmission()) {
+        if ($this->hasHook('math')) {
             $mathMaxRange = $this->modx->getOption('mathMaxRange',$this->config,100);
             $mathMinRange = $this->modx->getOption('mathMinRange',$this->config,10);
             $op1 = rand($mathMinRange,$mathMaxRange);
