@@ -370,6 +370,10 @@ class fiRequest {
             /* str_replace to prevent showing of placeholders */
             $fs[$k] = $this->convertMODXTags($v);
         }
+        foreach($fs as $key => $val){
+            $fs[$key] = htmlentities($val, ENT_QUOTES | ENT_HTML401 ,"UTF-8");
+        }
+        
         $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
     }
 
