@@ -27,9 +27,9 @@
 require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
 $fi = new FormIt($modx,$scriptProperties);
 
-/** @var fiCountryOptions $co */
-$co = $fi->loadModule('fiStateOptions','stateOptions',$scriptProperties);
-$co->initialize();
-$co->getData();
-$co->iterate();
-return $co->output();
+/** @var fiStateOptions $so */
+$so = $fi->loadModule('fiStateOptions','stateOptions',$scriptProperties);
+$so->initialize();
+$so->getData();
+$so->iterate();
+return $so->output();

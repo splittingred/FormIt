@@ -305,7 +305,18 @@ class fiHooks {
         if ($resource) {
             $contextKey = $resource->get('context_key');
         }
-        $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
+        if (!is_numeric($this->formit->config['redirectTo']) &&
+            isset($fields[$this->formit->config['redirectTo']]) &&
+            is_numeric($fields[$this->formit->config['redirectTo']]) 
+            ) {
+            $url = $this->modx->makeUrl($fields[$this->formit->config['redirectTo']],$contextKey,$redirectParams,'full');
+        } elseif (!is_numeric($this->formit->config['redirectTo']) &&
+            substr($this->formit->config['redirectTo'], 0, 4 ) === "http"
+            ) {
+            $url = $this->formit->config['redirectTo'];
+        } else {
+            $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
+        }
         $this->setRedirectUrl($url);
         return true;
     }
@@ -341,6 +352,13 @@ class fiHooks {
         $emailFrom = $this->_process($emailFrom,$fields);
         $emailFromName = $this->modx->getOption('emailFromName',$this->formit->config,$emailFrom);
         $emailFromName = $this->_process($emailFromName,$fields);
+
+        /* get returnPath */
+        $emailReturnPath = $this->modx->getOption('emailReturnPath',$this->formit->config,'');
+        if (empty($emailReturnPath)) {
+            $emailReturnPath = $emailFrom;
+        }
+        $emailReturnPath = $this->_process($emailReturnPath,$fields);
 
         /* get subject */
         $useEmailFieldForSubject = $this->modx->getOption('emailUseFieldForSubject',$this->formit->config,true);
@@ -385,7 +403,7 @@ class fiHooks {
                     }
                     $newValue = implode($multiSeparator,$vOpts);
                     if (!empty($vOpts)) {
-                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue;
+                        $f[$k] = '<strong>'.$k.'</strong>:'.$newValue.'<br />';
                     }
                 } else {
                     $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
@@ -418,6 +436,7 @@ class fiHooks {
                 }
             }
         }
+
         $message = $this->formit->getChunk($tpl,$fields);
         $message = $this->_process($message,$this->config);
 
@@ -431,22 +450,35 @@ class fiHooks {
         $this->modx->mail->set(modMail::MAIL_BODY,$emailHtml && $emailConvertNewlines ? nl2br($message) : $message);
         $this->modx->mail->set(modMail::MAIL_FROM, $emailFrom);
         $this->modx->mail->set(modMail::MAIL_FROM_NAME, $emailFromName);
-        $this->modx->mail->set(modMail::MAIL_SENDER, $emailFrom);
+        $this->modx->mail->set(modMail::MAIL_SENDER, $emailReturnPath);
         $this->modx->mail->set(modMail::MAIL_SUBJECT, $subject);
 
-        
         /* handle file fields */
+        $attachmentIndex = 0;
         foreach ($origFields as $k => $v) {
-            $attachmentIndex = 0;
-            if (is_array($v) && !empty($v['tmp_name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
-                if (empty($v['name'])) {
-                    $v['name'] = 'attachment'.$attachmentIndex;
+            if (is_array($v) && !empty($v['tmp_name'])) {
+                if(count($v['name']) > 1){
+                    for($i=0;$i<count($v['name']);++$i){
+                        if(isset($v['error'][$i]) && $v['error'][$i] == UPLOAD_ERR_OK){
+                            if (empty($v['name'][$i])) {
+                                $v['name'][$i] = 'attachment'.$attachmentIndex;
+                            }                    
+                            $this->modx->mail->mailer->addAttachment($v['tmp_name'][$i],$v['name'][$i],'base64',!empty($v['type'][$i]) ? $v['type'][$i] : 'application/octet-stream');
+                            $attachmentIndex++;
+                        }
+                    }
+                }else{
+                    if(isset($v['error']) && $v['error'] == UPLOAD_ERR_OK){
+                        if (empty($v['name'])) {
+                            $v['name'] = 'attachment'.$attachmentIndex;
+                        }                    
+                        $this->modx->mail->mailer->addAttachment($v['tmp_name'],$v['name'],'base64',!empty($v['type']) ? $v['type'] : 'application/octet-stream');
+                        $attachmentIndex++;
+                    }
                 }
-                $this->modx->mail->mailer->AddAttachment($v['tmp_name'],$v['name'],'base64',!empty($v['type']) ? $v['type'] : 'application/octet-stream');
-                $attachmentIndex++;
             }
         }
-
+        
         /* add to: with support for multiple addresses */
         $emailTo = explode(',',$emailTo);
         $emailToName = explode(',',$emailToName);

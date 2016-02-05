@@ -61,11 +61,12 @@ $_lang['prop_formit.emailfrom_desc'] = 'Optional. If `email` is set as a hook, a
 $_lang['prop_formit.emailfromname_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the From: name for the email.';
 $_lang['prop_formit.emailreplyto_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the Reply-To: address for the email.';
 $_lang['prop_formit.emailreplytoname_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the Reply-To: name for the email.';
+$_lang['prop_formit.emailreturnpath_desc'] = 'Optional. If `email` is set as a hook, and this is set, will specify the Return-path: address for the email. If not set, will take the value of `emailFrom` property.';
 $_lang['prop_formit.emailsubject_desc'] = 'If `email` is set as a hook, this is required as a subject line for the email.';
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'If the field `subject` is passed into the form, if this is true, it will use the field content for the subject line of the email.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. If `email` is set as a hook, this toggles HTML emails or not. Defaults to true.';
 $_lang['prop_formit.emailconvertnewlines_desc'] = 'If true and emailHtml is set to 1, will convert newlines to BR tags in the email.';
-$_lang['prop_formit.emailmulitseparator_desc'] = 'The default separator for collections of items sent through checkboxes/multi-selects. Defaults to a newline.';
+$_lang['prop_formit.emailmultiseparator_desc'] = 'The default separator for collections of items sent through checkboxes/multi-selects. Defaults to a newline.';
 $_lang['prop_formit.emailmultiwrapper_desc'] = 'Will wrap each item in a collection of fields sent via checkboxes/multi-selects. Defaults to just the value.';
 
 /* FormIt Auto-Responder properties */
@@ -105,6 +106,7 @@ $_lang['prop_fico.selectedattribute_desc'] = 'Optional. The HTML attribute to ad
 $_lang['prop_fico.toplaceholder_desc'] = 'Optional. Use this to set the output to a placeholder instead of outputting directly.';
 $_lang['prop_fico.tpl_desc'] = 'Optional. The chunk to use for each country dropdown option.';
 $_lang['prop_fico.useisocode_desc'] = 'If 1, will use the ISO country code for the value. If 0, will use the country name.';
+$_lang['prop_fico.country_desc'] = 'Optional. Set to use a different countries file when loading a list of countries.';
 
 /* FormItStateOptions properties */
 $_lang['prop_fiso.country_desc'] = 'Optional. Set to use a different states file when loading a list of states.';

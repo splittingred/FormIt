@@ -87,6 +87,7 @@ class FormIt {
         $corePath = $this->modx->getOption('formit.core_path',null,MODX_CORE_PATH.'components/formit/');
         $assetsPath = $this->modx->getOption('formit.assets_path',null,MODX_ASSETS_PATH.'components/formit/');
         $assetsUrl = $this->modx->getOption('formit.assets_url',null,MODX_ASSETS_URL.'components/formit/');
+        $connectorUrl = $assetsUrl.'connector.php';
 
         /* loads some default paths for easier management */
         $this->config = array_merge(array(
@@ -97,11 +98,13 @@ class FormIt {
             'controllersPath' => $corePath.'controllers/',
             'includesPath' => $corePath.'includes/',
             'testsPath' => $corePath.'test/',
-
+            'templatesPath' => $corePath.'templates/',
             'assetsPath' => $assetsPath,
             'assetsUrl' => $assetsUrl,
             'cssUrl' => $assetsUrl.'css/',
             'jsUrl' => $assetsUrl.'js/',
+
+            'connectorUrl' => $connectorUrl,
 
             'debug' => $this->modx->getOption('formit.debug',null,false),
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
@@ -110,6 +113,7 @@ class FormIt {
         if ($this->modx->getOption('formit.debug',$this->config,true)) {
             $this->startDebugTimer();
         }
+        $this->modx->addPackage('formit',$this->config['modelPath']);
     }
 
     /**
@@ -218,7 +222,11 @@ class FormIt {
      */
     public function getChunk($name,$properties = array()) {
         $chunk = null;
-        if (!isset($this->chunks[$name])) {
+        if(substr($name, 0, 6) == "@CODE:"){
+            $content = substr($name, 6);
+            $chunk = $this->modx->newObject('modChunk');
+            $chunk->setContent($content);
+        } elseif (!isset($this->chunks[$name])) {
             if (!$this->config['debug']) {
                 $chunk = $this->modx->getObject('modChunk',array('name' => $name),true);
             }

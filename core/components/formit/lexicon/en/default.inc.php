@@ -25,6 +25,9 @@
  * @package formit
  * @subpackage lexicon
  */
+$_lang['formit'] = 'FormIt';
+$_lang['formit.menu_desc'] = 'View all your filled in forms';
+
 $_lang['formit.all_group_text'] = 'All Countries';
 $_lang['formit.contains'] = 'Your value must contain the phrase "[[+value]]".';
 $_lang['formit.email_invalid'] = 'Please enter a valid email address.';
@@ -53,3 +56,4 @@ $_lang['formit.recaptcha_err_load'] = 'Could not load FormItReCaptcha service cl
 $_lang['formit.spam_blocked'] = 'Your submission was blocked by a spam filter: ';
 $_lang['formit.spam_marked'] = ' - marked as spam.';
 $_lang['formit.username_taken'] = 'Username already taken. Please choose another.';
+$_lang['formit.not_regexp'] = 'Your value did not match the expected format.';

@@ -117,12 +117,12 @@ class fiValidator {
      * @param string $validationFields
      * @return array An array of field name => value pairs.
      */
-    public function validateFields(fiDictionary $dictionary,$validationFields = '') {
+    public function validateFields(fiDictionary $dictionary,$validationFields = '', $validationSeparator = ',') {
         $keys = $dictionary->toArray();
         $this->fields = $keys;
 
         /* process the list of fields that will be validated */
-        $validationFields = explode(',',$validationFields);
+        $validationFields = explode($validationSeparator,$validationFields);
         $fieldValidators = array();
         foreach ($validationFields as $idx => $v) {
             $v = trim(ltrim($v),' '); /* allow multi-line definitions */
@@ -351,7 +351,8 @@ class fiValidator {
         if (is_array($value) && isset($_FILES[$key])) { /* handling file uploads */
             $success = !empty($value['tmp_name']) && isset($value['error']) && $value['error'] == UPLOAD_ERR_OK ? true : false;
         } else {
-            $success = (!empty($value) || is_numeric($value)) ? true : false;
+            $v = (is_array($value)) ? $value : trim($value,' ');
+            $success = (!empty($v) || is_numeric($v)) ? true : false;
         }
         return $success ? true : $this->_getErrorMessage($key,'vTextRequired','formit.field_required',array(
             'field' => $key,

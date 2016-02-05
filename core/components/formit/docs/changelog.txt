@@ -1,5 +1,57 @@
 Changelog for FormIt.
 
+FormIt 2.2.8
+====================================
+- Fixed export limit and added form dropdown paging #60
+- Fixed typo property lexicons #57
+- Added templates path to config #63
+- Added loading lexicons in ficountryoptions class #21
+- Added ability to dynamically set formName by setting placeholder inside formName equal to an existing form field key #45
+
+FormIt 2.2.7
+====================================
+- Optimised export
+
+FormIt 2.2.6
+====================================
+- Fixed empty placeholder for file field in autoresponder
+
+FormIt 2.2.5
+====================================
+- Fixed creating table on update
+- Added new tab inside CMP for managing encryption
+- Added missing br on auto emailTpl
+
+FormIt 2.2.4
+====================================
+- Fixed bug inside FormItSaveForm and PR #43
+
+FormIt 2.2.3
+====================================
+- Added encryption to saved forms
+- Added formname to grid
+- Saved form is now returned from the hook
+- Export unlimited items
+- Add RU translation
+
+FormIt 2.2.2
+====================================
+- Added CMP for the saved forms
+- Fixed whitespace PR on required checkboxes
+
+FormIt 2.2.1
+====================================
+- Updated numbers generation for math captcha #5
+- German translation #10
+- Added missing formit.not_regexp lexicon #15
+- Specify explicitely return-path fixes #19 #20
+- fix addAttachment() typo #23
+- Fixed typo in adding of the attachments #24
+- Add the possibility of redirectTo=`formfield` #26
+- Added attachments for auto-reply and Added ability to use @CODE as tpl #29
+- Update snippet.formitisselected.php #12
+- Canadian options for FormitStateOptions
+
 FormIt 2.2.0
 ====================================
 - [#8382] Prevent issue with checkboxes/radios causing text-parsing problems with required validator

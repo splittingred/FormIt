@@ -31,7 +31,9 @@ if ($input == $options) {
     $output = ' selected="selected"';
 }
 $input = $modx->fromJSON($input);
-if (in_array($options,$input)) {
-  $output = ' selected="selected"';
+if(is_array($input)){
+    if (!empty($input) && is_array($input) && in_array($options,$input)) {
+      $output = ' selected="selected"';
+    }
 }
 return $output;

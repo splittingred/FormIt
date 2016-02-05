@@ -35,6 +35,7 @@ $_lang['prop_formit.errtpl_desc'] = 'Das Wrapper-Template für Fehlermeldungen.'
 $_lang['prop_formit.validationerrormessage_desc'] = 'Eine generelle Fehlermeldung, die angezeigt wird, wenn eine Validierung nicht bestanden wurde. Kann die Variable [[+errors]] enthalten, wenn die genaue Liste von Fehlern mit angezeigt werden soll.';
 $_lang['prop_formit.validationerrorbulktpl_desc'] = 'HTML-Template, das für die individuelle Fehlermeldungsanzeige benutzt wird, wenn eine Validierung nicht bestanden wurde.';
 $_lang['prop_formit.customvalidators_desc'] = 'Eine kommaseparierte Liste von eigenen Validatoren (snippets), die auf das Formular angewendet werden sollen. Sie müssen hier explizit angegeben werden, um abzulaufen.';
+$_lang['prop_formit.trimvaluesdeforevalidation_desc'] = 'Gibt an, ob Leerzeichen vom Anfang und vom Ende von Werten entfernt werden, bevor versucht wird, sie zu validieren. Standardeinstellung ist "Ja".';
 $_lang['prop_formit.clearfieldsonsuccess_desc'] = 'Falls gesetzt, werden die Formularinhalte nach dem Absenden gelöscht, wenn kein Redirect gesetzt wurde.';
 $_lang['prop_formit.successmessage_desc'] = 'Falls gesetzt, wird ein Platzhalter mit dem Wert ausgegeben, der von &successMessagePlaceholder mitgegeben wird. Standardwert ist: `fi.successMessage`.';
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'Der Platzhalter mit der Erfolgsnachricht.';
@@ -64,7 +65,7 @@ $_lang['prop_formit.emailsubject_desc'] = 'Falls `email` als Hook gesetzt wurde,
 $_lang['prop_formit.emailusefieldforsubject_desc'] = 'Falls ein Formularfeld `subject` im Formular mit übergeben wird und dieses einen Wert enthält, wird dieser Wert als Betreff verwendet.';
 $_lang['prop_formit.emailhtml_desc'] = 'Optional. Falls `email` als Hook gesetzt wurde, kann hier zwischen Plaintext und HTML-Mail gewählt werden. Standard ist HTML.';
 $_lang['prop_formit.emailconvertnewlines_desc'] = 'Falls sowohl diese Einstellung als auch emailHtml auf "Ja" gesetzt wurden, werden Zeilenumbrüche in BR-Tags konvertiert.';
-$_lang['prop_formit.emailmulitseparator_desc'] = 'Der Standardseparator für Sammlungen von Einträgen, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist \newline';
+$_lang['prop_formit.emailmultiseparator_desc'] = 'Der Standardseparator für Sammlungen von Einträgen, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist \newline';
 $_lang['prop_formit.emailmultiwrapper_desc'] = 'Umfasst jeden Eintrag einer Sammlung von Feldern, die über Checkboxen oder Multi-Auswahlfelder übergeben werden. Standard ist `value`';
 
 /* FormIt Auto-Responder properties */
@@ -104,8 +105,10 @@ $_lang['prop_fico.selectedattribute_desc'] = 'Optional. Das HTML-Attribut, das e
 $_lang['prop_fico.toplaceholder_desc'] = 'Optional. Verwenden Sie dies, um den Wert in einen Platzhalter auszugeben, statt ihn direkt auszugeben.';
 $_lang['prop_fico.tpl_desc'] = 'Optional. Der zu nutzende Chunk für jede Option der Länderauswahl.';
 $_lang['prop_fico.useisocode_desc'] = 'Falls diese Einstellung auf "Ja" steht, wird der ISO-Ländercode als Wert genutzt. Falls diese Einstellung auf "Nein" steht, wird der Ländername verwendet.';
+$_lang['prop_fico.country_desc'] = 'Optional. Verwenden Sie dieses Feld, um eine andere Länder-Datei zu verwenden, wenn eine Liste von Ländern geladen wird.';
 
 /* FormItStateOptions properties */
+$_lang['prop_fiso.country_desc'] = 'Optional. Verwenden Sie dieses Feld, um eine andere Staaten-Datei zu verwenden, wenn eine Liste von Staaten geladen wird.';
 $_lang['prop_fiso.selected_desc'] = 'Der auszuwählende Länderwert.';
 $_lang['prop_fiso.selectedattribute_desc'] = 'Optional. Das HTML-Attribut, das einem ausgewählten Land hinzugefügt werden soll.';
 $_lang['prop_fiso.toplaceholder_desc'] = 'Optional. Verwenden Sie dies, um den Wert in einen Platzhalter auszugeben, statt ihn direkt auszugeben.';

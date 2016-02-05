@@ -1,0 +1,11 @@
+.required:before {
+    content: "* ";
+    color: red;
+}
+
+.button-holder {
+    padding: 15px 0 0 156px;
+}
+.button-holder span{
+    margin-right: 15px;
+}

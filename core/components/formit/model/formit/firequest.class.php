@@ -74,6 +74,7 @@ class fiRequest {
             'store' => false,
             'submitVar' => '',
             'validate' => '',
+            'validateSeparator' => ',',
         ),$config);
     }
 
@@ -93,18 +94,16 @@ class fiRequest {
         }
 
         /* if using math hook, load default placeholders */
-        if ($this->hasHook('math') && !$this->hasSubmission()) {
+        if ($this->hasHook('math')) {
             $mathMaxRange = $this->modx->getOption('mathMaxRange',$this->config,100);
             $mathMinRange = $this->modx->getOption('mathMinRange',$this->config,10);
             $op1 = rand($mathMinRange,$mathMaxRange);
             $op2 = rand($mathMinRange,$mathMaxRange);
-            if ($op2 > $op1) { $t = $op2; $op2 = $op1; $op1 = $t; } /* swap so we always get positive #s */
             /* prevent numbers from being equal */
-            if ($op2 == $op1) {
-                while ($op2 == $op1) {
-                    $op2 = rand($mathMinRange,$mathMaxRange);
-                }
+            while ($op2 == $op1) {
+                $op2 = rand($mathMinRange,$mathMaxRange);
             }
+            if ($op2 > $op1) { $t = $op2; $op2 = $op1; $op1 = $t; } /* swap so we always get positive #s */
             $operators = array('+','-');
             $operator = rand(0,1);
             $this->modx->setPlaceholders(array(
@@ -198,7 +197,7 @@ class fiRequest {
         /* validate fields */
         $this->loadValidator();
         $this->validator->reset();
-        $validated = $this->validate($this->config['validate']);
+        $validated = $this->validate($this->config['validate'], $this->config['validateSeparator']);
 
         if ($validated) {
             $this->postProcess();
@@ -259,9 +258,9 @@ class fiRequest {
      * @param string $validationString
      * @return bool
      */
-    public function validate($validationString) {
+    public function validate($validationString, $validationSeparator) {
         $success = true;
-        $this->validator->validateFields($this->dictionary,$validationString);
+        $this->validator->validateFields($this->dictionary,$validationString,$validationSeparator);
 
         if ($this->validator->hasErrors()) {
             $success = false;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="formit" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="formit">
+    <object class="FormItForm" table="formit_forms" extends="xPDOSimpleObject">
+    	<field key="form" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+        <field key="context_key" dbtype="varchar" precision="100" phptype="string" null="false" default="" />
+    	<field key="values" dbtype="text" phptype="json" null="false" default="" />
+    	<field key="ip" dbtype="varchar" precision="15" phptype="string" null="false" default="" />
+    	<field key="date" dbtype="int" precision="11" phptype="integer" null="false" default="" />
+    	<field key="encrypted" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0" />
+    </object>    
+</model>

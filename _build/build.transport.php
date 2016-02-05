@@ -34,7 +34,7 @@ set_time_limit(0);
 /* set package defines */
 define('PKG_ABBR','formit');
 define('PKG_NAME','FormIt');
-define('PKG_VERSION','2.2.0');
+define('PKG_VERSION','2.2.8');
 define('PKG_RELEASE','pl');
 
 /* override with your own defines here (see build.config.sample.php) */
@@ -122,6 +122,10 @@ $vehicle->resolve('file',array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
 ));
+$vehicle->resolve('file',array(
+    'source' => $sources['source_assets'],
+    'target' => "return MODX_ASSETS_PATH . 'components/';",
+));
 $builder->putVehicle($vehicle);
 
 /* load system settings */
@@ -138,6 +142,36 @@ foreach ($settings as $setting) {
 }
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($settings).' system settings.'); flush();
 unset($settings,$setting,$attributes);
+
+/* load menu */
+$menu = include $sources['data'].'transport.menu.php';
+if (empty($menu)) {
+    $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in menu.');
+} else {
+    $vehicle= $builder->createVehicle($menu,array (
+        xPDOTransport::PRESERVE_KEYS => true,
+        xPDOTransport::UPDATE_OBJECT => true,
+        xPDOTransport::UNIQUE_KEY => 'text',
+        xPDOTransport::RELATED_OBJECTS => true,
+        xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+            'Action' => array (
+                xPDOTransport::PRESERVE_KEYS => false,
+                xPDOTransport::UPDATE_OBJECT => true,
+                xPDOTransport::UNIQUE_KEY => array ('namespace','controller'),
+            ),
+        ),
+    ));
+    $modx->log(modX::LOG_LEVEL_INFO,'Adding in PHP resolvers...');
+    $vehicle->resolve('php',array(
+        'source' => $sources['resolvers'] . 'resolve.tables.php',
+    ));
+    // $vehicle->resolve('php',array(
+    //     'source' => $sources['resolvers'] . 'resolve.paths.php',
+    // ));
+    $builder->putVehicle($vehicle);
+    $modx->log(modX::LOG_LEVEL_INFO,'Packaged in menu.');
+}
+unset($vehicle,$menu);
 
 /* now pack in the license file, readme and setup options */
 $builder->setPackageAttributes(array(

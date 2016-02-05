@@ -51,8 +51,10 @@ class fiCountryOptions extends fiModule {
             'allGroupText' => '',
             'outputSeparator' => "\n",
             'toPlaceholder' => '',
+            'country' => $this->modx->getOption('cultureKey', array(), 'us', true),
         ));
         $this->setOption('selectedKey',$this->getOption('useIsoCode',true,'isset') ? 'countryKey' : 'countryName');
+        $this->modx->lexicon->load('formit:default');
     }
 
     /**
@@ -60,8 +62,8 @@ class fiCountryOptions extends fiModule {
      * @return array
      */
     public function getData() {
-        $cultureKey = $this->modx->getOption('cultureKey', array(), '', true);
-        $countriesFile = $this->getOption('countriesDirectory',$this->formit->config['includesPath']).$cultureKey.'.countries.inc.php';
+        $country = $this->getOption('country','us');
+        $countriesFile = $this->getOption('countriesDirectory',$this->formit->config['includesPath']).$country.'.countries.inc.php';
         if (file_exists($countriesFile)) {
             $this->countries = include $countriesFile;
         } else {
