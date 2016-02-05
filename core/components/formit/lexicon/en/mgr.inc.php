@@ -53,4 +53,3 @@ $_lang['formit.form_encrypt'] = 'Encrypt';
 $_lang['formit.form_encrypt_confirm'] = 'Are you sure you want to encrypt all the submitted forms?';
 $_lang['formit.form_decrypt'] = 'Decrypt';
 $_lang['formit.form_decrypt_confirm'] = 'Are you sure you want to decrypt all the submitted forms?';
-$_lang['formit.'] = 'FormIt';

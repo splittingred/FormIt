@@ -193,6 +193,20 @@ class fiValidator {
             $v = strip_tags($v);
         }
 
+        $replaceSpecialChars = strpos($k,'allowSpecialChars') === false;
+        if (isset($fieldValidators[$k])) {
+            foreach ($fieldValidators[$k] as $fv) {
+                if (strpos($fv,'allowSpecialChars') !== false) {
+                    $replaceSpecialChars = false;
+                }
+            }
+        }
+
+        /* htmlspecialchars by default */
+        if ($replaceSpecialChars && !is_array($v)) {
+            $v = htmlspecialchars($v, ENT_QUOTES, $this->modx->getOption('modx_charset', null, 'UTF-8'));
+        }
+
         /* handle checkboxes/radios with empty hiddens before that are field[] names */
         if (is_array($v) && !isset($_FILES[$key[0]]) && empty($v[0])) array_splice($v,0,1);
 

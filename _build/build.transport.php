@@ -66,7 +66,7 @@ $modx->setLogTarget('ECHO');
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 $builder = new modPackageBuilder($modx);
 $builder->createPackage(PKG_ABBR,PKG_VERSION,PKG_RELEASE);
-$builder->registerNamespace(PKG_ABBR,false,true,'{core_path}components/'.PKG_ABBR.'/');
+$builder->registerNamespace(PKG_ABBR,false,true,'{core_path}components/'.PKG_ABBR.'/','{assets_path}components/'.PKG_ABBR.'/');
 
 /* create category */
 $category= $modx->newObject('modCategory');

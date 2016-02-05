@@ -113,7 +113,6 @@ Ext.extend(FormIt.grid.Forms,MODx.grid.Grid,{
  
         var win = window.open(_link, '_blank');
         win.focus();
-        return;
     }
 
 });
