@@ -1,5 +1,12 @@
 Changelog for FormIt.
 
+FormIt 2.2.9
+====================================
+- Merging PR#74 from Jako which solves multiple issues.
+- Fix XSS vulnerabilities
+- Javascript code cleanup
+- Fix empty math operator after form submission #d782c29
+
 FormIt 2.2.8
 ====================================
 - Fixed export limit and added form dropdown paging #60
