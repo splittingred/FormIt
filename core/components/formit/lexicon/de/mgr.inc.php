@@ -28,8 +28,8 @@
  * @subpackage lexicon
  */
 $_lang['formit'] = 'FormIt';
-$_lang['formit.menu_desc'] = 'Sehen Sie alle versendeten Formulare.';
-$_lang['formit.intro_msg'] = 'Sehen Sie alle versendeten Formulare.';
+$_lang['formit.menu_desc'] = 'Alle bisher in der Datenbank gespeicherten Formulare.';
+$_lang['formit.intro_msg'] = 'Alle bisher in der Datenbank gespeicherten Formulare.';
 
 $_lang['formit.form'] = 'Formular';
 $_lang['formit.forms'] = 'Formulare';
