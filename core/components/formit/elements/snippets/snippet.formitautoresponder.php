@@ -41,9 +41,14 @@ $isHtml = $modx->getOption('fiarHtml',$scriptProperties,true);
 $toField = $modx->getOption('fiarToField',$scriptProperties,'email');
 $multiSeparator = $modx->getOption('fiarMultiSeparator',$formit->config,"\n");
 $multiWrapper = $modx->getOption('fiarMultiWrapper',$formit->config,"[[+value]]");
+$required = $modx->getOption('fiarRequired',$scriptProperties,true);
 if (empty($fields[$toField])) {
-    $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.');
-    return false;
+    if ($required) {
+        $modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.');
+        return false;
+    } else {
+        return true;
+    }
 }
 
 /* handle checkbox and array fields */
