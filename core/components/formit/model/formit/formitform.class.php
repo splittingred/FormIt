@@ -15,5 +15,12 @@ class FormItForm extends xPDOSimpleObject {
 		$values = $this->xpdo->fromJSON($values);
 		return $values;
 	}
+	public function generatePseudoRandomHash($bytes=16) {
+        $hash = bin2hex(openssl_random_pseudo_bytes($bytes, $strong));
+        if (!$strong) {
+            $hash = $this->generatePseudoRandomHash($bytes);
+        }
+        return $hash;
+    }
 }
 ?>

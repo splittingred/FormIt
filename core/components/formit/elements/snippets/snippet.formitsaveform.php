@@ -48,6 +48,8 @@ $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
 $updateSavedForm = $modx->getOption('updateSavedForm', $formit->config, 'values'); // '1', '0', or 'values'
 $formHashKeyField = $modx->getOption('savedFormHashKeyField', $formit->config, 'savedFormHashKey');
+// In case you don't want to use the session_id() in your hash, like FormIt does
+$formHashKeyRandom = $modx->getOption('formHashKeyRandom', $formit->config, false);
 // process formHashKeyField into variable for later use
 $formHashKey = (isset($values[$formHashKeyField])) ? (string) $values[$formHashKeyField] : '';
 // $formit->getStoreKey() uses MD5 and returns 32 chars
@@ -107,7 +109,7 @@ if($formEncrypt){
 // Handle invalid hash keys. This cannot happen in update mode, only create
 // because we only enter update mode if we already have a valid hash key
 if (!$formHashKey) {
-    $formHashKey = pathinfo($formit->getStoreKey(), PATHINFO_BASENAME);
+    $formHashKey = ($formHashKeyRandom) ? $newForm->generatePseudoRandomHash() : pathinfo($formit->getStoreKey(), PATHINFO_BASENAME);
 }
 
 // Array from which to populate form record
