@@ -117,7 +117,7 @@ if ($mode === 'create') {
 // Array from which to populate form record
 $newFormArray = array();
 
-// Special case: if updateSavedForm has the flab 'values' we only merge in
+// Special case: if updateSavedForm has the flag 'values' we only merge in
 // the form values, not the other stuff
 if ($mode === 'update' && $updateSavedForm === 'values') {
     $newFormArray = $newForm->toArray();
@@ -126,8 +126,8 @@ if ($mode === 'update' && $updateSavedForm === 'values') {
     ));       
 } else {
     // In all other cases, we overwrite the record completely!
-    // Note: in update mode, the formHashKey must be valid so 
-    // we'll save it back in again.
+    // In create mode we must save the hash. In update mode, the 
+    // formHashKey will be valid so we can also save it, again.
     $newFormArray = array(
         'form' => $formName,
         'date' => time(),
