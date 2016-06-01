@@ -46,6 +46,12 @@ if (is_string($formName)) {
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
+$formHashKeyField = $modx->getOption('savedFormHashKeyField', $formit->config, 'savedFormHashKey');
+$formHashKeyLength = $modx->getOption('savedFormHashKeyLength', $formit->config, 64);
+// process formHashKeyField into variable for later use
+$formHashKey = (isset($values[$formHashKeyField])) ? (string) $values[$formHashKeyField] : '';
+if (strlen($formHashKey) !== $formHashKeyLength) $formHashKey = '';
+
 if ($formFields) {
     $formFields = explode(',', $formFields);
     foreach($formFields as $k => $v) {
@@ -86,13 +92,18 @@ if($formEncrypt){
 }else{
     $dataArray = $modx->toJSON($dataArray);
 }
+if (!$formHashKey) {
+    $formHashKeyBits = (((int) $formHashKeyLength) / 2);
+    $formHashKey = $newForm->generatePseudoRandomHash($formHashKeyBits);
+}
 $newForm->fromArray(array(
     'form' => $formName,
     'date' => time(),
     'values' => $dataArray,
     'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
     'context_key' => $modx->resource->get('context_key'),
-    'encrypted' => $formEncrypt
+    'encrypted' => $formEncrypt,
+    'hash' => $formHashKey,
 ));
 
 if (!$newForm->save()) {
@@ -100,4 +111,5 @@ if (!$newForm->save()) {
     return false;
 }
 $hook->setValue('savedForm', $newForm->toArray());
+$hook->setValue($formHashKeyField, $newForm->get('hash'));
 return true;
