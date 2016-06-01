@@ -50,8 +50,9 @@ $updateSavedForm = $modx->getOption('updateSavedForm', $formit->config, false); 
 // In order to use update process, you need to provide the hash key to the user somehow
 // Usually with [[!FormItRetriever]] to populate this form field:
 $formHashKeyField = $modx->getOption('savedFormHashKeyField', $formit->config, 'savedFormHashKey');
-// In case you don't want to use the session_id() in your hash, like FormIt does
-$formHashKeyRandom = $modx->getOption('formHashKeyRandom', $formit->config, false);
+// Disable if you want to use the session_id() in your hash, like FormIt does
+// WARNING: this can cause potential hash key collisions and overwriting of the wrong form record!!
+$formHashKeyRandom = $modx->getOption('formHashKeyRandom', $formit->config, true);
 // process formHashKeyField into variable for later use
 $formHashKey = (isset($values[$formHashKeyField])) ? (string) $values[$formHashKeyField] : '';
 // our hashing methods return 32 chars
