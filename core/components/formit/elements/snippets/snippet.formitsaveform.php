@@ -46,13 +46,15 @@ if (is_string($formName)) {
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
-$updateSavedForm = $modx->getOption('updateSavedForm', $formit->config, 'values'); // '1', '0', or 'values'
+$updateSavedForm = $modx->getOption('updateSavedForm', $formit->config, false); // true, false, '1', '0', or 'values'
+// In order to use update process, you need to provide the hash key to the user somehow
+// Usually with [[!FormItRetriever]] to populate this form field:
 $formHashKeyField = $modx->getOption('savedFormHashKeyField', $formit->config, 'savedFormHashKey');
 // In case you don't want to use the session_id() in your hash, like FormIt does
 $formHashKeyRandom = $modx->getOption('formHashKeyRandom', $formit->config, false);
 // process formHashKeyField into variable for later use
 $formHashKey = (isset($values[$formHashKeyField])) ? (string) $values[$formHashKeyField] : '';
-// $formit->getStoreKey() uses MD5 and returns 32 chars
+// our hashing methods return 32 chars
 if (strlen($formHashKey) !== 32) $formHashKey = '';
 unset($values[$formHashKeyField]);
 
@@ -106,9 +108,8 @@ if($formEncrypt){
     $dataArray = $modx->toJSON($dataArray);
 }
 
-// Handle invalid hash keys. This cannot happen in update mode, only create
-// because we only enter update mode if we already have a valid hash key
-if (!$formHashKey) {
+// Create new hash key on create mode, and handle invalid hash keys. 
+if ($mode === 'create') {
     $formHashKey = ($formHashKeyRandom) ? $newForm->generatePseudoRandomHash() : pathinfo($formit->getStoreKey(), PATHINFO_BASENAME);
 }
 
