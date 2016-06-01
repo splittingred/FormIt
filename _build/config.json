@@ -1,0 +1,89 @@
+{
+    "name": "FormIt"
+    ,"lowCaseName": "formit"
+    ,"description": "FormIt is a dynamic form processing Snippet for MODx Revolution. It handles a form after submission, performing validation and followup actions like sending an email. It does not generate the form, but it can repopulate it if it fails validation."
+    ,"author": "Various"
+    ,"version": "2.2.11-dev1"
+    ,"package":{
+        "actions": [{
+            "id": 1,
+            "namespace": "formit",
+            "controller": "index",
+            "haslayout": 1,
+            "langTopics": "formit:mgr",
+            "assets": ""
+        }]
+        ,"menus": [{
+            "text": "formit",
+            "description": "formit.menu_desc",
+            "action": 1,
+            "icon": "images\/icons\/plugin.gif",
+            "menuIndex": 0,
+            "params": "",
+            "handler": ""
+        }]
+        ,"elements": {
+            "snippets": [{
+                "name": "FormIt",
+                "description": "A dynamic form processing snippet.",
+                "file": "snippet.formit.php"
+            },{
+                "name": "FormItAutoResponder",
+                "description": "Custom hook for FormIt to handle Auto-Response emails.",
+                "file": "snippet.formitautoresponder.php"
+            },{
+                "name": "FormItRetriever",
+                "description": "Fetches a form submission for a user for displaying on a thank you page.",
+                "file": "snippet.formitretriever.php"
+            },{
+                "name": "FormItIsChecked",
+                "description": "A custom output filter used with checkboxes\/radios for checking checked status.",
+                "file": "snippet.formitischecked.php"
+            },{
+                "name": "FormItIsSelected",
+                "description": "A custom output filter used with dropdowns for checking selected status.",
+                "file": "snippet.formitisselected.php"
+            },{
+                "name": "FormItCountryOptions",
+                "description": "A utility snippet for generating a dropdown list of countries.",
+                "file": "snippet.formitcountryoptions.php"
+            },{
+                "name": "FormItStateOptions",
+                "description": "A utility snippet for generating a dropdown list of U.S. states.",
+                "file": "snippet.formitstateoptions.php"
+            },{
+                "name": "FormItSaveForm",
+                "description": "Save any form and export them to csv.",
+                "file": "snippet.formitsaveform.php"
+            }]
+        }
+        ,"systemSettings": [{
+            "key": "recaptcha_public_key",
+            "value": "",
+            "type": "textfield",
+            "namespace": "formit",
+            "area": "reCaptcha"
+        },{
+            "key": "recaptcha_private_key",
+            "value": "",
+            "type": "textfield",
+            "namespace": "formit",
+            "area": "reCaptcha"
+        },{
+            "key": "recaptcha_use_ssl",
+            "value": false,
+            "type": "combo-boolean",
+            "namespace": "formit",
+            "area": "reCaptcha"
+        },{
+            "key": "exclude_contexts",
+            "value": "mgr",
+            "type": "textfield",
+            "namespace": "formit",
+            "area": ""
+        }]
+    }
+    ,"database": {
+        "tables": ["FormItForm"]
+    }
+}
