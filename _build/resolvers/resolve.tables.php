@@ -45,11 +45,11 @@ if ($object->xpdo) {
             $modelPath = $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/';
             $modx->addPackage('formit',$modelPath);
             
-            if ($oldPackage && $oldPackage->compareVersion('2.2.8-pl', '>')) {
+            if ($oldPackage && $oldPackage->compareVersion('2.2.9-pl', '>')) {
                 $manager = $modx->getManager();
                 $manager->addField('FormItForm', 'encrypted');
             }
-            if ($oldPackage && $oldPackage->compareVersion('2.2.10-pl', '>')) {
+            if ($oldPackage && $oldPackage->compareVersion('2.2.11-pl', '>')) {
                 $manager = $modx->getManager();
                 $manager->addField('FormItForm', 'hash');
             }
