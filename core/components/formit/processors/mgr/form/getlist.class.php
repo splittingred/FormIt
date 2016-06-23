@@ -36,11 +36,11 @@ class FormItGetListProcessor extends modObjectGetListProcessor {
     }
     public function prepareRow(xPDOObject $object) {
         $ff = $object->toArray();
-        //$this->modx->log(modX::LOG_LEVEL_ERROR, 'ff' . print_r($ff, true));
         if($ff['encrypted']){
             $ff['values'] = $object->decrypt();
         }else{
-            //$ff['values'] = $this->modx->fromJSON($ff['values']);
+            // fromJSON() expects a string.
+            if (is_string($ff['values'])) $ff['values'] = $this->modx->fromJSON($ff['values']);
         }
         
         return $ff;
