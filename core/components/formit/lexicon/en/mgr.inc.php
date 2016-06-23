@@ -33,6 +33,7 @@ $_lang['formit.form'] = 'Form';
 $_lang['formit.forms'] = 'Forms';
 $_lang['formit.values'] = 'Values';
 $_lang['formit.date'] = 'Date';
+$_lang['formit.hash'] = 'Hash Key';
 $_lang['formit.ip'] = 'IP Address';
 $_lang['formit.form_view'] = 'View form';
 $_lang['formit.form_remove'] = 'Remove form';
