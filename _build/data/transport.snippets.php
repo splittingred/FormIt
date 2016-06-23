@@ -103,6 +103,16 @@ $snippets[7]->fromArray(array(
 ),'',true,true);
 unset($properties);
 
+$snippets[8]= $modx->newObject('modSnippet');
+$snippets[8]->fromArray(array(
+    'id' => 8,
+    'name' => 'FormItLoadSavedForm',
+    'description' => 'Prehook to load previously saved form.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitloadsavedform.php'),
+),'',true,true);
+unset($properties);
+
+
 /*
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(
