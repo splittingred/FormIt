@@ -46,6 +46,19 @@ if (is_string($formName)) {
 $formEncrypt = $modx->getOption('formEncrypt', $formit->config, false);
 $formFields = $modx->getOption('formFields', $formit->config, false);
 $fieldNames = $modx->getOption('fieldNames', $formit->config, false);
+$updateSavedForm = $modx->getOption('updateSavedForm', $formit->config, false); // true, false, '1', '0', or 'values'
+// In order to use update process, you need to provide the hash key to the user somehow
+// Usually with [[!FormItRetriever]] to populate this form field:
+$formHashKeyField = $modx->getOption('savedFormHashKeyField', $formit->config, 'savedFormHashKey');
+// Disable if you want to use the session_id() in your hash, like FormIt does
+// WARNING: this can cause potential hash key collisions and overwriting of the wrong form record!!
+$formHashKeyRandom = $modx->getOption('formHashKeyRandom', $formit->config, true);
+// process formHashKeyField into variable for later use
+$formHashKey = (isset($values[$formHashKeyField])) ? (string) $values[$formHashKeyField] : '';
+// our hashing methods return 32 chars
+if (strlen($formHashKey) !== 32) $formHashKey = '';
+unset($values[$formHashKeyField]);
+
 if ($formFields) {
     $formFields = explode(',', $formFields);
     foreach($formFields as $k => $v) {
@@ -79,25 +92,60 @@ if($fieldNames){
     }
     $dataArray = $newDataArray;
 }
-// Create obj
-$newForm = $modx->newObject('FormItForm');
+// We only enter update mode if we already have a valid formHashKey (tested above)
+// AND the updateSavedForm param was set to a truth-y value.
+$mode = ($updateSavedForm && $formHashKey) ? 'update' : 'create';
+// Create/get obj
+$newForm = null;
+if ($mode === 'update') {
+    $newForm = $modx->getObject('FormItForm', array('hash' => $formHashKey));
+}
+if ($newForm === null) $newForm = $modx->newObject('FormItForm');
+
+// Handle encryption
 if($formEncrypt){
     $dataArray = $newForm->encrypt($modx->toJSON($dataArray));
 }else{
     $dataArray = $modx->toJSON($dataArray);
 }
-$newForm->fromArray(array(
-    'form' => $formName,
-    'date' => time(),
-    'values' => $dataArray,
-    'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
-    'context_key' => $modx->resource->get('context_key'),
-    'encrypted' => $formEncrypt
-));
 
+// Create new hash key on create mode, and handle invalid hash keys. 
+if ($mode === 'create') {
+    $formHashKey = ($formHashKeyRandom) ? $newForm->generatePseudoRandomHash() : pathinfo($formit->getStoreKey(), PATHINFO_BASENAME);
+}
+
+// Array from which to populate form record
+$newFormArray = array();
+
+// Special case: if updateSavedForm has the flag 'values' we only merge in
+// the form values, not the other stuff
+if ($mode === 'update' && $updateSavedForm === 'values') {
+    $newFormArray = $newForm->toArray();
+    $newFormArray = array_merge($newFormArray, array(
+        'values' => $dataArray,
+    ));       
+} else {
+    // In all other cases, we overwrite the record completely!
+    // In create mode we must save the hash. In update mode, the 
+    // formHashKey will be valid so we can also save it, again.
+    $newFormArray = array(
+        'form' => $formName,
+        'date' => time(),
+        'values' => $dataArray,
+        'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
+        'context_key' => $modx->resource->get('context_key'),
+        'encrypted' => $formEncrypt,
+        'hash' => $formHashKey,
+    );
+}
+// Convert to object
+$newForm->fromArray($newFormArray);
+// Attempt to save
 if (!$newForm->save()) {
     $modx->log(modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
     return false;
 }
+// Pass the hash and form data back to the user
 $hook->setValue('savedForm', $newForm->toArray());
+$hook->setValue($formHashKeyField, $newForm->get('hash'));
 return true;

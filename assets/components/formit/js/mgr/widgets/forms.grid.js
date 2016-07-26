@@ -7,7 +7,7 @@ FormIt.grid.Forms = function(config) {
         ,baseParams: {
             action: 'mgr/form/getlist'
         }
-        ,fields: ['id','form','values', 'ip', 'date']
+        ,fields: ['id','form','values', 'ip', 'date', 'hash']
         ,autoHeight: true
         ,paging: true
         ,remoteSort: true
@@ -36,6 +36,9 @@ FormIt.grid.Forms = function(config) {
                 var formDate = Date.parseDate(value, 'U');
                 return formDate.format('Y/m/d H:i');
             }
+        },{
+            header: _('formit.hash')
+            ,dataIndex: 'hash'
         }]
     });
     FormIt.grid.Forms.superclass.constructor.call(this,config);
