@@ -458,7 +458,7 @@ class fiHooks {
         $attachmentIndex = 0;
         foreach ($origFields as $k => $v) {
             if (is_array($v) && !empty($v['tmp_name'])) {
-                if(count($v['name']) > 1){
+                 if(is_array($v['name'])){
                     for($i=0;$i<count($v['name']);++$i){
                         if(isset($v['error'][$i]) && $v['error'][$i] == UPLOAD_ERR_OK){
                             if (empty($v['name'][$i])) {
