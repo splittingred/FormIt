@@ -360,7 +360,7 @@ $properties = array(
     array(
         'name' => 'emailMultiSeparator',
         'desc' => 'prop_formit.emailmultiseparator_desc',
-        'type' => 'combo-boolean',
+        'type' => 'textfield',
         'options' => '',
         'value' => '',
         'lexicon' => 'formit:properties',
