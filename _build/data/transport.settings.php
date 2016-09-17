@@ -33,7 +33,7 @@ $settings['formit.recaptcha_public_key']->fromArray(array(
     'value' => '',
     'xtype' => 'textfield',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
 ),'',true,true);
 
 $settings['formit.recaptcha_private_key']= $modx->newObject('modSystemSetting');
@@ -42,7 +42,7 @@ $settings['formit.recaptcha_private_key']->fromArray(array(
     'value' => '',
     'xtype' => 'textfield',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
 ),'',true,true);
 
 $settings['formit.recaptcha_use_ssl']= $modx->newObject('modSystemSetting');
@@ -51,7 +51,7 @@ $settings['formit.recaptcha_use_ssl']->fromArray(array(
     'value' => false,
     'xtype' => 'combo-boolean',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
 ),'',true,true);
 
 $settings['formit.exclude_contexts']= $modx->newObject('modSystemSetting');
