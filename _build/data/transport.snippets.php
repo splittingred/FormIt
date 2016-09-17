@@ -43,7 +43,6 @@ $snippets[1]->fromArray(array(
     'description' => 'Custom hook for FormIt to handle Auto-Response emails.',
     'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitautoresponder.php'),
 ),'',true,true);
-unset($properties);
 
 $snippets[2]= $modx->newObject('modSnippet');
 $snippets[2]->fromArray(array(
@@ -101,7 +100,6 @@ $snippets[7]->fromArray(array(
     'description' => 'Save any form and export them to csv.',
     'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitsaveform.php'),
 ),'',true,true);
-unset($properties);
 
 /*
 $snippets[0]= $modx->newObject('modSnippet');
