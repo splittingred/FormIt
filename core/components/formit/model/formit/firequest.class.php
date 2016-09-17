@@ -168,7 +168,7 @@ class fiRequest {
      * Load the reCaptcha service class
      *
      * @param array $config An array of configuration parameters for the reCaptcha class
-     * @return reCaptcha An instance of the reCaptcha class
+     * @return FormItReCaptcha An instance of the reCaptcha class
      */
     public function loadReCaptcha(array $config = array()) {
         if (empty($this->reCaptcha)) {
@@ -176,7 +176,7 @@ class fiRequest {
                 $this->reCaptcha = new FormItReCaptcha($this->formit,$config);
             } else {
                 $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] '.$this->modx->lexicon('formit.recaptcha_err_load'));
-                return false;
+                return null;
             }
         }
         return $this->reCaptcha;

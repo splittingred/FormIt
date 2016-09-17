@@ -20,10 +20,14 @@
  * @package formit
  */
 /**
+ * FormItIsChecked
+ *
  * Custom output filter that returns checked="checked" if the value is set
  *
  * @var string $input
  * @var string $options
+ * @var modX $modx
+ *
  * @package formit
  */
 $output = ' ';
