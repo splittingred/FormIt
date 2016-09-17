@@ -121,12 +121,21 @@ class fiDictionary {
      * @return void
      */
     public function store() {
-         /* default to store data for 5 minutes */
-        $storeTime = $this->modx->getOption('storeTime',$this->config,300);
-        /* create the hash to store */
-        $cacheKey = $this->formit->getStoreKey();
+        /* default to store data for 5 minutes */
+        $storeTime = $this->modx->getOption('storeTime', $this->config, 300);
         $data = $this->toArray();
-        $this->modx->cacheManager->set($cacheKey,$data,$storeTime);
+        if ($this->modx->getOption('storeLocation', $this->config, 'cache') == 'session') {
+            /* store it in the session */
+            $_SESSION['formitStore'] = array(
+                /* default to store data for 5 minutes */
+                'valid' => time() + $storeTime,
+                'data' => $data
+            );
+        } else {
+            /* create the hash to store it in the MODX cache */
+            $cacheKey = $this->formit->getStoreKey();
+            $this->modx->cacheManager->set($cacheKey, $data, $storeTime);
+        }
         unset($data);
     }
 
@@ -136,8 +145,16 @@ class fiDictionary {
      * @return mixed
      */
     public function retrieve() {
-        $cacheKey = $this->formit->getStoreKey();
-        return $this->modx->cacheManager->get($cacheKey);
+        if ($this->modx->getOption('storeLocation', $this->config, 'cache') == 'session') {
+            if (isset($_SESSION['formitStore']) && time() <= $_SESSION['formitStore']['valid']) {
+                return $_SESSION['formitStore']['data'];
+            } else {
+                return false;
+            }
+        } else {
+            $cacheKey = $this->formit->getStoreKey();
+            return $this->modx->cacheManager->get($cacheKey);
+        }
     }
 
     /**
@@ -146,8 +163,15 @@ class fiDictionary {
      * @return boolean
      */
     public function erase() {
-        $cacheKey = $this->formit->getStoreKey();
-        return $this->modx->cacheManager->delete($cacheKey);
+        if ($this->modx->getOption('storeLocation', $this->config, 'cache') == 'session') {
+            if (isset($_SESSION['formitStore'])) {
+                unset($_SESSION['formitStore']);
+            }
+            return true;
+        } else {
+            $cacheKey = $this->formit->getStoreKey();
+            return $this->modx->cacheManager->delete($cacheKey);
+        }
     }
 
     /**

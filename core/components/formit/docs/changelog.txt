@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 2.2.9
+====================================
+- Added storeLocation property to FormIt and FormItRetriever. Fixing #95
+
 FormIt 2.2.8
 ====================================
 - Fixed export limit and added form dropdown paging #60
@@ -255,9 +259,9 @@ FormIt 1.0
 ====================================
 - Fixed bug with emailFrom property getting overwritten
 - [#ADDON-122] Fixed incorrect message in spam lexicon item
-- Added 'spam' hook that utilizes StopForumSpam spam filter. Will filter the fields in the property &spamEmailFields 
+- Added 'spam' hook that utilizes StopForumSpam spam filter. Will filter the fields in the property &spamEmailFields
 - Ensure hooks errors are set as placeholders
-- Aded fi.success placeholder to be set on a successful form submission if no redirect hook is specified 
+- Aded fi.success placeholder to be set on a successful form submission if no redirect hook is specified
 - Added default to emailTpl property so that it is now no longer required. Will send out email with just field names and values.
 - Added Dutch translation
 - Added missing formit.contains lexicon entry
