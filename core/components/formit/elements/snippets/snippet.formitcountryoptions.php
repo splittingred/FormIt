@@ -20,13 +20,19 @@
  * @package formit
  */
 /**
+ * FormItCountryOptions
+ *
  * Automatically generates and outputs a country list for usage in forms
  *
  * @var modX $modx
  * @var array $scriptProperties
+ *
  * @package formit
  */
-require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
+
+$modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/') . 'model/formit/';
+$modx->loadClass('FormIt', $modelPath, true, true);
+
 $fi = new FormIt($modx,$scriptProperties);
 
 /** @var fiCountryOptions $co */
