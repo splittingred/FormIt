@@ -100,7 +100,7 @@ $_lang['prop_math.mathoperatorfield_desc'] = 'If `math` is set as a hook, the na
 
 /* FormItCountryOptions properties */
 $_lang['prop_fico.allgrouptext_desc'] = 'Optional. If set and &prioritized is in use, will be the text label for the all other countries option group.';
-$_lang['prop_fico.optgroup_desc'] = 'Optional. If set and &prioritized is in use, will be the chunk tpl to use for the option group markup.';
+$_lang['prop_fico.optgrouptpl_desc'] = 'Optional. If set and &prioritized is in use, will be the chunk tpl to use for the option group markup.';
 $_lang['prop_fico.prioritized_desc'] = 'Optional. A comma-separated list of ISO codes for countries that will move them into a prioritized "Frequent Visitors" group at the top of the dropdown. This can be used for your commonly-selected countries.';
 $_lang['prop_fico.prioritizedgrouptext_desc'] = 'Optional. If set and &prioritized is in use, will be the text label for the prioritized option group.';
 $_lang['prop_fico.selected_desc'] = 'The country value to select.';

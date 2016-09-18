@@ -99,7 +99,7 @@ $_lang['prop_math.mathoperatorfield_desc'] = 'Je-li nastaven hook `math` pak tí
 
 /* FormItCountryOptions properties */
 $_lang['prop_fico.allgrouptext_desc'] = 'Volitelné. Je-li nastaven a používá se parametr &prioritized, bude zobrazen tento textový popis pro všechny ostatní země při výpisu.';
-$_lang['prop_fico.optgroup_desc'] = 'Volitelné. Je-li nastaven a používá se parametr &prioritized, bude použit chunk tpl pro označení skupin.';
+$_lang['prop_fico.optgrouptpl_desc'] = 'Volitelné. Je-li nastaven a používá se parametr &prioritized, bude použit chunk tpl pro označení skupin.';
 $_lang['prop_fico.prioritized_desc'] = 'Volitelné. Čárkou oddělený seznam ISO kódů zemí, které budou zobrazeny jako prioriováné pod jmenovkou "Častí návštěvníci" na začátku rozbalovacího seznamu. Tuto volbu lze použít pro nastavení často vybíraných zemí.';
 $_lang['prop_fico.prioritizedgrouptext_desc'] = 'Volitelné. Je-li nastaven a používá se parametr &prioritized, bude tento text použit jako jmenovka pro sadu položek rozbalovacího menu.';
 $_lang['prop_fico.selected_desc'] = 'Hodnota země při volbě.';
