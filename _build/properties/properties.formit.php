@@ -147,6 +147,17 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'storeLocation',
+        'desc' => 'prop_formit.storelocation_desc',
+        'type' => 'list',
+        'options' => array(
+            array('text' => 'formit.opt_cache','value' => 'cache'),
+            array('text' => 'formit.opt_session','value' => 'session')
+        ),
+        'value' => 'cache',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'allowFiles',
         'desc' => 'prop_formit.allowfiles_desc',
         'type' => 'combo-boolean',
@@ -360,7 +371,7 @@ $properties = array(
     array(
         'name' => 'emailMultiSeparator',
         'desc' => 'prop_formit.emailmultiseparator_desc',
-        'type' => 'combo-boolean',
+        'type' => 'textfield',
         'options' => '',
         'value' => '',
         'lexicon' => 'formit:properties',

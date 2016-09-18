@@ -57,3 +57,5 @@ $_lang['formit.spam_blocked'] = 'Your submission was blocked by a spam filter: '
 $_lang['formit.spam_marked'] = ' - marked as spam.';
 $_lang['formit.username_taken'] = 'Username already taken. Please choose another.';
 $_lang['formit.not_regexp'] = 'Your value did not match the expected format.';
+
+$_lang['area_recaptcha'] = 'reCaptcha';

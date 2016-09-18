@@ -41,6 +41,7 @@ $_lang['prop_formit.successmessage_desc'] = 'If set, will set this a placeholder
 $_lang['prop_formit.successmessageplaceholder_desc'] = 'The placeholder to set the success message to.';
 $_lang['prop_formit.store_desc'] = 'If true, will store the data in the cache for retrieval using the FormItRetriever snippet.';
 $_lang['prop_formit.storetime_desc'] = 'If `store` is set to true, this specifies the number of seconds to store the data from the form submission. Defaults to five minutes.';
+$_lang['prop_formit.storelocation_desc'] = 'If `store` is set to true, this specifies the cache location of the data from the form submission. Defaults to MODX cache.';
 $_lang['prop_formit.allowfiles_desc'] = 'If set to 0, will prevent files from being submitted on the form.';
 $_lang['prop_formit.placeholderprefix_desc'] = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc'] = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
@@ -87,6 +88,7 @@ $_lang['prop_fiar.fiarhtml_desc'] = 'Optional. If `FormItAutoResponder` is set a
 $_lang['prop_fir.placeholderprefix_desc'] = 'The prefix to use with placeholders from the form data.';
 $_lang['prop_fir.redirecttoonnotfound_desc'] = 'If the data is not found, if this is set, redirect to the Resource with this ID.';
 $_lang['prop_fir.eraseonload_desc'] = 'If true, will erase the stored form data on load. Strongly recommended to leave to false unless you only want the data to load once.';
+$_lang['prop_fir.storelocation_desc'] = 'If `store` is set to true, this specifies the cache location of the data from the form submission. Defaults to MODX cache.';
 
 /* FormIt Math hook properties */
 $_lang['prop_math.mathminrange_desc'] = 'If `math` is set as a hook, the minimum range for each number in the equation.';
@@ -121,3 +123,5 @@ $_lang['formit.opt_blackglass'] = 'Black Glass';
 $_lang['formit.opt_clean'] = 'Clean';
 $_lang['formit.opt_red'] = 'Red';
 $_lang['formit.opt_white'] = 'White';
+$_lang['formit.opt_cache'] = 'MODX Cache';
+$_lang['formit.opt_session'] = 'Session';

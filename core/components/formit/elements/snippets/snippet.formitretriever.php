@@ -20,15 +20,20 @@
  * @package formit
  */
 /**
+ * FormItRetriever
+ *
  * Retrieves a prior form submission that was stored with the &store property
  * in a FormIt call.
  *
  * @var modX $modx
  * @var array $scriptProperties
- * 
+ *
  * @package formit
  */
-require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
+
+$modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/') . 'model/formit/';
+$modx->loadClass('FormIt', $modelPath, true, true);
+
 $fi = new FormIt($modx,$scriptProperties);
 
 /* setup properties */
