@@ -95,22 +95,40 @@ class fiRequest {
 
         /* if using math hook, load default placeholders */
         if ($this->hasHook('math')) {
-            $mathMaxRange = $this->modx->getOption('mathMaxRange',$this->config,100);
-            $mathMinRange = $this->modx->getOption('mathMinRange',$this->config,10);
-            $op1 = rand($mathMinRange,$mathMaxRange);
-            $op2 = rand($mathMinRange,$mathMaxRange);
-            /* prevent numbers from being equal */
-            while ($op2 == $op1) {
-                $op2 = rand($mathMinRange,$mathMaxRange);
+            if (!$this->hasSubmission()) {
+                $mathMaxRange = $this->modx->getOption('mathMaxRange', $this->config, 100);
+                $mathMinRange = $this->modx->getOption('mathMinRange', $this->config, 10);
+                $op1 = rand($mathMinRange, $mathMaxRange);
+                $op2 = rand($mathMinRange, $mathMaxRange);
+                /* prevent numbers from being equal */
+                while ($op2 == $op1) {
+                    $op2 = rand($mathMinRange, $mathMaxRange);
+                }
+                if ($op2 > $op1) {
+                    $t = $op2;
+                    $op2 = $op1;
+                    $op1 = $t;
+                } /* swap so we always get positive #s */
+                $operators = array('+', '-');
+                $operator = rand(0, 1);
+                /* Store in session so math fields are not required for math hook */
+                $_SESSION['formitMath'] = array(
+                    'op1' => $op1,
+                    'op2' => $op2,
+                    'operator' => $operators[$operator]
+                );
+            } else {
+                $op1 = $_SESSION['formitMath']['op1'];
+                $op2 = $_SESSION['formitMath']['op2'];
+                $operators[$operator] = $_SESSION['formitMath']['operator'];
             }
-            if ($op2 > $op1) { $t = $op2; $op2 = $op1; $op1 = $t; } /* swap so we always get positive #s */
-            $operators = array('+','-');
-            $operator = rand(0,1);
+
             $this->modx->setPlaceholders(array(
-                $this->modx->getOption('mathOp1Field',$this->config,'op1') => $op1,
-                $this->modx->getOption('mathOp2Field',$this->config,'op2') => $op2,
-                $this->modx->getOption('mathOperatorField',$this->config,'operator') => $operators[$operator],
-            ),$this->config['placeholderPrefix']);
+                $this->modx->getOption('mathOp1Field', $this->config, 'op1') => $op1,
+                $this->modx->getOption('mathOp2Field', $this->config, 'op2') => $op2,
+                $this->modx->getOption('mathOperatorField', $this->config, 'operator') => $operators[$operator],
+            ), $this->config['placeholderPrefix']);
+
         }
         
         return $this->runPreHooks();

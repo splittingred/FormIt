@@ -625,21 +625,24 @@ class fiHooks {
 
     /**
      * Adds in reCaptcha support to FormIt
-     * 
+     *
      * @access public
      * @param array $fields An array of cleaned POST fields
      * @return boolean True if email was successfully sent.
      */
-    public function recaptcha(array $fields = array()) {
+    public function recaptcha(array $fields = array())
+    {
         $passed = false;
         /** @var FormItReCaptcha $reCaptcha */
         $reCaptcha = $this->formit->request->loadReCaptcha();
-        if (empty($reCaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) return false;
+        if (empty($reCaptcha->config[FormItReCaptcha::OPT_PRIVATE_KEY])) {
+            return false;
+        }
 
-        $response = $reCaptcha->checkAnswer($_SERVER['REMOTE_ADDR'],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
+        $response = $reCaptcha->checkAnswer($_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 
         if (!$response->is_valid) {
-            $this->addError('recaptcha',$this->modx->lexicon('recaptcha.incorrect',array(
+            $this->addError('recaptcha', $this->modx->lexicon('recaptcha.incorrect', array(
                 'error' => $response->error != 'incorrect-captcha-sol' ? $response->error : '',
             )));
         } else {
@@ -653,7 +656,8 @@ class fiHooks {
      *
      * @param string $url The URL to redirect to after all hooks execute
      */
-    public function setRedirectUrl($url) {
+    public function setRedirectUrl($url)
+    {
         $this->redirectUrl = $url;
     }
 
@@ -662,7 +666,8 @@ class fiHooks {
      *
      * @return null|string
      */
-    public function getRedirectUrl() {
+    public function getRedirectUrl()
+    {
         return $this->redirectUrl;
     }
 
@@ -673,30 +678,39 @@ class fiHooks {
      * @param array $fields An array of cleaned POST fields
      * @return boolean True if email was successfully sent.
      */
-    public function math(array $fields = array()) {
-        $mathField = $this->modx->getOption('mathField',$this->config,'math');
-        if (!isset($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $mathField)); return false; }
-        if (empty($fields[$mathField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.field_required',array('field' => $mathField)); return false; }
-        
-        $op1Field = $this->modx->getOption('mathOp1Field',$this->config,'op1');
-        if (empty($fields[$op1Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op1Field)); return false; }
-        $op2Field = $this->modx->getOption('mathOp2Field',$this->config,'op2');
-        if (empty($fields[$op2Field])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $op2Field)); return false; }
-        $operatorField = $this->modx->getOption('mathOperatorField',$this->config,'operator');
-        if (empty($fields[$operatorField])) { $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf',array('field' => $operatorField)); return false; }
-
-        $answer = false;
-        $op1 = (int)$fields[$op1Field];
-        $op2 = (int)$fields[$op2Field];
-        switch ($fields[$operatorField]) {
-            case '+': $answer = $op1 + $op2; break;
-            case '-': $answer = $op1 - $op2; break;
-            case '*': $answer = $op1 * $op2; break;
+    public function math(array $fields = array())
+    {
+        $mathField = $this->modx->getOption('mathField', $this->config, 'math');
+        if (!isset($fields[$mathField])) {
+            $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf', array('field' => $mathField));
+            return false;
         }
-        $guess = (int)$fields[$mathField];
-        $passed = (boolean)($guess == $answer);
+        if (empty($fields[$mathField])) {
+            $this->errors[$mathField] = $this->modx->lexicon('formit.field_required', array('field' => $mathField));
+            return false;
+        }
+
+        $passed = false;
+        if (isset($_SESSION['formitMath']['op1']) && isset($_SESSION['formitMath']['op2']) && isset($_SESSION['formitMath']['operator'])) {
+            $answer = false;
+            $op1 = $_SESSION['formitMath']['op1'];
+            $op2 = $_SESSION['formitMath']['op2'];
+            switch ($_SESSION['formitMath']['operator']) {
+                case '+':
+                    $answer = $op1 + $op2;
+                    break;
+                case '-':
+                    $answer = $op1 - $op2;
+                    break;
+                case '*':
+                    $answer = $op1 * $op2;
+                    break;
+            }
+            $guess = (int)$fields[$mathField];
+            $passed = (boolean)($guess == $answer);
+        }
         if (!$passed) {
-            $this->addError($mathField,$this->modx->lexicon('formit.math_incorrect'));
+            $this->addError($mathField, $this->modx->lexicon('formit.math_incorrect'));
         }
         return $passed;
     }
@@ -705,7 +719,8 @@ class fiHooks {
      * Process any errors returned by the hooks and set them to placeholders
      * @return void
      */
-    public function processErrors() {
+    public function processErrors()
+    {
         $errors = array();
         $jsonerrors = array();
         $jsonOutputPlaceholder = $this->config['hookErrorJsonOutputPlaceholder'];
@@ -719,23 +734,24 @@ class fiHooks {
         
         $placeholderErrors = $this->getErrors();
         foreach ($placeholderErrors as $key => $error) {
-            $errors[$key] = str_replace('[[+error]]',$error,$this->config['errTpl']);
-            if (!empty($jsonOutputPlaceholder)) $jsonerrors['errors'][$key] = $errors[$key];
+            $errors[$key] = str_replace('[[+error]]', $error, $this->config['errTpl']);
+            if (!empty($jsonOutputPlaceholder)) {
+                $jsonerrors['errors'][$key] = $errors[$key];
+            }
         }
-        $this->modx->toPlaceholders($errors,$this->config['placeholderPrefix'].'error');
+        $this->modx->toPlaceholders($errors, $this->config['placeholderPrefix'].'error');
 
         $errorMsg = $this->getErrorMessage();
         if (!empty($errorMsg)) {
-            $this->modx->setPlaceholder($this->config['placeholderPrefix'].'error_message',$errorMsg);
+            $this->modx->setPlaceholder($this->config['placeholderPrefix'].'error_message', $errorMsg);
             if (!empty($jsonOutputPlaceholder)) {
                 $jsonerrors['message'] = $errorMsg;
             }
         }
         if (!empty($jsonOutputPlaceholder)) {
             $jsonoutput = $this->modx->toJSON($jsonerrors);
-            $this->modx->setPlaceholder($jsonOutputPlaceholder,$jsonoutput);
+            $this->modx->setPlaceholder($jsonOutputPlaceholder, $jsonoutput);
         }
-        
     }
 
     /**

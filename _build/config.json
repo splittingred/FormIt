@@ -414,7 +414,7 @@
             },{
                 "name": "FormItSaveForm",
                 "description": "Custom hook for FormIt to save the form.",
-                "file": "snippet.formitisselected.php",
+                "file": "snippet.formitsaveform.php",
                 "properties": []
             }]
         },
