@@ -9,8 +9,8 @@ if ($object->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         case xPDOTransport::ACTION_INSTALL:
             $modx =& $object->xpdo;
-            $modelPath = $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/';
-            $modx->addPackage('formit',$modelPath);
+            $modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path').'components/formit/').'model/';
+            $modx->addPackage('formit', $modelPath);
 
             $manager = $modx->getManager();
 
@@ -42,9 +42,14 @@ if ($object->xpdo) {
             ));
             /** @var modTransportPackage $oldPackage */
             $oldPackage = $modx->getObject('transport.modTransportPackage', $c);
-            $modelPath = $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/';
-            $modx->addPackage('formit',$modelPath);
+            $modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path').'components/formit/').'model/';
+            $modx->addPackage('formit', $modelPath);
             
+            if ($oldPackage && $oldPackage->compareVersion('2.2.2-pl', '>')) {
+                $manager = $modx->getManager();
+                $manager->createObjectContainer('FormItForm');
+            }
+
             if ($oldPackage && $oldPackage->compareVersion('2.2.9-pl', '>')) {
                 $manager = $modx->getManager();
                 $manager->addField('FormItForm', 'encrypted');
