@@ -38,7 +38,7 @@ $xpdo_meta_map['FormItForm']= array (
     'values' => 
     array (
       'dbtype' => 'text',
-      'phptype' => 'json',
+      'phptype' => 'string',
       'null' => false,
       'default' => '',
     ),
