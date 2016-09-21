@@ -416,6 +416,10 @@
                 "description": "Custom hook for FormIt to save the form.",
                 "file": "snippet.formitsaveform.php",
                 "properties": []
+            },{
+                "name": "FormItLoadSavedForm",
+                "description": "Prehook to load previously saved form.",
+                "file": "snippet.formitloadsavedform.php"
             }]
         },
         "systemSettings": [{
