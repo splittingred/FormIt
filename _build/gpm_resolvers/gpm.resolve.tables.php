@@ -14,7 +14,8 @@ if ($object->xpdo) {
         case xPDOTransport::ACTION_INSTALL:
         case xPDOTransport::ACTION_UPGRADE:
             $modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path') . 'components/formit/') . 'model/';
-            $modx->addPackage('formit', $modelPath, 'modx_');
+            
+            $modx->addPackage('formit', $modelPath, null);
 
 
             $manager = $modx->getManager();

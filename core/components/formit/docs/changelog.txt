@@ -2,7 +2,16 @@ Changelog for FormIt.
 
 FormIt 2.2.11
 ====================================
-- Added storeLocation property to FormIt and FormItRetriever. Fixing #95
+- Added storeLocation property to FormIt and FormItRetriever. (issue #95, PR #105#106#107)
+- Changed default behaviour of emailReplyTo parameter to fallback to email field in form (issue #101)
+- Changed math hook to store values in session, preventing easy bypass of math hook (issue #64)
+- Add GPM config
+- Fix bug with multiple file upload (PR #104)
+- Add 'hash' field to FormItSaveForm to allow updating of previously saved forms (PR #94)
+- Add FormItLoadSavedForm snippet to retrieve saved forms (PR #94)
+- Fix for export with datefilter (issue #96, PR #97)
+- Add fiarRequired property (PR#83)
+- Update resolver to check for current version to prevent errors on upgrade
 
 FormIt 2.2.10
 ====================================
