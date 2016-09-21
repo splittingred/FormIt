@@ -505,7 +505,10 @@ class fiHooks {
         }
 
         /* reply to */
-        $emailReplyTo = $this->modx->getOption('emailReplyTo', $this->formit->config, $emailFrom);
+        $emailReplyTo = $this->modx->getOption('emailReplyTo', $this->formit->config, '');
+        if (empty($emailReplyTo)) {
+            $emailReplyTo = !empty($fields['email']) ? $fields['email'] : $emailFrom;
+        }
         $emailReplyTo = $this->_process($emailReplyTo, $fields);
         $emailReplyToName = $this->modx->getOption('emailReplyToName', $this->formit->config, $emailFromName);
         $emailReplyToName = $this->_process($emailReplyToName, $fields);
