@@ -22,6 +22,7 @@ FormIt.grid.Forms = function(config) {
             ,dataIndex: 'values'
             ,width: 250
             ,renderer: function(value){
+                value = JSON.parse(value);
                 var output = '';
                 for(var k in value){
                     output += '<b>'+k+'</b>: '+value[k]+'\n';
@@ -59,10 +60,13 @@ Ext.extend(FormIt.grid.Forms,MODx.grid.Grid,{
         this.addContextMenuItem(m);
     }
     ,viewItem: function(btn,e) {
-        if (!this.menu.record) return false;
+        if (!this.menu.record) {
+            return false;
+        }
+        var values = JSON.parse(this.menu.record.values);
         var fieldsOutput = '';
-        for(var k in this.menu.record.values){
-            fieldsOutput += '<b>'+k+'</b>: '+this.menu.record.values[k]+'<br/>';
+        for(var k in values){
+            fieldsOutput += '<b>'+k+'</b>: '+values[k]+'<br/>';
         }
 
         var formDate = Date.parseDate(this.menu.record.date, 'U');

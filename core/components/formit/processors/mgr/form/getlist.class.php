@@ -5,13 +5,15 @@
  * @package FormIt
  * @subpackage processors
  */
-class FormItGetListProcessor extends modObjectGetListProcessor {
+class FormItGetListProcessor extends modObjectGetListProcessor
+{
     public $classKey = 'FormItForm';
     public $languageTopics = array('formit:default');
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'DESC';
 
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
         $form = $this->getProperty('form');
         if (!empty($form)) {
             $c->where(array('form' => $form));
@@ -34,13 +36,11 @@ class FormItGetListProcessor extends modObjectGetListProcessor {
 
         return $c;
     }
-    public function prepareRow(xPDOObject $object) {
+    public function prepareRow(xPDOObject $object)
+    {
         $ff = $object->toArray();
-        if($ff['encrypted']){
-            $ff['values'] = $object->decrypt();
-        }else{
-            // fromJSON() expects a string.
-            if (is_string($ff['values'])) $ff['values'] = $this->modx->fromJSON($ff['values']);
+        if ($ff['encrypted']){
+            $ff['values'] = $object->decrypt($ff['values']);
         }
         
         return $ff;

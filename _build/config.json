@@ -442,6 +442,11 @@
             "type": "combo-boolean",
             "area": "system",
             "value": "mgr"
+        },{
+            "key": "form_encryptkey",
+            "type": "textfield",
+            "area": "system",
+            "value": ""
         }]
     },
     "database": {
