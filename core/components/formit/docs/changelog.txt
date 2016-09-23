@@ -12,6 +12,8 @@ FormIt 2.2.11
 - Fix for export with datefilter (issue #96, PR #97)
 - Add fiarRequired property (PR#83)
 - Update resolver to check for current version to prevent errors on upgrade
+- Add system setting for form_encryptkey, to not rely on site_id (issue #68)
+- Fix saved forms export when using encrypted forms (issue #48)
 
 FormIt 2.2.10
 ====================================
