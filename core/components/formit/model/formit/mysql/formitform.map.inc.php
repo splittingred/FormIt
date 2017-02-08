@@ -15,6 +15,7 @@ $xpdo_meta_map['FormItForm']= array (
     'ip' => '',
     'date' => 0,
     'encrypted' => 0,
+    'encryption_type' => 1,
     'hash' => '',
   ),
   'fieldMeta' => 
@@ -65,6 +66,14 @@ $xpdo_meta_map['FormItForm']= array (
       'phptype' => 'boolean',
       'null' => false,
       'default' => 0,
+    ),
+    'encryption_type' => 
+    array (
+      'dbtype' => 'int',
+      'precision' => '2',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 1,
     ),
     'hash' => 
     array (

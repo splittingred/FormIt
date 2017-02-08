@@ -24,6 +24,7 @@ class FormItEncryptProcessor extends modObjectGetListProcessor
     public function prepareRow(xPDOObject $object)
     {
         $object->set('encrypted', 1);
+        $object->set('encryption_type', 2);
         $values = $object->get('values');
         $object->set('values', $object->encrypt($values));
         $object->save();

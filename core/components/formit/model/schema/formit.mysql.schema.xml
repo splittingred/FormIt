@@ -7,6 +7,7 @@
     	<field key="ip" dbtype="varchar" precision="15" phptype="string" null="false" default=""/>
     	<field key="date" dbtype="int" precision="11" phptype="integer" null="false" default=""/>
     	<field key="encrypted" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0"/>
+    	<field key="encryption_type" dbtype="int" precision="2" phptype="integer" null="false" default="1"/>
     	<field key="hash" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
     </object>    
 </model>
