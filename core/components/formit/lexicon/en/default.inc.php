@@ -26,7 +26,7 @@
  * @subpackage lexicon
  */
 $_lang['formit'] = 'FormIt';
-$_lang['formit.menu_desc'] = 'View all your filled in forms';
+$_lang['formit.menu_desc'] = 'View submitted forms and manage form encryption.';
 
 $_lang['formit.all_group_text'] = 'All Countries';
 $_lang['formit.contains'] = 'Your value must contain the phrase "[[+value]]".';
