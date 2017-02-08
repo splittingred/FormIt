@@ -8,8 +8,8 @@ class FormItForm extends xPDOSimpleObject
     private $ivKey;
     private $method = 'AES-256-CBC';
 
-    public function __construct()
-    {
+    function __construct(& $xpdo) {
+        parent :: __construct($xpdo);
         $this->setSecretKeys();
     }
 
