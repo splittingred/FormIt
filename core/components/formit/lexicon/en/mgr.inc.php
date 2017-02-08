@@ -26,8 +26,7 @@
  * @subpackage lexicon
  */
 $_lang['formit'] = 'FormIt';
-$_lang['formit.menu_desc'] = 'View all your filled in forms';
-$_lang['formit.intro_msg'] = 'View all your filled in forms';
+$_lang['formit.intro_msg'] = 'View all your submitted forms.';
 
 $_lang['formit.form'] = 'Form';
 $_lang['formit.forms'] = 'Forms';
@@ -45,7 +44,7 @@ $_lang['formit.select_end_date'] = 'Select end date';
 $_lang['formit.clear'] = 'Clear filter';
 $_lang['formit.export'] = 'Export';
 $_lang['formit.encryption'] = 'Encryption';
-$_lang['formit.encryption_msg'] = 'Manage all the submitted forms encryption.';
+$_lang['formit.encryption_msg'] = 'Manage encryption for all the submitted forms.';
 $_lang['formit.encrypted'] = 'Encrypted';
 $_lang['formit.total'] = 'Total';
 $_lang['formit.form_encryptall'] = 'Encrypt all submitted forms';
