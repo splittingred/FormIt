@@ -330,4 +330,24 @@ class FormIt {
             $this->setOption($k,$v);
         }
     }
+
+    public function encryptionMigrationStatus()
+    {
+        $migrationStatus = true;
+        $migrationStatusSetting = $this->modx->getObject('modSystemSetting', array('key' => 'formit.migration_status', 'namespace' => 'formit_custom', 'value' => '1'));
+        if (!$migrationStatusSetting) {
+            if ($this->modx->getCount('FormItForm', array('encrypted' => 1, 'encryption_type' => 1))) {
+                $migrationStatus = false;
+            }
+            $migrationStatusSetting = $this->modx->getObject('modSystemSetting', array('key' => 'formit.migration_status', 'namespace' => 'formit_custom'));
+            if (!$migrationStatusSetting) {
+                $migrationStatusSetting = $this->modx->newObject('modSystemSetting');
+                $migrationStatusSetting->set('key', 'formit.migration_status');
+                $migrationStatusSetting->set('namespace', 'formit_custom');
+            }
+            $migrationStatusSetting->set('value', (int)$migrationStatus);
+            $migrationStatusSetting->save();
+        }
+        return $migrationStatus;
+    }
 }

@@ -34,9 +34,8 @@ class FormItForm extends xPDOSimpleObject
                 "\0"
             );
         }
+        /* Return default openssl decrypted values */
         return openssl_decrypt(base64_decode($value), $this->method, $this->encryptKey, 0, $this->ivKey);
-
-        return $values;
     }
     public function generatePseudoRandomHash($bytes = 16)
     {

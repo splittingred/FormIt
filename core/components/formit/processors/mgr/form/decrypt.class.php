@@ -25,7 +25,8 @@ class FormItDecryptProcessor extends modObjectGetListProcessor
     {
         $object->set('encrypted', 0);
         $values = $object->get('values');
-        $object->set('values', $object->decrypt($values));
+        $type = $object->get('encryption_type');
+        $object->set('values', $object->decrypt($values, $type));
         $object->save();
         $ff = $object->toArray();
         return $ff;

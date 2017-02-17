@@ -3,3 +3,4 @@ config.core.php
 .idea
 core/components/formit/test/properties.inc.php
 core/components/formit/test/config.inc.php
+assets/components/formit/*.log

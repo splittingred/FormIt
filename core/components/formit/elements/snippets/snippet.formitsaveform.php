@@ -105,7 +105,7 @@ if ($newForm === null) $newForm = $modx->newObject('FormItForm');
 // Handle encryption
 if($formEncrypt){
     $dataArray = $newForm->encrypt($modx->toJSON($dataArray));
-}else{
+} else {
     $dataArray = $modx->toJSON($dataArray);
 }
 
