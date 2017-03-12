@@ -51,6 +51,14 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
+        'name' => 'limited',
+        'desc' => 'prop_fico.limited_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
         'name' => 'prioritized',
         'desc' => 'prop_fico.prioritized_desc',
         'type' => 'textfield',
