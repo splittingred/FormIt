@@ -79,6 +79,8 @@ class fiCountryOptions extends fiModule {
             foreach ($limitedList as $key) {
                 $limitedCountries[$key] = $this->countries[$key];
             }
+            /* order list by country names */
+            asort($limitedCountries, SORT_STRING | SORT_FLAG_CASE);
             $this->countries = $limitedCountries;
         }
         return $this->countries;
