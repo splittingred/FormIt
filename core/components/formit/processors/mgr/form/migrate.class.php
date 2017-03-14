@@ -48,7 +48,8 @@ class FormItMigrateProcessor extends modProcessor
             $this->log('No mcrypt encrypted forms found.');
         } else {
             $this->log('-------------------------------------------------------------');
-            $this->log($count.' All encrypted forms are migrated to openssl.');
+            $this->log('Successfully completed migration.');
+            $this->log('A total of '.$count.' encrypted forms are migrated.');
         }
 
         return $this->outputArray(array(), $count);
