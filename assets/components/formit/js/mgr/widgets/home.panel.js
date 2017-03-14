@@ -16,8 +16,15 @@ FormIt.panel.Home = function(config) {
             xtype: 'modx-tabs'
             ,defaults: { border: false ,autoHeight: true }
             ,border: true
-            ,activeItem: 0
             ,hideMode: 'offsets'
+            ,stateful: true
+            ,stateId: 'formit-panel-home'
+            ,stateEvents: ['tabchange']
+            ,getState: function() {
+                return {
+                    activeTab:this.items.indexOf(this.getActiveTab())
+                };
+            }
             ,items: [{
                 title: _('formit.forms')
                 ,items: [{
