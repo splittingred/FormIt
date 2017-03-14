@@ -40,7 +40,7 @@ switch ($modx->event->name) {
     case 'OnManagerPageBeforeRender':
         // If migration status is false, show migrate alert message bar in manager
         if (!$formit->encryptionMigrationStatus()) {
-            $modx->regClientStartupHTMLBlock($formit->getChunk('migrate/alert', array('message' => $modx->lexicon('formit.encryption_migrate_alert'))));
+            $modx->regClientStartupHTMLBlock($formit->getChunk('migrate/alert', array('message' => $modx->lexicon('formit.migrate_alert'))));
             $modx->regClientCSS($formit->config['cssUrl'].'migrate.css');
         }
 }

@@ -36,15 +36,7 @@ class FormItMigrateProcessor extends modProcessor
                 WHERE {$this->modx->escape('id')} = {$this->modx->quote($form->get('id'))}");
         }
 
-        if ($count == 0) {
-            $migrationStatus = $this->modx->getObject('modSystemSetting', array('key' => 'formit.migration_status', 'namespace' => 'formit_custom'));
-            if (!$migrationStatus) {
-                $migrationStatus = $this->modx->newObject('modSystemSetting');
-                $migrationStatus->set('key', 'formit.migration_status');
-                $migrationStatus->set('namespace', 'formit_custom');
-            }
-            $migrationStatus->set('value', '1');
-            $migrationStatus->save();
+        if ($count === 0) {
             $this->log('No mcrypt encrypted forms found.');
         } else {
             $this->log('-------------------------------------------------------------');
