@@ -4,6 +4,7 @@
  */
 class FormItForm extends xPDOSimpleObject
 {
+    private $oldEncryptKey;
     private $encryptKey;
     private $ivKey;
     private $method = 'AES-256-CBC';
@@ -26,10 +27,10 @@ class FormItForm extends xPDOSimpleObject
             return rtrim(
                 mcrypt_decrypt(
                     MCRYPT_RIJNDAEL_256,
-                    md5($this->encryptKey),
+                    md5($this->oldEncryptKey),
                     base64_decode($value),
                     MCRYPT_MODE_CBC,
-                    md5(md5($this->encryptKey))
+                    md5(md5($this->oldEncryptKey))
                 ),
                 "\0"
             );
@@ -63,6 +64,7 @@ class FormItForm extends xPDOSimpleObject
             $setting->set('value', $encryptkey);
             $setting->save();
         }
+        $this->oldEncryptKey = $encryptkey;
         $this->encryptKey = hash('sha256', $encryptkey);
         $this->ivKey = substr(hash('sha256', md5($encryptkey)), 0, 16);
     }

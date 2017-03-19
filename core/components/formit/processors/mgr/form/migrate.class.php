@@ -34,6 +34,8 @@ class FormItMigrateProcessor extends modProcessor
                 SET {$this->modx->escape('encryption_type')} = {$this->modx->quote(2)},
                     {$this->modx->escape('values')} = {$this->modx->quote($newValues)} 
                 WHERE {$this->modx->escape('id')} = {$this->modx->quote($form->get('id'))}");
+
+            $count++;
         }
 
         if ($count === 0) {
