@@ -251,19 +251,20 @@ class FormIt {
      * @return modChunk/boolean Returns the modChunk object if found, otherwise
      * false.
      */
-    private function _getTplChunk($name) {
+    public function _getTplChunk($name)
+    {
         $chunk = false;
         if (file_exists($name)) {
             $f = $name;
         } else {
-            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
+            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name, $this->config['encoding']) : strtolower($name);
             $f = $this->config['chunksPath'].$lowerCaseName.'.chunk.tpl';
         }
         if (file_exists($f)) {
             $o = file_get_contents($f);
             /** @var modChunk $chunk */
             $chunk = $this->modx->newObject('modChunk');
-            $chunk->set('name',$name);
+            $chunk->set('name', $name);
             $chunk->setContent($o);
         }
         return $chunk;
