@@ -36,7 +36,7 @@
                 "file": "optgroup.chunk.tpl",
                 "description": "The default chunk used by the FormItCountryOptions snippet for the select optgroup. Please do not edit this chunk, as this will be overwritten when updating FormIt."
             },{
-                "name": "fiDefaultOptionpl",
+                "name": "fiDefaultOptionTpl",
                 "file": "option.chunk.tpl",
                 "description": "The default chunk used by the FormItCountryOptions snippet for the select option. Please do not edit this chunk, as this will be overwritten when updating FormIt."
             }],
@@ -370,7 +370,7 @@
                 },{
                     "name": "tpl",
                     "description": "prop_fico.tpl_desc",
-                    "value": "option"
+                    "value": "fiDefaultOptionTpl"
                 },{
                     "name": "useIsoCode",
                     "description": "prop_fico.useisocode_desc",
@@ -383,7 +383,7 @@
                 },{
                     "name": "optGroupTpl",
                     "description": "prop_fico.optgrouptpl_desc",
-                    "value": "optgroup"
+                    "value": "fiDefaultOptGroupTpl"
                 },{
                     "name": "prioritizedGroupText",
                     "description": "prop_fico.prioritizedgrouptext_desc",
@@ -416,7 +416,7 @@
                 },{
                     "name": "tpl",
                     "description": "prop_fiso.tpl_desc",
-                    "value": "option"
+                    "value": "fiDefaultOptionTpl"
                 },{
                     "name": "useAbbr",
                     "description": "prop_fiso.useabbr_desc",

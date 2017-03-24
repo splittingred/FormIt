@@ -41,7 +41,7 @@ class fiCountryOptions extends fiModule {
      */
     public function initialize() {
         $this->setDefaultOptions(array(
-            'tpl' => 'fiDefaultOptionpl',
+            'tpl' => 'fiDefaultOptionTpl',
             'selected' => '',
             'useIsoCode' => true,
             'selectedAttribute' => ' selected="selected"',
@@ -101,7 +101,7 @@ class fiCountryOptions extends fiModule {
         $selected = $this->getOption('selected','');
         $selectedAttribute = $this->getOption('selectedAttribute',' selected="selected"');
         $useIsoCode = $this->getOption('useIsoCode',true,'isset');
-        $tpl = $this->getOption('tpl','fiDefaultOptionpl');
+        $tpl = $this->getOption('tpl','fiDefaultOptionTpl');
         $selectedKey = $this->getOption('selectedKey','countryKey');
         
         foreach ($this->countries as $countryKey => $countryName) {

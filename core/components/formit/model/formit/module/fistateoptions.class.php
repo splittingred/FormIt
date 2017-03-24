@@ -37,7 +37,7 @@ class fiStateOptions extends fiModule {
      */
     public function initialize() {
         $this->setDefaultOptions(array(
-            'tpl' => 'fiDefaultOptionpl',
+            'tpl' => 'fiDefaultOptionTpl',
             'selected' => '',
             'useAbbr' => true,
             'selectedAttribute' => ' selected="selected"',
@@ -70,7 +70,7 @@ class fiStateOptions extends fiModule {
     public function iterate() {
         $selected = $this->getOption('selected','');
         $selectedAttribute = $this->getOption('selectedAttribute',' selected="selected"');
-        $tpl = $this->getOption('tpl','fiDefaultOptionpl');
+        $tpl = $this->getOption('tpl','fiDefaultOptionTpl');
         $selectedKey = $this->getOption('selectedKey','stateKey');
         foreach ($this->states as $stateKey => $stateName) {
             $stateArray = array(

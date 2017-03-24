@@ -39,7 +39,7 @@ $properties = array(
         'desc' => 'prop_fiso.tpl_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'option',
+        'value' => 'fiDefaultOptionTpl',
         'lexicon' => 'formit:properties',
     ),
     array(
