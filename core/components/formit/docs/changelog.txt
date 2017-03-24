@@ -1,5 +1,15 @@
 Changelog for FormIt.
 
+FormIt 3.0.0
+====================================
+- PLEASE NOTE: THIS UPDATE CONTAINS A MIGRATION SCRIPT - Read more about it at https://github.com/Sterc/FormIt
+- Mcrypt encryption/decryption methods replaced with openssl due to mcrypt being deprecated in PHP 7.1
+- Add default file-based chunks as objects
+- Add support for pdoTools getChunk method, thanks to soulcreate and bezumkin (PR#89)
+- Add French countries, thanks to beau-gosse (PR#109)
+- Add Dutch countries, thanks to visvoer (PR#110)
+- Add extjs stateful parameters to CMP tabs
+
 FormIt 2.2.11
 ====================================
 - Added storeLocation property to FormIt and FormItRetriever. (issue #95, PR #105#106#107)
