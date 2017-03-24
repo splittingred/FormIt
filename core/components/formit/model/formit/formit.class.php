@@ -221,6 +221,9 @@ class FormIt {
      * @return string The processed content of the Chunk
      */
     public function getChunk($name,$properties = array()) {
+        if (class_exists('pdoTools') && $pdo = $this->modx->getService('pdoTools')) {
+            return $pdo->getChunk($name, $properties);
+        }
         $chunk = null;
         if(substr($name, 0, 6) == "@CODE:"){
             $content = substr($name, 6);
