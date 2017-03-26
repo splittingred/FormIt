@@ -6,8 +6,8 @@ FormIt 3.0.0
 - Mcrypt encryption/decryption methods replaced with openssl due to mcrypt being deprecated in PHP 7.1
 - Add default file-based chunks as objects
 - Add support for pdoTools getChunk method, thanks to soulcreate and bezumkin (PR#89)
-- Add French countries, thanks to beau-gosse (PR#109)
-- Add Dutch countries, thanks to visvoer (PR#110)
+- Add French countries for FormItCountryOptions, thanks to beau-gosse (PR#109)
+- Add Dutch countries for FormItCountryOptions, thanks to visvoer (PR#110)
 - Add extjs stateful parameters to CMP tabs
 
 FormIt 2.2.11
