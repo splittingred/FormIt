@@ -58,6 +58,10 @@ if ($object->xpdo) {
                 $manager = $modx->getManager();
                 $manager->addField('FormItForm', 'hash');
             }
+            if ($oldPackage && $oldPackage->compareVersion('3.0.0-pl', '>')) {
+                $manager = $modx->getManager();
+                $manager->addField('FormItForm', 'encryption_type');
+            }
             break;
     }
 }
