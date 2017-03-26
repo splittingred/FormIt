@@ -484,8 +484,13 @@
         "changelog": "docs/changelog.txt",
         "resolver": {
             "after": [
-                "resolve.tables.php"
+                "resolve.tables.php",
+                "setupoptions.resolver.php",
+                "stercextra.resolver.php"
             ]
+        },
+        "setupOptions":{
+            "source": "setup.options.php"
         }
     }
 }
