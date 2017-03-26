@@ -21,19 +21,12 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     'modSystemSetting',
                     array('key' => strtolower($package) . '.' . $key)
                 );
-
-                if ($settingObject) {
-                    $settingObject->set('value', $options[$key]);
-                    $settingObject->save();
-                } else {
-                    $error = '[' . $package . '] ' . strtolower($package) . '.' . $key . ' setting could not be found,';
-                    $error .= ' so the setting could not be changed.';
-
-                    $object->xpdo->log(
-                        xPDO::LOG_LEVEL_ERROR,
-                        $error
-                    );
+                if (!$settingObject) {
+                    $settingObject = $object->xpdo->newObject('modSystemSetting');
+                    $settingObject->set('key', strtolower($package) . '.' . $key));
                 }
+                $settingObject->set('value', $options[$key]);
+                $settingObject->save();
             }
         }
 
