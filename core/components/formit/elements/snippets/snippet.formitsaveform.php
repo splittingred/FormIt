@@ -67,15 +67,20 @@ if ($formFields) {
 }
 // Build the data array
 $dataArray = array();
-if($formFields){
-    foreach($formFields as $field) {
-        $dataArray[$field] = (!isset($values[$field])) ? '' : $values[$field];
+if ($formFields) {
+    foreach ($formFields as $field) {
+        $fieldValue = isset($values[$field]) ? $values[$field] : '';
+        // When field is file field, value is an array
+        if (is_array($fieldValue) && isset($fieldValue['tmp_name'], $fieldValue['name'])) {
+            $fieldValue = $fieldValue['name'];
+        }
+        $dataArray[$field] = $fieldValue;
     }
-}else{
+} else {
     $dataArray = $values;
 }
-//Change the fieldnames
-if($fieldNames){
+// Change the fieldnames
+if ($fieldNames){
     $newDataArray = array();
     $fieldLabels = array();
     $formFieldNames = explode(',', $fieldNames);
