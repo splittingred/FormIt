@@ -300,6 +300,8 @@ class fiRequest {
                 $this->dictionary->store();
             }
 
+            /* @todo: remove the FILES saved on server in $this->dictionary->gather */
+
             /* if the redirect URL was set, redirect */
             $this->checkForRedirect();
 
