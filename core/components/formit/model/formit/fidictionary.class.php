@@ -65,7 +65,23 @@ class fiDictionary {
     public function gather(array $fields = array()) {
         if (empty($fields)) $fields = array();
         $this->fields = array_merge($fields,$_POST);
-        if (!empty($_FILES)) { $this->fields = array_merge($this->fields,$_FILES); }
+        if (!empty($_FILES)) {
+            foreach ($_FILES as $key => $value) {
+                if ($value['error'] !== 0) {
+                    continue;
+                }
+                $basePath = $this->formit->config['assetsPath'].'tmp/';
+                if (!is_dir($basePath)) {
+                    mkdir($basePath);
+                }
+                $name = pathinfo($value['name']);
+                $tmpFileName = md5(session_id().$key).'-'.$name['basename'];
+                $target = $basePath.$tmpFileName;
+                move_uploaded_file($_FILES[$key]['tmp_name'], $target);
+                $_FILES[$key]['tmp_name'] = $target;
+            }
+            $this->fields = array_merge($this->fields, $_FILES);
+        }
     }
 
     /**
