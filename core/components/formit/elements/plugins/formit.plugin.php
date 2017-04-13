@@ -39,13 +39,15 @@ if (!($formit instanceof FormIt)) {
 switch ($modx->event->name) {
     case 'OnManagerPageBeforeRender':
         // If migration status is false, show migrate alert message bar in manager
-        if (!$formit->encryptionMigrationStatus()) {
-            $modx->lexicon->load('formit:mgr');
-            $properties = array('message' => $modx->lexicon('formit.migrate_alert'));
-            $chunk = $formit->_getTplChunk('migrate/alert');
-            if ($chunk) {
-                $modx->regClientStartupHTMLBlock($chunk->process($properties));
-                $modx->regClientCSS($formit->config['cssUrl'].'migrate.css');
+        if (method_exists('FormIt','encryptionMigrationStatus')) {
+            if (!$formit->encryptionMigrationStatus()) {
+                $modx->lexicon->load('formit:mgr');
+                $properties = array('message' => $modx->lexicon('formit.migrate_alert'));
+                $chunk = $formit->_getTplChunk('migrate/alert');
+                if ($chunk) {
+                    $modx->regClientStartupHTMLBlock($chunk->process($properties));
+                    $modx->regClientCSS($formit->config['cssUrl'] . 'migrate.css');
+                }
             }
         }
 }
