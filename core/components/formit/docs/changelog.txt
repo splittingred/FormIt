@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 3.0.1
+====================================
+- Add method_exists check to formit plugin to prevent errors when method not exists
+
 FormIt 3.0.0
 ====================================
 - PLEASE NOTE: THIS UPDATE CONTAINS A MIGRATION SCRIPT - Read more about it at https://github.com/Sterc/FormIt
