@@ -106,14 +106,15 @@ class FormIt {
 
             'connectorUrl' => $connectorUrl,
 
-            'debug' => $this->modx->getOption('formit.debug',null,false),
-            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
-            'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
-        ),$config);
-        if ($this->modx->getOption('formit.debug',$this->config,true)) {
+            'debug' => $this->modx->getOption('formit.debug', null, false),
+            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte', null, false),
+            'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),
+            'opensslAvailable' => function_exists('openssl_encrypt')
+        ), $config);
+        if ($this->modx->getOption('formit.debug', $this->config, true)) {
             $this->startDebugTimer();
         }
-        $this->modx->addPackage('formit',$this->config['modelPath']);
+        $this->modx->addPackage('formit', $this->config['modelPath']);
     }
 
     /**

@@ -30,15 +30,22 @@ Ext.extend(FormIt.grid.FormsEncryption,MODx.grid.Grid,{
     windows: {}
     ,getMenu: function() {
         var m = [];
-        m.push({
-            text: _('formit.form_encryptall')
-            ,handler: this.encryptAll
-        });
-        m.push('-');
-        m.push({
-            text: _('formit.form_decryptall')
-            ,handler: this.decryptAll
-        });
+        if (this.menu.record.encrypted !== undefined &&
+            this.menu.record.total !== undefined &&
+            this.menu.record.encrypted < this.menu.record.total)
+        {
+            m.push({
+                text: _('formit.form_encryptall')
+                , handler: this.encryptAll
+            });
+        }
+        if (this.menu.record.encrypted !== undefined &&
+            this.menu.record.encrypted > 0) {
+            m.push({
+                text: _('formit.form_decryptall')
+                , handler: this.decryptAll
+            });
+        }
         this.addContextMenuItem(m);
     }
     ,encryptAll: function(btn,e) {

@@ -10,6 +10,11 @@ class FormItMigrateProcessor extends modProcessor
 {
     public function process()
     {
+        /* First check if openssl is available */
+        if (!function_exists('openssl_encrypt')) {
+            $this->log($this->modx->lexicon('formit.encryption_unavailable'));
+            return $this->outputArray(array(), 0);
+        }
         $count = 0;
         $limit = 500;
 
@@ -18,7 +23,6 @@ class FormItMigrateProcessor extends modProcessor
         $c->where(array(
             'encrypted' => 1,
             'encryption_type' => 1
-
         ));
         $collection = $this->modx->getIterator('FormItForm', $c);
 
