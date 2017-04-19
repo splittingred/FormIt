@@ -109,6 +109,7 @@ class FormIt {
             'debug' => $this->modx->getOption('formit.debug', null, false),
             'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte', null, false),
             'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),
+            'mcryptAvailable' => function_exists('mcrypt_encrypt'),
             'opensslAvailable' => function_exists('openssl_encrypt')
         ), $config);
         if ($this->modx->getOption('formit.debug', $this->config, true)) {
@@ -116,7 +117,6 @@ class FormIt {
         }
         $this->modx->addPackage('formit', $this->config['modelPath']);
     }
-
     /**
      * Initialize the component into a context and provide context-specific
      * handling actions.

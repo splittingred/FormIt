@@ -63,5 +63,8 @@ $_lang['formit.migrate_status'] = 'Status';
 $_lang['formit.migrate_running'] = 'Currently running migration process in the background. Please keep this page open in your browser. DO NOT CLOSE THIS PAGE!';
 $_lang['formit.migrate_success'] = 'Migration completed';
 $_lang['formit.migrate_success_msg'] = 'All your encrypted forms have been successfully migrated.';
+
 $_lang['formit.encryption_unavailable'] = 'OpenSSL functions openssl_encrypt and openssl_decrypt are not available. 
 Please install OpenSSL on your server. See http://www.php.net/manual/en/openssl.requirements.php for more information.';
+$_lang['formit.encryption_unavailable_warning'] = 'Warning: OpenSSL functions openssl_encrypt and openssl_decrypt are not available. This means that you cannot use encryption on your forms. Please install OpenSSL on your server. 
+Visit <a href="http://www.php.net/manual/en/openssl.requirements.php" target="_blank">this page</a> for more information.';

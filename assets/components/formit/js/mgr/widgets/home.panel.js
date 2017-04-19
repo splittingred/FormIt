@@ -4,6 +4,10 @@
 
 FormIt.panel.Home = function(config) {
     config = config || {};
+    var encryptionText = '<p>'+_('formit.encryption_msg')+'</p>';
+    if (FormIt.config.opensslAvailable) {
+        encryptionText += '<p class="alert danger">'+_('formit.encryption_unavailable_warning')+'</p>';
+    }
     Ext.apply(config,{
         border: false
         ,baseCls: 'modx-formpanel'
@@ -152,7 +156,7 @@ FormIt.panel.Home = function(config) {
             },{
                 title: _('formit.encryption')
                 ,items: [{
-                    html: '<p>'+_('formit.encryption_msg')+'</p>'
+                    html: encryptionText
                     ,border: false
                     ,bodyCssClass: 'panel-desc'
                 },{

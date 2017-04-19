@@ -30,7 +30,8 @@ Ext.extend(FormIt.grid.FormsEncryption,MODx.grid.Grid,{
     windows: {}
     ,getMenu: function() {
         var m = [];
-        if (this.menu.record.encrypted !== undefined &&
+        if (FormIt.config.opensslAvailable &&
+            this.menu.record.encrypted !== undefined &&
             this.menu.record.total !== undefined &&
             this.menu.record.encrypted < this.menu.record.total)
         {
@@ -46,7 +47,9 @@ Ext.extend(FormIt.grid.FormsEncryption,MODx.grid.Grid,{
                 , handler: this.decryptAll
             });
         }
-        this.addContextMenuItem(m);
+        if (m.length > 0) {
+            this.addContextMenuItem(m);
+        }
     }
     ,encryptAll: function(btn,e) {
         if (!this.menu.record) return false;
