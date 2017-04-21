@@ -68,9 +68,15 @@ class fiDictionary {
             $fields = array();
         }
         $this->fields = array_merge($fields, $_POST);
-        if (!empty($_FILES)) {
+        /* Check for files and save to tmp folder */
+        if (!empty($_FILES) && $this->modx->getOption('allowFiles', $this->config, true)) {
             foreach ($_FILES as $key => $value) {
+                $info = pathinfo($value['name']);
+                $ext = $info['extension'];
+                $ext = strtolower($ext);
+
                 if ($value['error'] !== 0) {
+                    $this->modx->log(modX::LOG_LEVEL_ERROR, '[FormIt] Field '.$key.': Error uploading file: ' . $info['filename']);
                     continue;
                 }
                 $allowedFileTypes = array_merge(
@@ -97,10 +103,6 @@ class fiDictionary {
                     $allowedFileTypes['sh'],
                     $allowedFileTypes['htaccess']
                 );
-
-                $info = pathinfo($value['name']);
-                $ext = $info['extension'];
-                $ext = strtolower($ext);
 
                 /* Check file extension */
                 if (empty($ext) || !in_array($ext, $allowedFileTypes)) {
