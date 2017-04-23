@@ -402,7 +402,7 @@ class fiRequest {
         $fs = array();
         /** @var mixed $v */
         foreach ($fields as $k => $v) {
-            if (is_array($v) && !isset($_FILES[$k])) {
+            if (is_array($v)) {
                 foreach ($v as $sk => $sv) {
                     $fs[$k.'.'.$sk] = $this->convertMODXTags($sv);
                 }
@@ -411,8 +411,7 @@ class fiRequest {
             /* str_replace to prevent showing of placeholders */
             $fs[$k] = $this->convertMODXTags($v);
         }
-        
-        $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+        $this->modx->setPlaceholders($fs, $this->config['placeholderPrefix']);
     }
 
     public function convertMODXTags($v) {
