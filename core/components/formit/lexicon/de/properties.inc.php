@@ -98,6 +98,7 @@ $_lang['prop_math.mathoperatorfield_desc'] = 'Falls `math` als Hook gesetzt wurd
 /* FormItCountryOptions properties */
 $_lang['prop_fico.allgrouptext_desc'] = 'Optional. Falls hier etwas eingegeben wird und &prioritized genutzt wird, wird hier das Text-Label für die Optionsgruppe für alle anderen Länder festgelegt.';
 $_lang['prop_fico.optgrouptpl_desc'] = 'Optional. Falls hier etwas eingegeben wird und &prioritized genutzt wird, ist dies das Chunk-Template, das für das Optionsgruppen-Markup verwendet wird.';
+$_lang['prop_fico.limited_desc'] = 'Optional. Eine kommaseparierte Liste von ISO-Codes für ausgewählte Länder auf welche die vollständige Liste beschränkt wird.';
 $_lang['prop_fico.prioritized_desc'] = 'Optional. Eine kommaseparierte Liste von ISO-Codes für Länder, die in die priorisierte Listengruppe der "häufigen Besucher" gehören sollen. Dies kann für Ihre üblicherweise ausgewählten Länder verwendet werden.';
 $_lang['prop_fico.prioritizedgrouptext_desc'] = 'Optional. Falls hier etwas eingegeben wird und &prioritized genutzt wird, wird hier das Text-Label für die Optionsgruppe der priorisierten Länder festgelegt.';
 $_lang['prop_fico.selected_desc'] = 'Der auszuwählende Länderwert.';

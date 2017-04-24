@@ -46,6 +46,7 @@ class fiCountryOptions extends fiModule {
             'useIsoCode' => true,
             'selectedAttribute' => ' selected="selected"',
             'optGroupTpl' => 'fiDefaultOptGroupTpl',
+            'limited' => '',
             'prioritized' => '',
             'prioritizedGroupText' => '',
             'allGroupText' => '',
@@ -68,6 +69,19 @@ class fiCountryOptions extends fiModule {
             $this->countries = include $countriesFile;
         } else {
             $this->countries = include $this->formit->config['includesPath'].'us.countries.inc.php';
+        }
+        
+        /* reduce list to limited countries if option is set */
+        $limited = $this->getOption('limited','');
+        if (!empty($limited)) {
+            $limitedCountries = array();
+            $limitedList = explode(',',$limited);
+            foreach ($limitedList as $key) {
+                $limitedCountries[$key] = $this->countries[$key];
+            }
+            /* order list by country names */
+            asort($limitedCountries, SORT_STRING | SORT_FLAG_CASE);
+            $this->countries = $limitedCountries;
         }
         return $this->countries;
     }
