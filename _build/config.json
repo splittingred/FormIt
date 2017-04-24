@@ -404,6 +404,10 @@
                     "name": "country",
                     "description": "prop_fico.country_desc",
                     "value": "[[++cultureKey]]"
+                },{
+                    "name": "limited",
+                    "description": "prop_fico.limited_desc",
+                    "value": ""
                 }]
             },{
                 "name": "FormItStateOptions",
