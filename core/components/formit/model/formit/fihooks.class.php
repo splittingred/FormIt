@@ -473,7 +473,12 @@ class fiHooks {
                             if (empty($v['name'][$i])) {
                                 $v['name'][$i] = 'attachment'.$attachmentIndex;
                             }
-                            $this->modx->mail->mailer->addAttachment($v['tmp_name'][$i], $v['name'][$i], 'base64', !empty($v['type'][$i]) ? $v['type'][$i] : 'application/octet-stream');
+                            $this->modx->mail->mailer->addAttachment(
+                                $v['tmp_name'][$i],
+                                $v['name'][$i],
+                                'base64',
+                                !empty($v['type'][$i]) ? $v['type'][$i] : 'application/octet-stream'
+                            );
                             $attachmentIndex++;
                         }
                     }

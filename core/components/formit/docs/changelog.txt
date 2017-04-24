@@ -6,6 +6,8 @@ FormIt 3.0.1
 - Add checks for OpenSSL in classes and encryption CMP tab
 - Add method_exists check to plugin to prevent errors when method not exists
 - Update context-menu in forms-encryption grid to show only encrypt or decrypt
+- Set placeholders for file upload $_FILES array
+- Add option to FormItCountryOptions snippet to limit country list to selected countries only (PR#123) - thanks to gadgetto
 
 FormIt 3.0.0
 ====================================
