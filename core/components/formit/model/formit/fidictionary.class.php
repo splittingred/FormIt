@@ -106,7 +106,6 @@ class fiDictionary {
 
                 /* Check file extension */
                 if (empty($ext) || !in_array($ext, $allowedFileTypes)) {
-                    $this->modx->log(modX::LOG_LEVEL_ERROR, '[FormIt] Field '.$key.': File extension not allowed for file: ' . $info['filename']);
                     continue;
                 }
 
@@ -114,7 +113,6 @@ class fiDictionary {
                 $maxFileSize = $this->modx->getOption('upload_maxsize', null, 1048576);
                 $size = filesize($file['tmp_name']);
                 if ($size > $maxFileSize) {
-                    $this->modx->log(modX::LOG_LEVEL_ERROR, '[FormIt] Field '.$key.': Filesize too big for file: ' . $info['filename']);
                     continue;
                 }
 
