@@ -71,63 +71,84 @@ class fiDictionary {
         /* Check for files and save to tmp folder */
         if (!empty($_FILES) && $this->modx->getOption('allowFiles', $this->config, true)) {
             foreach ($_FILES as $key => $value) {
-                $info = pathinfo($value['name']);
-                $ext = $info['extension'];
-                $ext = strtolower($ext);
-
-                if ($value['error'] !== 0) {
-                    $this->modx->log(modX::LOG_LEVEL_ERROR, '[FormIt] Field '.$key.': Error uploading file: ' . $info['filename']);
-                    continue;
-                }
-                $allowedFileTypes = array_merge(
-                    explode(',', $this->modx->getOption('upload_images')),
-                    explode(',', $this->modx->getOption('upload_media')),
-                    explode(',', $this->modx->getOption('upload_flash')),
-                    explode(',', $this->modx->getOption('upload_files', null, ''))
-                );
-                $allowedFileTypes = array_unique($allowedFileTypes);
-
-                /* Make sure that dangerous file types are not allowed */
-                unset(
-                    $allowedFileTypes['php'],
-                    $allowedFileTypes['php4'],
-                    $allowedFileTypes['php5'],
-                    $allowedFileTypes['htm'],
-                    $allowedFileTypes['html'],
-                    $allowedFileTypes['phtml'],
-                    $allowedFileTypes['js'],
-                    $allowedFileTypes['bin'],
-                    $allowedFileTypes['csh'],
-                    $allowedFileTypes['out'],
-                    $allowedFileTypes['run'],
-                    $allowedFileTypes['sh'],
-                    $allowedFileTypes['htaccess']
-                );
-
-                /* Check file extension */
-                if (empty($ext) || !in_array($ext, $allowedFileTypes)) {
-                    continue;
+                if (is_array($value['name'])) {
+                    foreach ($value['name'] as $fKey => $fValue) {
+                        $this->saveFile(
+                            $key.'_'.$fKey,
+                            $value['name'][$fKey],
+                            $value['tmp_name'][$fKey],
+                            $value['error'][$fKey]
+                        );
+                    }
+                } else {
+                    $this->saveFile(
+                        $key,
+                        $value['name'],
+                        $value['tmp_name'],
+                        $value['error']
+                    );
                 }
 
-                /* Check filesize */
-                $maxFileSize = $this->modx->getOption('upload_maxsize', null, 1048576);
-                $size = filesize($file['tmp_name']);
-                if ($size > $maxFileSize) {
-                    continue;
-                }
-
-                $basePath = $this->formit->config['assetsPath'].'tmp/';
-                if (!is_dir($basePath)) {
-                    mkdir($basePath);
-                }
-                $tmpFileName = md5(session_id().$key.mt_rand(100, 999)).'-'.$info['basename'];
-                $target = $basePath.$tmpFileName;
-                move_uploaded_file($_FILES[$key]['tmp_name'], $target);
-                $_FILES[$key]['tmp_name'] = $target;
-                $_SESSION['formit']['tmp_files'][] = $target;
             }
             $this->fields = array_merge($this->fields, $_FILES);
         }
+    }
+
+    public function saveFile($key, $name, $tmp_name, $error)
+    {
+        $info = pathinfo($name);
+        $ext = $info['extension'];
+        $ext = strtolower($ext);
+
+        if ($error !== 0) {
+            return;
+        }
+        $allowedFileTypes = array_merge(
+            explode(',', $this->modx->getOption('upload_images')),
+            explode(',', $this->modx->getOption('upload_media')),
+            explode(',', $this->modx->getOption('upload_flash')),
+            explode(',', $this->modx->getOption('upload_files', null, ''))
+        );
+        $allowedFileTypes = array_unique($allowedFileTypes);
+
+        /* Make sure that dangerous file types are not allowed */
+        unset(
+            $allowedFileTypes['php'],
+            $allowedFileTypes['php4'],
+            $allowedFileTypes['php5'],
+            $allowedFileTypes['htm'],
+            $allowedFileTypes['html'],
+            $allowedFileTypes['phtml'],
+            $allowedFileTypes['js'],
+            $allowedFileTypes['bin'],
+            $allowedFileTypes['csh'],
+            $allowedFileTypes['out'],
+            $allowedFileTypes['run'],
+            $allowedFileTypes['sh'],
+            $allowedFileTypes['htaccess']
+        );
+
+        /* Check file extension */
+        if (empty($ext) || !in_array($ext, $allowedFileTypes)) {
+            return;
+        }
+
+        /* Check filesize */
+        $maxFileSize = $this->modx->getOption('upload_maxsize', null, 1048576);
+        $size = filesize($tmp_name);
+        if ($size > $maxFileSize) {
+            return;
+        }
+
+        $basePath = $this->formit->config['assetsPath'].'tmp/';
+        if (!is_dir($basePath)) {
+            mkdir($basePath);
+        }
+        $tmpFileName = md5(session_id().$key.mt_rand(100, 999)).'-'.$info['basename'];
+        $target = $basePath.$tmpFileName;
+        move_uploaded_file($tmp_name, $target);
+        $_FILES[$key]['tmp_name'] = $target;
+        $_SESSION['formit']['tmp_files'][] = $target;
     }
 
     /**
