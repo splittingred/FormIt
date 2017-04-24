@@ -1,63 +1,121 @@
 <?php
 /**
- * Resolve creating db tables
+ * Resolver for updating db tables
  *
  * @package formit
  * @subpackage build
  */
+set_time_limit(0);
+
+if (!function_exists('updateTableColumns')) {
+    /**
+     * @param modX $modx
+     * @param string $table
+     */
+    function updateTableColumns($modx, $table)
+    {
+        $tableName = $modx->getTableName($table);
+        $tableName = str_replace('`', '', $tableName);
+        $dbname = $modx->getOption('dbname');
+
+        $c = $modx->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = :dbName AND table_name = :tableName");
+        $c->bindParam(':dbName', $dbname);
+        $c->bindParam(':tableName', $tableName);
+        $c->execute();
+
+        $unusedColumns = $c->fetchAll(PDO::FETCH_COLUMN, 0);
+        $unusedColumns = array_flip($unusedColumns);
+
+        $meta = $modx->getFieldMeta($table);
+        $columns = array_keys($meta);
+
+        $m = $modx->getManager();
+
+        foreach ($columns as $column) {
+            if (isset($unusedColumns[$column])) {
+                $m->alterField($table, $column);
+                $modx->log(modX::LOG_LEVEL_INFO, ' -- altered column: ' . $column);
+                unset($unusedColumns[$column]);
+            } else {
+                $m->addField($table, $column);
+                $modx->log(modX::LOG_LEVEL_INFO, ' -- added column: ' . $column);
+            }
+        }
+
+        foreach ($unusedColumns as $column => $v) {
+            $m->removeField($table, $column);
+            $modx->log(modX::LOG_LEVEL_INFO, ' -- removed column: ' . $column);
+        }
+    }
+}
+
+if (!function_exists('updateTableIndexes')) {
+    /**
+     * @param modX $modx
+     * @param string $table
+     */
+    function updateTableIndexes($modx, $table)
+    {
+        $tableName = $modx->getTableName($table);
+        $tableName = str_replace('`', '', $tableName);
+        $dbname = $modx->getOption('dbname');
+
+        $c = $modx->prepare("SELECT DISTINCT INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS WHERE table_schema = :dbName AND table_name = :tableName AND INDEX_NAME != 'PRIMARY'");
+        $c->bindParam(':dbName', $dbname);
+        $c->bindParam(':tableName', $tableName);
+        $c->execute();
+
+        $oldIndexes = $c->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        $m = $modx->getManager();
+
+        foreach ($oldIndexes as $oldIndex) {
+            $m->removeIndex($table, $oldIndex);
+            $modx->log(modX::LOG_LEVEL_INFO, ' -- removed index: ' . $oldIndex);
+        }
+
+        $meta = $modx->getIndexMeta($table);
+        $indexes = array_keys($meta);
+
+        foreach ($indexes as $index) {
+            if ($index == 'PRIMARY') continue;
+            $m->addIndex($table, $index);
+            $modx->log(modX::LOG_LEVEL_INFO, ' -- added index: ' . $index);
+        }
+    }
+}
+
+if (!function_exists('alterTable')) {
+    /**
+     * @param modX $modx
+     * @param string $table
+     */
+    function alterTable($modx, $table)
+    {
+        $modx->log(modX::LOG_LEVEL_INFO, ' - Updating columns');
+        updateTableColumns($modx, $table);
+
+        $modx->log(modX::LOG_LEVEL_INFO, ' - Updating indexes');
+        updateTableIndexes($modx, $table);
+    }
+}
+
 if ($object->xpdo) {
     switch ($options[xPDOTransport::PACKAGE_ACTION]) {
-        case xPDOTransport::ACTION_INSTALL:
-            $modx =& $object->xpdo;
-            $modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path').'components/formit/').'model/';
-            $modx->addPackage('formit', $modelPath);
-
-            $manager = $modx->getManager();
-
-            $manager->createObjectContainer('FormItForm');
-
-            break;
         case xPDOTransport::ACTION_UPGRADE:
             /** @var modX $modx */
             $modx =& $object->xpdo;
-            // http://forums.modx.com/thread/88734/package-version-check#dis-post-489104
-            $c = $modx->newQuery('transport.modTransportPackage');
-            $c->where(array(
-                'workspace' => 1,
-                "(SELECT
-                    `signature`
-                  FROM {$modx->getTableName('modTransportPackage')} AS `latestPackage`
-                  WHERE `latestPackage`.`package_name` = `modTransportPackage`.`package_name`
-                  ORDER BY
-                     `latestPackage`.`version_major` DESC,
-                     `latestPackage`.`version_minor` DESC,
-                     `latestPackage`.`version_patch` DESC,
-                     IF(`release` = '' OR `release` = 'ga' OR `release` = 'pl','z',`release`) DESC,
-                     `latestPackage`.`release_index` DESC
-                  LIMIT 1,1) = `modTransportPackage`.`signature`",
-            ));
-            $c->where(array(
-                'modTransportPackage.package_name' => 'formit',
-                'installed:IS NOT' => null
-            ));
-            /** @var modTransportPackage $oldPackage */
-            $oldPackage = $modx->getObject('transport.modTransportPackage', $c);
+
+            $tables = array(
+                'FormItForm'
+            );
             $modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path').'components/formit/').'model/';
             $modx->addPackage('formit', $modelPath);
-            
-            if ($oldPackage && $oldPackage->compareVersion('2.2.2-pl', '>')) {
-                $manager = $modx->getManager();
-                $manager->createObjectContainer('FormItForm');
+            foreach ($tables as $table) {
+                $modx->log(modX::LOG_LEVEL_INFO, 'Altering table: ' . $table);
+                alterTable($modx, $table);
             }
 
-            if ($oldPackage && $oldPackage->compareVersion('2.2.9-pl', '>')) {
-                $manager = $modx->getManager();
-                $manager->addField('FormItForm', 'encrypted');
-            }
-            if ($oldPackage && $oldPackage->compareVersion('2.2.11-pl', '>')) {
-                $manager = $modx->getManager();
-                $manager->addField('FormItForm', 'hash');
-            }
             break;
     }
 }

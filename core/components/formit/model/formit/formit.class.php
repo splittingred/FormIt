@@ -106,16 +106,17 @@ class FormIt {
 
             'connectorUrl' => $connectorUrl,
 
-            'debug' => $this->modx->getOption('formit.debug',null,false),
-            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte',null,false),
-            'encoding' => $this->modx->getOption('modx_charset',null,'UTF-8'),
-        ),$config);
-        if ($this->modx->getOption('formit.debug',$this->config,true)) {
+            'debug' => $this->modx->getOption('formit.debug', null, false),
+            'use_multibyte' => (boolean)$this->modx->getOption('use_multibyte', null, false),
+            'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),
+            'mcryptAvailable' => function_exists('mcrypt_encrypt'),
+            'opensslAvailable' => function_exists('openssl_encrypt')
+        ), $config);
+        if ($this->modx->getOption('formit.debug', $this->config, true)) {
             $this->startDebugTimer();
         }
-        $this->modx->addPackage('formit',$this->config['modelPath']);
+        $this->modx->addPackage('formit', $this->config['modelPath']);
     }
-
     /**
      * Initialize the component into a context and provide context-specific
      * handling actions.
@@ -221,8 +222,9 @@ class FormIt {
      * @return string The processed content of the Chunk
      */
     public function getChunk($name,$properties = array()) {
-        if($pdo = $this->modx->getService('pdoTools'))
+        if (class_exists('pdoTools') && $pdo = $this->modx->getService('pdoTools')) {
             return $pdo->getChunk($name, $properties);
+        }
         $chunk = null;
         if(substr($name, 0, 6) == "@CODE:"){
             $content = substr($name, 6);
@@ -253,19 +255,20 @@ class FormIt {
      * @return modChunk/boolean Returns the modChunk object if found, otherwise
      * false.
      */
-    private function _getTplChunk($name) {
+    public function _getTplChunk($name)
+    {
         $chunk = false;
         if (file_exists($name)) {
             $f = $name;
         } else {
-            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name,$this->config['encoding']) : strtolower($name);
+            $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name, $this->config['encoding']) : strtolower($name);
             $f = $this->config['chunksPath'].$lowerCaseName.'.chunk.tpl';
         }
         if (file_exists($f)) {
             $o = file_get_contents($f);
             /** @var modChunk $chunk */
             $chunk = $this->modx->newObject('modChunk');
-            $chunk->set('name',$name);
+            $chunk->set('name', $name);
             $chunk->setContent($o);
         }
         return $chunk;
@@ -322,31 +325,22 @@ class FormIt {
         return $totalTime;
     }
 
-    public function setOption($key,$value) {
+    public function setOption($key, $value)
+    {
         $this->config[$key] = $value;
     }
-    public function setOptions($array) {
+    public function setOptions($array)
+    {
         foreach ($array as $k => $v) {
-            $this->setOption($k,$v);
+            $this->setOption($k, $v);
         }
     }
 
     public function encryptionMigrationStatus()
     {
         $migrationStatus = true;
-        $migrationStatusSetting = $this->modx->getObject('modSystemSetting', array('key' => 'formit.migration_status', 'namespace' => 'formit_custom', 'value' => '1'));
-        if (!$migrationStatusSetting) {
-            if ($this->modx->getCount('FormItForm', array('encrypted' => 1, 'encryption_type' => 1))) {
-                $migrationStatus = false;
-            }
-            $migrationStatusSetting = $this->modx->getObject('modSystemSetting', array('key' => 'formit.migration_status', 'namespace' => 'formit_custom'));
-            if (!$migrationStatusSetting) {
-                $migrationStatusSetting = $this->modx->newObject('modSystemSetting');
-                $migrationStatusSetting->set('key', 'formit.migration_status');
-                $migrationStatusSetting->set('namespace', 'formit_custom');
-            }
-            $migrationStatusSetting->set('value', (int)$migrationStatus);
-            $migrationStatusSetting->save();
+        if ($this->modx->getCount('FormItForm', array('encrypted' => 1, 'encryption_type' => 1))) {
+            $migrationStatus = false;
         }
         return $migrationStatus;
     }

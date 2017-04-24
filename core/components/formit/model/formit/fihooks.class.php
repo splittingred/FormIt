@@ -383,7 +383,7 @@ class fiHooks {
         /* compile message */
         $origFields = $fields;
         if (empty($tpl)) {
-            $tpl = 'email';
+            $tpl = 'fiDefaultEmailTpl';
             $f = '';
             $multiSeparator = $this->modx->getOption('emailMultiSeparator', $this->formit->config, "\n");
             $multiWrapper = $this->modx->getOption('emailMultiWrapper', $this->formit->config, "[[+value]]");

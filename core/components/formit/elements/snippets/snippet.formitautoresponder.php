@@ -30,7 +30,7 @@
  * @package formit
  */
 /* setup default properties */
-$tpl = $modx->getOption('fiarTpl',$scriptProperties,'fiarTpl');
+$tpl = $modx->getOption('fiarTpl',$scriptProperties,'fiDefaultFiarTpl');
 $mailFrom = $modx->getOption('fiarFrom',$scriptProperties,$modx->getOption('emailsender'));
 $mailFromName = $modx->getOption('fiarFromName',$scriptProperties,$modx->getOption('site_name'));
 $mailSender = $modx->getOption('fiarSender',$scriptProperties,$modx->getOption('emailsender'));

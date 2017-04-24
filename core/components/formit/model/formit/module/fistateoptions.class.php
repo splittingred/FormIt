@@ -37,13 +37,13 @@ class fiStateOptions extends fiModule {
      */
     public function initialize() {
         $this->setDefaultOptions(array(
-            'tpl' => 'option',
+            'tpl' => 'fiDefaultOptionTpl',
             'selected' => '',
             'useAbbr' => true,
             'selectedAttribute' => ' selected="selected"',
             'outputSeparator' => "\n",
             'toPlaceholder' => '',
-			      'country' => $this->modx->getOption('cultureKey', array(), 'us', true),
+            'country' => $this->modx->getOption('cultureKey', array(), 'us', true),
         ));
         $this->setOption('selectedKey',$this->getOption('useAbbr',true) ? 'stateKey' : 'stateName');
     }
@@ -54,13 +54,13 @@ class fiStateOptions extends fiModule {
      */
     public function getData() {
         $country = strtolower( $this->getOption('country','us') );
-		    $statesFile = $this->getOption('statesDirectory',$this->formit->config['includesPath']).$country.'.states.inc.php';
-		    if (file_exists($statesFile)) {
-			     $this->states = include $statesFile;
-		    } else {
-		        $this->states = include $this->formit->config['includesPath'].'us.states.inc.php';
-		    }
-		    return $this->states;
+        $statesFile = $this->getOption('statesDirectory',$this->formit->config['includesPath']).$country.'.states.inc.php';
+        if (file_exists($statesFile)) {
+            $this->states = include $statesFile;
+        } else {
+            $this->states = include $this->formit->config['includesPath'].'us.states.inc.php';
+        }
+        return $this->states;
     }
 
     /**
@@ -68,10 +68,10 @@ class fiStateOptions extends fiModule {
      * @return void
      */
     public function iterate() {
-        $selected = $this->getOption('selected','');
-        $selectedAttribute = $this->getOption('selectedAttribute',' selected="selected"');
-        $tpl = $this->getOption('tpl','option');
-        $selectedKey = $this->getOption('selectedKey','stateKey');
+        $selected = $this->getOption('selected', '');
+        $selectedAttribute = $this->getOption('selectedAttribute', ' selected="selected"');
+        $tpl = $this->getOption('tpl', 'fiDefaultOptionTpl');
+        $selectedKey = $this->getOption('selectedKey', 'stateKey');
         foreach ($this->states as $stateKey => $stateName) {
             $stateArray = array(
                 'text' => $stateName,
@@ -81,7 +81,7 @@ class fiStateOptions extends fiModule {
             if ($selected == $$selectedKey) {
                 $stateArray['selected'] = $selectedAttribute;
             }
-            $this->list[] = $this->formit->getChunk($tpl,$stateArray);
+            $this->list[] = $this->formit->getChunk($tpl, $stateArray);
         }
     }
 
@@ -89,14 +89,15 @@ class fiStateOptions extends fiModule {
      * Handle output generation
      * @return string
      */
-    public function output() {
-        $outputSeparator = $this->getOption('outputSeparator',"\n");
-        $output = implode($outputSeparator,$this->list);
+    public function output()
+    {
+        $outputSeparator = $this->getOption('outputSeparator', "\n");
+        $output = implode($outputSeparator, $this->list);
 
         /* set to placeholder or output */
-        $toPlaceholder = $this->getOption('toPlaceholder','');
+        $toPlaceholder = $this->getOption('toPlaceholder', '');
         if (!empty($toPlaceholder)) {
-            $this->modx->setPlaceholder($toPlaceholder,$output);
+            $this->modx->setPlaceholder($toPlaceholder, $output);
             $output = '';
         }
         return $output;

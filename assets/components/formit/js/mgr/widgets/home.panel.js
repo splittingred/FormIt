@@ -4,6 +4,10 @@
 
 FormIt.panel.Home = function(config) {
     config = config || {};
+    var encryptionText = '<p>'+_('formit.encryption_msg')+'</p>';
+    if (FormIt.config.opensslAvailable) {
+        encryptionText += '<p class="alert danger">'+_('formit.encryption_unavailable_warning')+'</p>';
+    }
     Ext.apply(config,{
         border: false
         ,baseCls: 'modx-formpanel'
@@ -16,8 +20,15 @@ FormIt.panel.Home = function(config) {
             xtype: 'modx-tabs'
             ,defaults: { border: false ,autoHeight: true }
             ,border: true
-            ,activeItem: 0
             ,hideMode: 'offsets'
+            ,stateful: true
+            ,stateId: 'formit-panel-home'
+            ,stateEvents: ['tabchange']
+            ,getState: function() {
+                return {
+                    activeTab:this.items.indexOf(this.getActiveTab())
+                };
+            }
             ,items: [{
                 title: _('formit.forms')
                 ,items: [{
@@ -145,7 +156,7 @@ FormIt.panel.Home = function(config) {
             },{
                 title: _('formit.encryption')
                 ,items: [{
-                    html: '<p>'+_('formit.encryption_msg')+'</p>'
+                    html: encryptionText
                     ,border: false
                     ,bodyCssClass: 'panel-desc'
                 },{

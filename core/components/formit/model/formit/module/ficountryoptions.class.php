@@ -41,11 +41,11 @@ class fiCountryOptions extends fiModule {
      */
     public function initialize() {
         $this->setDefaultOptions(array(
-            'tpl' => 'option',
+            'tpl' => 'fiDefaultOptionTpl',
             'selected' => '',
             'useIsoCode' => true,
             'selectedAttribute' => ' selected="selected"',
-            'optGroupTpl' => 'optGroup',
+            'optGroupTpl' => 'fiDefaultOptGroupTpl',
             'limited' => '',
             'prioritized' => '',
             'prioritizedGroupText' => '',
@@ -115,7 +115,7 @@ class fiCountryOptions extends fiModule {
         $selected = $this->getOption('selected','');
         $selectedAttribute = $this->getOption('selectedAttribute',' selected="selected"');
         $useIsoCode = $this->getOption('useIsoCode',true,'isset');
-        $tpl = $this->getOption('tpl','option');
+        $tpl = $this->getOption('tpl','fiDefaultOptionTpl');
         $selectedKey = $this->getOption('selectedKey','countryKey');
         
         foreach ($this->countries as $countryKey => $countryName) {
@@ -143,7 +143,7 @@ class fiCountryOptions extends fiModule {
     public function output() {
         $outputSeparator = $this->getOption('outputSeparator',"\n");
         if (!empty($this->prioritizedList)) {
-            $optGroupTpl = $this->getOption('optGroupTpl','optGroup');
+            $optGroupTpl = $this->getOption('optGroupTpl','fiDefaultOptGroupTpl');
             $output = $this->formit->getChunk($optGroupTpl,array(
                 'text' => $this->getOption('prioritizedGroupText',$this->modx->lexicon('formit.prioritized_group_text')),
                 'options' => implode($outputSeparator,$this->prioritizedList),

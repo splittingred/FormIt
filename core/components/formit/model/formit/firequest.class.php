@@ -295,9 +295,32 @@ class fiRequest {
         $success = $this->runPostHooks();
         if ($success) {
             /* if store is set for FormItRetriever, store fields here */
-            $store = $this->modx->getOption('store',$this->config,false);
+            $store = $this->modx->getOption('store', $this->config, false);
             if (!empty($store)) {
                 $this->dictionary->store();
+            }
+
+            /* Remove files older than 1 day uploaded by fiDictionary->gather() */
+            $tmpFileLifetime = 86400;
+            if ($_SESSION['formit']['tmp_files'] &&
+                is_array($_SESSION['formit']['tmp_files']) &&
+                count($_SESSION['formit']['tmp_files'])
+            ) {
+                foreach ($_SESSION['formit']['tmp_files'] as $key => $file) {
+                    if (file_exists($file) && (time() - filemtime($file) >= $tmpFileLifetime)) {
+                        unlink($file);
+                        unset($_SESSION['formit']['tmp_files'][$key]);
+                    }
+                }
+            }
+            /* Also do a glob for removing files that are left behind by not-completed form submissions */
+            if (function_exists('glob')) {
+                $tmpPath = $this->formit->config['assetsPath'].'tmp/';
+                foreach (glob($tmpPath.'*') as $file) {
+                    if (file_exists($file) && (time() - filemtime($file) >= $tmpFileLifetime)) {
+                        unlink($file);
+                    }
+                }
             }
 
             /* if the redirect URL was set, redirect */
@@ -379,7 +402,7 @@ class fiRequest {
         $fs = array();
         /** @var mixed $v */
         foreach ($fields as $k => $v) {
-            if (is_array($v) && !isset($_FILES[$k])) {
+            if (is_array($v)) {
                 foreach ($v as $sk => $sv) {
                     $fs[$k.'.'.$sk] = $this->convertMODXTags($sv);
                 }
@@ -388,8 +411,7 @@ class fiRequest {
             /* str_replace to prevent showing of placeholders */
             $fs[$k] = $this->convertMODXTags($v);
         }
-        
-        $this->modx->setPlaceholders($fs,$this->config['placeholderPrefix']);
+        $this->modx->setPlaceholders($fs, $this->config['placeholderPrefix']);
     }
 
     public function convertMODXTags($v) {
