@@ -5,7 +5,7 @@
 FormIt.panel.Home = function(config) {
     config = config || {};
     var encryptionText = '<p>'+_('formit.encryption_msg')+'</p>';
-    if (FormIt.config.opensslAvailable) {
+    if (!FormIt.config.opensslAvailable) {
         encryptionText += '<p class="alert danger">'+_('formit.encryption_unavailable_warning')+'</p>';
     }
     Ext.apply(config,{
