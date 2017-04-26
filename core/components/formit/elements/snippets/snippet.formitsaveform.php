@@ -105,11 +105,22 @@ $newForm = null;
 if ($mode === 'update') {
     $newForm = $modx->getObject('FormItForm', array('hash' => $formHashKey));
 }
-if ($newForm === null) $newForm = $modx->newObject('FormItForm');
+if ($newForm === null) {
+    $newForm = $modx->newObject('FormItForm');
+}
+
+// Array from which to populate form record
+$newFormArray = array();
 
 // Handle encryption
-if($formEncrypt){
+$encryptionType = 1;
+if ($formEncrypt) {
     $dataArray = $newForm->encrypt($modx->toJSON($dataArray));
+    // Only set encryption type if encryption is successful
+    if ($dataArray) {
+        // Set encryption type to 2 (openssl)
+        $encryptionType = 2;
+    }
 } else {
     $dataArray = $modx->toJSON($dataArray);
 }
@@ -119,16 +130,14 @@ if ($mode === 'create') {
     $formHashKey = ($formHashKeyRandom) ? $newForm->generatePseudoRandomHash() : pathinfo($formit->getStoreKey(), PATHINFO_BASENAME);
 }
 
-// Array from which to populate form record
-$newFormArray = array();
-
 // Special case: if updateSavedForm has the flag 'values' we only merge in
 // the form values, not the other stuff
 if ($mode === 'update' && $updateSavedForm === 'values') {
     $newFormArray = $newForm->toArray();
     $newFormArray = array_merge($newFormArray, array(
         'values' => $dataArray,
-    ));       
+        'encryption_type' => $encryptionType,
+    ));
 } else {
     // In all other cases, we overwrite the record completely!
     // In create mode we must save the hash. In update mode, the 
@@ -140,6 +149,7 @@ if ($mode === 'update' && $updateSavedForm === 'values') {
         'ip' => $modx->getOption('REMOTE_ADDR', $_SERVER, ''),
         'context_key' => $modx->resource->get('context_key'),
         'encrypted' => $formEncrypt,
+        'encryption_type' => $encryptionType,
         'hash' => $formHashKey,
     );
 }

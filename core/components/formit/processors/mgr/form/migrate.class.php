@@ -33,13 +33,13 @@ class FormItMigrateProcessor extends modProcessor
             $oldValues = $form->get('values');
             $oldValues = $form->decrypt($oldValues, 1);
             $newValues = $form->encrypt($oldValues);
-
-            $this->modx->exec("UPDATE {$this->modx->getTableName('FormItForm')}
+            if ($newValues) {
+                $this->modx->exec("UPDATE {$this->modx->getTableName('FormItForm')}
                 SET {$this->modx->escape('encryption_type')} = {$this->modx->quote(2)},
                     {$this->modx->escape('values')} = {$this->modx->quote($newValues)} 
                 WHERE {$this->modx->escape('id')} = {$this->modx->quote($form->get('id'))}");
-
-            $count++;
+                $count++;
+            }
         }
 
         if ($count === 0) {
