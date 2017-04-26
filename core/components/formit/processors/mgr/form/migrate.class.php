@@ -32,7 +32,12 @@ class FormItMigrateProcessor extends modProcessor
             }
             $oldValues = $form->get('values');
             $oldValues = $form->decrypt($oldValues, 1);
-            $newValues = $form->encrypt($oldValues);
+            /* Fix for when forms are encrypted with openssl, but encryption_type field is not set to 2 */
+            if (!is_array(json_decode($oldValues, true))) {
+                $newValues = $form->get('values');
+            } else {
+                $newValues = $form->encrypt($oldValues);
+            }
             if ($newValues) {
                 $this->modx->exec("UPDATE {$this->modx->getTableName('FormItForm')}
                 SET {$this->modx->escape('encryption_type')} = {$this->modx->quote(2)},
