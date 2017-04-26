@@ -1,5 +1,11 @@
 Changelog for FormIt.
 
+FormIt 3.0.2
+====================================
+- Fix encryption in formitsaveform snippet to save correct encryption_type
+- Fix bug in forms grid when decrypting encrypted forms fail
+- Fix migration to check if decrypted data is correct
+
 FormIt 3.0.1
 ====================================
 - Store file uploads in tmp folder to prevent file uploads getting lost in multistep forms
