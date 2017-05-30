@@ -89,9 +89,13 @@ if ($fieldNames){
         $fieldLabels[trim($name)] = trim($label);
     }
     foreach ($dataArray as $key => $value) {
-        if($fieldLabels[$key]){
-            $newDataArray[$fieldLabels[$key]] = $value;
-        }else{
+        if ($fieldLabels[$key]){
+            $labelKey = $fieldLabels[$key];
+            if (array_key_exists($labelKey, $newDataArray)) {
+                $labelKey .= ' ('.$key.')';
+            }
+            $newDataArray[$labelKey] = $value;
+        } else {
             $newDataArray[$key] = $value;
         }
     }

@@ -69,26 +69,31 @@ class fiDictionary {
         }
         $this->fields = array_merge($fields, $_POST);
         /* Check for files and save to tmp folder */
-        if (!empty($_FILES) && $this->modx->getOption('allowFiles', $this->config, true)) {
-            foreach ($_FILES as $key => $value) {
-                if (is_array($value['name'])) {
-                    foreach ($value['name'] as $fKey => $fValue) {
+        if (!empty($_FILES)) {
+            /* Only save files if these properties are true */
+            if ($this->modx->getOption('allowFiles', $this->config, true) &&
+                $this->modx->getOption('saveTmpFiles', $this->config, false)
+            ) {
+                foreach ($_FILES as $key => $value) {
+                    if (is_array($value['name'])) {
+                        foreach ($value['name'] as $fKey => $fValue) {
+                            $this->saveFile(
+                                $key . '_' . $fKey,
+                                $value['name'][$fKey],
+                                $value['tmp_name'][$fKey],
+                                $value['error'][$fKey]
+                            );
+                        }
+                    } else {
                         $this->saveFile(
-                            $key.'_'.$fKey,
-                            $value['name'][$fKey],
-                            $value['tmp_name'][$fKey],
-                            $value['error'][$fKey]
+                            $key,
+                            $value['name'],
+                            $value['tmp_name'],
+                            $value['error']
                         );
                     }
-                } else {
-                    $this->saveFile(
-                        $key,
-                        $value['name'],
-                        $value['tmp_name'],
-                        $value['error']
-                    );
-                }
 
+                }
             }
             $this->fields = array_merge($this->fields, $_FILES);
         }
