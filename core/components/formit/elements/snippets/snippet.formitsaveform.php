@@ -80,16 +80,16 @@ if ($formFields) {
     $dataArray = $values;
 }
 // Change the fieldnames
-if ($fieldNames){
+if ($fieldNames) {
     $newDataArray = array();
     $fieldLabels = array();
     $formFieldNames = explode(',', $fieldNames);
-    foreach($formFieldNames as $formFieldName){
-        list($name, $label) = explode('==', $formFieldName);
-        $fieldLabels[trim($name)] = trim($label);
+    foreach ($formFieldNames as $formFieldName) {
+        $parts = explode('==', $formFieldName);
+        $fieldLabels[trim($parts[0])] = trim($parts[1]);
     }
     foreach ($dataArray as $key => $value) {
-        if ($fieldLabels[$key]){
+        if ($fieldLabels[$key]) {
             $labelKey = $fieldLabels[$key];
             if (array_key_exists($labelKey, $newDataArray)) {
                 $labelKey .= ' ('.$key.')';
