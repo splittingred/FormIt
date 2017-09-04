@@ -39,7 +39,7 @@ abstract class fiModule {
      */
     function __construct(FormIt $formit,array $config = array()) {
         $this->formit =& $formit;
-        $this->modx =& $formit->modx;
+        $this->modx = $formit->modx;
         $this->config = array_merge($this->config,$config);
     }
 

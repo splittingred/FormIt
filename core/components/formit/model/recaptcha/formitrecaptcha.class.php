@@ -43,7 +43,7 @@ class FormItReCaptcha {
 
     function __construct(FormIt &$formit,array $config = array()) {
         $this->formit =& $formit;
-        $this->modx =& $formit->modx;
+        $this->modx = $formit->modx;
         $this->modx->lexicon->load('formit:recaptcha');
         $this->config = array_merge(array(
             FormItReCaptcha::OPT_PRIVATE_KEY => $this->modx->getOption('formit.recaptcha_private_key',$config,''),

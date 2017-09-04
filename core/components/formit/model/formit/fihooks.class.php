@@ -83,7 +83,7 @@ class fiHooks {
      */
     function __construct(FormIt &$formit,array $config = array(),$type = '') {
         $this->formit =& $formit;
-        $this->modx =& $formit->modx;
+        $this->modx = $formit->modx;
         $this->config = array_merge(array(
             'placeholderPrefix' => 'fi.',
             'errTpl' => '<span class="error">[[+error]]</span>',
@@ -428,7 +428,7 @@ class fiHooks {
                 $multiWrapper = '[[+value]]';
             }
             
-            foreach ($fields as $k => &$v) {
+            foreach ($fields as $k => $v) {
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
                 } elseif (is_array($v)) {

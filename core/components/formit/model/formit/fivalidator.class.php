@@ -63,7 +63,7 @@ class fiValidator {
      */
     function __construct(FormIt &$formit,array $config = array()) {
         $this->formit =& $formit;
-        $this->modx =& $formit->modx;
+        $this->modx = $formit->modx;
         $this->config = array_merge(array(
             'placeholderPrefix' => 'fi.',
             'validationErrorBulkTpl' => '<li>[[+error]]</li>',
