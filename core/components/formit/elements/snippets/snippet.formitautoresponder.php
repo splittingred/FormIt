@@ -52,20 +52,20 @@ if (empty($fields[$toField])) {
 }
 
 /* handle checkbox and array fields */
-foreach ($fields as $k => &$v) {
+foreach ($fields as $k => $v) {
     if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
         $fields[$k] = $v['name'];
-    } else if (is_array($v)) {
+    } elseif (is_array($v)) {
         $vOpts = array();
         foreach ($v as $vKey => $vValue) {
             if (is_string($vKey) && !empty($vKey)) {
                 $vKey = $k.'.'.$vKey;
                 $fields[$vKey] = $vValue;
             } else {
-                $vOpts[] = str_replace('[[+value]]',$vValue,$multiWrapper);
+                $vOpts[] = str_replace('[[+value]]', $vValue, $multiWrapper);
             }
         }
-        $newValue = implode($multiSeparator,$vOpts);
+        $newValue = implode($multiSeparator, $vOpts);
         if (!empty($vOpts)) {
             $fields[$k] = $newValue;
         }

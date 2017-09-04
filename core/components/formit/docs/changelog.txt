@@ -4,7 +4,7 @@ FormIt 3.0.3
 ====================================
 - Fix FormItSaveForm to allow multiple fields with same fieldName
 - Add 'saveTmpFiles' FormIt snippet property to enable/disable saving files to tmp directory
-- Remove list() function from formitsaveform snippet for better PHP version compatibility
+- Remove list() function from formitsaveform snippet for better PHP version compatibility (issue #12797)
 
 FormIt 3.0.2
 ====================================
