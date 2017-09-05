@@ -8,6 +8,8 @@ FormIt 3.0.3
 - Fix PHP7 by-reference errors (#98)
 - Replace ereg() functions with preg_match() for PHP compatibility (#98)
 - Increase precision for FormItForm 'ip' field to allow for IPV6 addresses (#135)
+- Fix issue where in some cases fields are not correctly saved in FormItForm (#92)
+
 
 FormIt 3.0.2
 ====================================

@@ -70,9 +70,6 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         $fp = fopen($handle, 'w');
 
         foreach ($data['results'] as $object) {
-            if ($this->checkListPermission && $object instanceof modAccessibleObject && !$object->checkPolicy('list')) {
-                continue;
-            }
             $objectArray = $this->prepareRow($object);
             if (!empty($objectArray) && is_array($objectArray)) {
                 $keys = array_unique(array_merge($keys, array_keys($objectArray['values'])));
