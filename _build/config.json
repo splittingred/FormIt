@@ -318,6 +318,11 @@
                     "description": "prop_formit.savetmpfiles_desc",
                     "type": "combo-boolean",
                     "value": "0"
+                },{
+                    "name": "attachFilesToEmail",
+                    "description": "prop_formit.attachfiles_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
                 }]
             },{
                 "name": "FormItAutoResponder",

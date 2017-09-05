@@ -10,7 +10,7 @@ FormIt 3.0.3
 - Increase precision for FormItForm 'ip' field to allow for IPV6 addresses (#135)
 - Fix issue where in some cases fields are not correctly saved in FormItForm (#92)
 - Optimize FormItForm export class for better performance (#120)
-
+- Add 'attachFilesToEmail' property to control if files are added as attachment to email (#122)
 
 FormIt 3.0.2
 ====================================

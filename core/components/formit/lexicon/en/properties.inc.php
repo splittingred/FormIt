@@ -127,3 +127,4 @@ $_lang['formit.opt_white'] = 'White';
 $_lang['formit.opt_cache'] = 'MODX Cache';
 $_lang['formit.opt_session'] = 'Session';
 $_lang['prop_formit.savetmpfiles_desc'] = 'If set to 1, FormIt will store submitted files in a temporary folder.';
+$_lang['prop_formit.attachfiles_desc'] = 'If true, FormIt will add all file fields as attachments in the email.';
