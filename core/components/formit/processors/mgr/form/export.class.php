@@ -43,7 +43,12 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         if ($beforeQuery !== true) {
             return $this->failure($beforeQuery);
         }
-        $data = $this->getData();
+
+        $data = array();
+        $c = $this->modx->newQuery($this->classKey);
+        $data['total'] = $this->modx->getCount($this->classKey, $c);
+        $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey, ''));
+        $data['results'] = $this->modx->getIterator($this->classKey, $c);
 
         $exportPath = $this->modx->getOption('core_path', null, MODX_CORE_PATH).'export/'.$this->classKey.'/';
 
@@ -51,7 +56,6 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         if (!is_dir($exportPath)) {
             mkdir($exportPath);
         }
-        //$fileName = $exportPath.$f;
 
         $list = $this->createCsv($exportPath, $fileName, $data);
         return $this->outputArray($list, $data['total']);
@@ -73,7 +77,6 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
             $objectArray = $this->prepareRow($object);
             if (!empty($objectArray) && is_array($objectArray)) {
                 $keys = array_unique(array_merge($keys, array_keys($objectArray['values'])));
-                //fputcsv($fp, $objectArray['data']);
             }
         }
 
@@ -85,11 +88,12 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         );
 
         fputcsv($fp, $keys, ';');
+        $dateFormat = $this->modx->getOption('manager_date_format').' '.$this->modx->getOption('manager_time_format');
         foreach ($data['results'] as $object) {
             $objectArray = $this->prepareRow($object);
             if (!empty($objectArray) && is_array($objectArray)) {
                 $objectArray['values']['IP'] = $object->get('ip');
-                $objectArray['values']['Date'] = date($this->modx->getOption('manager_date_format').' '.$this->modx->getOption('manager_time_format'), $object->get('date'));
+                $objectArray['values']['Date'] = date($dateFormat, $object->get('date'));
                 foreach ($objectArray['values'] as $vk => $vv) {
                     $objectArray['values'][$vk] = (is_array($vv)) ? implode(',', $vv) : $vv;
                 }
