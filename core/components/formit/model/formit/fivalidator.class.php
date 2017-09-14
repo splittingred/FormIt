@@ -429,7 +429,7 @@ class fiValidator {
         $email_array = explode("@", $value);
         $local_array = explode(".", $email_array[0]);
         for ($i = 0; $i < sizeof($local_array); $i++) {
-            $pattern = "^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$";
+            $pattern = "^(([A-Za-z0-9!#$%&'*+\/=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$";
             $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern,$local_array[$i]) : @preg_match('/'.$pattern.'/',$local_array[$i]);
             if (!$condition) {
                 return $this->_getErrorMessage($key,'vTextEmailInvalid','formit.email_invalid',array(
