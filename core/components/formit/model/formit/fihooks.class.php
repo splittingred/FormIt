@@ -428,7 +428,7 @@ class fiHooks {
                 $multiWrapper = '[[+value]]';
             }
             
-            foreach ($fields as $k => $v) {
+            foreach ($fields as $k => &$v) {
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
                 } elseif (is_array($v)) {
