@@ -46,6 +46,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
 
         $data = array();
         $c = $this->modx->newQuery($this->classKey);
+        $c = $this->prepareQueryBeforeCount($c);
         $data['total'] = $this->modx->getCount($this->classKey, $c);
         $c->select($this->modx->getSelectColumns($this->classKey, $this->classKey, ''));
         $data['results'] = $this->modx->getIterator($this->classKey, $c);
