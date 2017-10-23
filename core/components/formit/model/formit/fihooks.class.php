@@ -443,6 +443,9 @@ class fiHooks {
                         }
                     }
                     $v = implode($multiSeparator, $vOpts);
+                    if (!empty($vOpts)) {
+                        $fields[$k] = $v;
+                    }
                 }
             }
         }
