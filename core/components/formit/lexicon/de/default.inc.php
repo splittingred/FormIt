@@ -26,12 +26,15 @@
  * @subpackage lexicon
  * @language de
  */
+$_lang['formit'] = 'FormIt';
+$_lang['formit.menu_desc'] = 'Per Formular übermittelte Daten anzeigen und Formular-Verschlüsselung verwalten.';
+
 $_lang['formit.all_group_text'] = 'Alle Länder';
 $_lang['formit.contains'] = 'Ihre Eingabe muss die "[[+value]]" enthalten.';
 $_lang['formit.email_invalid'] = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
 $_lang['formit.email_invalid_domain'] = 'Ihre E-Mail-Adresse enthält keinen gültigen Domainnamen.';
-$_lang['formit.email_no_recipient'] = 'Bitte geben Sie einen oder mehrere Empfänger für die E-Mails an.';
-$_lang['formit.email_not_sent'] = 'Beim E-Mail-Versand ist ein Fehler aufgetreten.';
+$_lang['formit.email_no_recipient'] = 'Bitte geben Sie einen oder mehrere Empfänger für die E-Mail an.';
+$_lang['formit.email_not_sent'] = 'Beim Versuch, die E-Mail zu versenden, ist ein Fehler aufgetreten.';
 $_lang['formit.email_tpl_nf'] = 'Bitte geben Sie eine E-Mail-Vorlage an.';
 $_lang['formit.field_not_empty'] = 'Dieses Feld muss leer bleiben.';
 $_lang['formit.field_required'] = 'Dieses Feld muss ausgefüllt werden.';
@@ -54,3 +57,6 @@ $_lang['formit.recaptcha_err_load'] = 'Konnte reCaptcha-Service-Klasse nicht lad
 $_lang['formit.spam_blocked'] = 'Ihre Eingabe wurde durch einen Spamfilter blockiert: ';
 $_lang['formit.spam_marked'] = ' - als Spam markiert.';
 $_lang['formit.username_taken'] = 'Benutzername schon vergeben, bitte wählen Sie einen anderen.';
+$_lang['formit.not_regexp'] = 'Der von Ihnen eingegebene Wert hat nicht das erwartete Format.';
+
+$_lang['area_recaptcha'] = 'reCaptcha';
