@@ -12,10 +12,11 @@ abstract class Module
     public $config = array();
 
     /**
-     * @param FormIt $formit
+     * @param \Sterc\FormIt $formit
      * @param array $config
      */
-    function __construct(FormIt $formit, array $config = array()) {
+    public function __construct($formit, array $config = array())
+    {
         $this->formit =& $formit;
         $this->modx = $formit->modx;
         $this->config = array_merge($this->config, $config);
