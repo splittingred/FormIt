@@ -14,94 +14,103 @@ class StopForumSpam
      */
     public $config = [];
 
-    public function __construct($modx, array $config = array())
+    /**
+     * StopForumSpam constructor.
+     *
+     * @param \modX $modx
+     * @param array $config
+     */
+    function __construct($modx, $config = [])
     {
         $this->modx = $modx;
-
-        $this->config = array_merge(array(
-            'host' => 'http://www.stopforumspam.com/',
+        $this->config = array_merge([
+            'host' => 'http://api.stopforumspam.org/',
             'path' => 'api',
             'method' => 'GET',
-        ), $config);
+        ], $config);
     }
 
     /**
      * Check for spammer
      *
-     * @access public
      * @param string $ip
      * @param string $email
      * @param string $username
+     *
      * @return array An array of errors
      */
     public function check($ip = '', $email = '', $username = '')
     {
-        $params = array();
+        $params = [];
         if (!empty($ip)) {
-            if (in_array($ip, array('127.0.0.1', '::1','0.0.0.0'))) {
+            if (in_array($ip, ['127.0.0.1', '::1', '0.0.0.0'])) {
                 $ip = '72.179.10.158';
             }
+
             $params['ip'] = $ip;
         }
+
         if (!empty($email)) {
             $params['email'] = $email;
         }
+
         if (!empty($username)) {
             $params['username'] = $username;
         }
 
         $xml = $this->request($params);
         $i = 0;
-        $errors = array();
+        $errors = [];
+
         foreach ($xml->appears as $result) {
-            if ($result == 'yes') {
+            if ($result === 'yes') {
                 $errors[] = ucfirst($xml->type[$i]);
             }
+
             $i++;
         }
+
         return $errors;
     }
 
     /**
      * Make a request to stopforumspam.com
      *
-     * @access public
      * @param array $params An array of parameters to send
+     *
      * @return mixed The return SimpleXML object, or false if none
      */
-    public function request($params = array())
+    public function request($params = [])
     {
-        $loaded = $this->_getClient();
+        $loaded = $this->getClient();
         if (!$loaded) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[StopForumSpam] Could not load REST client.');
+            $this->modx->log(\modX::LOG_LEVEL_ERROR, '[StopForumSpam] Could not load REST client.');
+
             return true;
         }
 
-        $response = $this->modx->rest->request(
-            $this->config['host'],
-            $this->config['path'],
-            $this->config['method'],
-            $params
-        );
+        $response = $this->modx->rest->request($this->config['host'], $this->config['path'], $this->config['method'], $params);
         $responseXml = $response->toXml();
+
         return $responseXml;
     }
 
     /**
      * Get the REST Client
      *
-     * @access private
-     * @return modRestClient/boolean
+     * @return \modRestClient|bool
      */
-    private function _getClient()
+    private function getClient()
     {
         if (empty($this->modx->rest)) {
             $this->modx->getService('rest', 'rest.modRestClient');
             $loaded = $this->modx->rest->getConnection();
+
             if (!$loaded) {
                 return false;
             }
         }
+
         return $this->modx->rest;
     }
 }
