@@ -1,6 +1,6 @@
 <?php
 
-namespace Sterc\FormIt\Services;
+namespace Sterc\FormIt\Service;
 
 class StopForumSpam
 {
