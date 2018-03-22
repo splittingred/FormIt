@@ -25,9 +25,13 @@
  * @package formit
  * @subpackage stopforumspam
  */
-class StopForumSpam {
 
-    function __construct(modX &$modx, array $config = array()) {
+require_once dirname(dirname(__DIR__)) . '/src/FormIt/Service/StopForumSpam.php';
+
+class StopForumSpam extends Sterc\FormIt\Service\StopForumSpam {
+
+    function __construct(modX $modx, array $config = array())
+    {
         $this->modx =& $modx;
 
         $this->config = array_merge(array(
