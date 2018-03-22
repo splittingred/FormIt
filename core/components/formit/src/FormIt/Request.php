@@ -2,7 +2,6 @@
 
 namespace Sterc\FormIt;
 
-use Sterc\FormIt;
 use Sterc\FormIt\Service\Recaptcha;
 
 /**
@@ -14,7 +13,7 @@ class Request
 {
     /**
      * A reference to the FormIt instance
-     * @var FormIt $formit
+     * @var \Sterc\FormIt $formit
      */
     public $formit = null;
 
@@ -52,7 +51,7 @@ class Request
     public $reCaptcha = null;
 
     /**
-     * @param FormIt $formit A reference to the FormIt class instance.
+     * @param \Sterc\FormIt $formit A reference to the FormIt class instance.
      * @param array $config Optional. An array of configuration parameters.
      */
     function __construct($formit, $config = [])

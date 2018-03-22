@@ -25,16 +25,4 @@ require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 /**
  * Class FormIt
  */
-class FormIt extends Sterc\FormIt
-{
-    /**
-     * FormIt constructor.
-     *
-     * @param \modX $modx
-     * @param array $config
-     */
-    public function __construct($modx, $config = [])
-    {
-        parent::__construct($modx, $config);
-    }
-}
+class FormIt extends Sterc\FormIt {}
