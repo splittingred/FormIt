@@ -20,7 +20,7 @@ class StopForumSpam
      * @param \modX $modx
      * @param array $config
      */
-    function __construct($modx, $config = [])
+    public function __construct($modx, $config = [])
     {
         $this->modx = $modx;
         $this->config = array_merge([

@@ -639,23 +639,19 @@ class Hook
         $spamEmailFields = $this->modx->getOption('spamEmailFields',$this->formit->config,'email');
         $emails = explode(',',$spamEmailFields);
 
-        if ($this->modx->loadClass('stopforumspam.StopForumSpam',$this->formit->config['modelPath'],true,true)) {
-            $sfspam = new StopForumSpam($this->modx);
-            $checkIp = $this->modx->getOption('spamCheckIp',$this->formit->config,false);
-            $ip = $checkIp ? $_SERVER['REMOTE_ADDR'] : '';
+        $sfspam = new StopForumSpam($this->modx);
+        $checkIp = $this->modx->getOption('spamCheckIp',$this->formit->config,false);
+        $ip = $checkIp ? $_SERVER['REMOTE_ADDR'] : '';
 
-            foreach ($emails as $email) {
-                $spamResult = $sfspam->check($ip,$fields[$email]);
-                if (!empty($spamResult)) {
-                    $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
-                    $this->addError($email,$this->modx->lexicon('formit.spam_blocked',array(
-                        'fields' => $spamFields,
-                    )));
-                    $passed = false;
-                }
+        foreach ($emails as $email) {
+            $spamResult = $sfspam->check($ip,$fields[$email]);
+            if (!empty($spamResult)) {
+                $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
+                $this->addError($email,$this->modx->lexicon('formit.spam_blocked',array(
+                    'fields' => $spamFields,
+                )));
+                $passed = false;
             }
-        } else {
-            $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Couldnt load StopForumSpam class.');
         }
 
         return $passed;
