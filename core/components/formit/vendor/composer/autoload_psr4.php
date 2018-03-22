@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Sterc\\FormIt\\' => array($baseDir . '/src'),
+    'Sterc\\' => array($baseDir . '/src'),
 );
