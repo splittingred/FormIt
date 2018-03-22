@@ -21,93 +21,14 @@
  */
 /**
  * Abstract class for all FormIt modules
- * 
+ *
  * @package formit
  * @subpackage modules
  */
-abstract class fiModule {
-    /** @var modX $modx */
-    public $modx;
-    /** @var FormIt $formit */
-    public $formit;
-    /** @var array $config */
-    public $config = array();
 
-    /**
-     * @param FormIt $formit
-     * @param array $config
-     */
-    function __construct(FormIt $formit,array $config = array()) {
-        $this->formit =& $formit;
-        $this->modx = $formit->modx;
-        $this->config = array_merge($this->config,$config);
-    }
+require_once dirname(dirname(dirname(__DIR__))) . '/src/FormIt/Module/Module.php';
 
-    /**
-     * Runs after instantiation of the module
-     * @abstract
-     * @return void
-     */
-    abstract public function initialize();
-    /**
-     * Returns the output of the module
-     * @abstract
-     * @return void
-     */
-    abstract public function output();
+abstract class fiModule extends Sterc\FormIt\Module\Module
+{
 
-    /**
-     * Set the default options for this module
-     * @param array $defaults
-     * @return void
-     */
-    protected function setDefaultOptions(array $defaults = array()) {
-        $this->config = array_merge($defaults,$this->config);
-    }
-
-    /**
-     * Set an option for this module
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     */
-    public function setOption($key,$value) {
-        $this->config[$key] = $value;
-    }
-    /**
-     * Set an array of options
-     * @param array $array
-     * @return void
-     */
-    public function setOptions($array) {
-        foreach ($array as $k => $v) {
-            $this->setOption($k,$v);
-        }
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $default
-     * @param string $method
-     * @return null
-     */
-    public function getOption($key,$default = null,$method = '!empty') {
-        $v = $default;
-
-        switch ($method) {
-            case 'empty':
-            case '!empty':
-                if (!empty($this->config[$key])) {
-                    $v = $this->config[$key];
-                }
-                break;
-            case 'isset':
-            default:
-                if (isset($this->config[$key])) {
-                    $v = $this->config[$key];
-                }
-                break;
-        }
-        return $v;
-    }
 }
