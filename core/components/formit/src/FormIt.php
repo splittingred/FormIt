@@ -381,27 +381,173 @@ class FormIt
 
     /**
      * Helper function for creating hooks
-     * This will overwrite all previously set hooks
+     * This will overwrite all previously set hooks,
+     * and set the 'hooks' formit property.
      *
      * @param $hooks array  An array of hooks
      */
     public function setHooks(array $hooks)
     {
         if (is_array($hooks)) {
-            $this->setOption('hooks', $hooks);
+            $this->setOption('hooks', implode(',', $hooks));
         }
     }
 
     /**
      * Helper function for creating preHooks
-     * This will overwrite all previously set preHooks
+     * This will overwrite all previously set preHooks,
+     * and set the 'preHooks' formit property.
      *
      * @param $preHooks array  An array of hooks
      */
     public function setPreHooks(array $preHooks)
     {
-        if (is_array($hooks)) {
-            $this->setOption('preHooks', $preHooks);
+        if (is_array($preHooks)) {
+            $this->setOption('preHooks', implode(',', $preHooks));
         }
+    }
+
+    /**
+     * Helper function for setting the 'submitVar' property
+     *
+     * @param $value string  the submitVar value
+     */
+    public function setSubmitVar(string $value)
+    {
+        $this->setOption('submitVar', $value);
+    }
+
+    /**
+     * Helper function for setting the 'validationErrorMessage' property
+     *
+     * @param $value string  the validationErrorMessage value
+     */
+    public function setValidationErrorMessage(string $value)
+    {
+        $this->setOption('validationErrorMessage', $value);
+    }
+
+    /**
+     * Helper function for setting the 'validationErrorBulkTpl' property
+     *
+     * @param $value string  the validationErrorBulkTpl value
+     */
+    public function setValidationErrorBulkTpl(string $value)
+    {
+        $this->setOption('validationErrorBulkTpl', $value);
+    }
+
+    /**
+     * Helper function for setting the 'errTpl' property
+     *
+     * @param $value string  the errTpl value
+     */
+    public function setErrTpl(string $value)
+    {
+        $this->setOption('errTpl', $value);
+    }
+
+    /**
+     * Helper function for setting the 'customValidators' property
+     *
+     * @param $validators array  an array with custom validators
+     */
+    public function setCustomValidators(array $validators)
+    {
+        if (is_array($validators)) {
+            $this->setOption('customValidators', implode(',', $validators));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'clearFieldsOnSuccess' property
+     *
+     * @param $value boolean  the clearFieldsOnSuccess value
+     */
+    public function setClearFieldsOnSuccess(bool $value)
+    {
+        $this->setOption('clearFieldsOnSuccess', $value);
+    }
+
+    /**
+     * Helper function for setting the 'store' property
+     *
+     * @param $value boolean  the store value
+     */
+    public function setStore(bool $value)
+    {
+        $this->setOption('store', $value);
+    }
+
+    /**
+     * Helper function for setting the 'storeTime' property
+     *
+     * @param $value int  the storeTime value
+     */
+    public function setStoreTime(int $value)
+    {
+        $this->setOption('storeTime', $value);
+    }
+
+    /**
+     * Helper function for setting the 'storeLocation' property
+     *
+     * @param $value string  the storeLocation value
+     */
+    public function setStoreLocation(string $value)
+    {
+        $this->setOption('storeLocation', $value);
+    }
+
+    /**
+     * Helper function for setting the 'placeholderPrefix' property
+     *
+     * @param $value string  the placeholderPrefix value
+     */
+    public function setPlaceholderPrefix(string $value)
+    {
+        $this->setOption('placeholderPrefix', $value);
+    }
+
+    /**
+     * Helper function for setting the 'successMessage' property
+     *
+     * @param $value string  the successMessage value
+     */
+    public function setSuccessMessage(string $value)
+    {
+        $this->setOption('successMessage', $value);
+    }
+
+    /**
+     * Helper function for setting the 'redirectTo' property
+     *
+     * @param $value int  the redirectTo value
+     */
+    public function setRedirectTo(int $value)
+    {
+        $this->setOption('redirectTo', $value);
+    }
+
+    /**
+     * Helper function for setting the 'redirectParams' property
+     *
+     * @param $params array  the redirectParams array
+     */
+    public function setRedirectParams(array $params)
+    {
+        if (is_array($params)) {
+            $this->setOption('redirectParams', json_encode($params));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'allowFiles' property
+     *
+     * @param $value boolean  the allowFiles value
+     */
+    public function setAllowFiles(bool $value)
+    {
+        $this->setOption('allowFiles', $value);
     }
 }
