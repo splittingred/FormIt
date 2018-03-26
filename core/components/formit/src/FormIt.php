@@ -378,4 +378,30 @@ class FormIt
 
         return $migrationStatus;
     }
+
+    /**
+     * Helper function for creating hooks
+     * This will overwrite all previously set hooks
+     *
+     * @param $hooks array  An array of hooks
+     */
+    public function setHooks(array $hooks)
+    {
+        if (is_array($hooks)) {
+            $this->setOption('hooks', $hooks);
+        }
+    }
+
+    /**
+     * Helper function for creating preHooks
+     * This will overwrite all previously set preHooks
+     *
+     * @param $preHooks array  An array of hooks
+     */
+    public function setPreHooks(array $preHooks)
+    {
+        if (is_array($hooks)) {
+            $this->setOption('preHooks', $preHooks);
+        }
+    }
 }
