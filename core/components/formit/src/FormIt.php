@@ -412,7 +412,7 @@ class FormIt
      *
      * @param $value string  the submitVar value
      */
-    public function setSubmitVar(string $value)
+    public function setSubmitVar($value)
     {
         $this->setOption('submitVar', $value);
     }
@@ -422,7 +422,7 @@ class FormIt
      *
      * @param $value string  the validationErrorMessage value
      */
-    public function setValidationErrorMessage(string $value)
+    public function setValidationErrorMessage($value)
     {
         $this->setOption('validationErrorMessage', $value);
     }
@@ -432,7 +432,7 @@ class FormIt
      *
      * @param $value string  the validationErrorBulkTpl value
      */
-    public function setValidationErrorBulkTpl(string $value)
+    public function setValidationErrorBulkTpl($value)
     {
         $this->setOption('validationErrorBulkTpl', $value);
     }
@@ -442,7 +442,7 @@ class FormIt
      *
      * @param $value string  the errTpl value
      */
-    public function setErrTpl(string $value)
+    public function setErrTpl($value)
     {
         $this->setOption('errTpl', $value);
     }
@@ -464,7 +464,7 @@ class FormIt
      *
      * @param $value boolean  the clearFieldsOnSuccess value
      */
-    public function setClearFieldsOnSuccess(bool $value)
+    public function setClearFieldsOnSuccess($value)
     {
         $this->setOption('clearFieldsOnSuccess', $value);
     }
@@ -474,7 +474,7 @@ class FormIt
      *
      * @param $value boolean  the store value
      */
-    public function setStore(bool $value)
+    public function setStore($value)
     {
         $this->setOption('store', $value);
     }
@@ -484,7 +484,7 @@ class FormIt
      *
      * @param $value int  the storeTime value
      */
-    public function setStoreTime(int $value)
+    public function setStoreTime($value)
     {
         $this->setOption('storeTime', $value);
     }
@@ -494,7 +494,7 @@ class FormIt
      *
      * @param $value string  the storeLocation value
      */
-    public function setStoreLocation(string $value)
+    public function setStoreLocation($value)
     {
         $this->setOption('storeLocation', $value);
     }
@@ -504,7 +504,7 @@ class FormIt
      *
      * @param $value string  the placeholderPrefix value
      */
-    public function setPlaceholderPrefix(string $value)
+    public function setPlaceholderPrefix($value)
     {
         $this->setOption('placeholderPrefix', $value);
     }
@@ -514,7 +514,7 @@ class FormIt
      *
      * @param $value string  the successMessage value
      */
-    public function setSuccessMessage(string $value)
+    public function setSuccessMessage($value)
     {
         $this->setOption('successMessage', $value);
     }
@@ -524,7 +524,7 @@ class FormIt
      *
      * @param $value int  the redirectTo value
      */
-    public function setRedirectTo(int $value)
+    public function setRedirectTo($value)
     {
         $this->setOption('redirectTo', $value);
     }
@@ -546,7 +546,7 @@ class FormIt
      *
      * @param $value boolean  the allowFiles value
      */
-    public function setAllowFiles(bool $value)
+    public function setAllowFiles($value)
     {
         $this->setOption('allowFiles', $value);
     }
