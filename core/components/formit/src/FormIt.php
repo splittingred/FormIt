@@ -599,4 +599,9 @@ class FormIt
     {
         return $this->errors;
     }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: redirect all the set** methods to some Helper class
+    }
 }
