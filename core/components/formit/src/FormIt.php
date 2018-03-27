@@ -66,6 +66,12 @@ class FormIt
     public $inTestMode = false;
 
     /**
+     * A collection of all the errors (from prehooks/posthooks/validator).
+     * @var array $errors
+     */
+    public $errors = [];
+
+    /**
      * FormIt constructor.
      *
      * @param \modX $modx
@@ -549,5 +555,48 @@ class FormIt
     public function setAllowFiles($value)
     {
         $this->setOption('allowFiles', $value);
+    }
+
+    /**
+     * Helper function for setting the 'validate' property
+     *
+     * @param $validate array  the validate array
+     */
+    public function setValidate(array $validate)
+    {
+        if (is_array($validate)) {
+            $this->setOption('validate', implode(',', $validate));
+        }
+    }
+
+    /**
+     * Check for errors in prehooks, posthooks or validator
+     */
+    public function hasErrors()
+    {
+        $hasErrors = false;
+        if ($this->preHooks && $this->preHooks->hasErrors()) {
+            $this->errors['preHooks'][] = $this->preHooks->getErrors();
+            $hasErrors = true;
+        }
+
+        if ($this->postHooks && $this->postHooks->hasErrors()) {
+            $this->errors['hooks'][] = $this->postHooks->getErrors();
+            $hasErrors = true;
+        }
+
+        if ($this->request->validator && $this->request->validator->hasErrors()) {
+            $this->errors['validate'][] = $this->request->validator->getErrors();
+            $hasErrors = true;
+        }
+        return $hasErrors;
+    }
+
+    /**
+     * Check for errors in prehooks, posthooks or validator
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }
