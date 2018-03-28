@@ -16,7 +16,7 @@ class FormIt
     /**
      * @var \modX $modx
      */
-    public $modx = null;
+    public $modx;
 
     /**
      * @var array $config
@@ -125,7 +125,8 @@ class FormIt
     public function initialize($context = 'web')
     {
         switch ($context) {
-            case 'mgr': break;
+            case 'mgr':
+                break;
             case 'web':
             default:
                 $language = isset($this->config['language']) ? $this->config['language'] . ':' : '';
@@ -154,21 +155,20 @@ class FormIt
      */
     public function loadRequest()
     {
-        $className = $this->modx->getOption('request_class',$this->config,'fiRequest');
-        $classPath = $this->modx->getOption('request_class_path',$this->config,'');
+        $className = $this->modx->getOption('request_class', $this->config, 'fiRequest');
+        $classPath = $this->modx->getOption('request_class_path', $this->config, '');
 
         if (empty($classPath)) {
             $classPath = $this->config['modelPath'].'formit/';
         }
 
-        if ($this->modx->loadClass($className,$classPath,true,true)) {
-            $this->request = new \fiRequest($this,$this->config);
+        if ($this->modx->loadClass($className, $classPath, true, true)) {
+            $this->request = new \fiRequest($this, $this->config);
         } else {
-            $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Could not load fiRequest class.');
+            $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormIt] Could not load fiRequest class.');
         }
 
         return $this->request;
-
     }
 
     /**
@@ -178,18 +178,24 @@ class FormIt
      *
      * @return Module
      */
-    public function loadModule($className,$serviceName,array $config = array())
+    public function loadModule($className, $serviceName, array $config = array())
     {
         if (empty($this->$serviceName)) {
-            $classPath = $this->modx->getOption('formit.modules_path',null,$this->config['modelPath'].'formit/module/');
+            $classPath = $this->modx->getOption(
+                'formit.modules_path',
+                null,
+                $this->config['modelPath'].'formit/module/'
+            );
 
-            if ($this->modx->loadClass($className,$classPath,true,true)) {
-                $this->$serviceName = new $className($this,$config);
+            if ($this->modx->loadClass($className, $classPath, true, true)) {
+                $this->$serviceName = new $className($this, $config);
             } else {
-                $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Could not load module: '.$className.' from '.$classPath);
+                $this->modx->log(
+                    \modX::LOG_LEVEL_ERROR,
+                    '[FormIt] Could not load module: '.$className.' from '.$classPath
+                );
             }
         }
-
         return $this->$serviceName;
     }
 
@@ -206,7 +212,7 @@ class FormIt
     public function loadHooks($type = 'post', $config = [])
     {
         if (!$this->modx->loadClass('formit.fiHooks', $this->config['modelPath'], true, true)) {
-            $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Could not load Hooks class.');
+            $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormIt] Could not load Hooks class.');
 
             return false;
         }
@@ -238,7 +244,7 @@ class FormIt
      * @param array $properties The properties for the Chunk
      * @return string The processed content of the Chunk
      */
-    public function getChunk($name,$properties = array())
+    public function getChunk($name, $properties = array())
     {
         if (class_exists('pdoTools') && $pdo = $this->modx->getService('pdoTools')) {
             return $pdo->getChunk($name, $properties);
@@ -246,13 +252,13 @@ class FormIt
 
         $chunk = null;
 
-        if(substr($name, 0, 6) == "@CODE:"){
+        if (substr($name, 0, 6) === '@CODE:') {
             $content = substr($name, 6);
             $chunk = $this->modx->newObject('modChunk');
             $chunk->setContent($content);
         } elseif (!isset($this->chunks[$name])) {
             if (!$this->config['debug']) {
-                $chunk = $this->modx->getObject('modChunk', array('name' => $name),true);
+                $chunk = $this->modx->getObject('modChunk', array('name' => $name), true);
             }
 
             if (empty($chunk)) {

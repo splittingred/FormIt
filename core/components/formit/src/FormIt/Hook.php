@@ -2,7 +2,6 @@
 
 namespace Sterc\FormIt;
 
-use Sterc\FormIt;
 use Sterc\FormIt\Service\Recaptcha;
 use Sterc\FormIt\Service\StopForumSpam;
 
@@ -24,7 +23,7 @@ class Hook
      * A reference to the modX instance.
      * @var \modX $modx
      */
-    public $modx = null;
+    public $modx;
 
     /**
      * An array of configuration properties
@@ -36,19 +35,19 @@ class Hook
      * A reference to the FormIt instance.
      * @var \Sterc\FormIt $formit
      */
-    public $formit = null;
+    public $formit;
 
     /**
      * If a hook redirects, it needs to set this var to use proper order of execution on redirects/stores
      * @var string
      */
-    public $redirectUrl = null;
+    public $redirectUrl;
 
     /**
      * The current stored and parsed fields for the FormIt call.
      * @var array $fields
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * The type of Hook request that this represents
