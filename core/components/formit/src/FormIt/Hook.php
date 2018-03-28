@@ -296,73 +296,6 @@ class Hook
     }
 
     /**
-     * Redirect to a specified URL.
-     *
-     * Properties needed:
-     * - redirectTo - the ID of the Resource to redirect to.
-     *
-     * @param array $fields An array of cleaned POST fields
-     *
-     * @return bool False if unsuccessful.
-     */
-    public function redirect($fields = [])
-    {
-        if (empty($this->formit->config['redirectTo'])) return false;
-        $redirectParams = !empty($this->formit->config['redirectParams']) ? $this->formit->config['redirectParams'] : '';
-        if (!empty($redirectParams)) {
-            $prefix = $this->modx->getOption('placeholderPrefix',$this->formit->config,'fi.');
-            $this->modx->setPlaceholders($fields,$prefix);
-            $this->modx->parser->processElementTags('',$redirectParams,true,true);
-            $redirectParams = $this->modx->fromJSON($redirectParams);
-            if (empty($redirectParams)) $redirectParams = '';
-        }
-        $contextKey = $this->modx->context->get('key');
-        $resource = $this->modx->getObject('modResource',$this->formit->config['redirectTo']);
-        if ($resource) {
-            $contextKey = $resource->get('context_key');
-        }
-        if (!is_numeric($this->formit->config['redirectTo']) &&
-            isset($fields[$this->formit->config['redirectTo']]) &&
-            is_numeric($fields[$this->formit->config['redirectTo']])
-        ) {
-            $url = $this->modx->makeUrl($fields[$this->formit->config['redirectTo']],$contextKey,$redirectParams,'full');
-        } elseif (!is_numeric($this->formit->config['redirectTo']) &&
-                  substr($this->formit->config['redirectTo'], 0, 4 ) === "http"
-        ) {
-            $url = $this->formit->config['redirectTo'];
-        } else {
-            $url = $this->modx->makeUrl($this->formit->config['redirectTo'],$contextKey,$redirectParams,'full');
-        }
-        $this->setRedirectUrl($url);
-
-        return true;
-    }
-
-    /**
-     * Send an email of the form.
-     *
-     * Properties:
-     * - emailTpl - The chunk name of the chunk that will be the email template.
-     * This will send the values of the form as placeholders.
-     * - emailTo - A comma separated list of email addresses to send to
-     * - emailToName - A comma separated list of names to pair with addresses.
-     * - emailFrom - The From: email address. Defaults to either the email
-     * field or the emailsender setting.
-     * - emailFromName - The name of the From: user.
-     * - emailSubject - The subject of the email.
-     * - emailHtml - Boolean, if true, email will be in HTML mode.
-     *
-     * @param array $fields An array of cleaned POST fields
-     *
-     * @return bool True if email was successfully sent.
-     */
-    public function email($fields = [])
-    {
-        $class = new Hook\Email($this, $this->config);
-        return $class->process($fields);
-    }
-
-    /**
      * Processes string and sets placeholders
      *
      * @param string $str The string to process
@@ -383,6 +316,26 @@ class Hook
         $this->modx->parser->processElementTags('',$str,true,false);
 
         return $str;
+    }
+
+    /**
+     * Set a URL to redirect to after all hooks run successfully.
+     *
+     * @param string $url The URL to redirect to after all hooks execute
+     */
+    public function setRedirectUrl($url)
+    {
+        $this->redirectUrl = $url;
+    }
+
+    /**
+     * Get the specified redirection url
+     *
+     * @return null|string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->redirectUrl;
     }
 
     /**
@@ -446,26 +399,6 @@ class Hook
         }
 
         return $passed;
-    }
-
-    /**
-     * Set a URL to redirect to after all hooks run successfully.
-     *
-     * @param string $url The URL to redirect to after all hooks execute
-     */
-    public function setRedirectUrl($url)
-    {
-        $this->redirectUrl = $url;
-    }
-
-    /**
-     * Get the specified redirection url
-     *
-     * @return null|string
-     */
-    public function getRedirectUrl()
-    {
-        return $this->redirectUrl;
     }
 
     /**

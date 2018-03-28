@@ -54,7 +54,7 @@ class Saveform
      *
      * @param array $fields An array of cleaned POST fields
      *
-     * @return bool True if email was successfully sent.
+     * @return bool True if form was successfully saved
      */
     public function process($fields = [])
     {
