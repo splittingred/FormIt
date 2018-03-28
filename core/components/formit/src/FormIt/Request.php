@@ -361,7 +361,7 @@ class Request
             $this->setSuccessMessage();
 
             /* if clearing fields on success, just end here */
-            if ($this->modx->getOption('clearFieldsOnSuccess',$this->config,true)) {
+            if ($this->modx->getOption('clearFieldsOnSuccess', $this->config, true)) {
                 $this->clearFieldsAtEnd = true;
             }
         }
