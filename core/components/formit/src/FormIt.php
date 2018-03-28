@@ -576,6 +576,403 @@ class FormIt
     }
 
     /**
+     * Helper function for setting the 'emailTpl' property
+     *
+     * @param $value string  the emailTpl value
+     */
+    public function setEmailTpl($value)
+    {
+        $this->setOption('emailTpl', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailSubject' property
+     *
+     * @param $value string  the emailSubject value
+     */
+    public function setEmailSubject($value)
+    {
+        $this->setOption('emailSubject', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailUseFieldForSubject' property
+     *
+     * @param $value bool  the emailUseFieldForSubject value
+     */
+    public function setEmailUseFieldForSubject($value)
+    {
+        $this->setOption('emailUseFieldForSubject', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailTo' property
+     *
+     * @param $addresses array  An array with emailaddresses
+     */
+    public function setEmailTo(array $addresses)
+    {
+        if (is_array($addresses)) {
+            $this->setOption('emailTo', implode(',', $addresses));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailToName' property
+     *
+     * @param $names array  An array with email names
+     */
+    public function setEmailToName(array $names)
+    {
+        if (is_array($names)) {
+            $this->setOption('emailToName', implode(',', $names));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailFrom' property
+     *
+     * @param $value string  the emailFrom value
+     */
+    public function setEmailFrom($value)
+    {
+        $this->setOption('emailFrom', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailFromName' property
+     *
+     * @param $value string  the emailFromName value
+     */
+    public function setEmailFromName($value)
+    {
+        $this->setOption('emailFromName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailHtml' property
+     *
+     * @param $value bool  the emailHtml value
+     */
+    public function setEmailHtml($value)
+    {
+        $this->setOption('emailHtml', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailConvertNewlines' property
+     *
+     * @param $value bool  the emailConvertNewlines value
+     */
+    public function setEmailConvertNewlines($value)
+    {
+        $this->setOption('emailConvertNewlines', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailReplyTo' property
+     *
+     * @param $value string  the emailReplyTo value
+     */
+    public function setEmailReplyTo($value)
+    {
+        $this->setOption('emailReplyTo', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailReplyToName' property
+     *
+     * @param $value string  the emailReplyToName value
+     */
+    public function setEmailReplyToName($value)
+    {
+        $this->setOption('emailReplyToName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailCC' property
+     *
+     * @param $addresses array  the emailCC addresses
+     */
+    public function setEmailCC($addresses)
+    {
+        if (is_array($addresses)) {
+            $this->setOption('emailCC', implode(',', $addresses));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailCCName' property
+     *
+     * @param $names array  the emailCCName email names
+     */
+    public function setEmailCCName($names)
+    {
+        if (is_array($names)) {
+            $this->setOption('emailCCName', implode(',', $names));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailBCC' property
+     *
+     * @param $addresses array  the emailBCC addresses
+     */
+    public function setEmailBCC($addresses)
+    {
+        if (is_array($addresses)) {
+            $this->setOption('emailBCC', implode(',', $addresses));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailBCCName' property
+     *
+     * @param $names array  the emailBCCName email names array
+     */
+    public function setEmailBCCName($names)
+    {
+        if (is_array($names)) {
+            $this->setOption('emailBCCName', implode(',', $names));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'emailMultiWrapper' property
+     *
+     * @param $value string  the emailMultiWrapper value
+     */
+    public function setEmailMultiWrapper($value)
+    {
+        $this->setOption('emailMultiWrapper', $value);
+    }
+
+    /**
+     * Helper function for setting the 'emailMultiSeparator' property
+     *
+     * @param $value string  the emailMultiSeparator value
+     */
+    public function setEmailMultiSeparator($value)
+    {
+        $this->setOption('emailMultiSeparator', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarTpl' property
+     *
+     * @param $value string  the fiarTpl value
+     */
+    public function setFiarTpl($value)
+    {
+        $this->setOption('fiarTpl', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarSubject' property
+     *
+     * @param $value string  the fiarSubject value
+     */
+    public function setFiarSubject($value)
+    {
+        $this->setOption('fiarSubject', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarToField' property
+     *
+     * @param $value string  the fiarToField value
+     */
+    public function setFiarToField($value)
+    {
+        $this->setOption('fiarToField', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarFrom' property
+     *
+     * @param $value string  the fiarFrom value
+     */
+    public function setFiarFrom($value)
+    {
+        $this->setOption('fiarFrom', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarFromName' property
+     *
+     * @param $value string  the fiarFromName value
+     */
+    public function setFiarFromName($value)
+    {
+        $this->setOption('fiarFromName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarSender' property
+     *
+     * @param $value string  the fiarSender value
+     */
+    public function setFiarSender($value)
+    {
+        $this->setOption('fiarSender', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarHtml' property
+     *
+     * @param $value string  the fiarHtml value
+     */
+    public function setFiarHtml($value)
+    {
+        $this->setOption('fiarHtml', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarReplyTo' property
+     *
+     * @param $value string  the fiarReplyTo value
+     */
+    public function setFiarReplyTo($value)
+    {
+        $this->setOption('fiarReplyTo', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarReplyToName' property
+     *
+     * @param $value string  the fiarReplyToName value
+     */
+    public function setFiarReplyToName($value)
+    {
+        $this->setOption('fiarReplyToName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarCC' property
+     *
+     * @param $value string  the fiarCC value
+     */
+    public function setFiarCC($value)
+    {
+        $this->setOption('fiarCC', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarCCName' property
+     *
+     * @param $value string  the fiarCCName value
+     */
+    public function setFiarCCName($value)
+    {
+        $this->setOption('fiarCCName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarBCC' property
+     *
+     * @param $value string  the fiarBCC value
+     */
+    public function setFiarBCC($value)
+    {
+        $this->setOption('fiarBCC', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarBCCName' property
+     *
+     * @param $value string  the fiarBCCName value
+     */
+    public function setFiarBCCName($value)
+    {
+        $this->setOption('fiarBCCName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarMultiWrapper' property
+     *
+     * @param $value string  the fiarMultiWrapper value
+     */
+    public function setFiarMultiWrapper($value)
+    {
+        $this->setOption('fiarMultiWrapper', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarMultiSeparator' property
+     *
+     * @param $value string  the fiarMultiSeparator value
+     */
+    public function setFiarMultiSeparator($value)
+    {
+        $this->setOption('fiarMultiSeparator', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarFiles' property
+     *
+     * @param $value string  the fiarFiles value
+     */
+    public function setFiarFiles($value)
+    {
+        $this->setOption('fiarFiles', $value);
+    }
+
+    /**
+     * Helper function for setting the 'fiarRequired' property
+     *
+     * @param $value string  the fiarRequired value
+     */
+    public function setFiarRequired($value)
+    {
+        $this->setOption('fiarRequired', $value);
+    }
+
+    /**
+     * Helper function for setting the Saveform 'formName' property
+     *
+     * @param $value string  the formName value
+     */
+    public function setFormName($value)
+    {
+        $this->setOption('formName', $value);
+    }
+
+    /**
+     * Helper function for setting the 'formEncrypt' property
+     *
+     * @param $value bool  the formEncrypt value
+     */
+    public function setFormEncrypt($value)
+    {
+        $this->setOption('formEncrypt', $value);
+    }
+
+    /**
+     * Helper function for setting the 'formFields' property
+     *
+     * @param $fields array  an array of formfields to add to Formsave
+     */
+    public function setFormFields($fields)
+    {
+        if (is_array($fields)) {
+            $this->setOption('formFields', implode(',', $fields));
+        }
+    }
+
+    /**
+     * Helper function for setting the 'fieldNames' property
+     *
+     * @param $names array  the fieldNames array
+     */
+    public function setFieldNames($names)
+    {
+        if (is_array($names)) {
+            $this->setOption('fieldNames', implode(',', $names));
+        }
+    }
+
+
+    /**
      * Check for errors in prehooks, posthooks or validator
      */
     public function hasErrors()
