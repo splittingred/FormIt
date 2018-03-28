@@ -338,35 +338,6 @@ class Hook
     }
 
     /**
-     * Adds in reCaptcha support to FormIt
-     *
-     * @param array $fields An array of cleaned POST fields
-     *
-     * @return bool True if email was successfully sent.
-     */
-    public function recaptcha($fields = [])
-    {
-        $passed = false;
-        /** @var RecaptchaService $reCaptcha */
-        $reCaptcha = $this->formit->request->loadReCaptcha();
-        if (empty($reCaptcha->config[RecaptchaService::OPT_PRIVATE_KEY])) {
-            return false;
-        }
-
-        $response = $reCaptcha->checkAnswer($_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-
-        if (!$response->is_valid) {
-            $this->addError('recaptcha', $this->modx->lexicon('recaptcha.incorrect', array(
-                'error' => $response->error != 'incorrect-captcha-sol' ? $response->error : '',
-            )));
-        } else {
-            $passed = true;
-        }
-
-        return $passed;
-    }
-
-    /**
      * Process any errors returned by the hooks and set them to placeholders
      */
     public function processErrors()
