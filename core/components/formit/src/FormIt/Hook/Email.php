@@ -102,7 +102,7 @@ class Email
         $origFields = $fields;
         if (empty($tpl)) {
             $tpl = 'fiDefaultEmailTpl';
-            $f = '';
+            $f = [];
             $multiSeparator = $this->modx->getOption('emailMultiSeparator', $this->formit->config, "\n");
             $multiWrapper = $this->modx->getOption('emailMultiWrapper', $this->formit->config, "[[+value]]");
 
@@ -113,7 +113,7 @@ class Email
                 if (is_array($v) && !empty($v['name']) && isset($v['error']) && $v['error'] == UPLOAD_ERR_OK) {
                     $v = $v['name'];
                     $f[$k] = '<strong>'.$k.'</strong>: '.$v.'<br />';
-                } else if (is_array($v)) {
+                } elseif (is_array($v)) {
                     $vOpts = array();
                     foreach ($v as $vKey => $vValue) {
                         if (is_string($vKey) && !empty($vKey)) {

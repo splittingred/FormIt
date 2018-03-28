@@ -2,6 +2,7 @@
 
 namespace Sterc\FormIt;
 
+use Sterc\FormIt;
 use Sterc\FormIt\Service\Recaptcha;
 use Sterc\FormIt\Service\StopForumSpam;
 
@@ -95,7 +96,7 @@ class Hook
         }
 
         if (is_string($hooks)) {
-            $hooks = explode(',',$hooks);
+            $hooks = explode(',', $hooks);
         }
 
         $this->hooks = array();
@@ -103,7 +104,7 @@ class Hook
 
         foreach ($hooks as $hook) {
             $hook = trim($hook);
-            $success = $this->load($hook,$this->fields,$customProperties);
+            $success = $this->load($hook, $this->fields, $customProperties);
 
             if (!$success) {
                 return $this->hooks;
@@ -126,18 +127,19 @@ class Hook
     public function load($hookName, $fields = [], $customProperties = [])
     {
         $success = false;
-        if (!empty($fields)) $this->fields =& $fields;
+        if (!empty($fields)) {
+            $this->fields =& $fields;
+        }
         $this->hooks[] = $hookName;
 
+        $className = 'Sterc\FormIt\Hook\\'.ucfirst($hookName);
         $reserved = array('load','_process','__construct','getErrorMessage');
-        if (method_exists($this,$hookName) && !in_array($hookName,$reserved)) {
-            /* built-in hooks */
-            $success = $this->$hookName($this->fields);
-
-            /** @var modSnippet $snippet */
-        } else if ($snippet = $this->modx->getObject('modSnippet',array('name' => $hookName))) {
+        if (class_exists($className) && !in_array($hookName, $reserved)) {
+            $class = new $className($this, $this->config);
+            $success = $class->process($fields);
+        } elseif ($snippet = $this->modx->getObject('modSnippet', array('name' => $hookName))) {
             /* custom snippet hook */
-            $properties = array_merge($this->formit->config,$customProperties);
+            $properties = array_merge($this->formit->config, $customProperties);
             $properties['formit'] =& $this->formit;
             $properties['hook'] =& $this;
             $properties['fields'] = $this->fields;
@@ -145,21 +147,23 @@ class Hook
             $success = $snippet->process($properties);
         } else {
             /* search for a file-based hook */
-            $this->modx->parser->processElementTags('',$hookName,true,true);
+            $this->modx->parser->processElementTags('', $hookName, true, true);
             if (file_exists($hookName)) {
-                $success = $this->_loadFileBasedHook($hookName,$customProperties);
+                $success = $this->_loadFileBasedHook($hookName, $customProperties);
             } else {
                 /* no hook found */
-                $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Could not find hook "'.$hookName.'".');
+                $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormIt] Could not find hook "'.$hookName.'".');
                 $success = true;
             }
         }
 
         if (is_array($success) && !empty($success)) {
-            $this->errors = array_merge($this->errors,$success);
+            $this->errors = array_merge($this->errors, $success);
             $success = false;
-        } else if ($success != true) {
-            if (!isset($this->errors[$hookName])) $this->errors[$hookName] = '';
+        } elseif ($success != true) {
+            if (!isset($this->errors[$hookName])) {
+                $this->errors[$hookName] = '';
+            }
             $this->errors[$hookName] .= ' '.$success;
             $success = false;
         }

@@ -72,25 +72,25 @@ class Autoresponder
      */
     public function process($fields = [])
     {
-        $tpl = $modx->getOption('fiarTpl', $this->formit->config, 'fiDefaultFiarTpl');
-        $mailFrom = $modx->getOption('fiarFrom', $this->formit->config, $modx->getOption('emailsender'));
-        $mailFromName = $modx->getOption('fiarFromName', $this->formit->config, $modx->getOption('site_name'));
-        $mailSender = $modx->getOption('fiarSender', $this->formit->config, $modx->getOption('emailsender'));
-        $mailSubject = $modx->getOption('fiarSubject', $this->formit->config, '[[++site_name]] Auto-Responder');
+        $tpl = $this->modx->getOption('fiarTpl', $this->formit->config, 'fiDefaultFiarTpl');
+        $mailFrom = $this->modx->getOption('fiarFrom', $this->formit->config, $this->modx->getOption('emailsender'));
+        $mailFromName = $this->modx->getOption('fiarFromName', $this->formit->config, $this->modx->getOption('site_name'));
+        $mailSender = $this->modx->getOption('fiarSender', $this->formit->config, $this->modx->getOption('emailsender'));
+        $mailSubject = $this->modx->getOption('fiarSubject', $this->formit->config, '[[++site_name]] Auto-Responder');
         $mailSubject = str_replace(
             array('[[++site_name]]', '[[++emailsender]]'),
-            array($modx->getOption('site_name'), $modx->getOption('emailsender')),
+            array($this->modx->getOption('site_name'), $this->modx->getOption('emailsender')),
             $mailSubject
         );
-        $fiarFiles = $modx->getOption('fiarFiles', $this->formit->config, false);
-        $isHtml = $modx->getOption('fiarHtml', $this->formit->config, true);
-        $toField = $modx->getOption('fiarToField', $this->formit->config, 'email');
-        $multiSeparator = $modx->getOption('fiarMultiSeparator', $this->formit->config, "\n");
-        $multiWrapper = $modx->getOption('fiarMultiWrapper', $this->formit->config, '[[+value]]');
-        $required = $modx->getOption('fiarRequired', $this->formit->config, true);
+        $fiarFiles = $this->modx->getOption('fiarFiles', $this->formit->config, false);
+        $isHtml = $this->modx->getOption('fiarHtml', $this->formit->config, true);
+        $toField = $this->modx->getOption('fiarToField', $this->formit->config, 'email');
+        $multiSeparator = $this->modx->getOption('fiarMultiSeparator', $this->formit->config, "\n");
+        $multiWrapper = $this->modx->getOption('fiarMultiWrapper', $this->formit->config, '[[+value]]');
+        $required = $this->modx->getOption('fiarRequired', $this->formit->config, true);
         if (empty($fields[$toField])) {
             if ($required) {
-                $modx->log(
+                $this->modx->log(
                     modX::LOG_LEVEL_ERROR,
                     '[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.'
                 );
@@ -126,39 +126,39 @@ class Autoresponder
         $mailTo= $fields[$toField];
 
         $message = $this->formit->getChunk($tpl, $placeholders);
-        $modx->parser->processElementTags('', $message, true, false);
+        $this->modx->parser->processElementTags('', $message, true, false);
 
-        $modx->getService('mail', 'mail.modPHPMailer');
-        $modx->mail->reset();
-        $modx->mail->set(modMail::MAIL_BODY, $message);
-        $modx->mail->set(modMail::MAIL_FROM, $this->hook->_process($mailFrom, $placeholders));
-        $modx->mail->set(modMail::MAIL_FROM_NAME, $this->hook->_process($mailFromName, $placeholders));
-        $modx->mail->set(modMail::MAIL_SENDER, $this->hook->_process($mailSender, $placeholders));
-        $modx->mail->set(modMail::MAIL_SUBJECT, $this->hook->_process($mailSubject, $placeholders));
-        $modx->mail->address('to', $mailTo);
-        $modx->mail->setHTML($isHtml);
+        $this->modx->getService('mail', 'mail.modPHPMailer');
+        $this->modx->mail->reset();
+        $this->modx->mail->set(\modMail::MAIL_BODY, $message);
+        $this->modx->mail->set(\modMail::MAIL_FROM, $this->hook->_process($mailFrom, $placeholders));
+        $this->modx->mail->set(\modMail::MAIL_FROM_NAME, $this->hook->_process($mailFromName, $placeholders));
+        $this->modx->mail->set(\modMail::MAIL_SENDER, $this->hook->_process($mailSender, $placeholders));
+        $this->modx->mail->set(\modMail::MAIL_SUBJECT, $this->hook->_process($mailSubject, $placeholders));
+        $this->modx->mail->address('to', $mailTo);
+        $this->modx->mail->setHTML($isHtml);
 
         /* add attachments */
         if ($fiarFiles) {
             $fiarFiles = explode(',', $fiarFiles);
             foreach ($fiarFiles as $file) {
-                $modx->mail->mailer->AddAttachment($file);
+                $this->modx->mail->mailer->AddAttachment($file);
             }
         }
 
         /* reply to */
-        $emailReplyTo = $modx->getOption('fiarReplyTo', $this->formit->config, $mailFrom);
+        $emailReplyTo = $this->modx->getOption('fiarReplyTo', $this->formit->config, $mailFrom);
         $emailReplyTo = $this->hook->_process($emailReplyTo, $fields);
-        $emailReplyToName = $modx->getOption('fiarReplyToName', $this->formit->config, $mailFromName);
+        $emailReplyToName = $this->modx->getOption('fiarReplyToName', $this->formit->config, $mailFromName);
         $emailReplyToName = $this->hook->_process($emailReplyToName, $fields);
         if (!empty($emailReplyTo)) {
-            $modx->mail->address('reply-to', $emailReplyTo, $emailReplyToName);
+            $this->modx->mail->address('reply-to', $emailReplyTo, $emailReplyToName);
         }
 
         /* cc */
-        $emailCC = $modx->getOption('fiarCC', $this->formit->config, '');
+        $emailCC = $this->modx->getOption('fiarCC', $this->formit->config, '');
         if (!empty($emailCC)) {
-            $emailCCName = $modx->getOption('fiarCCName', $this->formit->config, '');
+            $emailCCName = $this->modx->getOption('fiarCCName', $this->formit->config, '');
             $emailCC = explode(',', $emailCC);
             $emailCCName = explode(',', $emailCCName);
             $numAddresses = count($emailCC);
@@ -169,15 +169,15 @@ class Autoresponder
                 }
                 $emailCC[$i] = $this->hook->_process($emailCC[$i], $fields);
                 if (!empty($emailCC[$i])) {
-                    $modx->mail->address('cc', $emailCC[$i], $etn);
+                    $this->modx->mail->address('cc', $emailCC[$i], $etn);
                 }
             }
         }
 
         /* bcc */
-        $emailBCC = $modx->getOption('fiarBCC', $this->formit->config, '');
+        $emailBCC = $this->modx->getOption('fiarBCC', $this->formit->config, '');
         if (!empty($emailBCC)) {
-            $emailBCCName = $modx->getOption('fiarBCCName', $this->formit->config, '');
+            $emailBCCName = $this->modx->getOption('fiarBCCName', $this->formit->config, '');
             $emailBCC = explode(',', $emailBCC);
             $emailBCCName = explode(',', $emailBCCName);
             $numAddresses = count($emailBCC);
@@ -188,22 +188,22 @@ class Autoresponder
                 }
                 $emailBCC[$i] = $this->hook->_process($emailBCC[$i], $fields);
                 if (!empty($emailBCC[$i])) {
-                    $modx->mail->address('bcc', $emailBCC[$i], $etn);
+                    $this->modx->mail->address('bcc', $emailBCC[$i], $etn);
                 }
             }
         }
 
         if (!$this->formit->inTestMode) {
-            if (!$modx->mail->send()) {
-                $modx->log(
+            if (!$this->modx->mail->send()) {
+                $this->modx->log(
                     modX::LOG_LEVEL_ERROR,
                     '[FormIt] An error occurred while trying to send
-                      the auto-responder email: '.$modx->mail->mailer->ErrorInfo
+                      the auto-responder email: '.$this->modx->mail->mailer->ErrorInfo
                 );
                 return false;
             }
         }
-        $modx->mail->reset();
+        $this->modx->mail->reset();
         return true;
     }
 }
