@@ -1,8 +1,7 @@
 <?php
-
 namespace Sterc\FormIt\Service;
 
-class Recaptcha
+class RecaptchaService
 {
     const API_SERVER = 'http://www.google.com/recaptcha/api/';
     const API_SECURE_SERVER = 'https://www.google.com/recaptcha/api/';
@@ -136,7 +135,7 @@ class Recaptcha
      * @return string
      */
     protected function error($message = '') {
-        $response = new FormItReCaptchaResponse();
+        $response = new \Sterc\FormIt\Service\RecaptchaResponse();
         $response->is_valid = false;
         $response->error = $message;
         return $message;
@@ -148,7 +147,7 @@ class Recaptcha
      * @param string $challenge
      * @param string $responseField
      * @param array $extraParams An array of extra variables to post to the server
-     * @return FormItReCaptchaResponse
+     * @return \Sterc\FormIt\Service\RecaptchaResponse
      */
     public function checkAnswer ($remoteIp, $challenge, $responseField, $extraParams = array()) {
         if (empty($this->config[self::OPT_PRIVATE_KEY])) {
@@ -164,14 +163,14 @@ class Recaptcha
             return $this->error($this->modx->lexicon('recaptcha.empty_answer'));
         }
 
-        $response = $this->httpPost(self::VERIFY_SERVER,"/recaptcha/api/verify",array (
-                                                                                               'remoteip' => $remoteIp,
-                                                                                               'challenge' => $challenge,
-                                                                                               'response' => $responseField,
-                                                                                           ) + $extraParams);
+        $response = $this->httpPost(self::VERIFY_SERVER, "/recaptcha/api/verify", array (
+            'remoteip' => $remoteIp,
+            'challenge' => $challenge,
+            'response' => $responseField,
+        ) + $extraParams);
 
-        $answers = explode("\n",$response[1]);
-        $response = new FormItReCaptchaResponse();
+        $answers = explode("\n", $response[1]);
+        $response = new \Sterc\FormIt\Service\RecaptchaResponse();
 
         if (trim($answers[0]) == 'true') {
             $response->is_valid = true;

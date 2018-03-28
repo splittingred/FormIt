@@ -27,9 +27,9 @@
  * @package formit
  * @subpackage recaptcha
  */
-require_once dirname(dirname(__DIR__)) . '/src/FormIt/Service/Recaptcha.php';
+require_once dirname(dirname(__DIR__)) . '/src/FormIt/Service/RecaptchaService.php';
 
-class FormItReCaptcha extends Sterc\FormIt\Service\Recaptcha
+class FormItReCaptcha extends Sterc\FormIt\Service\RecaptchaService
 {
 
 }
@@ -40,9 +40,9 @@ class FormItReCaptcha extends Sterc\FormIt\Service\Recaptcha
  * @package formit
  * @subpackage recaptcha
  */
-class FormItReCaptchaResponse {
-    /** @var boolean $is_valid */
-    public $is_valid;
-    /** @var string $error */
-    public $error;
+require_once dirname(dirname(__DIR__)) . '/src/FormIt/Service/RecaptchaResponse.php';
+
+class FormItReCaptchaResponse extends Sterc\FormIt\Service\RecaptchaResponse
+{
+
 }

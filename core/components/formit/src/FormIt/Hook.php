@@ -347,9 +347,9 @@ class Hook
     public function recaptcha($fields = [])
     {
         $passed = false;
-        /** @var Recaptcha $reCaptcha */
+        /** @var RecaptchaService $reCaptcha */
         $reCaptcha = $this->formit->request->loadReCaptcha();
-        if (empty($reCaptcha->config[Recaptcha::OPT_PRIVATE_KEY])) {
+        if (empty($reCaptcha->config[RecaptchaService::OPT_PRIVATE_KEY])) {
             return false;
         }
 
