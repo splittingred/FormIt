@@ -4,7 +4,6 @@ namespace Sterc\FormIt;
 
 use Sterc\FormIt;
 use Sterc\FormIt\Service\Recaptcha;
-use Sterc\FormIt\Service\StopForumSpam;
 
 class Hook
 {
@@ -263,10 +262,10 @@ class Hook
      *
      * @param array $values A key/name pair of fields and values to set.
      */
-    public function setValues($values = [])
+    public function setValues(array $values)
     {
         foreach ($values as $key => $value) {
-            $this->setValue($key,$value);
+            $this->setValue($key, $value);
         }
     }
 
@@ -278,7 +277,7 @@ class Hook
      */
     public function getValue($key)
     {
-        if (array_key_exists($key,$this->fields)) {
+        if (array_key_exists($key, $this->fields)) {
             return $this->fields[$key];
         }
 
@@ -339,40 +338,6 @@ class Hook
     }
 
     /**
-     * Ensure the a field passes a spam filter.
-     *
-     * Properties:
-     * - spamEmailFields - The email fields to check. A comma-delimited list.
-     *
-     * @param array $fields An array of cleaned POST fields
-     *
-     * @return bool True if email was successfully sent.
-     */
-    public function spam($fields = [])
-    {
-        $passed = true;
-        $spamEmailFields = $this->modx->getOption('spamEmailFields',$this->formit->config,'email');
-        $emails = explode(',',$spamEmailFields);
-
-        $sfspam = new StopForumSpam($this->modx);
-        $checkIp = $this->modx->getOption('spamCheckIp',$this->formit->config,false);
-        $ip = $checkIp ? $_SERVER['REMOTE_ADDR'] : '';
-
-        foreach ($emails as $email) {
-            $spamResult = $sfspam->check($ip,$fields[$email]);
-            if (!empty($spamResult)) {
-                $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />",$spamResult);
-                $this->addError($email,$this->modx->lexicon('formit.spam_blocked',array(
-                    'fields' => $spamFields,
-                )));
-                $passed = false;
-            }
-        }
-
-        return $passed;
-    }
-
-    /**
      * Adds in reCaptcha support to FormIt
      *
      * @param array $fields An array of cleaned POST fields
@@ -396,57 +361,6 @@ class Hook
             )));
         } else {
             $passed = true;
-        }
-
-        return $passed;
-    }
-
-    /**
-     * Math field hook for anti-spam math input field.
-     *
-     * @param array $fields An array of cleaned POST fields
-     *
-     * @return bool True if email was successfully sent.
-     */
-    public function math($fields = [])
-    {
-        $mathField = $this->modx->getOption('mathField', $this->config, 'math');
-        if (!isset($fields[$mathField])) {
-            $this->errors[$mathField] = $this->modx->lexicon('formit.math_field_nf', array('field' => $mathField));
-
-            return false;
-        }
-
-        if (empty($fields[$mathField])) {
-            $this->errors[$mathField] = $this->modx->lexicon('formit.field_required', array('field' => $mathField));
-
-            return false;
-        }
-
-        $passed = false;
-        if (isset($_SESSION['formitMath']['op1']) && isset($_SESSION['formitMath']['op2']) && isset($_SESSION['formitMath']['operator'])) {
-            $answer = false;
-            $op1 = $_SESSION['formitMath']['op1'];
-            $op2 = $_SESSION['formitMath']['op2'];
-
-            switch ($_SESSION['formitMath']['operator']) {
-                case '+':
-                    $answer = $op1 + $op2;
-                    break;
-                case '-':
-                    $answer = $op1 - $op2;
-                    break;
-                case '*':
-                    $answer = $op1 * $op2;
-                    break;
-            }
-
-            $guess = (int) $fields[$mathField];
-            $passed = (bool) ($guess == $answer);
-        }
-
-        if (!$passed) {
-            $this->addError($mathField, $this->modx->lexicon('formit.math_incorrect'));
         }
 
         return $passed;
