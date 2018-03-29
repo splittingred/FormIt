@@ -44,15 +44,15 @@ class Email
      * Send an email of the form.
      *
      * Properties:
-     * - emailTpl - The chunk name of the chunk that will be the email template.
-     * This will send the values of the form as placeholders.
-     * - emailTo - A comma separated list of email addresses to send to
-     * - emailToName - A comma separated list of names to pair with addresses.
-     * - emailFrom - The From: email address. Defaults to either the email
-     * field or the emailsender setting.
-     * - emailFromName - The name of the From: user.
-     * - emailSubject - The subject of the email.
-     * - emailHtml - Boolean, if true, email will be in HTML mode.
+     *  emailTpl - The chunk name of the chunk that will be the email template.
+     *      This will send the values of the form as placeholders.
+     *  emailTo - A comma separated list of email addresses to send to
+     *  emailToName - A comma separated list of names to pair with addresses.
+     *  emailFrom - The From: email address. Defaults to either the email
+     *      field or the emailsender setting.
+     *  emailFromName - The name of the From: user.
+     *  emailSubject - The subject of the email.
+     *  emailHtml - Boolean, if true, email will be in HTML mode.
      *
      * @param array $fields An array of cleaned POST fields
      *
