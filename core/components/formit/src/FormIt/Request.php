@@ -399,13 +399,14 @@ class Request
 
     /**
      * Check to see if the redirect URL was set; if so, redirect
+     * Does not redirect when inTestMode is true, or when returnOutput is true.
      *
      * @return void
      */
     public function checkForRedirect()
     {
         $url = $this->formit->postHooks->getRedirectUrl();
-        if (!empty($url) && !$this->formit->inTestMode) {
+        if (!empty($url) && !$this->formit->inTestMode && !$this->formit->returnOutput) {
             $this->modx->sendRedirect($url);
         }
     }

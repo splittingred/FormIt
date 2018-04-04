@@ -72,6 +72,12 @@ class FormIt
     public $errors = [];
 
     /**
+     * Determine if FormIt returns the output, or handle the form normally
+     * @var bool $returnOutput
+     */
+    public $returnOutput = false;
+
+    /**
      * FormIt constructor.
      *
      * @param \modX $modx
@@ -221,6 +227,49 @@ class FormIt
         $this->$typeVar = new \fiHooks($this, $config, $type);
 
         return $this->$typeVar;
+    }
+
+    /**
+     * Process the form and return response array
+     * Does not execute redirect, but add redirect_url to response
+     *
+     * @return array
+     */
+    public function processForm()
+    {
+        $this->returnOutput = true;
+        $this->loadRequest();
+        $this->request->prepare();
+        $this->request->handle();
+
+        // By default form is successfull
+        $response = [
+            'success' => true
+        ];
+
+        // Check for errors
+        if (!$this->hasErrors()) {
+            $response['success_message'] = $this->request->config['successMessage'];
+        } else {
+            $response['success'] = false;
+            $response['error_count'] = count($this->errors);
+            $errorMessage = $this->modx->getPlaceholder(
+                $this->modx->getOption('placeholderPrefix', $this->request->config, null).'validation_error_message'
+            );
+            $response['error_message'] = $errorMessage;
+            $response['errors'] = $this->getErrors();
+        }
+
+        // Add the form fields to output
+        $response['fields'] = $this->request->dictionary->fields;
+
+        // Check for redirect
+        if ($this->postHooks && $this->request->hasHook('redirect')) {
+            $url = $this->postHooks->getRedirectUrl();
+            $response['redirect_url'] = $url;
+        }
+
+        return $response;
     }
 
     /**
