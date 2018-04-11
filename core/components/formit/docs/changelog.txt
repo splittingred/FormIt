@@ -1,5 +1,18 @@
 Changelog for FormIt.
 
+FormIt 4.0.0
+====================================
+- Move formit base classes to /src/ folder and add namespace
+- Update existing classes to extend new classes
+- Update all snippets to use modx getService
+- Move FormItAutoResponder and FormItSaveForm logic to classes
+- Add helper functions for all FormIt properties
+- Set defaultEngine to InnoDB in mysql schema
+
+FormIt 3.0.4
+====================================
+- Fix checkbox values not showing in email
+
 FormIt 3.0.3
 ====================================
 - Fix FormItSaveForm to allow multiple fields with same fieldName

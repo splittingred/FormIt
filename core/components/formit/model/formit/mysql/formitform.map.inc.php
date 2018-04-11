@@ -7,6 +7,10 @@ $xpdo_meta_map['FormItForm']= array (
   'version' => NULL,
   'table' => 'formit_forms',
   'extends' => 'xPDOSimpleObject',
+  'tableMeta' => 
+  array (
+    'engine' => 'InnoDB',
+  ),
   'fields' => 
   array (
     'form' => '',
