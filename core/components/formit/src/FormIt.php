@@ -244,19 +244,18 @@ class FormIt
 
         // By default form is successfull
         $response = [
-            'success' => true
+            'success' => true,
+            'message' => $this->request->config['successMessage']
         ];
 
         // Check for errors
-        if (!$this->hasErrors()) {
-            $response['success_message'] = $this->request->config['successMessage'];
-        } else {
+        if ($this->hasErrors()) {
             $response['success'] = false;
             $response['error_count'] = count($this->errors);
             $errorMessage = $this->modx->getPlaceholder(
                 $this->modx->getOption('placeholderPrefix', $this->request->config, null).'validation_error_message'
             );
-            $response['error_message'] = $errorMessage;
+            $response['message'] = $errorMessage;
             $response['errors'] = $this->getErrors();
         }
 
