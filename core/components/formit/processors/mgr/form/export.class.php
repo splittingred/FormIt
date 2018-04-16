@@ -18,22 +18,26 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         if (!empty($form)) {
             $c->andCondition(array('form' => $form));
         }
-        
+
         $context_key = $this->getProperty('context_key');
         if (!empty($context_key)) {
             $c->andCondition(array('context_key' => $context_key));
         }
 
         $startDate = $this->getProperty('startDate');
-        if ($startDate != '') {
-            $c->andCondition(array('date:>' => strtotime($startDate.' 00:00:00')));
+        if ($startDate !== '') {
+            $startDate = explode('T', $startDate);
+            $c->andCondition(array('date:>' => strtotime($startDate[0] . ' 00:00:00')));
         }
 
         $endDate = $this->getProperty('endDate');
-        if ($endDate != '') {
-            $c->andCondition(array('date:<' => strtotime($endDate.' 23:59:59')));
+        if ($endDate !== '') {
+            $endDate = explode('T', $endDate);
+            $c->andCondition(array('date:<' => strtotime($endDate[0] . ' 23:59:59')));
         }
+
         $c->prepare();
+
         return $c;
     }
 
@@ -113,14 +117,14 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
             echo $str;
             exit;
         }
- 
+
         return array('file' =>$handle, 'filename' => $file, 'content' => ob_get_clean());
     }
- 
+
     public function prepareRow(xPDOObject $object)
     {
         $ff = $object->toArray();
-        
+
         if ($ff['encrypted']) {
             $ff['values'] = $object->decrypt($ff['values']);
         }
@@ -128,4 +132,5 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
         return $ff;
     }
 }
+
 return 'FormItFormExportProcessor';
