@@ -8,6 +8,9 @@ FormIt 4.0.0
 - Move FormItAutoResponder and FormItSaveForm logic to classes
 - Add helper functions for all FormIt properties
 - Set defaultEngine to InnoDB in mysql schema
+- Fix PHP7 error in default email output (PR#156)
+- Updated German lexicons (PR#150)
+- Add 'Form' column to form export (PR#149)
 
 FormIt 3.0.4
 ====================================
