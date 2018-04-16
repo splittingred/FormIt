@@ -30,13 +30,15 @@
  * @package formit
  */
 
-$modelPath = $modx->getOption('formit.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/') . 'model/formit/';
-$modx->loadClass('FormIt', $modelPath, true, true);
-
-$fi = new FormIt($modx,$scriptProperties);
+$modelPath = $modx->getOption(
+    'formit.core_path',
+    null,
+    $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/'
+) . 'model/formit/';
+$fi = $modx->getService('formit', 'FormIt', $modelPath, $scriptProperties);
 
 /** @var fiStateOptions $so */
-$so = $fi->loadModule('fiStateOptions','stateOptions',$scriptProperties);
+$so = $fi->loadModule('fiStateOptions', 'stateOptions', $scriptProperties);
 $so->initialize();
 $so->getData();
 $so->iterate();

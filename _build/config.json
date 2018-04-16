@@ -3,7 +3,7 @@
     "lowCaseName": "formit",
     "description": "FormIt is a dynamic form processing Snippet for MODx Revolution. It handles a form after submission, performing validation and followup actions like sending an email. It does not generate the form, but it can repopulate it if it fails validation.",
     "author": "Sterc",
-    "version": "3.0.4",
+    "version": "4.0.0",
     "package": {
         "actions": [{
             "id": 1,
@@ -325,11 +325,6 @@
                     "value": "1"
                 }]
             },{
-                "name": "FormItAutoResponder",
-                "description": "Custom hook for FormIt to handle Auto-Response emails.",
-                "file": "snippet.formitautoresponder.php",
-                "properties": []
-            },{
                 "name": "FormItRetriever",
                 "description": "Fetches a form submission for a user for displaying on a thank you page.",
                 "file": "snippet.formitretriever.php",
@@ -449,11 +444,6 @@
                     "description": "prop_fiso.country_desc",
                     "value": "[[++cultureKey]]"
                 }]
-            },{
-                "name": "FormItSaveForm",
-                "description": "Custom hook for FormIt to save the form.",
-                "file": "snippet.formitsaveform.php",
-                "properties": []
             },{
                 "name": "FormItLoadSavedForm",
                 "description": "Prehook to load previously saved form.",
