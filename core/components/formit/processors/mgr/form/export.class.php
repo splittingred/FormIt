@@ -69,7 +69,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
     public function createCsv($exportPath, $file, array $data)
     {
 
-        $keys = array('IP', 'Date');
+        $keys = array('IP', 'Date', 'Form');
 
         $handle = $exportPath.$file;
         if ($this->getProperty('download')) {
@@ -99,6 +99,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
             if (!empty($objectArray) && is_array($objectArray)) {
                 $objectArray['values']['IP'] = $object->get('ip');
                 $objectArray['values']['Date'] = date($dateFormat, $object->get('date'));
+                $objectArray['values']['Form'] = $object->get('form');
                 foreach ($objectArray['values'] as $vk => $vv) {
                     $objectArray['values'][$vk] = (is_array($vv)) ? implode(',', $vv) : $vv;
                 }
