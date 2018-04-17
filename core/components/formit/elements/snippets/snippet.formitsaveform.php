@@ -101,6 +101,9 @@ if ($fieldNames) {
     }
     $dataArray = $newDataArray;
 }
+if ($formit->config['storeAttachments'] == '1') {
+    $dataArray['storeAttachments'] = 1;
+}
 // We only enter update mode if we already have a valid formHashKey (tested above)
 // AND the updateSavedForm param was set to a truth-y value.
 $mode = ($updateSavedForm && $formHashKey) ? 'update' : 'create';
@@ -164,6 +167,7 @@ if (!$newForm->save()) {
     $modx->log(modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
     return false;
 }
+$newForm->storeAttachments($formit->config);
 // Pass the hash and form data back to the user
 $hook->setValue('savedForm', $newForm->toArray());
 $hook->setValue($formHashKeyField, $newForm->get('hash'));

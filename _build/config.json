@@ -475,7 +475,18 @@
             "type": "textfield",
             "area": "system",
             "value": ""
-        }]
+        },{
+            "key": "attachment.mediasource",
+            "type": "modx-combo-source",
+            "area": "system",
+            "value": 1
+        },{
+            "key": "attachment.path",
+            "type": "textfield",
+            "area": "system",
+            "value": ""
+        }
+        ]
     },
     "database": {
         "tables": [

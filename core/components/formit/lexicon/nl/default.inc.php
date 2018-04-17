@@ -45,3 +45,5 @@ $_lang['formit.range_invalid'] = 'Ongeldig bereik ingevoerd.';
 $_lang['formit.range'] = 'De invoer moet tussen de [[+min]] en [[+max]] zijn.';
 $_lang['formit.username_taken'] = 'Gebruikersnaam al in gebruik. Kies een andere';
 
+$_lang['formit.storeAttachment_mediasource_error'] = 'Kan MediaSource niet vinden! Mediasource-ID is: ';
+$_lang['formit.storeAttachment_access_error'] = 'Directory is niet schrijfbaar! Controleer de machtigingen voor: ';

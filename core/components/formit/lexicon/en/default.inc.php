@@ -57,5 +57,6 @@ $_lang['formit.spam_blocked'] = 'Your submission was blocked by a spam filter: '
 $_lang['formit.spam_marked'] = ' - marked as spam.';
 $_lang['formit.username_taken'] = 'Username already taken. Please choose another.';
 $_lang['formit.not_regexp'] = 'Your value did not match the expected format.';
-
+$_lang['formit.storeAttachment_mediasource_error'] = 'Cant find MediaSource! Mediasource id is: ';
+$_lang['formit.storeAttachment_access_error'] = 'Directory is not writable! Check the permissions for: ';
 $_lang['area_recaptcha'] = 'reCaptcha';

@@ -131,6 +131,11 @@ class Request
 
         }
 
+        if ($this->hasHook('FormItSaveForm') && $this->modx->getOption('storeAttachments', $this->config, true)) {
+            $newForm = $this->modx->newObject('FormItForm');
+            $newForm->validateStoreAttachment($this->config);
+        }
+
         return $this->runPreHooks();
     }
 
