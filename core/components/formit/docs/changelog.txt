@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 4.0.1
+====================================
+- Fix modx log calls to prevent errors
+
 FormIt 4.0.0
 ====================================
 - Move formit base classes to /src/ folder and add namespace
