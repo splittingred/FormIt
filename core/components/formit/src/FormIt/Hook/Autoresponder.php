@@ -72,7 +72,7 @@ class Autoresponder
      */
     public function process($fields = [])
     {
-        $tpl = $this->modx->getOption('fiarTpl', $this->formit->config, 'fiDefaultFiarTpl');
+        $tpl = $this->modx->getOption('fiarTpl', $this->formit->config, 'fiDefaultFiarTpl', true);
         $mailFrom = $this->modx->getOption('fiarFrom', $this->formit->config, $this->modx->getOption('emailsender'));
         $mailFromName = $this->modx->getOption('fiarFromName', $this->formit->config, $this->modx->getOption('site_name'));
         $mailSender = $this->modx->getOption('fiarSender', $this->formit->config, $this->modx->getOption('emailsender'));
@@ -91,7 +91,7 @@ class Autoresponder
         if (empty($fields[$toField])) {
             if ($required) {
                 $this->modx->log(
-                    modX::LOG_LEVEL_ERROR,
+                    \modX::LOG_LEVEL_ERROR,
                     '[FormIt] Auto-responder could not find field `'.$toField.'` in form submission.'
                 );
                 return false;
@@ -196,7 +196,7 @@ class Autoresponder
         if (!$this->formit->inTestMode) {
             if (!$this->modx->mail->send()) {
                 $this->modx->log(
-                    modX::LOG_LEVEL_ERROR,
+                    \modX::LOG_LEVEL_ERROR,
                     '[FormIt] An error occurred while trying to send
                       the auto-responder email: '.$this->modx->mail->mailer->ErrorInfo
                 );
