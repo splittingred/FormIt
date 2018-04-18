@@ -195,7 +195,7 @@ class Saveform
         $newForm->fromArray($newFormArray);
         // Attempt to save
         if (!$newForm->save()) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
+            $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
             return false;
         }
         // Pass the hash and form data back to the user

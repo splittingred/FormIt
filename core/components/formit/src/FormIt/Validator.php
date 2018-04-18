@@ -265,11 +265,11 @@ class Validator extends FormIt
                 $validated = $snippet->process($props);
             } else {
                 /* no validator found */
-                $this->modx->log(modX::LOG_LEVEL_ERROR,'[FormIt] Could not find validator "'.$type.'" for field "'.$key.'".');
+                $this->modx->log(\modX::LOG_LEVEL_ERROR,'[FormIt] Could not find validator "'.$type.'" for field "'.$key.'".');
                 $validated = true;
             }
         } else {
-            $this->modx->log(modX::LOG_LEVEL_INFO,'[FormIt] Validator "'.$type.'" for field "'.$key.'" was not specified in the customValidators property.');
+            $this->modx->log(\modX::LOG_LEVEL_INFO,'[FormIt] Validator "'.$type.'" for field "'.$key.'" was not specified in the customValidators property.');
             $validated = true;
         }
 
