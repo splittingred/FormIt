@@ -621,8 +621,8 @@ class Validator extends FormIt
     public function isDate($key,$value,$format = '%m/%d/%Y') {
         /* allow empty isDate, :required should be used to prevent blank field */
         if (empty($value)) {
-			return true;
-		}
+            return true;
+        }
 		
         $ts = strtotime($value);
         if ($ts === false) {
