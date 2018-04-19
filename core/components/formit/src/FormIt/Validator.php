@@ -619,11 +619,13 @@ class Validator extends FormIt
      * @return boolean
      */
     public function isDate($key,$value,$format = '%m/%d/%Y') {
-        $ts = false;
-        if (!empty($value)) {
-            $ts = strtotime($value);
-        }
-        if ($ts === false || empty($value)) {
+        /* allow empty isDate, :required should be used to prevent blank field */
+        if (empty($value)) {
+			return true;
+		}
+		
+        $ts = strtotime($value);
+        if ($ts === false) {
             return $this->_getErrorMessage($key,'vTextIsDate','formit.not_date',array(
                 'format' => $format,
                 'field' => $key,
