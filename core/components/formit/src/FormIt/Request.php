@@ -175,7 +175,10 @@ class Request
      */
     public function hasHook($hook)
     {
-        return strpos($this->config['hooks'],$hook) !== false;
+        if ($this->formit->postHooks) {
+            $hook = $this->formit->postHooks->getHookName($hook);
+        }
+        return strpos($this->config['hooks'], $hook) !== false;
     }
 
     /**
