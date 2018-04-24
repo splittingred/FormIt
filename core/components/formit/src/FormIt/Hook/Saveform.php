@@ -198,6 +198,7 @@ class Saveform
             $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormItSaveForm] An error occurred while trying to save the submitted form: ' . print_r($newForm->toArray(), true));
             return false;
         }
+        $newForm->storeAttachments($this->formit->config);
         // Pass the hash and form data back to the user
         $this->hook->setValue('savedForm', $newForm->toArray());
         $this->hook->setValue($formHashKeyField, $newForm->get('hash'));

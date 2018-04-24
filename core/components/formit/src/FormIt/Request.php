@@ -79,7 +79,7 @@ class Request
     public function prepare()
     {
         /* if using recaptcha, load recaptcha html */
-        if ($this->hasHook('recaptcha')) {
+        if ($this->formit->hasHook('recaptcha')) {
             $this->loadReCaptcha($this->config);
             if (!empty($this->reCaptcha) && $this->reCaptcha instanceof Recaptcha) {
                 $this->reCaptcha->render($this->config);
@@ -89,7 +89,7 @@ class Request
         }
 
         /* if using math hook, load default placeholders */
-        if ($this->hasHook('math')) {
+        if ($this->formit->hasHook('math')) {
             if (!$this->hasSubmission()) {
                 $mathMaxRange = $this->modx->getOption('mathMaxRange', $this->config, 100);
                 $mathMinRange = $this->modx->getOption('mathMinRange', $this->config, 10);
@@ -131,6 +131,13 @@ class Request
 
         }
 
+        if ($this->modx->getOption('storeAttachments', $this->config, false) &&
+            ($this->formit->hasHook('FormItSaveForm') || $this->formit->hasHook('saveform'))
+        ) {
+            $newForm = $this->modx->newObject('FormItForm');
+            $newForm->validateStoreAttachment($this->config);
+        }
+
         return $this->runPreHooks();
     }
 
@@ -162,6 +169,7 @@ class Request
     }
 
     /**
+<<<<<<< HEAD
      * Check to see if a hook has been passed
      *
      * @param string $hook
@@ -177,6 +185,8 @@ class Request
     }
 
     /**
+=======
+>>>>>>> 0be5082e9a5d7a299d063add0321d5a7c754c458
      * Checks to see if a POST submission for this form has occurred
      *
      * @return boolean

@@ -63,4 +63,22 @@ $settings['formit.exclude_contexts']->fromArray(array(
     'area' => '',
 ),'',true,true);
 
+$settings['formit.attachment.mediasource']= $modx->newObject('modSystemSetting');
+$settings['formit.attachment.mediasource']->fromArray(array(
+    'key' => 'formit.attachment.mediasource',
+    'value' => '1',
+    'xtype' => 'modx-combo-source',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
+$settings['formit.attachment.path']= $modx->newObject('modSystemSetting');
+$settings['formit.attachment.path']->fromArray(array(
+    'key' => 'formit.attachment.path',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
 return $settings;
