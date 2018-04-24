@@ -79,7 +79,7 @@ class Request
     public function prepare()
     {
         /* if using recaptcha, load recaptcha html */
-        if ($this->hasHook('recaptcha')) {
+        if ($this->formit->hasHook('recaptcha')) {
             $this->loadReCaptcha($this->config);
             if (!empty($this->reCaptcha) && $this->reCaptcha instanceof Recaptcha) {
                 $this->reCaptcha->render($this->config);
@@ -89,7 +89,7 @@ class Request
         }
 
         /* if using math hook, load default placeholders */
-        if ($this->hasHook('math')) {
+        if ($this->formit->hasHook('math')) {
             if (!$this->hasSubmission()) {
                 $mathMaxRange = $this->modx->getOption('mathMaxRange', $this->config, 100);
                 $mathMinRange = $this->modx->getOption('mathMinRange', $this->config, 10);
@@ -131,7 +131,9 @@ class Request
 
         }
 
-        if ($this->hasHook('FormItSaveForm') && $this->modx->getOption('storeAttachments', $this->config, true)) {
+        if ($this->modx->getOption('storeAttachments', $this->config, true) &&
+            ($this->formit->hasHook('FormItSaveForm') || $this->formit->hasHook('saveform'))
+        ) {
             $newForm = $this->modx->newObject('FormItForm');
             $newForm->validateStoreAttachment($this->config);
         }
@@ -164,21 +166,6 @@ class Request
         }
 
         return $fields;
-    }
-
-    /**
-     * Check to see if a hook has been passed
-     *
-     * @param string $hook
-     *
-     * @return bool
-     */
-    public function hasHook($hook)
-    {
-        if ($this->formit->postHooks) {
-            $hook = $this->formit->postHooks->getHookName($hook);
-        }
-        return strpos($this->config['hooks'], $hook) !== false;
     }
 
     /**

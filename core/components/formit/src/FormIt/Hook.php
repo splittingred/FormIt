@@ -129,7 +129,7 @@ class Hook
         if (!empty($fields)) {
             $this->fields =& $fields;
         }
-        $hookName = $this->getHookName($hookName);
+        $hookName = $this->formit->getHookName($hookName);
         $this->hooks[] = $hookName;
 
         $className = 'Sterc\FormIt\Hook\\'.ucfirst($hookName);
@@ -190,24 +190,6 @@ class Hook
         }
 
         return $success;
-    }
-
-    /**
-     * Helper for returning the correct hookname
-     *
-     * @param string $name The name of the hook
-     *
-     * @return string The correct name
-     */
-    public function getHookName($name)
-    {
-        if ($name === 'FormItAutoResponder') {
-            $name = 'autoresponder';
-        }
-        if ($name === 'FormItSaveForm') {
-            $name = 'saveform';
-        }
-        return $name;
     }
 
     /**

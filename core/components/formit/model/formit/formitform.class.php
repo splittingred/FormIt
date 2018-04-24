@@ -114,7 +114,7 @@ class FormItForm extends xPDOSimpleObject
 
     public function storeAttachments($config)
     {
-         if ($this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment') == '') {
+        if ($this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment') == '') {
             $path = $this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'storeAttachment_path');
             $old_data = $this->xpdo->fromJSON($this->values);
             $site_url = $this->xpdo->getOption('site_url');
@@ -188,7 +188,10 @@ class FormItForm extends xPDOSimpleObject
         $maxFileSize = $this->xpdo->getOption('upload_maxsize', null, 1048576);
         $size = filesize($tmp_name);
         if ($size > $maxFileSize) {
-            $this->xpdo->log(MODx::LOG_LEVEL_ERROR, '[FormItSaveForm] ' . $this->xpdo->lexicon('formit.storeAttachment_file_size_error'));
+            $this->xpdo->log(
+                MODx::LOG_LEVEL_ERROR,
+                '[FormItSaveForm] ' . $this->xpdo->lexicon('formit.storeAttachment_file_size_error')
+            );
             return;
         }
         $basePath = MODX_BASE_PATH . $path . $this->id . '/';
