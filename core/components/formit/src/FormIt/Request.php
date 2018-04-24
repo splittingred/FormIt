@@ -131,7 +131,7 @@ class Request
 
         }
 
-        if ($this->modx->getOption('storeAttachments', $this->config, true) &&
+        if ($this->modx->getOption('storeAttachments', $this->config, false) &&
             ($this->formit->hasHook('FormItSaveForm') || $this->formit->hasHook('saveform'))
         ) {
             $newForm = $this->modx->newObject('FormItForm');

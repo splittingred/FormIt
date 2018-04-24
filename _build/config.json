@@ -3,7 +3,7 @@
     "lowCaseName": "formit",
     "description": "FormIt is a dynamic form processing Snippet for MODx Revolution. It handles a form after submission, performing validation and followup actions like sending an email. It does not generate the form, but it can repopulate it if it fails validation.",
     "author": "Sterc",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "package": {
         "actions": [{
             "id": 1,
@@ -323,6 +323,11 @@
                     "description": "prop_formit.attachfiles_desc",
                     "type": "combo-boolean",
                     "value": "1"
+                },{
+                    "name": "storeAttachments",
+                    "description": "prop_formit.store_attachments_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
                 }]
             },{
                 "name": "FormItRetriever",

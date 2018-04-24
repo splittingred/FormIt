@@ -67,7 +67,6 @@ class Hook
         $this->formit =& $formit;
         $this->modx = $formit->modx;
         $this->config = array_merge([
-            'placeholderPrefix' => 'fi.',
             'errTpl' => '<span class="error">[[+error]]</span>',
             'mathField' => 'math',
             'mathOp1Field' => 'op1',

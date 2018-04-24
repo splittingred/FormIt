@@ -91,16 +91,13 @@ class FormItForm extends xPDOSimpleObject
             $prop = $mediasource->get('properties');
             $path = $prop['basePath']['value'] . $this->xpdo->getOption('formit.attachment.path');
             if (!is_dir(MODX_BASE_PATH . $path)) {
-                //$error = $this->xpdo->lexicon('formit.storeAttachment_path_error');
                 mkdir(MODX_BASE_PATH . $path);
             }
-           // } else {
             if (!is_writable($path)) {
                 $error = $this->xpdo->lexicon('formit.storeAttachment_access_error').$path;
             } else {
                 $this->xpdo->setPlaceholder($config['placeholderPrefix'] . 'storeAttachment_path', $path);
             }
-           // }
         }
         if (empty($error)) {
             $this->storeAttachments = true;

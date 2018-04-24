@@ -106,6 +106,7 @@ class FormIt
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
             'connectorUrl' => $connectorUrl,
+            'placeholderPrefix' => 'fi.',
             'debug' => $this->modx->getOption('formit.debug', null, false),
             'use_multibyte' => (bool) $this->modx->getOption('use_multibyte', null, false),
             'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),

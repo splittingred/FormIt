@@ -60,8 +60,7 @@ class Dictionary
         /* Check for files and save to tmp folder */
         if (!empty($_FILES)) {
             /* Only save files if these properties are true */
-            if (
-                $this->modx->getOption('allowFiles', $this->config, true) &&
+            if ($this->modx->getOption('allowFiles', $this->config, true) &&
                 $this->modx->getOption('saveTmpFiles', $this->config, false)
             ) {
                 foreach ($_FILES as $key => $value) {
