@@ -169,24 +169,6 @@ class Request
     }
 
     /**
-<<<<<<< HEAD
-     * Check to see if a hook has been passed
-     *
-     * @param string $hook
-     *
-     * @return bool
-     */
-    public function hasHook($hook)
-    {
-        if ($this->formit->postHooks) {
-            $hook = $this->formit->postHooks->getHookName($hook);
-        }
-        return strpos($this->config['hooks'], $hook) !== false;
-    }
-
-    /**
-=======
->>>>>>> 0be5082e9a5d7a299d063add0321d5a7c754c458
      * Checks to see if a POST submission for this form has occurred
      *
      * @return boolean

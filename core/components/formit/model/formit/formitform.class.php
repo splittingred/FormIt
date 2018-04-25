@@ -121,16 +121,16 @@ class FormItForm extends xPDOSimpleObject
             }
         }
         if (empty($error)) {
-            $this->storeAttachments = true;
+            $storeAttachments = true;
         } else {
-            $this->storeAttachments = false;
+            $storeAttachments = false;
             $this->xpdo->log(MODx::LOG_LEVEL_ERROR, '[FormIt] ' . $error);
         }
 
         $this->xpdo->setPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment', $error);
         $this->path = $path;
 
-        return $this->storeAttachments;
+        return $storeAttachments;
     }
 
 
