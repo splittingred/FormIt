@@ -27,7 +27,7 @@ class FormItHomeManagerController extends FormItBaseManagerController
 
                 return;
             }
-            $response = $form->donwloadFile($_GET['file']);
+            $response = $form->downloadFile($_GET['file']);
             if ($response !== true) {
                 $this->failureMessage = $response;
                 $this->isFailure = true;

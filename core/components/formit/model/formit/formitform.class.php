@@ -259,7 +259,7 @@ class FormItForm extends xPDOSimpleObject
     }
 
 
-    public function donwloadFile($fileget)
+    public function downloadFile($fileget)
     {
         $config['placeholderPrefix'] = 'pl.';
         $val = $this->validateStoreAttachment($this->config);
