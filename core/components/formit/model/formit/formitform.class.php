@@ -148,34 +148,36 @@ class FormItForm extends xPDOSimpleObject
 
             $url = $this->xpdo->getOption('manager_url') . '?a=' . $actionId . '&formid=' . $this->id;
 
-
             foreach ($_FILES as $key => $value) {
+                $data_key = [];
                 if (is_array($value['name'])) {
                     foreach ($value['name'] as $fKey => $fValue) {
+                        $enc_name = $this->encrypt($value['name'][$fKey]);
                         $resp = $this->saveFile(
-                            $key . '_' . $fKey,
+                            $enc_name,
                             $value['name'][$fKey],
                             $value['tmp_name'][$fKey],
                             $value['error'][$fKey],
                             $path
                         );
                         if ($resp) {
-                            $data[$key][] = "<a target='_blank' href='" . $url . '&file=' . $value['name'][$fKey] . "'>" . $value['name'][$fKey] . '</a>';
+                            $data_key[] = "<a target='_blank' href='" . $url . '&file=' . $enc_name . "'>" . $value['name'][$fKey] . '</a><br>';
                         }
                     }
                 } else {
+                    $enc_name = $this->encrypt($value['name']);
                     $resp = $this->saveFile(
-                        $key,
+                        $enc_name,
                         $value['name'],
                         $value['tmp_name'],
                         $value['error'],
                         $path
                     );
                     if ($resp) {
-                        $data[$key][] = "<a target='_blank' href='" . $url . '&file=' . $value['name'] . "'>" . $value['name'] . '</a>';
+                        $data_key[] ="<a target='_blank' href='" . $url . '&file=' . $enc_name . "'>" . $value['name'] . '</a><br>';
                     }
                 }
-                $old_data[$key] = $data[$key];
+                $old_data[$key] = implode('', $data_key);
                 $new_data = $this->xpdo->toJSON($old_data);
                 $this->set('values', $new_data);
                 $this->save();
@@ -184,7 +186,7 @@ class FormItForm extends xPDOSimpleObject
     }
 
 
-    public function saveFile($key, $name, $tmp_name, $error, $path)
+    public function saveFile($enc_name, $name, $tmp_name, $error, $path)
     {
         $info = pathinfo($name);
 
@@ -251,7 +253,7 @@ class FormItForm extends xPDOSimpleObject
         if (!is_dir($basePath)) {
             mkdir($basePath);
         }
-        $target = $basePath . $info['basename'];
+        $target = $basePath . $enc_name;
 
         return $this->encryptFile($tmp_name, $target);
         /*$_FILES[$key]['tmp_name'] = $target;
@@ -336,7 +338,7 @@ class FormItForm extends xPDOSimpleObject
         } else {
             return 'Cant read file!';
         }
-        $basename = end(explode('/', $source));
+        $basename = $this->decrypt(end(explode('/', $source)));
         header("HTTP/1.1 200 OK");
         header("Connection: close");
         header("Content-Type: application/octet-stream");
