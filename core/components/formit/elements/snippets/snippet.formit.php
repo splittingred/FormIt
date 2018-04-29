@@ -35,7 +35,8 @@ $modelPath = $modx->getOption(
     null,
     $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/'
 ) . 'model/formit/';
-$fi = $modx->getService('formit', 'FormIt', $modelPath, $scriptProperties);
+$modx->loadClass('FormIt', $modelPath, true, true);
+$fi = new FormIt($modx, $scriptProperties);
 
 $fi->initialize($modx->context->get('key'));
 $fi->loadRequest();
