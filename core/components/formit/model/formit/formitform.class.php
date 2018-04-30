@@ -120,17 +120,14 @@ class FormItForm extends xPDOSimpleObject
                 $this->xpdo->setPlaceholder($config['placeholderPrefix'] . 'storeAttachment_path', $path);
             }
         }
-        if (empty($error)) {
-            $storeAttachments = true;
-        } else {
-            $storeAttachments = false;
+        if(!empty($error)){
             $this->xpdo->log(MODx::LOG_LEVEL_ERROR, '[FormIt] ' . $error);
         }
 
         $this->xpdo->setPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment', $error);
         $this->path = $path;
 
-        return $storeAttachments;
+        return $error;
     }
 
 
@@ -138,8 +135,13 @@ class FormItForm extends xPDOSimpleObject
     {
         if ($this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment') == '') {
             $path = $this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'storeAttachment_path');
+            $encrypted = $this->encrypted;
+            if($encrypted){
+                $old_data = $this->xpdo->fromJSON($this->decrypt($this->values));
+            }else{
+                $old_data = $this->xpdo->fromJSON($this->values);
+            }
 
-            $old_data = $this->xpdo->fromJSON($this->values);
 
             $action = $this->xpdo->getObject('modAction', ['namespace' => 'formit']);
             if ($action) {
@@ -179,6 +181,9 @@ class FormItForm extends xPDOSimpleObject
                 }
                 $old_data[$key] = implode('', $data_key);
                 $new_data = $this->xpdo->toJSON($old_data);
+                if($encrypted){
+                    $new_data = $this->encrypt($new_data);
+                }
                 $this->set('values', $new_data);
                 $this->save();
             }
@@ -189,7 +194,6 @@ class FormItForm extends xPDOSimpleObject
     public function saveFile($enc_name, $name, $tmp_name, $error, $path)
     {
         $info = pathinfo($name);
-
         $ext = $info['extension'];
         $ext = strtolower($ext);
         if ($error !== 0) {
@@ -264,10 +268,10 @@ class FormItForm extends xPDOSimpleObject
     public function downloadFile($fileget)
     {
         $config['placeholderPrefix'] = 'pl.';
-        $val = $this->validateStoreAttachment($this->config);
+        $val = $this->validateStoreAttachment($config);
 
-        if (!$val) {
-            return 'Cant find save path!';
+        if (!empty($val)) {
+            return $val;
         }
         if ($this->path == '') {
             $file = $this->xpdo->getOption(
@@ -339,6 +343,7 @@ class FormItForm extends xPDOSimpleObject
             return 'Cant read file!';
         }
         $basename = $this->decrypt(end(explode('/', $source)));
+
         header("HTTP/1.1 200 OK");
         header("Connection: close");
         header("Content-Type: application/octet-stream");
