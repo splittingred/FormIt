@@ -2,7 +2,12 @@ Changelog for FormIt.
 
 FormIt 4.0.1
 ====================================
-- Fix modx log calls to prevent errors
+- Add option to specify csv delimiter for form export
+- Add GDPR compliant attachment handling (#154) - Thanks to @wax100
+- Allow empty isDate validator (PR#164) - Thanks to JoshuaLuckers
+- Fix bug with multiple forms on one page (#160)
+- Fix modx->log calls in various classes (#161)
+- Fix setting redirectParams variable (#165)
 
 FormIt 4.0.0
 ====================================

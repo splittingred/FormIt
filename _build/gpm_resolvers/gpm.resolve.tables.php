@@ -22,11 +22,9 @@ if ($object->xpdo) {
             $modx->addPackage('formit', $modelPath, null);
 
 
-
             $manager = $modx->getManager();
 
             $manager->createObjectContainer('FormItForm');
-
 
             break;
     }
