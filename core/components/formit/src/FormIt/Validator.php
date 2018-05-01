@@ -37,9 +37,9 @@ class Validator extends FormIt
      *
      * @param FormIt &$formit A reference to the FormIt class instance.
      * @param array $config Optional. An array of configuration parameters.
-     * @return \fiValidator
      */
-    function __construct(FormIt &$formit,array $config = array()) {
+    function __construct(FormIt &$formit, array $config = array())
+    {
         $this->formit =& $formit;
         $this->modx = $formit->modx;
         $this->config = array_merge(array(
@@ -63,7 +63,8 @@ class Validator extends FormIt
      * @param string $method
      * @return null
      */
-    public function getOption($key,$default = null,$method = '!empty') {
+    public function getOption($key, $default = null, $method = '!empty')
+    {
         $v = $default;
 
         switch ($method) {
@@ -94,14 +95,16 @@ class Validator extends FormIt
      * @access public
      * @param Dictionary $dictionary
      * @param string $validationFields
+     * @param string $validationSeparator
      * @return array An array of field name => value pairs.
      */
-    public function validateFields(Dictionary $dictionary,$validationFields = '', $validationSeparator = ',') {
+    public function validateFields(Dictionary $dictionary, $validationFields = '', $validationSeparator = ',')
+    {
         $keys = $dictionary->toArray();
         $this->fields = $keys;
 
         /* process the list of fields that will be validated */
-        $validationFields = explode($validationSeparator,$validationFields);
+        $validationFields = explode($validationSeparator, $validationFields);
         $fieldValidators = array();
         foreach ($validationFields as $idx => $v) {
             $v = trim(ltrim($v),' '); /* allow multi-line definitions */
@@ -119,30 +122,33 @@ class Validator extends FormIt
         /** @var string|array $v */
         foreach ($keys as $k => $v) {
             /* is a array field, ie contact[name] */
-            if (is_array($v) && !isset($_FILES[$k]) && is_string($k) && intval($k) == 0 && $k !== 0) {
+            if (is_array($v) && !isset($_FILES[$k]) && is_string($k) && (int)$k === 0 && $k !== 0) {
                 $isCheckbox = false;
                 foreach ($v as $key => $val) {
-                    if (!is_string($key)) { $isCheckbox = true; continue; }
+                    if (!is_string($key)) {
+                        $isCheckbox = true;
+                        continue;
+                    }
                     $subKey = $k.'.'.$key;
-                    $this->_validate($subKey,$val,$fieldValidators);
+                    $this->_validate($subKey, $val, $fieldValidators);
                 }
                 if ($isCheckbox) {
-                    $this->_validate($k,$v,$fieldValidators);
+                    $this->_validate($k, $v, $fieldValidators);
                 }
             } else {
-                $this->_validate($k,$v,$fieldValidators);
+                $this->_validate($k, $v, $fieldValidators);
             }
         }
         /* remove fields that have . in name */
         foreach ($this->fields as $field => $v) {
-            if (strpos($field,'.') !== false || strpos($field,':')) {
+            if (strpos($field, '.') !== false || strpos($field, ':')) {
                 unset($this->fields[$field]);
             }
         }
 
         /* add fields back into dictionary */
         foreach ($this->fields as $k => $v) {
-            $dictionary->set($k,$v);
+            $dictionary->set($k, $v);
         }
 
         return $this->fields;
@@ -155,13 +161,14 @@ class Validator extends FormIt
      * @param array $fieldValidators
      * @return void
      */
-    private function _validate($k,$v,array $fieldValidators = array()) {
-        $key = explode(':',$k);
+    private function _validate($k, $v, array $fieldValidators = array())
+    {
+        $key = explode(':', $k);
 
-        $stripTags = strpos($k,'allowTags') === false;
+        $stripTags = strpos($k, 'allowTags') === false;
         if (isset($fieldValidators[$k])) {
             foreach ($fieldValidators[$k] as $fv) {
-                if (strpos($fv,'allowTags') !== false) {
+                if (strpos($fv, 'allowTags') !== false) {
                     $stripTags = false;
                 }
             }
@@ -172,10 +179,10 @@ class Validator extends FormIt
             $v = strip_tags($v);
         }
 
-        $replaceSpecialChars = strpos($k,'allowSpecialChars') === false;
+        $replaceSpecialChars = strpos($k, 'allowSpecialChars') === false;
         if (isset($fieldValidators[$k])) {
             foreach ($fieldValidators[$k] as $fv) {
-                if (strpos($fv,'allowSpecialChars') !== false) {
+                if (strpos($fv, 'allowSpecialChars') !== false) {
                     $replaceSpecialChars = false;
                 }
             }
@@ -187,14 +194,16 @@ class Validator extends FormIt
         }
 
         /* handle checkboxes/radios with empty hiddens before that are field[] names */
-        if (is_array($v) && !isset($_FILES[$key[0]]) && empty($v[0])) array_splice($v,0,1);
+        if (is_array($v) && !isset($_FILES[$key[0]]) && empty($v[0])) {
+            array_splice($v, 0, 1);
+        }
 
         /* loop through validators and execute the old way, for backwards compatibility */
         $validators = count($key);
         if ($validators > 1) {
             $this->fields[$key[0]] = $v;
-            for ($i=1;$i<$validators;$i++) {
-                $this->validate($key[0],$v,$key[$i]);
+            for ($i=1; $i<$validators; $i++) {
+                $this->validate($key[0], $v, $key[$i]);
             }
         } else {
             $this->fields[$k] = $v;
@@ -203,7 +212,7 @@ class Validator extends FormIt
         /* do new way of validation, which is more secure */
         if (!empty($fieldValidators[$k])) {
             foreach ($fieldValidators[$k] as $validator) {
-                $this->validate($k,$v,$validator);
+                $this->validate($k, $v, $validator);
             }
         }
     }
@@ -219,7 +228,8 @@ class Validator extends FormIt
      * @return boolean True if validation was successful. If not, will store
      * error messages to $this->errors.
      */
-    public function validate($key,$value,$type = '') {
+    public function validate($key, $value, $type = '')
+    {
         /** @var boolean|array $validated */
         $validated = false;
 
@@ -297,13 +307,14 @@ class Validator extends FormIt
      * @param string $value The error message.
      * @return string The added error message with the error wrapper.
      */
-    public function addError($key,$value) {
-        $errTpl = $this->modx->getOption('errTpl',$this->formit->config,'<span class="error">[[+error]]</span>');
+    public function addError($key, $value)
+    {
+        $errTpl = $this->modx->getOption('errTpl', $this->formit->config, '<span class="error">[[+error]]</span>');
         $this->errorsRaw[$key] = $value;
         if (!isset($this->errors[$key])) {
             $this->errors[$key] = '';
         }
-        $this->errors[$key] .= ' '.str_replace('[[+error]]',$value,$errTpl);
+        $this->errors[$key] .= ' '.str_replace('[[+error]]', $value, $errTpl);
         return $this->errors[$key];
     }
 
@@ -312,7 +323,8 @@ class Validator extends FormIt
      *
      * @return boolean
      */
-    public function hasErrors() {
+    public function hasErrors()
+    {
         return !empty($this->errors);
     }
 
@@ -321,7 +333,8 @@ class Validator extends FormIt
      *
      * @return array
      */
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -329,7 +342,8 @@ class Validator extends FormIt
      * Get all raw errors in the stack (errors without the wrapper)
      * @return array
      */
-    public function getRawErrors() {
+    public function getRawErrors()
+    {
         return $this->errorsRaw;
     }
 
@@ -339,17 +353,18 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function required($key,$value) {
+    public function required($key, $value)
+    {
         $success = false;
         if (is_array($value) && isset($_FILES[$key])) { /* handling file uploads */
             $success = !empty($value['tmp_name']) && isset($value['error']) && $value['error'] == UPLOAD_ERR_OK ? true : false;
         } else {
-            $v = (is_array($value)) ? $value : trim($value,' ');
+            $v = (is_array($value)) ? $value : trim($value, ' ');
             $success = (!empty($v) || is_numeric($v)) ? true : false;
         }
-        return $success ? true : $this->_getErrorMessage($key,'vTextRequired','formit.field_required',array(
+        return $success ? true : $this->_getErrorMessage($key, 'vTextRequired', 'formit.field_required', array(
             'field' => $key,
-            'value' => is_array($value) ? implode(',',$value) : $value,
+            'value' => is_array($value) ? implode(',', $value) : $value,
         ));
     }
 
@@ -359,8 +374,9 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function blank($key,$value) {
-        return empty($value) ? true : $this->_getErrorMessage($key,'vTextBlank','formit.field_not_empty',array(
+    public function blank($key, $value)
+    {
+        return empty($value) ? true : $this->_getErrorMessage($key, 'vTextBlank', 'formit.field_not_empty', array(
             'field' => $key,
             'value' => $value,
         ));
@@ -373,9 +389,10 @@ class Validator extends FormIt
      * @param string $param The parameter passed into the validator that contains the field to check the password against
      * @return boolean
      */
-    public function password_confirm($key,$value,$param = 'password_confirm') {
+    public function password_confirm($key, $value, $param = 'password_confirm')
+    {
         if (empty($value) || $this->fields[$param] != $value) {
-            return $this->_getErrorMessage($key,'vTextPasswordConfirm','formit.password_dont_match',array(
+            return $this->_getErrorMessage($key, 'vTextPasswordConfirm', 'formit.password_dont_match', array(
                 'field' => $key,
                 'password' => $value,
                 'password_confirm' => $this->fields[$param],
@@ -390,15 +407,18 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function email($key,$value) {
+    public function email($key, $value)
+    {
         /* allow empty emails, :required should be used to prevent blank field */
-        if (empty($value)) return true;
+        if (empty($value)) {
+            return true;
+        }
 
         /* validate length and @ */
         $pattern = "^[^@]{1,64}\@[^\@]{1,255}$";
         $condition = $this->config['use_multibyte'] ? @mb_ereg($pattern, $value) : @preg_match('/'.$pattern.'/', $value);
         if (!$condition) {
-            return $this->_getErrorMessage($key,'vTextEmailInvalid','formit.email_invalid',array(
+            return $this->_getErrorMessage($key, 'vTextEmailInvalid', 'formit.email_invalid', array(
                 'field' => $key,
                 'value' => $value,
             ));
@@ -448,7 +468,8 @@ class Validator extends FormIt
      * @param int $param The minimum length the field can be
      * @return boolean
      */
-    public function minLength($key,$value,$param = 0) {
+    public function minLength($key, $value, $param = 0)
+    {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
         if ($v < $param) {
             return $this->_getErrorMessage($key,'vTextMinLength','formit.min_length',array(
@@ -467,7 +488,8 @@ class Validator extends FormIt
      * @param int $param The maximum length the field can be
      * @return boolean
      */
-    public function maxLength($key,$value,$param = 999) {
+    public function maxLength($key, $value, $param = 999)
+    {
         $v = $this->config['use_multibyte'] ? mb_strlen($value,$this->config['encoding']) : strlen($value);
         if ($v > $param) {
             return $this->_getErrorMessage($key,'vTextMaxLength','formit.max_length',array(
@@ -486,7 +508,8 @@ class Validator extends FormIt
      * @param int $param The minimum value the field can be
      * @return boolean
      */
-    public function minValue($key,$value,$param = 0) {
+    public function minValue($key, $value, $param = 0)
+    {
         if ((float)$value < (float)$param) {
             return $this->_getErrorMessage($key,'vTextMinValue','formit.min_value',array(
                 'field' => $key,
@@ -504,7 +527,8 @@ class Validator extends FormIt
      * @param int $param The maximum value the field can be
      * @return boolean
      */
-    public function maxValue($key,$value,$param = 0) {
+    public function maxValue($key, $value, $param = 0)
+    {
         if ((float)$value > (float)$param) {
             return $this->_getErrorMessage($key,'vTextMaxValue','formit.max_value',array(
                 'field' => $key,
@@ -522,7 +546,8 @@ class Validator extends FormIt
      * @param string $expr The regular expression to check against the field
      * @return boolean
      */
-    public function contains($key,$value,$expr = '') {
+    public function contains($key, $value, $expr = '')
+    {
         if (!preg_match('/'.$expr.'/i',$value)) {
             return $this->_getErrorMessage($key,'vTextContains','formit.contains',array(
                 'field' => $key,
@@ -538,9 +563,8 @@ class Validator extends FormIt
      * @param string $key The name of the field
      * @param string $value The value of the field
      * @param string $param The value to strip from the field
-     * @return boolean
      */
-    public function strip($key,$value,$param = '') {
+    public function strip($key, $value, $param = '') {
         $this->fields[$key] = str_replace($param,'',$value);
     }
 
@@ -552,7 +576,8 @@ class Validator extends FormIt
      * @param string $allowedTags A comma-separated list of tags to allow in the field's value
      * @return boolean
      */
-    public function stripTags($key,$value,$allowedTags = '') {
+    public function stripTags($key, $value, $allowedTags = '')
+    {
         $this->fields[$key] = strip_tags($value,$allowedTags);
         return true;
     }
@@ -565,8 +590,10 @@ class Validator extends FormIt
      * @param string $allowedTags A comma-separated list of tags to allow in the field's value. Leave blank to allow all.
      * @return boolean
      */
-    public function allowTags($key,$value,$allowedTags = '') {
-        if (empty($allowedTags)) return true;
+    public function allowTags($key, $value, $allowedTags = '') {
+        if (empty($allowedTags)) {
+            return true;
+        }
         $this->fields[$key] = strip_tags($value,$allowedTags);
         return true;
     }
@@ -578,9 +605,12 @@ class Validator extends FormIt
      * @param string $ranges The range the value should reside in
      * @return boolean
      */
-    public function range($key,$value,$ranges = '0-1') {
+    public function range($key, $value, $ranges = '0-1')
+    {
         $range = explode('-',$ranges);
-        if (count($range) < 2) return $this->modx->lexicon('formit.range_invalid');
+        if (count($range) < 2) {
+            return $this->modx->lexicon('formit.range_invalid');
+        }
 
         if ($value < $range[0] || $value > $range[1]) {
             return $this->_getErrorMessage($key,'vTextRange','formit.range',array(
@@ -600,7 +630,8 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function isNumber($key,$value) {
+    public function isNumber($key, $value)
+    {
         if (!empty($value) && !is_numeric(trim($value))) {
             return $this->_getErrorMessage($key,'vTextIsNumber','formit.not_number',array(
                 'field' => $key,
@@ -618,12 +649,12 @@ class Validator extends FormIt
      * @param string $format The format of the date
      * @return boolean
      */
-    public function isDate($key,$value,$format = '%m/%d/%Y') {
+    public function isDate($key, $value, $format = '%m/%d/%Y')
+    {
         /* allow empty isDate, :required should be used to prevent blank field */
         if (empty($value)) {
             return true;
         }
-		
         $ts = strtotime($value);
         if ($ts === false) {
             return $this->_getErrorMessage($key,'vTextIsDate','formit.not_date',array(
@@ -644,9 +675,10 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function islowercase($key,$value) {
+    public function islowercase($key, $value)
+    {
         $v = $this->config['use_multibyte'] ? mb_strtolower($value,$this->config['encoding']) : strtolower($value);
-        return strcmp($v,$value) == 0 ? true : $this->_getErrorMessage($key,'vTextIsLowerCase','formit.not_lowercase',array(
+        return strcmp($v, $value) == 0 ? true : $this->_getErrorMessage($key,'vTextIsLowerCase','formit.not_lowercase',array(
             'field' => $key,
             'value' => $value,
         ));
@@ -658,7 +690,8 @@ class Validator extends FormIt
      * @param string $value The value of the field
      * @return boolean
      */
-    public function isuppercase($key,$value) {
+    public function isuppercase($key, $value)
+    {
         $v = $this->config['use_multibyte'] ? mb_strtoupper($value,$this->config['encoding']) : strtoupper($value);
         return strcmp($v,$value) == 0 ? true : $this->_getErrorMessage($key,'vTextIsUpperCase','formit.not_lowercase',array(
             'field' => $key,
@@ -672,7 +705,8 @@ class Validator extends FormIt
      * @param string $expression The regexp to use
      * @return boolean
      */
-    public function regexp($key,$value,$expression) {
+    public function regexp($key, $value, $expression)
+    {
         preg_match($expression,$value,$matches);
         return !empty($matches) && !empty($matches[0]) == true ? true : $this->_getErrorMessage($key,'vTextRegexp','formit.not_regexp',array(
             'field' => $key,
@@ -689,7 +723,8 @@ class Validator extends FormIt
      * @param array $properties
      * @return null|string
      */
-    public function _getErrorMessage($field,$parameter,$lexiconKey,array $properties = array()) {
+    public function _getErrorMessage($field, $parameter, $lexiconKey, array $properties = array())
+    {
         if (!empty($this->formit->config[$field.'.'.$parameter])) {
             $message = $this->formit->config[$field.'.'.$parameter];
             $this->modx->lexicon->set($lexiconKey,$message);
@@ -708,7 +743,8 @@ class Validator extends FormIt
      * Process the errors that have occurred and setup the appropriate placeholders
      * @return void
      */
-    public function processErrors() {
+    public function processErrors()
+    {
         $this->modx->toPlaceholders($this->getErrors(),$this->config['placeholderPrefix'].'error');
         $bulkErrTpl = $this->getOption('validationErrorBulkTpl');
         $rawErrs = $this->getRawErrors();
@@ -732,7 +768,8 @@ class Validator extends FormIt
      * Resets the validator
      * @return void
      */
-    public function reset() {
+    public function reset()
+    {
         $this->errors = array();
         $this->errorsRaw = array();
     }
