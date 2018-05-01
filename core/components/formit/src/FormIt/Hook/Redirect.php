@@ -56,7 +56,9 @@ class Redirect
         if (empty($this->formit->config['redirectTo'])) {
             return false;
         }
-        $redirectParams = !empty($this->formit->config['redirectParams']) ?: '';
+        $redirectParams = !empty($this->formit->config['redirectParams'])
+            ? $this->formit->config['redirectParams']
+            : '';
         if (!empty($redirectParams)) {
             $prefix = $this->modx->getOption('placeholderPrefix', $this->formit->config, 'fi.');
             $this->modx->setPlaceholders($fields, $prefix);
