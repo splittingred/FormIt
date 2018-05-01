@@ -490,8 +490,12 @@
             "type": "textfield",
             "area": "system",
             "value": ""
-        }
-        ]
+        },{
+            "key": "export_csv_delimiter",
+            "type": "textfield",
+            "area": "system",
+            "value": ";"
+        }]
     },
     "database": {
         "tables": [

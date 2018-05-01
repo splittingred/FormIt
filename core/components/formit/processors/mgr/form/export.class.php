@@ -68,7 +68,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
 
     public function createCsv($exportPath, $file, array $data)
     {
-
+        $delimiter = $this->modx->getOption('formit.export_csv_delimiter', null, ';');
         $keys = array('IP', 'Date', 'Form');
 
         $handle = $exportPath.$file;
@@ -92,7 +92,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
             $defaultArr
         );
 
-        fputcsv($fp, $keys, ';');
+        fputcsv($fp, $keys, $delimiter);
         $dateFormat = $this->modx->getOption('manager_date_format').' '.$this->modx->getOption('manager_time_format');
         foreach ($data['results'] as $object) {
             $objectArray = $this->prepareRow($object);
@@ -103,7 +103,7 @@ class FormItFormExportProcessor extends modObjectGetListProcessor
                 foreach ($objectArray['values'] as $vk => $vv) {
                     $objectArray['values'][$vk] = (is_array($vv)) ? implode(',', $vv) : $vv;
                 }
-                fputcsv($fp, array_merge($defaultArr, $objectArray['values']), ';');
+                fputcsv($fp, array_merge($defaultArr, $objectArray['values']), $delimiter);
             }
         }
         fclose($fp);
