@@ -28,3 +28,5 @@ $_lang['formit.spam_blocked'] = 'Ваше сообщение было забло
 $_lang['formit.spam_marked'] = ' - помечено как спам.';
 $_lang['formit.username_taken'] = 'Имя пользователя уже занято. Пожалуйста, выберите другое.';
 $_lang['formit.not_regexp'] = 'Ваше значение не совпадает с предполагаемым форматом.';
+$_lang['formit.storeAttachment_mediasource_error'] = 'Источник медиа не найден! Id источник: ';
+$_lang['formit.storeAttachment_access_error'] = 'Папка не доступна для загрузки! Проверьте права на папку: ';

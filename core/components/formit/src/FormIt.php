@@ -106,6 +106,7 @@ class FormIt
             'cssUrl' => $assetsUrl . 'css/',
             'jsUrl' => $assetsUrl . 'js/',
             'connectorUrl' => $connectorUrl,
+            'placeholderPrefix' => 'fi.',
             'debug' => $this->modx->getOption('formit.debug', null, false),
             'use_multibyte' => (bool) $this->modx->getOption('use_multibyte', null, false),
             'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),
@@ -263,7 +264,7 @@ class FormIt
         $response['fields'] = $this->request->dictionary->fields;
 
         // Check for redirect
-        if ($this->postHooks && $this->request->hasHook('redirect')) {
+        if ($this->postHooks && $this->hasHook('redirect')) {
             $url = $this->postHooks->getRedirectUrl();
             $response['redirect_url'] = $url;
         }
@@ -437,6 +438,38 @@ class FormIt
         }
 
         return $migrationStatus;
+    }
+
+    /**
+     * Check to see if a hook has been passed
+     *
+     * @param string $hook
+     *
+     * @return bool
+     */
+    public function hasHook($hook)
+    {
+        $hook = $this->getHookName($hook);
+        return strpos($this->config['hooks'], $hook) !== false;
+    }
+
+    /**
+     * Helper for returning the correct hookname
+     * Ensures backwards compatibility with older (<3.0.4) versions
+     *
+     * @param string $name The name of the hook
+     *
+     * @return string The correct name
+     */
+    public function getHookName($name)
+    {
+        if ($name === 'FormItAutoResponder') {
+            $name = 'autoresponder';
+        }
+        if ($name === 'FormItSaveForm') {
+            $name = 'saveform';
+        }
+        return $name;
     }
 
     /**
