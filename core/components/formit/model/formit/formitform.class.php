@@ -133,12 +133,20 @@ class FormItForm extends xPDOSimpleObject
 
     public function storeAttachments($config)
     {
+        if ($config['fieldNames']) {
+            $formFieldNames = explode(',', $config['fieldNames']);
+            foreach ($formFieldNames as $formFieldName) {
+                $parts = explode('==', $formFieldName);
+                $fieldLabels[trim($parts[0])] = trim($parts[1]);
+            }
+        }
+
         if ($this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'error.storeAttachment') == '') {
             $path = $this->xpdo->getPlaceholder($config['placeholderPrefix'] . 'storeAttachment_path');
             $encrypted = $this->encrypted;
-            if($encrypted){
+            if ($encrypted) {
                 $old_data = $this->xpdo->fromJSON($this->decrypt($this->values));
-            }else{
+            } else {
                 $old_data = $this->xpdo->fromJSON($this->values);
             }
 
@@ -179,9 +187,15 @@ class FormItForm extends xPDOSimpleObject
                         $data_key[] ="<a target='_blank' href='" . $url . '&file=' . $enc_name . "'>" . $value['name'] . '</a><br>';
                     }
                 }
+
+                if ($fieldLabels && $fieldLabels[$key]) {
+                    $key = $fieldLabels[$key];
+                }
+
                 $old_data[$key] = implode('', $data_key);
                 $new_data = $this->xpdo->toJSON($old_data);
-                if($encrypted){
+
+                if ($encrypted) {
                     $new_data = $this->encrypt($new_data);
                 }
                 $this->set('values', $new_data);
