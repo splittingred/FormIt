@@ -68,3 +68,13 @@ $_lang['formit.encryption_unavailable'] = 'OpenSSL functions openssl_encrypt and
 Please install OpenSSL on your server. See http://www.php.net/manual/en/openssl.requirements.php for more information.';
 $_lang['formit.encryption_unavailable_warning'] = 'Warning: OpenSSL functions openssl_encrypt and openssl_decrypt are not available. This means that you cannot use encryption on your forms. Please install OpenSSL on your server. 
 Visit <a href="http://www.php.net/manual/en/openssl.requirements.php" target="_blank">this page</a> for more information.';
+
+/* Clean up forms */
+$_lang['formit.clean_forms'] = 'Clean up forms';
+$_lang['formit.window.cleanforms.days_to_delete'] = 'Delete forms older than:';
+$_lang['formit.window.cleanforms.days'] = 'days.';
+$_lang['formit.window.cleanforms.execute'] = 'Clean up forms';
+$_lang['formit.window.cleanforms.executing'] = 'Cleaning up forms';
+$_lang['formit.window.cleanforms.intro_msg'] = 'The European <a href="https://ec.europa.eu/commission/priorities/justice-and-fundamental-rights/data-protection/2018-reform-eu-data-protection-rules_en" target="_BLANK">General Data Protection Regulation (GDPR)</a> 
+requires that personal data, which is no longer necessary to possess, is removed. This tool makes it possible to remove saved forms with an age older than the given days. This action can not be undone!';
+$_lang['formit.window.cleanforms.success_description'] = 'Removed [[+amount]] form(s).';

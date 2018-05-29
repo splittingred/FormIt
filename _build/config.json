@@ -510,7 +510,8 @@
             "after": [
                 "resolve.tables.php",
                 "setupoptions.resolver.php",
-                "stercextra.resolver.php"
+                "stercextra.resolver.php",
+                "resolve.cron.php"
             ]
         },
         "setupOptions":{
