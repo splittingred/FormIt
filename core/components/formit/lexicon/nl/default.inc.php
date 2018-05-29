@@ -47,3 +47,15 @@ $_lang['formit.username_taken'] = 'Gebruikersnaam al in gebruik. Kies een andere
 
 $_lang['formit.storeAttachment_mediasource_error'] = 'Kan MediaSource niet vinden! Mediasource-ID is: ';
 $_lang['formit.storeAttachment_access_error'] = 'Directory is niet schrijfbaar! Controleer de machtigingen voor: ';
+
+$_lang['formit.all_group_text'] = 'Alle landen';
+$_lang['formit.math_incorrect'] = 'Onjuist antwoord!';
+$_lang['formit.math_field_nf'] = '[[+field]] is niet gespecificeerd in het formulier.';
+$_lang['formit.max_value'] = 'De waarde kan niet groter zijn dan [[+value]].';
+$_lang['formit.not_date'] = 'De waarde moet een datum zijn.';
+$_lang['formit.not_lowercase'] = 'De waarde mag geen hoofdletters bevatten.';
+$_lang['formit.not_uppercase'] = 'De waarde mag geen kleine letters bevatten.';
+$_lang['formit.prioritized_group_text'] = 'Frequente bezoekers';
+$_lang['formit.spam_blocked'] = 'Het formulier is geweigert door een spam filter.';
+$_lang['formit.spam_marked'] = ' - gemarkeerd als spam.';
+$_lang['formit.not_regexp'] = 'De waarde voldoet niet aan het verwachte formaat.';
