@@ -11,7 +11,7 @@ if ($object->xpdo) {
         case xPDOTransport::ACTION_UPGRADE:
             $modx =& $object->xpdo;
 
-            $formitPath = $this->modx->getOption('formit.core_path', null, MODX_CORE_PATH . 'components/formit/');
+            $formitPath = $modx->getOption('formit.core_path', null, MODX_CORE_PATH . 'components/formit/');
             $cronjobPath = $formitPath . 'cronjob/cron.php';
 
             $modx->log(modX::LOG_LEVEL_INFO,
