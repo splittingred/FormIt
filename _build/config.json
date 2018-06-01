@@ -496,10 +496,10 @@
             "area": "system",
             "value": ";"
         },{
-            "key": "formit.cleanform.days",
+            "key": "cleanform.days",
             "type": "numberfield",
             "area": "system",
-            "value": ";"
+            "value": "30"
         }]
     },
     "database": {
