@@ -1,5 +1,12 @@
 Changelog for FormIt.
 
+FormIt 4.1.0
+====================================
+- This release is made possible thanks to Bert Kooij / Census.nl. Thanks!
+- Added new button in Manager page for manually removing forms.
+- Added new system setting for the default amount of days.
+- Added cronjob task for automatically deletion of old forms.
+
 FormIt 4.0.1
 ====================================
 - Add option to specify csv delimiter for form export
