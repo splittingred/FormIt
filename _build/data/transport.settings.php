@@ -81,4 +81,13 @@ $settings['formit.attachment.path']->fromArray(array(
     'area' => '',
 ),'',true,true);
 
+$settings['formit.cleanform.days']= $modx->newObject('modSystemSetting');
+$settings['formit.cleanform.days']->fromArray(array(
+    'key' => 'formit.cleanform.days',
+    'value' => '90',
+    'xtype' => 'numberfield',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
 return $settings;
