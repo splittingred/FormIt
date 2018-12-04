@@ -65,8 +65,10 @@ class Spam
         foreach ($emails as $email) {
             $spamResult = $sfspam->check($ip, $fields[$email]);
             if (!empty($spamResult)) {
-                $spamFields = implode($this->modx->lexicon('formit.spam_marked')."\n<br />", $spamResult);
-                $this->addError(
+                foreach ($spamResult as $value) {
+                  $spamFields .= $value . $this->modx->lexicon('formit.spam_marked')."\n<br />";
+                }
+                $this->hook->addError(
                     $email,
                     $this->modx->lexicon('formit.spam_blocked', array('fields' => $spamFields))
                 );
