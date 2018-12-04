@@ -20,21 +20,28 @@
  * @package formit
  */
 /**
+ * FormItRetriever
+ *
  * Retrieves a prior form submission that was stored with the &store property
  * in a FormIt call.
  *
  * @var modX $modx
  * @var array $scriptProperties
- * 
+ *
  * @package formit
  */
-require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
-$fi = new FormIt($modx,$scriptProperties);
+
+$modelPath = $modx->getOption(
+    'formit.core_path',
+    null,
+    $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/'
+) . 'model/formit/';
+$fi = $modx->getService('formit', 'FormIt', $modelPath, $scriptProperties);
 
 /* setup properties */
-$placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'fi.');
-$eraseOnLoad = $modx->getOption('eraseOnLoad',$scriptProperties,false);
-$redirectToOnNotFound = $modx->getOption('redirectToOnNotFound',$scriptProperties,false);
+$placeholderPrefix = $modx->getOption('placeholderPrefix', $scriptProperties, 'fi.');
+$eraseOnLoad = $modx->getOption('eraseOnLoad', $scriptProperties, false);
+$redirectToOnNotFound = $modx->getOption('redirectToOnNotFound', $scriptProperties, false);
 
 /* fetch data from cache and set to placeholders */
 $fi->loadRequest();
@@ -42,20 +49,20 @@ $fi->request->loadDictionary();
 $data = $fi->request->dictionary->retrieve();
 if (!empty($data)) {
     /* set data to placeholders */
-    foreach ($data as $k=>$v) {
+    foreach ($data as $k => $v) {
         /*checkboxes & other multi-values are stored as arrays, must be imploded*/
         if (is_array($v)) {
-            $data[$k] = implode(',',$v);
+            $data[$k] = implode(',', $v);
         }
     }
-    $modx->toPlaceholders($data,$placeholderPrefix,'');
+    $modx->toPlaceholders($data, $placeholderPrefix, '');
     
     /* if set, erase the data on load, otherwise depend on cache expiry time */
     if ($eraseOnLoad) {
         $fi->request->dictionary->erase();
     }
 /* if the data's not found, and we want to redirect somewhere if so, do here */
-} else if (!empty($redirectToOnNotFound)) {
+} elseif (!empty($redirectToOnNotFound)) {
     $url = $modx->makeUrl($redirectToOnNotFound);
     $modx->sendRedirect($url);
 }

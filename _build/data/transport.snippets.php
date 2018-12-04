@@ -43,7 +43,6 @@ $snippets[1]->fromArray(array(
     'description' => 'Custom hook for FormIt to handle Auto-Response emails.',
     'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitautoresponder.php'),
 ),'',true,true);
-unset($properties);
 
 $snippets[2]= $modx->newObject('modSnippet');
 $snippets[2]->fromArray(array(
@@ -93,6 +92,24 @@ $snippets[6]->fromArray(array(
 $properties = include $sources['properties'].'properties.formitstateoptions.php';
 $snippets[6]->setProperties($properties);
 unset($properties);
+
+$snippets[7]= $modx->newObject('modSnippet');
+$snippets[7]->fromArray(array(
+    'id' => 7,
+    'name' => 'FormItSaveForm',
+    'description' => 'Save any form and export them to csv.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitsaveform.php'),
+),'',true,true);
+
+$snippets[8]= $modx->newObject('modSnippet');
+$snippets[8]->fromArray(array(
+    'id' => 8,
+    'name' => 'FormItLoadSavedForm',
+    'description' => 'Prehook to load previously saved form.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.formitloadsavedform.php'),
+),'',true,true);
+unset($properties);
+
 
 /*
 $snippets[0]= $modx->newObject('modSnippet');

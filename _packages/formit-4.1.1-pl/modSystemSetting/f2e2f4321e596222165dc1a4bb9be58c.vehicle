@@ -1,0 +1,16 @@
+<?php return array (
+  'unique_key' => 'key',
+  'preserve_keys' => true,
+  'update_object' => false,
+  'namespace' => 'formit',
+  'resolve' => NULL,
+  'validate' => NULL,
+  'vehicle_package' => 'transport',
+  'vehicle_class' => 'xPDOObjectVehicle',
+  'guid' => '765e48e78d1fe56d6fc843dda045858e',
+  'package' => 'modx',
+  'class' => 'modSystemSetting',
+  'signature' => 'f2e2f4321e596222165dc1a4bb9be58c',
+  'native_key' => 'formit.attachment.path',
+  'object' => '{"key":"formit.attachment.path","value":"","xtype":"textfield","namespace":"formit","area":"system","editedon":null}',
+);

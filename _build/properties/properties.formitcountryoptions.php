@@ -39,7 +39,7 @@ $properties = array(
         'desc' => 'prop_fico.tpl_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'option',
+        'value' => 'fiDefaultOptionTpl',
         'lexicon' => 'formit:properties',
     ),
     array(
@@ -48,6 +48,14 @@ $properties = array(
         'type' => 'combo-boolean',
         'options' => '',
         'value' => true,
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'limited',
+        'desc' => 'prop_fico.limited_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
         'lexicon' => 'formit:properties',
     ),
     array(
@@ -63,7 +71,7 @@ $properties = array(
         'desc' => 'prop_fico.optgrouptpl_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'optgroup',
+        'value' => 'fiDefaultOptGroupTpl',
         'lexicon' => 'formit:properties',
     ),
     array(

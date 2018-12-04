@@ -39,7 +39,7 @@ $properties = array(
         'desc' => 'prop_fiso.tpl_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'option',
+        'value' => 'fiDefaultOptionTpl',
         'lexicon' => 'formit:properties',
     ),
     array(
@@ -59,19 +59,19 @@ $properties = array(
         'lexicon' => 'formit:properties',
     ),
     array(
-        'name' => 'country',
-        'desc' => 'prop_fiso.country_desc',
-        'type' => 'textfield',
-        'options' => '',
-        'value' => '[[++cultureKey]]',
-        'lexicon' => 'formit:properties',
-    ),
-    array(
         'name' => 'toPlaceholder',
         'desc' => 'prop_fiso.toplaceholder_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
+        'lexicon' => 'formit:properties',
+    ),
+    array(
+        'name' => 'country',
+        'desc' => 'prop_fiso.country_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '[[++cultureKey]]',
         'lexicon' => 'formit:properties',
     ),
 );

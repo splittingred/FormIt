@@ -33,7 +33,7 @@ $settings['formit.recaptcha_public_key']->fromArray(array(
     'value' => '',
     'xtype' => 'textfield',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
 ),'',true,true);
 
 $settings['formit.recaptcha_private_key']= $modx->newObject('modSystemSetting');
@@ -42,7 +42,7 @@ $settings['formit.recaptcha_private_key']->fromArray(array(
     'value' => '',
     'xtype' => 'textfield',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
 ),'',true,true);
 
 $settings['formit.recaptcha_use_ssl']= $modx->newObject('modSystemSetting');
@@ -51,7 +51,43 @@ $settings['formit.recaptcha_use_ssl']->fromArray(array(
     'value' => false,
     'xtype' => 'combo-boolean',
     'namespace' => 'formit',
-    'area' => 'reCaptcha',
+    'area' => 'recaptcha',
+),'',true,true);
+
+$settings['formit.exclude_contexts']= $modx->newObject('modSystemSetting');
+$settings['formit.exclude_contexts']->fromArray(array(
+    'key' => 'formit.exclude_contexts',
+    'value' => 'mgr',
+    'xtype' => 'textfield',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
+$settings['formit.attachment.mediasource']= $modx->newObject('modSystemSetting');
+$settings['formit.attachment.mediasource']->fromArray(array(
+    'key' => 'formit.attachment.mediasource',
+    'value' => '1',
+    'xtype' => 'modx-combo-source',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
+$settings['formit.attachment.path']= $modx->newObject('modSystemSetting');
+$settings['formit.attachment.path']->fromArray(array(
+    'key' => 'formit.attachment.path',
+    'value' => '',
+    'xtype' => 'textfield',
+    'namespace' => 'formit',
+    'area' => '',
+),'',true,true);
+
+$settings['formit.cleanform.days']= $modx->newObject('modSystemSetting');
+$settings['formit.cleanform.days']->fromArray(array(
+    'key' => 'formit.cleanform.days',
+    'value' => '90',
+    'xtype' => 'numberfield',
+    'namespace' => 'formit',
+    'area' => '',
 ),'',true,true);
 
 return $settings;

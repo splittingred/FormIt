@@ -20,15 +20,25 @@
  * @package formit
  */
 /**
+ * FormItStateOptions
+ *
  * Automatically generates and outputs a U.S. state list for usage in forms
- * 
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
+ *
  * @package formit
  */
-require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
-$fi = new FormIt($modx,$scriptProperties);
+
+$modelPath = $modx->getOption(
+    'formit.core_path',
+    null,
+    $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/formit/'
+) . 'model/formit/';
+$fi = $modx->getService('formit', 'FormIt', $modelPath, $scriptProperties);
 
 /** @var fiStateOptions $so */
-$so = $fi->loadModule('fiStateOptions','stateOptions',$scriptProperties);
+$so = $fi->loadModule('fiStateOptions', 'stateOptions', $scriptProperties);
 $so->initialize();
 $so->getData();
 $so->iterate();
