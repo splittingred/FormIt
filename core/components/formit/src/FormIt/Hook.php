@@ -83,11 +83,12 @@ class Hook
      *
      * @param array $hooks The hooks to run.
      * @param array $fields The fields and values of the form
+     * @param array $errors The errors of the form.
      * @param array $customProperties An array of extra properties to send to the hook
      *
      * @return array An array of field name => value pairs.
      */
-    public function loadMultiple($hooks, $fields = [], $customProperties = [])
+    public function loadMultiple($hooks, $fields = [], $errors = [], $customProperties = [])
     {
         if (empty($hooks)) {
             return [];
@@ -118,11 +119,12 @@ class Hook
      *
      * @param string $hookName The name of the hook. May be a Snippet name.
      * @param array $fields The fields and values of the form.
+     * @param array $errors The errors of the form.
      * @param array $customProperties Any other custom properties to load into a custom hook.
      *
      * @return bool True if hook was successful.
      */
-    public function load($hookName, $fields = [], $customProperties = [])
+    public function load($hookName, $fields = [], $errors = [], $customProperties = [])
     {
         $success = false;
         if (!empty($fields)) {
@@ -142,7 +144,7 @@ class Hook
             $properties['formit'] =& $this->formit;
             $properties['hook'] =& $this;
             $properties['fields'] = $this->fields;
-            $properties['errors'] =& $this->errors;
+            $properties['errors'] =& array_merge($errors, $this->errors);
             $success = $snippet->process($properties);
         } else {
             /* search for a file-based hook */

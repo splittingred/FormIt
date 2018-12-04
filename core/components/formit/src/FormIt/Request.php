@@ -68,6 +68,7 @@ class Request
             'submitVar' => '',
             'validate' => '',
             'validateSeparator' => ',',
+            'renderHooks' => ''
         ], $config);
     }
 
@@ -149,10 +150,12 @@ class Request
     public function runPreHooks()
     {
         $fields = array();
-        $this->formit->loadHooks('pre',$this->config);
-        $this->formit->preHooks->loadMultiple($this->config['preHooks'],array(),array(
+
+        $this->formit->loadHooks('pre', $this->config);
+
+        $this->formit->preHooks->loadMultiple($this->config['preHooks'], array(), array(
             'submitVar' => $this->config['submitVar'],
-            'hooks' => $this->config['preHooks'],
+            'hooks'     => $this->config['preHooks']
         ));
 
         /* if a prehook sets a field, do so here, but only if POST isnt submitted */
@@ -166,6 +169,27 @@ class Request
         }
 
         return $fields;
+    }
+
+    /**
+     * Load and run renderHooks.
+     */
+    public function runRenderHooks()
+    {
+        $this->formit->loadHooks('render', $this->config);
+
+        $fields = array();
+        $errors = array();
+
+        if ($this->dictionary) {
+            $fields = $this->dictionary->toArray();
+        }
+
+        if ($this->validator) {
+            $errors = $this->validator->getErrors();
+        }
+
+        $this->formit->renderHooks->loadMultiple($this->config['renderHooks'], $fields, array(), $errors);
     }
 
     /**
@@ -216,25 +240,25 @@ class Request
      */
     public function handle(array $fields = array())
     {
-        if (!$this->hasSubmission()) {
-            return '';
+        if ($this->hasSubmission()) {
+            $this->loadDictionary();
+            $this->dictionary->gather($fields);
+
+            /* validate fields */
+            $this->loadValidator();
+            $this->validator->reset();
+            $validated = $this->validate($this->config['validate'], $this->config['validateSeparator']);
+
+            if ($validated) {
+                $this->postProcess();
+            }
+
+            if (!$this->clearFieldsAtEnd) {
+                $this->setFieldsAsPlaceholders();
+            }
         }
 
-        $this->loadDictionary();
-        $this->dictionary->gather($fields);
-
-        /* validate fields */
-        $this->loadValidator();
-        $this->validator->reset();
-        $validated = $this->validate($this->config['validate'], $this->config['validateSeparator']);
-
-        if ($validated) {
-            $this->postProcess();
-        }
-
-        if (!$this->clearFieldsAtEnd) {
-            $this->setFieldsAsPlaceholders();
-        }
+        $this->runRenderHooks();
 
         return '';
     }
