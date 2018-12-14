@@ -63,7 +63,7 @@ class StopForumSpam
         $errors = [];
 
         foreach ($xml->appears as $result) {
-            if ($result === 'yes') {
+            if ((string)$result === 'yes') {
                 $errors[] = ucfirst($xml->type[$i]);
             }
 

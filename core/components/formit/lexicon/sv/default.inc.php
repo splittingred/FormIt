@@ -50,6 +50,6 @@ $_lang['formit.prioritized_group_text'] = 'Frekventa besökare';
 $_lang['formit.range_invalid'] = 'Ogiltigt intervall specifikation.';
 $_lang['formit.range'] = 'Ditt värde måste vara mellan [[+min]] och [[+max]].';
 $_lang['formit.recaptcha_err_load'] = 'Det gick inte att läsa in FormItReCaptcha serviceklass.';
-$_lang['formit.spam_blocked'] = 'Ditt bidrag blockerades av ett spamfilter: ';
+$_lang['formit.spam_blocked'] = 'Ditt bidrag blockerades av ett spamfilter: [[+fields]]';
 $_lang['formit.spam_marked'] = ' - markeras som skräppost.';
 $_lang['formit.username_taken'] = 'Användarnamn redan tagit. Välj ett annat.';
