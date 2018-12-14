@@ -64,7 +64,8 @@ if ($formFields) {
 // Initialize the data array
 // Handle encryption
 if ($formEncrypt) {
-    $data = $savedForm->decrypt();
+    $encrypted_data = $savedForm->get('values');
+    $data = $savedForm->decrypt($encrypted_data);
 } else {
     $data = $savedForm->get('values');
 }
