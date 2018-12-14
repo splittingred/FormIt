@@ -54,10 +54,11 @@ class Spam
      */
     public function process($fields = [])
     {
+        $spamFields = '';
         $passed = true;
         $spamEmailFields = $this->modx->getOption('spamEmailFields', $this->formit->config, 'email');
         $emails = explode(',', $spamEmailFields);
-
+        
         $sfspam = new StopForumSpam($this->modx);
         $checkIp = $this->modx->getOption('spamCheckIp', $this->formit->config, false);
         $ip = $checkIp ? $_SERVER['REMOTE_ADDR'] : '';
