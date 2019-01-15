@@ -63,7 +63,7 @@ $properties = array(
         'desc' => 'prop_fiso.country_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'us',
+        'value' => '[[++cultureKey]]',
         'lexicon' => 'formit:properties',
     ),
     array(
