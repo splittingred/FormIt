@@ -45,7 +45,7 @@ FormIt.panel.Migrate = function(config) {
 Ext.extend(FormIt.panel.Migrate,MODx.Panel,{
     migrateRedirects: function(){
         MODx.Ajax.request({
-            url: FormIt.config.connectorUrl
+            url: FormIt.config.connector_url
             ,params: {
                 action: 'mgr/form/migrate'
             }

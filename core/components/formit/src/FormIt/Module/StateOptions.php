@@ -31,11 +31,11 @@ class StateOptions extends Module
      */
     public function getData() {
         $country = strtolower( $this->getOption('country','us') );
-        $statesFile = $this->getOption('statesDirectory',$this->formit->config['includesPath']).$country.'.states.inc.php';
+        $statesFile = $this->getOption('statesDirectory',$this->formit->config['includes_path']).$country.'.states.inc.php';
         if (file_exists($statesFile)) {
             $this->states = include $statesFile;
         } else {
-            $this->states = include $this->formit->config['includesPath'].'us.states.inc.php';
+            $this->states = include $this->formit->config['includes_path'].'us.states.inc.php';
         }
         return $this->states;
     }

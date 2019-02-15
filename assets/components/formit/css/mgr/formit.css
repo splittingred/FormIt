@@ -1,0 +1,31 @@
+/* Should be moved to default theme. */
+.x-menu-item-icon {
+    left: 7px !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    text-align: center !important;
+}
+
+/* Should be moved to default theme. */
+.x-btn-text .icon {
+    margin-right: 8px;
+}
+
+#modx-action-buttons .x-btn-branding {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    color: #555555 !important;
+}
+
+.panel-alert-desc {
+    padding: 10px !important;
+    margin: 10px 10px 0;
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #ebccd1;
+}
+
+.x-window-formit .x-window-body {
+    padding-top: 15px !important;
+}

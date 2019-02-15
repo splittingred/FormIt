@@ -3,24 +3,14 @@
     "lowCaseName": "formit",
     "description": "FormIt is a dynamic form processing Snippet for MODx Revolution. It handles a form after submission, performing validation and followup actions like sending an email. It does not generate the form, but it can repopulate it if it fails validation.",
     "author": "Sterc",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "package": {
-        "actions": [{
-            "id": 1,
-            "controller": "index",
-            "hasLayout": 1,
-            "langTopics": "formit:mgr",
-            "assets": ""
-        }],
         "menus": [{
             "text": "formit",
-            "description": "formit.menu_desc",
-            "action": 1,
+            "description": "formit.desc",
             "parent": "components",
-            "icon": "",
-            "menuIndex": 0,
-            "params": "",
-            "handler": ""
+            "action": "home",
+            "permissions": "formit"
         }],
         "elements": {
             "chunks": [{
@@ -457,55 +447,39 @@
         },
         "systemSettings": [{
             "key": "recaptcha_public_key",
-            "type": "textfield",
-            "area": "recaptcha",
-            "value": ""
+            "area": "formit_recaptcha"
         },{
             "key": "recaptcha_private_key",
-            "type": "textfield",
-            "area": "recaptcha",
-            "value": ""
+            "area": "formit_recaptcha"
         },{
-            "key": "recaptcha_use_ssl",
             "type": "combo-boolean",
-            "area": "recaptcha",
-            "value": "0"
+            "key": "recaptcha_use_ssl",
+            "value": 0,
+            "area": "formit_recaptcha"
         },{
             "key": "exclude_contexts",
-            "type": "combo-boolean",
-            "area": "system",
-            "value": "mgr"
+            "value": "mgr",
+            "area": "formit"
         },{
             "key": "form_encryptkey",
-            "type": "textfield",
-            "area": "system",
-            "value": ""
+            "area": "formit"
         },{
-            "key": "attachment.mediasource",
             "type": "modx-combo-source",
-            "area": "system",
-            "value": 1
+            "key": "attachment.mediasource",
+            "value": 1,
+            "area": "formit"
         },{
             "key": "attachment.path",
-            "type": "textfield",
-            "area": "system",
-            "value": ""
-        },{
-            "key": "export_csv_delimiter",
-            "type": "textfield",
-            "area": "system",
-            "value": ";"
+            "area": "formit"
         },{
             "key": "cleanform.days",
-            "type": "numberfield",
-            "area": "system",
-            "value": "30"
+            "value": 30,
+            "area": "formit"
+        },{
+            "key": "max_chars_textfield",
+            "value": 125,
+            "area": "formit"
         }]
-    },
-    "database": {
-        "tables": [
-            "FormItForm"
-        ]
     },
     "build": {
         "readme": "docs/readme.txt",
@@ -513,10 +487,11 @@
         "changelog": "docs/changelog.txt",
         "resolver": {
             "after": [
-                "resolve.tables.php",
+                "tables.resolver.php",
+                "permissions.resolver.php",
                 "setupoptions.resolver.php",
                 "stercextra.resolver.php",
-                "resolve.cron.php"
+                "cron.resolver.php"
             ]
         },
         "setupOptions":{

@@ -67,7 +67,7 @@ class FormItMigrateProcessor extends modProcessor
         $logTarget = array(
             'target' => 'FILE',
             'options' => array(
-                'filepath' => $this->modx->formit->config['assetsPath'],
+                'filepath' => $this->modx->formit->config['assets_path'],
                 'filename' => 'migration.log'
             )
         );

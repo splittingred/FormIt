@@ -7,19 +7,22 @@ use Sterc\FormIt\Module\Module;
 use Sterc\FormIt\Request;
 
 /**
- * Class FormIt
+ * FormIt
  *
- * @package Sterc\FormIt
+ * Copyright 2019 by Sterc <modx@sterc.nl>
  */
+
 class FormIt
 {
     /**
-     * @var \modX $modx
+     * @access public.
+     * @var \modX.
      */
     public $modx;
 
     /**
-     * @var array $config
+     * @access public.
+     * @var Array.
      */
     public $config = [];
 
@@ -78,47 +81,91 @@ class FormIt
     public $returnOutput = false;
 
     /**
-     * FormIt constructor.
-     *
-     * @param \modX $modx
-     * @param array $config
+     * @access public.
+     * @param \modX $modx.
+     * @param Array $config.
      */
-    public function __construct($modx, $config = [])
+    public function __construct(\modX &$modx, array $config = [])
     {
-        $this->modx = $modx;
+        $this->modx =& $modx;
 
-        $corePath = $this->modx->getOption('formit.core_path', null, MODX_CORE_PATH . 'components/formit/');
-        $assetsPath = $this->modx->getOption('formit.assets_path', null, MODX_ASSETS_PATH . 'components/formit/');
-        $assetsUrl = $this->modx->getOption('formit.assets_url', null, MODX_ASSETS_URL . 'components/formit/');
-        $connectorUrl = $assetsUrl . 'connector.php';
+        $corePath   = $this->modx->getOption('formit.core_path', $config, $this->modx->getOption('core_path') . 'components/formit/');
+        $assetsUrl  = $this->modx->getOption('formit.assets_url', $config, $this->modx->getOption('assets_url') . 'components/formit/');
+        $assetsPath = $this->modx->getOption('formit.assets_path', $config, $this->modx->getOption('assets_path') . 'components/formit/');
 
         $this->config = array_merge([
-            'corePath' => $corePath,
-            'modelPath' => $corePath . 'model/',
-            'chunksPath' => $corePath . 'elements/chunks/',
-            'snippetsPath' => $corePath . 'elements/snippets/',
-            'controllersPath' => $corePath . 'controllers/',
-            'includesPath' => $corePath . 'includes/',
-            'testsPath' => $corePath . 'test/',
-            'templatesPath' => $corePath . 'templates/',
-            'assetsPath' => $assetsPath,
-            'assetsUrl' => $assetsUrl,
-            'cssUrl' => $assetsUrl . 'css/',
-            'jsUrl' => $assetsUrl . 'js/',
-            'connectorUrl' => $connectorUrl,
-            'placeholderPrefix' => 'fi.',
-            'debug' => $this->modx->getOption('formit.debug', null, false),
-            'use_multibyte' => (bool) $this->modx->getOption('use_multibyte', null, false),
-            'encoding' => $this->modx->getOption('modx_charset', null, 'UTF-8'),
-            'mcryptAvailable' => function_exists('mcrypt_encrypt'),
-            'opensslAvailable' => function_exists('openssl_encrypt')
+            'namespace'             => 'formit',
+            'lexicons'              => ['formit:default'],
+            'base_path'             => $corePath,
+            'core_path'             => $corePath,
+            'model_path'            => $corePath . 'model/',
+            'processors_path'       => $corePath . 'processors/',
+            'elements_path'         => $corePath . 'elements/',
+            'chunks_path'           => $corePath . 'elements/chunks/',
+            'plugins_path'          => $corePath . 'elements/plugins/',
+            'snippets_path'         => $corePath . 'elements/snippets/',
+            'templates_path'        => $corePath . 'templates/',
+            'assets_path'           => $assetsPath,
+            'js_url'                => $assetsUrl . 'js/',
+            'css_url'               => $assetsUrl . 'css/',
+            'assets_url'            => $assetsUrl,
+            'connector_url'         => $assetsUrl . 'connector.php',
+            'version'               => '4.2.0',
+            'placeholderPrefix'     => 'fi.',
+            'debug'                 => (bool) $this->modx->getOption('formit.debug', null, false),
+            'use_multibyte'         => (bool) $this->modx->getOption('use_multibyte', null, false),
+            'encoding'              => $this->modx->getOption('modx_charset', null, 'UTF-8'),
+            'max_chars'             => (int) $this->modx->getOption('formit.max_chars_textfield', null, 125),
+            'mcrypt'                => function_exists('mcrypt_encrypt'),
+            'openssl'               => function_exists('openssl_encrypt'),
+            'permissions'           => [
+                'encryptions'           => $this->modx->hasPermission('formit_encryptions')
+            ]
         ], $config);
 
-        if ($this->modx->getOption('formit.debug', $this->config, true)) {
-            $this->startDebugTimer();
+        $this->modx->addPackage('formit', $this->config['model_path']);
+
+        if (is_array($this->config['lexicons'])) {
+            foreach ($this->config['lexicons'] as $lexicon) {
+                $this->modx->lexicon->load($lexicon);
+            }
+        } else {
+            $this->modx->lexicon->load($this->config['lexicons']);
         }
 
-        $this->modx->addPackage('formit', $this->config['modelPath']);
+        if ($this->config['debug']) {
+            $this->startDebugTimer();
+        }
+    }
+
+    /**
+     * @access public.
+     * @return String|Boolean.
+     */
+    public function getHelpUrl()
+    {
+        $url = $this->getOption('branding_url_help');
+
+        if (!empty($url)) {
+            return $url . '?v=' . $this->config['version'];
+        }
+
+        return false;
+    }
+
+    /**
+     * @access public.
+     * @return String|Boolean.
+     */
+    public function getBrandingUrl()
+    {
+        $url = $this->getOption('branding_url');
+
+        if (!empty($url)) {
+            return $url;
+        }
+
+        return false;
     }
 
     /**
@@ -166,7 +213,7 @@ class FormIt
         $classPath = $this->modx->getOption('request_class_path', $this->config, '');
 
         if (empty($classPath)) {
-            $classPath = $this->config['modelPath'].'formit/';
+            $classPath = $this->config['model_path'].'formit/';
         }
 
         if ($this->modx->loadClass($className, $classPath, true, true)) {
@@ -191,7 +238,7 @@ class FormIt
             $classPath = $this->modx->getOption(
                 'formit.modules_path',
                 null,
-                $this->config['modelPath'].'formit/module/'
+                $this->config['model_path'].'formit/module/'
             );
 
             if ($this->modx->loadClass($className, $classPath, true, true)) {
@@ -218,7 +265,7 @@ class FormIt
      */
     public function loadHooks($type = 'post', $config = [])
     {
-        if (!$this->modx->loadClass('formit.fiHooks', $this->config['modelPath'], true, true)) {
+        if (!$this->modx->loadClass('formit.fiHooks', $this->config['model_path'], true, true)) {
             $this->modx->log(\modX::LOG_LEVEL_ERROR, '[FormIt] Could not load Hooks class.');
 
             return false;
@@ -345,7 +392,7 @@ class FormIt
             $file = $name;
         } else {
             $lowerCaseName = $this->config['use_multibyte'] ? mb_strtolower($name, $this->config['encoding']) : strtolower($name);
-            $file = $this->config['chunksPath'] . $lowerCaseName . '.chunk.tpl';
+            $file = $this->config['chunks_path'] . $lowerCaseName . '.chunk.tpl';
         }
 
         if (file_exists($file)) {
@@ -450,7 +497,7 @@ class FormIt
     public function hasHook($hook)
     {
         $hook = $this->getHookName($hook);
-        return strpos($this->config['hooks'], $hook) !== false;
+        return !!preg_match('#\\b' . preg_quote($hook, '#') . '\\b#i', $this->config['hooks']);
     }
 
     /**

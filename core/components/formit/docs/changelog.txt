@@ -1,5 +1,24 @@
 Changelog for FormIt.
 
+FormIt 4.2.0
+====================================
+- Bug on hasHook() fixed (#182, #181, #170, #193)
+- ExtJS refactored for faster and better UI/UX
+    - IP number added to the grid (#194)
+    - Better form view with textfields and textareas (#136)
+    - Remove multiple forms (#143)
+    - Search by IP (and context menu option to view all forms from 1 IP)
+- New permissions added
+    - formit_encryptions to encrypt/decrypt forms
+    - Context awereness, an user can only see the forms with the contexts that the user has access to.
+- Swedish translation updated
+    - All other language files checked and filled with English strings
+- Formit deprecation notice in 2.7.0dev bug fixed (#190)
+
+FormIt 4.1.1
+====================================
+- Added new hook "renderHooks", which triggers just before rendering the form
+
 FormIt 4.1.0
 ====================================
 - This release is made possible thanks to Bert Kooij / Census.nl. Thanks!

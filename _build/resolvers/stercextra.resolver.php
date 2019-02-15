@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * FormIt
+ *
+ * Copyright 2019 by Oene Tjeerd de Bruin <oenetjeerd@sterc.nl>
+ */
+
 $package = 'FormIt';
 $url     = 'https://extras.sterc.nl/api/v1/packagedata';
 $params  = array();
@@ -7,8 +14,8 @@ $modx =& $object->xpdo;
 $c = $modx->newQuery('transport.modTransportPackage');
 $c->where(
     array(
-          'workspace' => 1,
-          "(SELECT
+        'workspace' => 1,
+        "(SELECT
             `signature`
             FROM {$modx->getTableName('modTransportPackage')} AS `latestPackage`
             WHERE `latestPackage`.`package_name` = `modTransportPackage`.`package_name`

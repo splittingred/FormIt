@@ -1,29 +1,14 @@
 <?php
+
 /**
  * FormIt
  *
- * Copyright 2018 by Bert Kooij <bert@census.nl>
- *
- * FormIt is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * FormIt is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * FormIt; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
- * Suite 330, Boston, MA 02111-1307 USA
- *
- * @package formit
+ * Copyright 2019 by Sterc <modx@sterc.nl>
  */
-/**
- * reCaptcha Lexicon Topic
- *
- * @package formit
- * @subpackage lexicon
- */
-$_lang['recaptcha.empty_answer'] = 'Captcha woorden onjuist. Controleer het antwoord en probeer het opnieuw.';
-$_lang['recaptcha.incorrect'] = 'De reCAPTCHA was niet (juist) ingevoerd. Ga terug en probeer het opnieuw. [[+error]]';
+
+$_lang['recaptcha.empty_answer']                                = 'Captcha woorden onjuist. Controleer het antwoord en probeer het opnieuw.';
+$_lang['recaptcha.incorrect']                                   = 'De reCAPTCHA was niet (juist) ingevoerd. Ga terug en probeer het opnieuw. [[+error]]';
+$_lang['recaptcha.mailhide_no_mcrypt']                          = 'To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.';
+$_lang['recaptcha.mailhide_no_api_key']                         = 'To use reCAPTCHA Mailhide, you have to sign up for a public and private key, you can do so at <a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>';
+$_lang['recaptcha.no_api_key']                                  = 'To use reCAPTCHA you must get an API key from <a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>';
+$_lang['recaptcha.no_remote_ip']                                = 'For security reasons, you must pass the remote ip to reCAPTCHA';

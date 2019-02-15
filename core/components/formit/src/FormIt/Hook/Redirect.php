@@ -90,6 +90,7 @@ class Redirect
         } else {
             $url = $this->modx->makeUrl($this->formit->config['redirectTo'], $contextKey, $redirectParams, 'full');
         }
+
         $this->hook->setRedirectUrl($url);
 
         return true;

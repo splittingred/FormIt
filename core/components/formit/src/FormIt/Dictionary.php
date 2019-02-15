@@ -144,7 +144,7 @@ class Dictionary
             return;
         }
 
-        $basePath = $this->formit->config['assetsPath'].'tmp/';
+        $basePath = $this->formit->config['assets_path'].'tmp/';
         if (!is_dir($basePath)) {
             mkdir($basePath);
         }

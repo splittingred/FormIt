@@ -41,11 +41,11 @@ class CountryOptions extends Module
      */
     public function getData() {
         $country = $this->getOption('country','us');
-        $countriesFile = $this->getOption('countriesDirectory',$this->formit->config['includesPath']).$country.'.countries.inc.php';
+        $countriesFile = $this->getOption('countriesDirectory',$this->formit->config['includes_path']).$country.'.countries.inc.php';
         if (file_exists($countriesFile)) {
             $this->countries = include $countriesFile;
         } else {
-            $this->countries = include $this->formit->config['includesPath'].'us.countries.inc.php';
+            $this->countries = include $this->formit->config['includes_path'].'us.countries.inc.php';
         }
 
         /* reduce list to limited countries if option is set */
