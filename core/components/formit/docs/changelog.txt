@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 4.2.1
+====================================
+- FormIt 4.2.0 release bug (#202)
+
 FormIt 4.2.0
 ====================================
 - Bug on hasHook() fixed (#182, #181, #170, #193)

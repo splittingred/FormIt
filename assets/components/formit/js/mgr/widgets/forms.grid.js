@@ -61,6 +61,7 @@ FormIt.grid.Forms = function(config) {
         name        : 'formit-filter-forms-search',
         id          : 'formit-filter-forms-search',
         emptyText   : _('search') + '...',
+        value       : decodeURIComponent(MODx.request.form || ''),
         listeners   : {
             'change'    : {
                 fn          : this.filterSearch,
@@ -137,7 +138,8 @@ FormIt.grid.Forms = function(config) {
         id          : 'formit-grid-forms',
         url         : FormIt.config.connector_url,
         baseParams  : {
-            action      : 'mgr/forms/getlist'
+            action      : 'mgr/forms/getlist',
+            query       : decodeURIComponent(MODx.request.form || '')
         },
         fields      :['id','form','values', 'ip', 'date', 'encrypted'],
         paging      : true,
