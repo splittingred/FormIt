@@ -15,6 +15,15 @@ FormIt 4.2.0
     - All other language files checked and filled with English strings
 - Formit deprecation notice in 2.7.0dev bug fixed (#190)
 
+FormIt 4.1.2
+====================================
+- Fix spam hook for better spam prevention thanks to Kristoffer Karlström
+- Fix FormItLoadSavedForm for encrypted forms
+
+FormIt 4.1.1
+====================================
+- Added new hook "renderHooks", which triggers just before rendering the form
+
 FormIt 4.1.1
 ====================================
 - Added new hook "renderHooks", which triggers just before rendering the form
