@@ -7,7 +7,7 @@
  */
 
 $_lang['formit']                                                = 'FormIt';
-$_lang['formit.desc']                                           = 'Просмотреть все заполненные формы';
+$_lang['formit.desc']                                           = 'Посмотреть все заполненные формы';
 
 $_lang['area_formit']                                           = 'FormIt';
 $_lang['area_formit_recaptcha']                                 = 'FormIt reCaptcha';
