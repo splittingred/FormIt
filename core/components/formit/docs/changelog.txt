@@ -1,5 +1,9 @@
 Changelog for FormIt.
 
+FormIt 4.2.3
+====================================
+- FormIt 4.2.0 release bug - Fix migration of forms with encryption
+
 FormIt 4.2.2
 ====================================
 - FormIt 4.2.0 release bug - Altering tables on update (#203)
