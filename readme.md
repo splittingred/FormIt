@@ -8,4 +8,7 @@ We've released FormIt 3.0 in order to avoid issues with Mcrypt in the near futur
 
 After updating to 3.0.0, you should refresh the page and notice a red bar on the top of your manager. From there, you can initiate the migration process, which will unencrypt your saved forms using Mcrypt and immediately encrypt it using OpenSSL. 
 
-**It is highly recommended to migrate ASAP!**
+# Free Extra
+This is a free extra and the code is publicly available for you to change. The extra is being actively maintained and you're free to put in pull requests which match our roadmap. Please create an issue if the pull request differs from the roadmap so we can make sure we're on the same page.
+
+Need help? [Approach our support desk for paid premium support](mailto:service@sterc.com).
