@@ -21,7 +21,7 @@ $modx->lexicon->load('formit:default');
 
 /* handle request */
 $path = $modx->getOption('processorsPath', $modx->formit->config, $corePath.'processors/');
-$response = $modx->runProcessor('mgr/form/clean', [], [
+$response = $modx->runProcessor('mgr/forms/clean', [], [
     'processors_path' => $path
 ]);
 
