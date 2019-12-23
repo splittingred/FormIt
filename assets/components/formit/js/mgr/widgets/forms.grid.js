@@ -475,7 +475,7 @@ FormIt.window.ExportForms = function(config) {
             description : MODx.expandHelp ? '' : _('formit.label_export_form_desc'),
             name        : 'form',
             anchor      : '100%',
-            allowBlank  : false
+            allowBlank  : true
         }, {
             xtype       : MODx.expandHelp ? 'label' : 'hidden',
             html        : _('formit.label_export_form_desc'),
