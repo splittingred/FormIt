@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve Formit
+about: Create a report to help us improve 'Formit'
 ---
 
 ## Bug report
@@ -23,4 +23,4 @@ How it should behave after following steps above.
 
 ### Environment
 
-Apache/NGINX and version, mysql version, browser, etc. Any relevant information.
+Apache/NGINX and version, MySQL version, browser, etc. Any relevant information.
