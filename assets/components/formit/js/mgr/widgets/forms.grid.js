@@ -531,14 +531,16 @@ FormIt.combo.Forms = function(config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        url         : FormIt.config.connector_url,
-        baseParams  : {
-            action      : 'mgr/forms/getforms'
+        url             : FormIt.config.connector_url,
+        baseParams      : {
+            action : 'mgr/forms/getforms'
         },
-        fields      : ['form'],
-        hiddenName  : 'form',
-        valueField  : 'form',
-        displayField : 'form'
+        fields          : ['form'],
+        hiddenName      : 'form',
+        valueField      : 'form',
+        displayField    : 'form',
+        paging          : true,
+        pageSize        : MODx.config.default_per_page > 30 ? MODx.config.default_per_page : 30
     });
 
     FormIt.combo.Forms.superclass.constructor.call(this, config);
