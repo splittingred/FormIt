@@ -7,69 +7,69 @@
  */
 
 $_lang['formit']                                                = 'FormIt';
-$_lang['formit.desc']                                           = 'Просмотреть все заполненные формы';
+$_lang['formit.desc']                                           = 'Посмотреть все заполненные формы';
 
 $_lang['area_formit']                                           = 'FormIt';
 $_lang['area_formit_recaptcha']                                 = 'FormIt reCaptcha';
 
 $_lang['formit.form']                                           = 'форму';
 $_lang['formit.forms']                                          = 'Формы';
-$_lang['formit.forms_desc']                                     = 'View all submitted forms.';
+$_lang['formit.forms_desc']                                     = 'Просмотреть все формы';
 $_lang['formit.form_view']                                      = 'Посмотреть форму';
 $_lang['formit.form_remove']                                    = 'Удалить форму';
-$_lang['formit.form_remove_confirm']                            = 'Are you sure you want to remove this form?';
-$_lang['formit.forms_remove']                                   = 'Remove forms';
-$_lang['formit.forms_remove_confirm']                           = 'Are you sure you want to remove all forms?';
-$_lang['formit.forms_clean']                                    = 'Clean forms';
-$_lang['formit.forms_clean_confirm']                            = 'Are you sure you want to clean all old forms?';
+$_lang['formit.form_remove_confirm']                            = 'Вы уверены, что хотите удалить эту форму?';
+$_lang['formit.forms_remove']                                   = 'Удалить формы';
+$_lang['formit.forms_remove_confirm']                           = 'Вы уверены, что хотите удалить все формы?';
+$_lang['formit.forms_clean']                                    = 'Очистить формы';
+$_lang['formit.forms_clean_confirm']                            = 'Вы уверены, что хотите очистить все старые формы?';
 $_lang['formit.forms_export']                                   = 'Экспорт Формы';
-$_lang['formit.form_encrypt']                                   = 'Encrypt form(s)';
-$_lang['formit.form_encrypt_confirm']                           = 'Are you sure you want to encrypt the form(s)?';
-$_lang['formit.form_decrypt']                                   = 'Undo form encryption(s)';
-$_lang['formit.form_decrypt_confirm']                           = 'Are you sure you want to undo the form encryption(s)?';
-$_lang['formit.view_ip']                                        = 'View all forms from this IP';
+$_lang['formit.form_encrypt']                                   = 'Зашифровать форму(ы)';
+$_lang['formit.form_encrypt_confirm']                           = 'Вы уверены, что хотите зашифровать форму(ы)?';
+$_lang['formit.form_decrypt']                                   = 'Отменить шифрование формы';
+$_lang['formit.form_decrypt_confirm']                           = 'Вы уверены, что хотите отменить шифрование формы?';
+$_lang['formit.view_ip']                                        = 'Посмотреть все формы с этого IP';
 
-$_lang['formit.encryption']                                     = 'Encrypted form';
-$_lang['formit.encryptions']                                    = 'Encrypted forms';
-$_lang['formit.encryptions_desc']                               = 'View all encrypted and non encrypted forms.';
+$_lang['formit.encryption']                                     = 'Зашифрованная форма';
+$_lang['formit.encryptions']                                    = 'Зашифрованные формы';
+$_lang['formit.encryptions_desc']                               = 'Посмотреть все зашифрованные и не зашифрованные формы.';
 
-$_lang['formit.label_form_name']                                = 'Name';
-$_lang['formit.label_form_name_desc']                           = 'The name of the form.';
+$_lang['formit.label_form_name']                                = 'Название';
+$_lang['formit.label_form_name_desc']                           = 'Название формы.';
 $_lang['formit.label_form_values']                              = 'Значения';
-$_lang['formit.label_form_values_desc']                         = 'The values of the form.';
+$_lang['formit.label_form_values_desc']                         = 'Значения формы.';
 $_lang['formit.label_form_ip']                                  = 'IP адрес';
-$_lang['formit.label_form_ip_desc']                             = 'The IP number of the visitor that has submitted the form.';
+$_lang['formit.label_form_ip_desc']                             = 'IP адрес посетителей, которые отправляли формы.';
 $_lang['formit.label_form_date']                                = 'Дата';
-$_lang['formit.label_form_date_desc']                           = 'The date when the form is submitted.';
-$_lang['formit.label_form_encrypted']                           = 'Encrypted';
+$_lang['formit.label_form_date_desc']                           = 'Дата отправления формы';
+$_lang['formit.label_form_encrypted']                           = 'Зашифрована';
 $_lang['formit.label_form_encrypted_desc']                      = '';
-$_lang['formit.label_form_decrypted']                           = 'Not encrypted';
+$_lang['formit.label_form_decrypted']                           = 'Не зашифрована';
 $_lang['formit.label_form_decrypted_desc']                      = '';
-$_lang['formit.label_form_total']                               = 'Total';
+$_lang['formit.label_form_total']                               = 'Всего';
 $_lang['formit.label_form_total_desc']                          = '';
 
-$_lang['formit.label_clean_label']                              = 'Remove forms older than';
-$_lang['formit.label_clean_desc']                               = 'days';
+$_lang['formit.label_clean_label']                              = 'Удалить формы старше';
+$_lang['formit.label_clean_desc']                               = 'дней';
 
-$_lang['formit.label_export_form']                              = 'Form';
-$_lang['formit.label_export_form_desc']                         = 'Select a form to export.';
-$_lang['formit.label_export_start_date']                        = 'Date from';
-$_lang['formit.label_export_start_date_desc']                   = 'Select a date to export forms from that date.';
-$_lang['formit.label_export_end_date']                          = 'Date till';
-$_lang['formit.label_export_end_date_desc']                     = 'Select a date to export forms till that date.';
-$_lang['formit.label_export_delimiter']                         = 'CSV delimiter';
-$_lang['formit.label_export_delimiter_desc']                    = 'The Het CSV delimiter to separate the columns. Default is ";".';
+$_lang['formit.label_export_form']                              = 'Форма';
+$_lang['formit.label_export_form_desc']                         = 'Выберите формы, которые необходимо экспортировать.';
+$_lang['formit.label_export_start_date']                        = 'От';
+$_lang['formit.label_export_start_date_desc']                   = 'Выберите дату, с которой будут экспортироваться формы.';
+$_lang['formit.label_export_end_date']                          = 'До';
+$_lang['formit.label_export_end_date_desc']                     = 'Выберите дату, до которой будут экспортироваться формы.';
+$_lang['formit.label_export_delimiter']                         = 'CSV разделитель';
+$_lang['formit.label_export_delimiter_desc']                    = 'Разделитель для столбцов в CSV. По умолчанию ";".';
 
 $_lang['formit.filter_form']                                    = 'Выберите форму';
 $_lang['formit.filter_start_date']                              = 'Выберите начальную дату';
 $_lang['formit.filter_end_date']                                = 'Выберите конечную дату';
-$_lang['formit.encryption_unavailable']                         = 'PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. Please install PHP OpenSSL on your server. See http://www.php.net/manual/en/openssl.requirements.php for more information.';
-$_lang['formit.encryption_unavailable_warning']                 = '<strong>Warning</strong>: PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. This means that you cannot use encryption on your forms. Please install PHP OpenSSL on your server. Visit <a href="http://www.php.net/manual/en/openssl.requirements.php" target="_blank">this page</a> for more information.';
-$_lang['formit.forms_clean_desc']                               = 'The European <a href="https://ec.europa.eu/commission/priorities/justice-and-fundamental-rights/data-protection/2018-reform-eu-data-protection-rules_en" target="_blank">General Data Protection Regulation (GDPR)</a> requires that personal data, which is no longer necessary to possess, is removed. This tool makes it possible to remove saved forms with an age older than the given days. This action can not be undone!';
-$_lang['formit.forms_clean_executing']                          = 'Cleaning up forms';
-$_lang['formit.forms_clean_success']                            = '[[+amount]] form(s) removed.';
-$_lang['formit.export_failed']                                  = 'The export of the forms failed, please try again.';
-$_lang['formit.export_dir_failed']                              = 'An error occurred while exporting the form, the export folder could not be created.';
+$_lang['formit.encryption_unavailable']                         = 'Функции PHP OpenSSL openssl_encrypt и openssl_decrypt недоступны. Пожалуйста, установите PHP OpenSSL на вашем сервере. Смотрите http://www.php.net/manual/en/openssl.requirements.php для более подробной информации.';
+$_lang['formit.encryption_unavailable_warning']                 = '<strong>Внимание</strong>: Функции PHP OpenSSL openssl_encrypt и openssl_decrypt недоступны. Это означает, что вы не можете использовать шифрование в ваших формах. Пожалуйста, установите PHP OpenSSL на вашем сервере. Посетите <a href="http://www.php.net/manual/en/openssl.requirements.php" target="_blank">эту страницу</a> для более подробной информации.';
+$_lang['formit.forms_clean_desc']                               = 'Европейский <a href="https://ec.europa.eu/commission/priorities/justice-and-fundamental-rights/data-protection/2018-reform-eu-data-protection-rules_en" target="_blank">Общий регламент по защите данных (GDPR)</a> требует, чтобы личные данные, которые больше не используются, были удалены. Этот инструмент позволяет удалять сохраненные формы старше указанных ниже дней. Это действие не может быть отменено!';
+$_lang['formit.forms_clean_executing']                          = 'Очистка форм';
+$_lang['formit.forms_clean_success']                            = 'Удалено форм: [[+amount]].';
+$_lang['formit.export_failed']                                  = 'Не удалось экспортировать формы, пожалуйста, попробуйте еще раз.';
+$_lang['formit.export_dir_failed']                              = 'Произошла ошибка при экспорте формы, не удалось создать папку экспорта.';
 
 $_lang['formit.contains']                                       = 'Поле должно содержать фразу "[[+value]]".';
 $_lang['formit.email_invalid']                                  = 'Пожалуйста, введите правильный адрес электронной почты.';
@@ -80,7 +80,7 @@ $_lang['formit.email_tpl_nf']                                   = 'Пожалу�
 $_lang['formit.field_not_empty']                                = 'Это поле должно быть пустым.';
 $_lang['formit.field_required']                                 = 'Это поле обязательно для заполнения.';
 $_lang['formit.math_incorrect']                                 = 'Неправильный ответ!';
-$_lang['formit.math_field_nf']                                  = '[[+field]] input field not specified in form.';
+$_lang['formit.math_field_nf']                                  = '[[+field]] поле ввода не указано в форме.';
 $_lang['formit.max_length']                                     = 'Это поле не может быть длиннее, чем [[+length]] символов.';
 $_lang['formit.max_value']                                      = 'Это поле не может быть больше, чем [[+value]].';
 $_lang['formit.min_length']                                     = 'Это поле должно быть не меньше [[+length]] символов.';
@@ -91,7 +91,7 @@ $_lang['formit.not_number']                                     = 'Это пол
 $_lang['formit.not_uppercase']                                  = 'Все символы в этом поле должны быть заглавными.';
 $_lang['formit.password_dont_match']                            = 'Пароли не совпадают.';
 $_lang['formit.password_not_confirmed']                         = 'Пожалуйста, подтвердите свой пароль';
-$_lang['formit.prioritized_group_text']                         = 'Frequent Visitors';
+$_lang['formit.prioritized_group_text']                         = 'Постоянные посетители';
 $_lang['formit.range_invalid']                                  = 'Неверный диапазон.';
 $_lang['formit.range']                                          = 'Ваше значение должно быть между [[+min]] и [[+max]].';
 $_lang['formit.recaptcha_err_load']                             = 'Невозможно загрузить класс reCaptcha.';
@@ -103,10 +103,10 @@ $_lang['formit.all_group_text']                                 = 'Все стр
 $_lang['formit.storeAttachment_mediasource_error']              = 'Источник медиа не найден! Id источник: ';
 $_lang['formit.storeAttachment_access_error']                   = 'Папка не доступна для загрузки! Проверьте права на папку: ';
 
-$_lang['formit.migrate']                                        = 'Migrate encrypted form submissions';
-$_lang['formit.migrate_desc']                                   = 'Upgrading to FormIt 3.0 will also update the encryption method used for encrypting submitted form data. FormIt 2.x used mcrypt for encrypting and decrypting, but 3.0 uses the openssl methods. For this to work correctly the currently encrypted forms need to be migrated from mcrypt to openssl.';
-$_lang['formit.migrate_alert']                                  = 'FormIt was updated, but your encrypted form submissions need to be migrated. Click here to start the migration.';
-$_lang['formit.migrate_status']                                 = 'Status';
-$_lang['formit.migrate_running']                                = 'Currently running migration process in the background. Please keep this page open in your browser. DO NOT CLOSE THIS PAGE!';
-$_lang['formit.migrate_success']                                = 'Migration completed';
-$_lang['formit.migrate_success_msg']                            = 'All your encrypted forms have been successfully migrated.';
+$_lang['formit.migrate']                                        = 'Перенос данных с зашифрованных форм';
+$_lang['formit.migrate_desc']                                   = 'Обновление до FormIt 3.0 также обновит метод шифрования, используемый для шифрования отправленных данных форм. FormIt 2.x использует mcrypt для шифрования и дешифрования, а в 3.0 использует методы openssl. Для правильной работы зашифрованные в настоящее время формы необходимо перенести из mcrypt в openssl.';
+$_lang['formit.migrate_alert']                                  = 'FormIt успешно обновлен, но отправленные вами зашифрованные формы необходимо перенести. Нажмите сюда, чтобы начать перенос.';
+$_lang['formit.migrate_status']                                 = 'Статус';
+$_lang['formit.migrate_running']                                = 'В настоящее время выполняется процесс переноса данных в фоновом режиме. Пожалуйста, держите эту страницу открытой в вашем браузере. НЕ ЗАКРЫВАЙТЕ ЭТУ СТРАНИЦУ!';
+$_lang['formit.migrate_success']                                = 'Перенос завершен';
+$_lang['formit.migrate_success_msg']                            = 'Все ваши зашифрованные формы были успешно перенесены.';
