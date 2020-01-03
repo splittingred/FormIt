@@ -1,5 +1,15 @@
 Changelog for FormIt.
 
+FormIt 4.2.4
+====================================
+- Fix export form select width (#218)
+- Fix limit of form filter (#206)
+- Fix path to clean processor for cronjob (#215, thanks to @bennyb)
+- Fix ability to export all forms (#210, thanks to @JoshuaLuckers)
+- Added new properties to email hook (#216, thanks to @jako)
+    - emailSelectTo, emailSelectToName, emailSelectField
+- Updated Russian translation (#208, thanks to @webinmd)
+
 FormIt 4.2.3
 ====================================
 - FormIt 4.2.0 release bug - Fix migration of forms with encryption
