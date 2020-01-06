@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea that makes 'Formit'
+about: Suggest an idea that makes FormIt
 ---
 
 ## Feature request
