@@ -5,7 +5,7 @@
 
 FormIt is a dynamic form processing snippet for MODX Revolution developers. It handles form submission, validation and followup actions like sending an email or storing encrypted versions of these mails for later reference.
 
-Screenshots and more information can be found on the [Sterc website](https://www.sterc.nl/en/modx-extras/formit-3.0).
+Screenshots and more information can be found on the [Sterc website](https://www.sterc.com/modx/extras/formit).
 
 ## Upgrading to FormIt 3.0.0? It involves a migration
 
