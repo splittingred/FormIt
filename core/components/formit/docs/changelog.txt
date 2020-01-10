@@ -1,5 +1,10 @@
 Changelog for FormIt.
 
+FormIt 4.2.5
+====================================
+- Added new properties to email hook (#229, thanks to @jako)
+      - emailSelectTo, emailSelectToName, emailSelectField
+
 FormIt 4.2.4
 ====================================
 - Fix export form select width (#218)
