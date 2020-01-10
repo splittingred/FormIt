@@ -144,7 +144,7 @@ class Hook
             $properties['formit'] =& $this->formit;
             $properties['hook'] =& $this;
             $properties['fields'] = $this->fields;
-            $properties['errors'] =& array_merge($errors, $this->errors);
+            $properties['errors'] = array_merge($errors, $this->errors);
             $success = $snippet->process($properties);
         } else {
             /* search for a file-based hook */
