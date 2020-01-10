@@ -6,7 +6,7 @@ FormIt 4.2.4
 - Fix limit of form filter (#206)
 - Fix path to clean processor for cronjob (#215, thanks to @bennyb)
 - Fix ability to export all forms (#210, thanks to @JoshuaLuckers)
-- Fix PHP notice 'Only variables should be assigned by reference' in Hook.php
+- Fix PHP notice 'Only variables should be assigned by reference' in Hook.php (#212, thanks to @intersel)
 - Updated Russian translation (#208, thanks to @webinmd)
 
 FormIt 4.2.3
