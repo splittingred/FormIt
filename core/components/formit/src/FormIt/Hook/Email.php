@@ -53,8 +53,6 @@ class Email
      *  emailFromName - The name of the From: user.
      *  emailSubject - The subject of the email.
      *  emailHtml - Boolean, if true, email will be in HTML mode.
-     *  emailSelectField - The name of the form field, that selects the email addresses to send to.
-     *  emailSelectTo - A semicolon separated list of comma separated email addresses to send to.
      *
      * @param array $fields An array of cleaned POST fields
      *
@@ -90,22 +88,6 @@ class Email
             $subject = $this->modx->getOption('emailSubject', $this->formit->config, '');
         }
         $subject = $this->hook->_process($subject, $fields);
-
-        /* select email to */
-        $emailSelectTo = $this->modx->getOption('emailSelectTo', $this->formit->config, '');
-        $emailSelectTo = ($emailSelectTo) ? explode(';', $emailSelectTo) : array();
-        $emailSelectToName = $this->modx->getOption('emailSelectToName', $this->formit->config, $emailSelectTo);
-        $emailSelectToName = ($emailSelectToName) ? explode(';', $emailSelectToName) : array();
-        $emailSelectField = $this->modx->getOption('emailSelectField', $this->formit->config, '');
-        if ($emailSelectField && isset($fields[$emailSelectField])) {
-            $selected = intval($fields[$emailSelectField]) - 1;
-            if ($selected && isset($emailSelectTo[$selected])) {
-                $this->formit->config['emailTo'] = $emailSelectTo[$selected];
-            }
-            if ($selected && isset($emailSelectToName[$selected])) {
-                $this->formit->config['emailToName'] = $emailSelectToName[$selected];
-            }
-        }
 
         /* check email to */
         $emailTo = $this->modx->getOption('emailTo', $this->formit->config, '');
