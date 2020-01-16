@@ -10,7 +10,7 @@ $_lang['formit']                                                = 'FormIt';
 $_lang['formit.desc']                                           = 'Bekijk hier alle ingezonden formulieren.';
 
 $_lang['area_formit']                                           = 'FormIt';
-$_lang['area_formit_recaptcha']                                 = 'FormIt reCaptcha';
+$_lang['area_formit_recaptcha']                                 = 'FormIt reCAPTCHA';
 
 $_lang['formit.form']                                           = 'Formulier';
 $_lang['formit.forms']                                          = 'Formulieren';
@@ -55,9 +55,9 @@ $_lang['formit.label_export_form']                              = 'Formulier';
 $_lang['formit.label_export_form_desc']                         = 'Selecteer een formulier om te exporteren.';
 $_lang['formit.label_export_start_date']                        = 'Datum vanaf';
 $_lang['formit.label_export_start_date_desc']                   = 'Selecteer een datum om vanaf die datum de formulieren te exporteren.';
-$_lang['formit.label_export_end_date']                          = 'Datum vanaf';
+$_lang['formit.label_export_end_date']                          = 'Datum tot';
 $_lang['formit.label_export_end_date_desc']                     = 'Selecteer een datum om tot die datum de formulieren te exporteren.';
-$_lang['formit.label_export_delimiter']                         = 'CSV Scheidingsteken';
+$_lang['formit.label_export_delimiter']                         = 'CSV scheidingsteken';
 $_lang['formit.label_export_delimiter_desc']                    = 'Het CSV scheidingsteken waarmee kolommen gescheiden worden. Standaard is ";".';
 
 $_lang['formit.filter_form']                                    = 'Filter op formulier';
@@ -69,14 +69,14 @@ $_lang['formit.forms_clean_desc']                               = 'De <a href="h
 $_lang['formit.forms_clean_executing']                          = 'Bezig met opruimen van formulieren';
 $_lang['formit.forms_clean_success']                            = '[[+amount]] formulier(en) verwijderd.';
 $_lang['formit.export_failed']                                  = 'Het exporteren van de formulieren is mislukt, probeer het nog eens.';
-$_lang['formit.export_dir_failed']                              = 'Er is een fout opgetreden tijdens het exporteren van de formulier, de export folder kon niet aangemaakt worden.';
+$_lang['formit.export_dir_failed']                              = 'Er is een fout opgetreden tijdens het exporteren van de formulier, de export map kon niet aangemaakt worden.';
 
 $_lang['formit.contains']                                       = 'Het veld moet de volgende waarde bevatten: "[[+value]]".';
-$_lang['formit.email_invalid']                                  = 'Vul een geldig email adres in.';
-$_lang['formit.email_invalid_domain']                           = 'Het email adres heeft geen geldige domeinnaam.';
-$_lang['formit.email_no_recipient']                             = 'Voer de ontvanger of ontvangers voor deze email in.';
-$_lang['formit.email_not_sent']                                 = 'Er is iets fout gegaan tijdens het verzenden van de email.';
-$_lang['formit.email_tpl_nf']                                   = 'Er is geen email template opgegeven.';
+$_lang['formit.email_invalid']                                  = 'Vul een geldig e-mailadres in.';
+$_lang['formit.email_invalid_domain']                           = 'Het e-mailadres heeft geen geldige domeinnaam.';
+$_lang['formit.email_no_recipient']                             = 'Voer de ontvanger of ontvangers voor deze e-mail in.';
+$_lang['formit.email_not_sent']                                 = 'Er is iets fout gegaan tijdens het verzenden van de e-mail.';
+$_lang['formit.email_tpl_nf']                                   = 'Er is geen e-mail template opgegeven.';
 $_lang['formit.field_not_empty']                                = 'Het veld moet leeg zijn.';
 $_lang['formit.field_required']                                 = 'Het veld is verplicht.';
 $_lang['formit.math_incorrect']                                 = 'Onjuist antwoord!';
@@ -95,10 +95,10 @@ $_lang['formit.prioritized_group_text']                         = 'Frequente bez
 $_lang['formit.range_invalid']                                  = 'Ongeldig bereik ingevoerd.';
 $_lang['formit.range']                                          = 'De invoer moet tussen de [[+min]] en [[+max]] zijn.';
 $_lang['formit.recaptcha_err_load']                             = 'Could not load FormItReCaptcha service class.';
-$_lang['formit.spam_blocked']                                   = 'Het formulier is geweigert door een spam filter.';
+$_lang['formit.spam_blocked']                                   = 'Het formulier is geweigerd door een spamfilter.';
 $_lang['formit.spam_marked']                                    = ' - gemarkeerd als spam.';
 $_lang['formit.username_taken']                                 = 'Gebruikersnaam al in gebruik. Kies een andere';
 $_lang['formit.not_regexp']                                     = 'De waarde voldoet niet aan het verwachte formaat.';
 $_lang['formit.all_group_text']                                 = 'Alle landen';
-$_lang['formit.storeAttachment_mediasource_error']              = 'Kan MediaSource niet vinden! Mediasource-ID is: ';
+$_lang['formit.storeAttachment_mediasource_error']              = 'Kan Mediabron niet vinden! Mediabron ID is: ';
 $_lang['formit.storeAttachment_access_error']                   = 'Directory is niet schrijfbaar! Controleer de machtigingen voor: ';
