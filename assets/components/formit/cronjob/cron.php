@@ -25,6 +25,8 @@ $response = $modx->runProcessor('mgr/forms/clean', [], [
     'processors_path' => $path
 ]);
 
-if ($response->isError()) {
-    print $response->getMessage();
+if(!empty($response)){ 
+    if ($response->isError()) {
+        print $response->getMessage();
+    }
 }
