@@ -46,6 +46,10 @@ class FormItFormsGetListProcessor extends modObjectGetListProcessor
     {
         $this->modx->getService('formit', 'FormIt', $this->modx->getOption('formit.core_path', null, $this->modx->getOption('core_path') . 'components/formit/') . 'model/formit/');
 
+        $this->setDefaultProperties([
+            'limit' => 0
+        ]);
+        
         return parent::initialize();
     }
 
