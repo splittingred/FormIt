@@ -24,7 +24,7 @@ class StopForumSpam
     {
         $this->modx = $modx;
         $this->config = array_merge([
-            'host' => 'http://api.stopforumspam.org/',
+            'host' => 'https://api.stopforumspam.com/',
             'path' => 'api',
             'method' => 'GET',
         ], $config);
