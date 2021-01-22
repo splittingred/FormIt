@@ -129,7 +129,6 @@ class Autoresponder
         $this->modx->parser->processElementTags('', $message, true, false);
 
         $this->modx->getService('mail', 'mail.modPHPMailer');
-        $this->modx->mail->reset();
         $this->modx->mail->set(\modMail::MAIL_BODY, $message);
         $this->modx->mail->set(\modMail::MAIL_FROM, $this->hook->_process($mailFrom, $placeholders));
         $this->modx->mail->set(\modMail::MAIL_FROM_NAME, $this->hook->_process($mailFromName, $placeholders));
