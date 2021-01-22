@@ -3,14 +3,14 @@
 /**
  * FormIt
  *
- * Copyright 2019 by Sterc <modx@sterc.nl>
+ * Copyright 2020 by Sterc <modx@sterc.nl>
  */
 
 $_lang['formit']                                                = 'FormIt';
 $_lang['formit.desc']                                           = 'View all submitted forms.';
 
 $_lang['area_formit']                                           = 'FormIt';
-$_lang['area_formit_recaptcha']                                 = 'FormIt reCaptcha';
+$_lang['area_formit_recaptcha']                                 = 'FormIt reCAPTCHA';
 
 $_lang['formit.form']                                           = 'Form';
 $_lang['formit.forms']                                          = 'Forms';
@@ -63,9 +63,9 @@ $_lang['formit.label_export_delimiter_desc']                    = 'The Het CSV d
 $_lang['formit.filter_form']                                    = 'Filter on form';
 $_lang['formit.filter_start_date']                              = 'Filter from';
 $_lang['formit.filter_end_date']                                = 'Filter till';
-$_lang['formit.encryption_unavailable']                         = 'PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. Please install PHP OpenSSL on your server. See http://www.php.net/manual/en/openssl.requirements.php for more information.';
-$_lang['formit.encryption_unavailable_warning']                 = '<strong>Warning</strong>: PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. This means that you cannot use encryption on your forms. Please install PHP OpenSSL on your server. Visit <a href="http://www.php.net/manual/en/openssl.requirements.php" target="_blank">this page</a> for more information.';
-$_lang['formit.forms_clean_desc']                               = 'The European <a href="https://ec.europa.eu/commission/priorities/justice-and-fundamental-rights/data-protection/2018-reform-eu-data-protection-rules_en" target="_blank">General Data Protection Regulation (GDPR)</a> requires that personal data, which is no longer necessary to possess, is removed. This tool makes it possible to remove saved forms with an age older than the given days. This action can not be undone!';
+$_lang['formit.encryption_unavailable']                         = 'PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. Please install PHP OpenSSL on your server. See <a href="https://www.php.net/manual/en/openssl.requirements.php" target="_blank">https://www.php.net/manual/en/openssl.requirements.php</a> for more information.';
+$_lang['formit.encryption_unavailable_warning']                 = '<strong>Warning:</strong> PHP OpenSSL functions openssl_encrypt and openssl_decrypt are not available. This means that you cannot use encryption on your forms. Please install PHP OpenSSL on your server. Visit <a href="https://www.php.net/manual/en/openssl.requirements.php" target="_blank">https://www.php.net/manual/en/openssl.requirements.php</a> for more information.';
+$_lang['formit.forms_clean_desc']                               = 'The European <a href="https://ec.europa.eu/info/law/law-topic/data-protection/eu-data-protection-rules_en" target="_blank">General Data Protection Regulation (GDPR)</a> requires that personal data, which is no longer necessary to possess, is removed. This tool makes it possible to remove saved forms with an age older than the given days. This action can not be undone!';
 $_lang['formit.forms_clean_executing']                          = 'Cleaning up forms';
 $_lang['formit.forms_clean_success']                            = '[[+amount]] form(s) removed.';
 $_lang['formit.export_failed']                                  = 'The export of the forms failed, please try again.';
@@ -100,13 +100,13 @@ $_lang['formit.spam_marked']                                    = ' - marked as 
 $_lang['formit.username_taken']                                 = 'Username already taken. Please choose another.';
 $_lang['formit.not_regexp']                                     = 'Your value did not match the expected format.';
 $_lang['formit.all_group_text']                                 = 'All Countries';
-$_lang['formit.storeAttachment_mediasource_error']              = 'Cant find MediaSource! Mediasource id is: ';
+$_lang['formit.storeAttachment_mediasource_error']              = 'Cant find Media Source! Media Source ID is: ';
 $_lang['formit.storeAttachment_access_error']                   = 'Directory is not writable! Check the permissions for: ';
 
 $_lang['formit.migrate']                                        = 'Migrate encrypted form submissions';
 $_lang['formit.migrate_desc']                                   = 'Upgrading to FormIt 3.0 will also update the encryption method used for encrypting submitted form data. FormIt 2.x used mcrypt for encrypting and decrypting, but 3.0 uses the openssl methods. For this to work correctly the currently encrypted forms need to be migrated from mcrypt to openssl.';
 $_lang['formit.migrate_alert']                                  = 'FormIt was updated, but your encrypted form submissions need to be migrated. Click here to start the migration.';
 $_lang['formit.migrate_status']                                 = 'Status';
-$_lang['formit.migrate_running']                                = 'Currently running migration process in the background. Please keep this page open in your browser. DO NOT CLOSE THIS PAGE!';
+$_lang['formit.migrate_running']                                = 'Currently running migration process in the background. Please keep this page open in your browser. <strong>DO NOT CLOSE THIS PAGE!<strong>';
 $_lang['formit.migrate_success']                                = 'Migration completed';
 $_lang['formit.migrate_success_msg']                            = 'All your encrypted forms have been successfully migrated.';

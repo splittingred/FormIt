@@ -3,7 +3,7 @@
 /**
  * FormIt
  *
- * Copyright 2019 by Sterc <modx@sterc.nl>
+ * Copyright 2020 by Sterc <modx@sterc.nl>
  */
 
 $_lang['prop_formit.hooks_desc']                                = 'What scripts to fire, if any, after the form passes validation. This can be a comma-separated list of hooks, and if the first fails, the proceeding ones will not fire. A hook can also be a Snippet name that will execute that Snippet.';
@@ -25,10 +25,10 @@ $_lang['prop_formit.allowfiles_desc']                           = 'If set to 0, 
 $_lang['prop_formit.placeholderprefix_desc']                    = 'The prefix to use for all placeholders set by FormIt for fields. Defaults to `fi.`';
 $_lang['prop_formit.redirectto_desc']                           = 'If `redirect` is set as a hook, this must specify the Resource ID to redirect to.';
 $_lang['prop_formit.redirectparams_desc']                       = 'A JSON array of parameters to pass to the redirect hook that will be passed when redirecting.';
-$_lang['prop_formit.recaptchajs_desc']                          = 'If `recaptcha` is set as a hook, this can be a JSON object that will be set to the JS RecaptchaOptions variable, which configures options for reCaptcha.';
-$_lang['prop_formit.recaptchaheight_desc']                      = 'If `recaptcha` is set as a hook, this will select the height for the reCaptcha widget.';
-$_lang['prop_formit.recaptchatheme_desc']                       = 'If `recaptcha` is set as a hook, this will select a theme for the reCaptcha widget.';
-$_lang['prop_formit.recaptchawidth_desc']                       = 'If `recaptcha` is set as a hook, this will set the width for the reCaptcha widget.';
+$_lang['prop_formit.recaptchajs_desc']                          = 'If `recaptcha` is set as a hook, this can be a JSON object that will be set to the JS RecaptchaOptions variable, which configures options for reCAPTCHA.';
+$_lang['prop_formit.recaptchaheight_desc']                      = 'If `recaptcha` is set as a hook, this will select the height for the reCAPTCHA widget.';
+$_lang['prop_formit.recaptchatheme_desc']                       = 'If `recaptcha` is set as a hook, this will select a theme for the reCAPTCHA widget.';
+$_lang['prop_formit.recaptchawidth_desc']                       = 'If `recaptcha` is set as a hook, this will set the width for the reCAPTCHA widget.';
 $_lang['prop_formit.spamemailfields_desc']                      = 'If `spam` is set as a hook, a comma-separated list of fields containing emails to check spam against.';
 $_lang['prop_formit.spamcheckip_desc']                          = 'If `spam` is set as a hook, and this is true, will check the IP as well.';
 $_lang['prop_formit.emailbcc_desc']                             = 'If `email` is set as a hook, then this specifies the email(s) to send the email to as a BCC. Can be a comma-separated list of email addresses.';
