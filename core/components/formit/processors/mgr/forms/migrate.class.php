@@ -24,12 +24,10 @@ class FormItMigrateProcessor extends modProcessor
             'encrypted' => 1,
             'encryption_type' => 1
         ));
+        $c->limit($limit);
         $collection = $this->modx->getIterator('FormItForm', $c);
 
         foreach ($collection as $form) {
-            if ($count > $limit) {
-                break;
-            }
             $oldValues = $form->get('values');
             $oldValues = $form->decrypt($oldValues, 1);
             /* Fix for when forms are encrypted with openssl, but encryption_type field is not set to 2 */
