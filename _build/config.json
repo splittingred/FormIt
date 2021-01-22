@@ -481,6 +481,11 @@
             "area": "formit"
         }]
     },
+    "database": {
+        "tables": [
+            "FormItForm"
+        ]
+    },
     "build": {
         "readme": "docs/readme.txt",
         "license": "docs/license.txt",
