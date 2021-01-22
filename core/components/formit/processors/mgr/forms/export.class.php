@@ -257,8 +257,12 @@ class FormItFormExportProcessor extends modProcessor
             $content = file_get_contents($file);
 
             if ($content) {
+                header('Content-Encoding: UTF-8');
                 header('Content-Type: application/force-download');
                 header('Content-Disposition: attachment; filename="' . $this->getProperty('filename') . '"');
+                header("Pragma: no-cache");
+                header("Expires: 0");
+                echo "\xEF\xBB\xBF"; // UTF-8 BOM
 
                 return $content;
             }
