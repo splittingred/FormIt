@@ -1,9 +1,17 @@
 Changelog for FormIt.
 
+FormIt 4.2.6
+====================================
+- Add support for UTF-8 when exporting (PR#221)
+- Move limit from foreach to query in migration class (PR#236)
+- Remove unnecessary mail->reset from autoresponder hook (PR#240)
+- Add Ukrainian lexicon + some changes to RU and EN lexicons (PR#242)
+- Update Composer autoloader for newer Composer versions (PR#243)
+
 FormIt 4.2.5
 ====================================
 - Added new properties to email hook (#229, thanks to @jako)
-      - emailSelectTo, emailSelectToName, emailSelectField
+- emailSelectTo, emailSelectToName, emailSelectField
 
 FormIt 4.2.4
 ====================================
@@ -30,15 +38,15 @@ FormIt 4.2.0
 ====================================
 - Bug on hasHook() fixed (#182, #181, #170, #193)
 - ExtJS refactored for faster and better UI/UX
-    - IP number added to the grid (#194)
-    - Better form view with textfields and textareas (#136)
-    - Remove multiple forms (#143)
-    - Search by IP (and context menu option to view all forms from 1 IP)
+- IP number added to the grid (#194)
+- Better form view with textfields and textareas (#136)
+- Remove multiple forms (#143)
+- Search by IP (and context menu option to view all forms from 1 IP)
 - New permissions added
-    - formit_encryptions to encrypt/decrypt forms
-    - Context awereness, an user can only see the forms with the contexts that the user has access to.
+- formit_encryptions to encrypt/decrypt forms
+- Context awereness, an user can only see the forms with the contexts that the user has access to.
 - Swedish translation updated
-    - All other language files checked and filled with English strings
+- All other language files checked and filled with English strings
 - Formit deprecation notice in 2.7.0dev bug fixed (#190)
 
 FormIt 4.1.2
