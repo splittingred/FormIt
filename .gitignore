@@ -8,3 +8,7 @@ core/components/formit/test/config.inc.php
 
 assets/components/formit/*.log
 assets/components/formit/tmp
+
+_packages/*.*
+!_packages/.gitignore
+!_packages/*.zip

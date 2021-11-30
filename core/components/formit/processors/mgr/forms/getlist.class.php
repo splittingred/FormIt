@@ -115,8 +115,9 @@ class FormItFormsGetListProcessor extends modObjectGetListProcessor
      */
     public function prepareRow(xPDOObject $object)
     {
+        $server_offset_time= floatval($this->modx->getOption('server_offset_time', null, 0)) * 3600;
         $array = array_merge($object->toArray(), [
-            'date' => date($this->getProperty('dateFormat'), $object->get('date') + $this->modx->getOption('server_offset_time') * 3600)
+            'date' => date($this->getProperty('dateFormat'), $object->get('date') + $server_offset_time)
         ]);
 
         $values = $object->get('values');
