@@ -58,6 +58,10 @@ class StopForumSpam
             $params['username'] = $username;
         }
 
+        if (empty($params)) {
+            return;
+        }
+
         $xml = $this->request($params);
         $i = 0;
         $errors = [];
