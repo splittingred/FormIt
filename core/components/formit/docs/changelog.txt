@@ -1,5 +1,13 @@
 Changelog for FormIt.
 
+FormIt 4.2.7
+====================================
+- Use server_offset_time for grid in manager (PR#219)
+- Fix fatal error when empty responce in cronjob (PR#230)
+- Add RU (PR#245) and IT (PR#257) translation of country list
+- Change stopforumspam API URL (PR#248)
+- Fix property for getTableName in resolver (PR#247)
+
 FormIt 4.2.6
 ====================================
 - Add support for UTF-8 when exporting (PR#221)
