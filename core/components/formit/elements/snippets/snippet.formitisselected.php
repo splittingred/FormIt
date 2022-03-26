@@ -34,7 +34,7 @@ $output = ' ';
 if ($input == $options) {
     $output = ' selected="selected"';
 }
-$input = $modx->fromJSON($input);
+$input = strpos($input, '"') ? $modx->fromJSON($input) : explode(',', $input);
 if (!empty($input) && is_array($input) && in_array($options,$input)) {
   $output = ' selected="selected"';
 }
