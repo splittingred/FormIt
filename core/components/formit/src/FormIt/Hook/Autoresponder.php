@@ -125,8 +125,8 @@ class Autoresponder
         $placeholders = $fields;
         $mailTo= $fields[$toField];
 
-        $message = $this->formit->getChunk($tpl, $placeholders);
-        $this->modx->parser->processElementTags('', $message, true, false);
+        $message = $this->formit->getChunk($tpl, $fields);
+        $message = $this->hook->_process($message, $this->config);
 
         $this->modx->getService('mail', 'mail.modPHPMailer');
         $this->modx->mail->set(\modMail::MAIL_BODY, $message);
