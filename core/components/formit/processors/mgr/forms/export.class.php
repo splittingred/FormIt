@@ -47,7 +47,7 @@ class FormItFormExportProcessor extends modProcessor
         $this->modx->getService('formit', 'FormIt', $this->modx->getOption('formit.core_path', null, $this->modx->getOption('core_path') . 'components/formit/') . 'model/formit/');
 
         $this->setDefaultProperties([
-            'columns'       => 'Form,Date,IP',
+            'columns'       => 'ID,Form,Date,IP',
             'filename'      => $this->objectType . '.csv',
             'directory'     => $this->modx->getOption('core_path') . 'cache/export/formit/',
             'dateFormat'    => $this->modx->getOption('manager_date_format') . ', ' . $this->modx->getOption('manager_time_format')
