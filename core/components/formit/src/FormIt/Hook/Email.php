@@ -94,8 +94,8 @@ class Email
 
         /* select email to */
         $emailSelectTo = $this->modx->getOption('emailSelectTo', $this->formit->config, '');
-        $emailSelectTo = ($emailSelectTo) ? explode(';', $emailSelectTo) : array();
         $emailSelectToName = $this->modx->getOption('emailSelectToName', $this->formit->config, $emailSelectTo);
+        $emailSelectTo = ($emailSelectTo) ? explode(';', $emailSelectTo) : array();
         $emailSelectToName = ($emailSelectToName) ? explode(';', $emailSelectToName) : array();
         $emailSelectField = $this->modx->getOption('emailSelectField', $this->formit->config, '');
         if ($emailSelectField && isset($fields[$emailSelectField])) {
