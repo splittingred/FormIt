@@ -472,6 +472,9 @@
             "key": "attachment.path",
             "area": "formit"
         },{
+            "key": "attachment.lifeline",
+            "area": "formit"
+        },{
             "key": "cleanform.days",
             "value": 30,
             "area": "formit"

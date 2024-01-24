@@ -350,7 +350,7 @@ class Request
             }
 
             /* Remove files older than 1 day uploaded by fiDictionary->gather() */
-            $tmpFileLifetime = 86400;
+            $tmpFileLifetime = $this->modx->getOption('formit.attachment.lifeline', $this->config, 86400);
             if (isset($_SESSION['formit']['tmp_files']) &&
                 is_array($_SESSION['formit']['tmp_files']) &&
                 count($_SESSION['formit']['tmp_files'])
