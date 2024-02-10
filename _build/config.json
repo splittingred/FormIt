@@ -120,7 +120,7 @@
                     "name": "allowFiles",
                     "description": "prop_formit.allowfiles_desc",
                     "type": "combo-boolean",
-                    "value": "1"
+                    "value": "0"
                 },{
                     "name": "spamEmailFields",
                     "description": "prop_formit.spamemailfields_desc",
@@ -312,7 +312,7 @@
                     "name": "attachFilesToEmail",
                     "description": "prop_formit.attachfiles_desc",
                     "type": "combo-boolean",
-                    "value": "1"
+                    "value": "0"
                 },{
                     "name": "storeAttachments",
                     "description": "prop_formit.store_attachments_desc",
