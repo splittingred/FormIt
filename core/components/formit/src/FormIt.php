@@ -343,7 +343,7 @@ class FormIt
      */
     public function getChunk($name, $properties = array())
     {
-        if (class_exists('pdoTools') && $pdo = $this->modx->getService('pdoTools')) {
+        if (class_exists('ModxPro\PdoTools\Fetch') && $pdo = $this->modx->getService('pdoTools')) {
             return $pdo->getChunk($name, $properties);
         }
 
