@@ -202,9 +202,32 @@ class Request
         $inPost = false;
         if (!empty($_POST)) {
             $inPost = true;
-            if (!empty($this->config['submitVar']) && empty($_POST[$this->config['submitVar']])) {
+            /*
+                Changed to provide means to allow multiple submit buttons in one form. The primary use case is multi-step/page forms,
+                where buttons used to navigate the form should post the current page data before moving to the specified step.
+                Each button of type submit should have a unique name that includes the value of the submitVar parameter, as well as
+                a value that differetiates the button's functionality. For example, in a chunk template the basic form navigation might be:
+
+                    <button type="submit" title="Previous" name="[[!+submitVar]]_prev" value="[[!+submitValPrev]]">Previous</button>
+                    <button type="submit" title="Next" name="[[!+submitVar]]>Next</button>
+                    <button type="submit" title="Last" name="[[!+submitVar]]_last" value="[[!+submitValLast]]">Skip to Last Step</button>
+
+                where the value is the step index to redirect to after submission (which would be optional for the regular submit button,
+                which is shown here as "Next").
+
+                This change should not require users to make changes to their existing forms.
+            */
+            if (!empty($this->config['submitVar'])) {
+                $keys = array_keys($_POST);
                 $inPost = false;
+                foreach ($keys as $key) {
+                    if (strpos($key, $this->config['submitVar']) !== false) {
+                        $inPost = true;
+                        break;
+                    }
+                }
             }
+
         }
 
         return $inPost;
