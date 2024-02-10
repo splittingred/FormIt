@@ -123,7 +123,7 @@ class Saveform
                 $fieldLabels[trim($parts[0])] = trim($parts[1]);
             }
             foreach ($dataArray as $key => $value) {
-                if ($fieldLabels[$key]) {
+                if ($fieldLabels[$key] ?? null) {
                     $labelKey = $fieldLabels[$key];
                     if (array_key_exists($labelKey, $newDataArray)) {
                         $labelKey .= ' ('.$key.')';
@@ -163,7 +163,7 @@ class Saveform
             $dataArray = $this->modx->toJSON($dataArray);
         }
 
-        // Create new hash key on create mode, and handle invalid hash keys. 
+        // Create new hash key on create mode, and handle invalid hash keys.
         if ($mode === 'create') {
             $formHashKey = ($formHashKeyRandom) ? $newForm->generatePseudoRandomHash() : pathinfo($this->formit->getStoreKey(), PATHINFO_BASENAME);
         }
@@ -178,7 +178,7 @@ class Saveform
             ));
         } else {
             // In all other cases, we overwrite the record completely!
-            // In create mode we must save the hash. In update mode, the 
+            // In create mode we must save the hash. In update mode, the
             // formHashKey will be valid so we can also save it, again.
             $newFormArray = array(
                 'form' => $formName,
