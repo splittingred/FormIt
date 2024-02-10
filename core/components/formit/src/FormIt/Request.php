@@ -91,6 +91,9 @@ class Request
 
         /* if using math hook, load default placeholders */
         if ($this->formit->hasHook('math')) {
+            $operators = array('+', '-');
+            $operator = rand(0, 1);
+            
             if (!$this->hasSubmission()) {
                 $mathMaxRange = $this->modx->getOption('mathMaxRange', $this->config, 100);
                 $mathMinRange = $this->modx->getOption('mathMinRange', $this->config, 10);
@@ -102,15 +105,12 @@ class Request
                     $op2 = rand($mathMinRange, $mathMaxRange);
                 }
 
+                /* swap so we always get positive #s */
                 if ($op2 > $op1) {
                     $t = $op2;
                     $op2 = $op1;
                     $op1 = $t;
                 }
-
-                /* swap so we always get positive #s */
-                $operators = array('+', '-');
-                $operator = rand(0, 1);
 
                 /* Store in session so math fields are not required for math hook */
                 $_SESSION['formitMath'] = array(
