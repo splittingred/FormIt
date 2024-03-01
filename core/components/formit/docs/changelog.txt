@@ -1,5 +1,220 @@
 Changelog for FormIt.
 
+FormIt 4.2.7
+====================================
+- Use server_offset_time for grid in manager (PR#219)
+- Fix fatal error when empty responce in cronjob (PR#230)
+- Add RU (PR#245) and IT (PR#257) translation of country list
+- Change stopforumspam API URL (PR#248)
+- Fix property for getTableName in resolver (PR#247)
+
+FormIt 4.2.6
+====================================
+- Add support for UTF-8 when exporting (PR#221)
+- Move limit from foreach to query in migration class (PR#236)
+- Remove unnecessary mail->reset from autoresponder hook (PR#240)
+- Add Ukrainian lexicon + some changes to RU and EN lexicons (PR#242)
+- Update Composer autoloader for newer Composer versions (PR#243)
+
+FormIt 4.2.5
+====================================
+- Added new properties to email hook (#229, thanks to @jako)
+- emailSelectTo, emailSelectToName, emailSelectField
+
+FormIt 4.2.4
+====================================
+- Fix export form select width (#218)
+- Fix limit of form filter (#206)
+- Fix path to clean processor for cronjob (#215, thanks to @bennyb)
+- Fix ability to export all forms (#210, thanks to @JoshuaLuckers)
+- Fix PHP notice 'Only variables should be assigned by reference' in Hook.php (#212, thanks to @intersel)
+- Updated Russian translation (#208, thanks to @webinmd)
+
+FormIt 4.2.3
+====================================
+- FormIt 4.2.0 release bug - Fix migration of forms with encryption
+
+FormIt 4.2.2
+====================================
+- FormIt 4.2.0 release bug - Altering tables on update (#203)
+
+FormIt 4.2.1
+====================================
+- FormIt 4.2.0 release bug (#202)
+
+FormIt 4.2.0
+====================================
+- Bug on hasHook() fixed (#182, #181, #170, #193)
+- ExtJS refactored for faster and better UI/UX
+- IP number added to the grid (#194)
+- Better form view with textfields and textareas (#136)
+- Remove multiple forms (#143)
+- Search by IP (and context menu option to view all forms from 1 IP)
+- New permissions added
+- formit_encryptions to encrypt/decrypt forms
+- Context awereness, an user can only see the forms with the contexts that the user has access to.
+- Swedish translation updated
+- All other language files checked and filled with English strings
+- Formit deprecation notice in 2.7.0dev bug fixed (#190)
+
+FormIt 4.1.2
+====================================
+- Fix spam hook for better spam prevention thanks to Kristoffer Karlström
+- Fix FormItLoadSavedForm for encrypted forms
+
+FormIt 4.1.1
+====================================
+- Added new hook "renderHooks", which triggers just before rendering the form
+
+FormIt 4.1.0
+====================================
+- This release is made possible thanks to Bert Kooij / Census.nl. Thanks!
+- Added new button in Manager page for manually removing forms.
+- Added new system setting for the default amount of days.
+- Added cronjob task for automatically deletion of old forms.
+
+FormIt 4.0.1
+====================================
+- Add option to specify csv delimiter for form export
+- Add GDPR compliant attachment handling (#154) - Thanks to @wax100
+- Allow empty isDate validator (PR#164) - Thanks to JoshuaLuckers
+- Fix bug with multiple forms on one page (#160)
+- Fix modx->log calls in various classes (#161)
+- Fix setting redirectParams variable (#165)
+
+FormIt 4.0.0
+====================================
+- Move formit base classes to /src/ folder and add namespace
+- Update existing classes to extend new classes
+- Update all snippets to use modx getService
+- Move FormItAutoResponder and FormItSaveForm logic to classes
+- Add helper functions for all FormIt properties
+- Set defaultEngine to InnoDB in mysql schema
+- Fix PHP7 error in default email output (PR#156)
+- Updated German lexicons (PR#150)
+- Add 'Form' column to form export (PR#149)
+
+FormIt 3.0.4
+====================================
+- Fix checkbox values not showing in email
+
+FormIt 3.0.3
+====================================
+- Fix FormItSaveForm to allow multiple fields with same fieldName
+- Add 'saveTmpFiles' FormIt snippet property to enable/disable saving files to tmp directory
+- Remove list() function from formitsaveform snippet for better PHP version compatibility (#98)
+- Fix PHP7 by-reference errors (#98)
+- Replace ereg() functions with preg_match() for PHP compatibility (#98)
+- Increase precision for FormItForm 'ip' field to allow for IPV6 addresses (#135)
+- Fix issue where in some cases fields are not correctly saved in FormItForm (#92)
+- Optimize FormItForm export class for better performance (#120)
+- Add 'attachFilesToEmail' property to control if files are added as attachment to email (#122)
+
+FormIt 3.0.2
+====================================
+- Fix encryption in formitsaveform snippet to save correct encryption_type
+- Fix bug in forms grid when decrypting encrypted forms fail
+- Fix migration to check if decrypted data is correct
+
+FormIt 3.0.1
+====================================
+- Store file uploads in tmp folder to prevent file uploads getting lost in multistep forms
+- Add checks for OpenSSL in classes and encryption CMP tab
+- Add method_exists check to plugin to prevent errors when method not exists
+- Update context-menu in forms-encryption grid to show only encrypt or decrypt
+- Set placeholders for file upload $_FILES array
+- Add option to FormItCountryOptions snippet to limit country list to selected countries only (PR#123) - thanks to gadgetto
+
+FormIt 3.0.0
+====================================
+- PLEASE NOTE: THIS UPDATE CONTAINS A MIGRATION SCRIPT FOR ENCRYPTED FORMS - Read more about it at https://github.com/Sterc/FormIt
+- Mcrypt encryption/decryption methods replaced with openssl due to mcrypt being deprecated in PHP 7.1
+- Add default file-based chunks as objects
+- Add support for pdoTools getChunk method, thanks to soulcreate and bezumkin (PR#89)
+- Add French countries for FormItCountryOptions, thanks to beau-gosse (PR#109)
+- Add Dutch countries for FormItCountryOptions, thanks to visvoer (PR#110)
+- Add extjs stateful parameters to CMP tabs
+
+FormIt 2.2.11
+====================================
+- Added storeLocation property to FormIt and FormItRetriever. (issue #95, PR #105#106#107)
+- Changed default behaviour of emailReplyTo parameter to fallback to email field in form (issue #101)
+- Changed math hook to store values in session, preventing easy bypass of math hook (issue #64)
+- Add GPM config
+- Fix bug with multiple file upload (PR #104)
+- Add 'hash' field to FormItSaveForm to allow updating of previously saved forms (PR #94)
+- Add FormItLoadSavedForm snippet to retrieve saved forms (PR #94)
+- Fix for export with datefilter (issue #96, PR #97)
+- Add fiarRequired property (PR#83)
+- Update resolver to check for current version to prevent errors on upgrade
+- Add system setting for form_encryptkey, to not rely on site_id (issue #68)
+- Fix saved forms export when using encrypted forms (issue #48)
+
+FormIt 2.2.10
+====================================
+- Merged PR#58: Added BOM for Excel to understand UTF-8 non-latin symbols properly. (thanks to govza)
+- Merged PR#73: JSON output options for errors and hooks
+- Merged PR#79: Create German lexicon for FormIt-CMP (thanks to sebastian-marinescu)
+
+FormIt 2.2.9
+====================================
+- Merging PR#74 from Jako which solves multiple issues.
+- Fix XSS vulnerabilities
+- Javascript code cleanup
+- Fix empty math operator after form submission #d782c29
+
+FormIt 2.2.8
+====================================
+- Fixed export limit and added form dropdown paging #60
+- Fixed typo property lexicons #57
+- Added templates path to config #63
+- Added loading lexicons in ficountryoptions class #21
+- Added ability to dynamically set formName by setting placeholder inside formName equal to an existing form field key #45
+
+FormIt 2.2.7
+====================================
+- Optimised export
+
+FormIt 2.2.6
+====================================
+- Fixed empty placeholder for file field in autoresponder
+
+FormIt 2.2.5
+====================================
+- Fixed creating table on update
+- Added new tab inside CMP for managing encryption
+- Added missing br on auto emailTpl
+
+FormIt 2.2.4
+====================================
+- Fixed bug inside FormItSaveForm and PR #43
+
+FormIt 2.2.3
+====================================
+- Added encryption to saved forms
+- Added formname to grid
+- Saved form is now returned from the hook
+- Export unlimited items
+- Add RU translation
+
+FormIt 2.2.2
+====================================
+- Added CMP for the saved forms
+- Fixed whitespace PR on required checkboxes
+
+FormIt 2.2.1
+====================================
+- Updated numbers generation for math captcha #5
+- German translation #10
+- Added missing formit.not_regexp lexicon #15
+- Specify explicitely return-path fixes #19 #20
+- fix addAttachment() typo #23
+- Fixed typo in adding of the attachments #24
+- Add the possibility of redirectTo=`formfield` #26
+- Added attachments for auto-reply and Added ability to use @CODE as tpl #29
+- Update snippet.formitisselected.php #12
+- Canadian options for FormitStateOptions
+
 FormIt 2.2.0
 ====================================
 - [#8382] Prevent issue with checkboxes/radios causing text-parsing problems with required validator
@@ -203,9 +418,9 @@ FormIt 1.0
 ====================================
 - Fixed bug with emailFrom property getting overwritten
 - [#ADDON-122] Fixed incorrect message in spam lexicon item
-- Added 'spam' hook that utilizes StopForumSpam spam filter. Will filter the fields in the property &spamEmailFields 
+- Added 'spam' hook that utilizes StopForumSpam spam filter. Will filter the fields in the property &spamEmailFields
 - Ensure hooks errors are set as placeholders
-- Aded fi.success placeholder to be set on a successful form submission if no redirect hook is specified 
+- Aded fi.success placeholder to be set on a successful form submission if no redirect hook is specified
 - Added default to emailTpl property so that it is now no longer required. Will send out email with just field names and values.
 - Added Dutch translation
 - Added missing formit.contains lexicon entry

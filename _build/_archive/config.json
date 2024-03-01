@@ -1,0 +1,526 @@
+{
+    "name": "FormIt",
+    "lowCaseName": "formit",
+    "description": "FormIt is a dynamic form processing Snippet for MODx Revolution. It handles a form after submission, performing validation and followup actions like sending an email. It does not generate the form, but it can repopulate it if it fails validation.",
+    "author": "Sterc",
+    "version": "4.1.0",
+    "package": {
+        "actions": [{
+            "id": 1,
+            "controller": "index",
+            "hasLayout": 1,
+            "langTopics": "formit:mgr",
+            "assets": ""
+        }],
+        "menus": [{
+            "text": "formit",
+            "description": "formit.menu_desc",
+            "action": 1,
+            "parent": "components",
+            "icon": "",
+            "menuIndex": 0,
+            "params": "",
+            "handler": ""
+        }],
+        "elements": {
+            "chunks": [{
+                "name": "fiDefaultEmailTpl",
+                "file": "email.chunk.tpl",
+                "description": "The default chunk used for the email. Please do not edit this chunk, as this will be overwritten when updating FormIt."
+            },{
+                "name": "fiDefaultFiarTpl",
+                "file": "fiartpl.chunk.tpl",
+                "description": "The default chunk used for the autoresponder email. Please do not edit this chunk, as this will be overwritten when updating FormIt."
+            },{
+                "name": "fiDefaultOptGroupTpl",
+                "file": "optgroup.chunk.tpl",
+                "description": "The default chunk used by the FormItCountryOptions snippet for the select optgroup. Please do not edit this chunk, as this will be overwritten when updating FormIt."
+            },{
+                "name": "fiDefaultOptionTpl",
+                "file": "option.chunk.tpl",
+                "description": "The default chunk used by the FormItCountryOptions snippet for the select option. Please do not edit this chunk, as this will be overwritten when updating FormIt."
+            }],
+            "plugins": [{
+                "name": "FormIt",
+                "file": "formit.plugin.php",
+                "events": [
+                    "OnManagerPageBeforeRender"
+                ]
+            }],
+            "snippets": [{
+                "name": "FormIt",
+                "description": "A dynamic form processing snippet.",
+                "file": "snippet.formit.php",
+                "properties": [{
+                    "name": "hooks",
+                    "description": "prop_formit.hooks_desc",
+                    "value": ""
+                },{
+                    "name": "preHooks",
+                    "description": "prop_formit.prehooks_desc",
+                    "value": ""
+                },{
+                    "name": "submitVar",
+                    "description": "prop_formit.submitvar_desc",
+                    "value": ""
+                },{
+                    "name": "validate",
+                    "description": "prop_formit.validate_desc",
+                    "value": ""
+                },{
+                    "name": "errTpl",
+                    "description": "prop_formit.errtpl_desc",
+                    "value": "<span class=\"error\">[[+error]]</span>"
+                },{
+                    "name": "validationErrorMessage",
+                    "description": "prop_formit.validationerrormessage_desc",
+                    "value": "<p class=\"error\">A form validation error occurred. Please check the values you have entered.</p>"
+                },{
+                    "name": "validationErrorBulkTpl",
+                    "description": "prop_formit.validationerrorbulktpl_desc",
+                    "value": "<li>[[+error]]</li>"
+                },{
+                    "name": "trimValuesBeforeValidation",
+                    "description": "prop_formit.trimvaluesdeforevalidation_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "customValidators",
+                    "description": "prop_formit.customvalidators_desc",
+                    "value": ""
+                },{
+                    "name": "clearFieldsOnSuccess",
+                    "description": "prop_formit.clearfieldsonsuccess_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "successMessage",
+                    "description": "prop_formit.successmessage_desc",
+                    "value": ""
+                },{
+                    "name": "successMessagePlaceholder",
+                    "description": "prop_formit.successmessageplaceholder_desc",
+                    "value": "fi.successMessage"
+                },{
+                    "name": "store",
+                    "description": "prop_formit.store_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                },{
+                    "name": "placeholderPrefix",
+                    "description": "prop_formit.placeholderprefix_desc",
+                    "value": "fi."
+                },{
+                    "name": "storeTime",
+                    "description": "prop_formit.storetime_desc",
+                    "value": "300"
+                },{
+                    "name": "storeLocation",
+                    "description": "prop_formit.storelocation_desc",
+                    "type": "list",
+                    "options": [{
+                        "name": "formit.opt_cache",
+                        "value": "cache"
+                    },{
+                        "name": "formit.opt_session",
+                        "value": "session"
+                    }],
+                    "value": "cache"
+                },{
+                    "name": "allowFiles",
+                    "description": "prop_formit.allowfiles_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "spamEmailFields",
+                    "description": "prop_formit.spamemailfields_desc",
+                    "value": "email"
+                },{
+                    "name": "spamCheckIp",
+                    "description": "prop_formit.spamcheckip_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                },{
+                    "name": "recaptchaJs",
+                    "description": "prop_formit.recaptchajs_desc",
+                    "value": "{}"
+                },{
+                    "name": "recaptchaTheme",
+                    "description": "prop_formit.recaptchatheme_desc",
+                    "type": "list",
+                    "options": [{
+                        "name": "formit.opt_red",
+                        "value": "red"
+                    },{
+                        "name": "formit.opt_white",
+                        "value": "white"
+                    },{
+                        "name": "formit.opt_clean",
+                        "value": "clean"
+                    },{
+                        "name": "formit.opt_blackglass",
+                        "value": "blackglass"
+                    }],
+                    "value": "clean"
+                },{
+                    "name": "redirectTo",
+                    "description": "prop_formit.redirectto_desc",
+                    "value": ""
+                },{
+                    "name": "redirectParams",
+                    "description": "prop_formit.redirectparams_desc",
+                    "value": ""
+                },{
+                    "name": "emailTo",
+                    "description": "prop_formit.emailto_desc",
+                    "value": ""
+                },{
+                    "name": "emailToName",
+                    "description": "prop_formit.emailtoname_desc",
+                    "value": ""
+                },{
+                    "name": "emailFrom",
+                    "description": "prop_formit.emailfrom_desc",
+                    "value": ""
+                },{
+                    "name": "emailFromName",
+                    "description": "prop_formit.emailfromname_desc",
+                    "value": ""
+                },{
+                    "name": "emailReplyTo",
+                    "description": "prop_formit.emailreplyto_desc",
+                    "value": ""
+                },{
+                    "name": "emailReplyToName",
+                    "description": "prop_formit.emailreplytoname_desc",
+                    "value": ""
+                },{
+                    "name": "emailCC",
+                    "description": "prop_formit.emailcc_desc",
+                    "value": ""
+                },{
+                    "name": "emailCCName",
+                    "description": "prop_formit.emailccname_desc",
+                    "value": ""
+                },{
+                    "name": "emailBCC",
+                    "description": "prop_formit.emailbcc_desc",
+                    "value": ""
+                },{
+                    "name": "emailBCCName",
+                    "description": "prop_formit.emailbccname_desc",
+                    "value": ""
+                },{
+                    "name": "emailReturnPath",
+                    "description": "prop_formit.emailreturnpath_desc",
+                    "value": ""
+                },{
+                    "name": "emailSubject",
+                    "description": "prop_formit.emailsubject_desc",
+                    "value": ""
+                },{
+                    "name": "emailUseFieldForSubject",
+                    "description": "prop_formit.emailusefieldforsubject_desc",
+                    "value": ""
+                },{
+                    "name": "emailHtml",
+                    "description": "prop_formit.emailhtml_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "emailConvertNewlines",
+                    "description": "prop_formit.emailconvertnewlines_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                },{
+                    "name": "emailMultiWrapper",
+                    "description": "prop_formit.emailmultiwrapper_desc",
+                    "value": "[[+value]]"
+                },{
+                    "name": "emailMultiSeparator",
+                    "description": "prop_formit.emailmultiseparator_desc",
+                    "value": ""
+                },{
+                    "name": "fiarTpl",
+                    "description": "prop_formit.fiartpl_desc",
+                    "value": ""
+                },{
+                    "name": "fiarToField",
+                    "description": "prop_formit.fiartofield_desc",
+                    "value": "email"
+                },{
+                    "name": "fiarSubject",
+                    "description": "prop_formit.fiarsubject_desc",
+                    "value": "[[++site_name]] Auto-Responder"
+                },{
+                    "name": "fiarFrom",
+                    "description": "prop_formit.fiarfrom_desc",
+                    "value": ""
+                },{
+                    "name": "fiarFromName",
+                    "description": "prop_formit.fiarfromname_desc",
+                    "value": ""
+                },{
+                    "name": "fiarReplyTo",
+                    "description": "prop_formit.fiarreplyto_desc",
+                    "value": ""
+                },{
+                    "name": "fiarReplyToName",
+                    "description": "prop_formit.fiarreplytoname_desc",
+                    "value": ""
+                },{
+                    "name": "fiarCC",
+                    "description": "prop_formit.fiarcc_desc",
+                    "value": ""
+                },{
+                    "name": "fiarCCName",
+                    "description": "prop_fiar.fiarccname_desc",
+                    "value": ""
+                },{
+                    "name": "fiarBCC",
+                    "description": "prop_formit.fiarbcc_desc",
+                    "value": ""
+                },{
+                    "name": "fiarBCCName",
+                    "description": "prop_formit.fiarbccname_desc",
+                    "value": ""
+                },{
+                    "name": "fiarHtml",
+                    "description": "prop_formit.fiarhtml_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "mathMinRange",
+                    "description": "prop_formit.mathminrange_desc",
+                    "value": "10"
+                },{
+                    "name": "mathMaxRange",
+                    "description": "prop_formit.mathmaxrange_desc",
+                    "value": "100"
+                },{
+                    "name": "mathField",
+                    "description": "prop_formit.mathfield_desc",
+                    "value": "math"
+                },{
+                    "name": "mathOp1Field",
+                    "description": "prop_formit.mathop1field_desc",
+                    "value": "op1"
+                },{
+                    "name": "mathOp2Field",
+                    "description": "prop_formit.mathop2field_desc",
+                    "value": "op2"
+                },{
+                    "name": "mathOperatorField",
+                    "description": "prop_formit.mathoperatorfield_desc",
+                    "value": "operator"
+                },{
+                    "name": "saveTmpFiles",
+                    "description": "prop_formit.savetmpfiles_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                },{
+                    "name": "attachFilesToEmail",
+                    "description": "prop_formit.attachfiles_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "storeAttachments",
+                    "description": "prop_formit.store_attachments_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                }]
+            },{
+                "name": "FormItRetriever",
+                "description": "Fetches a form submission for a user for displaying on a thank you page.",
+                "file": "snippet.formitretriever.php",
+                "properties": [{
+                    "name": "placeholderPrefix",
+                    "description": "prop_fir.placeholderprefix_desc",
+                    "value": "fi."
+                },{
+                    "name": "redirectToOnNotFound",
+                    "description": "prop_fir.redirecttoonnotfound_desc",
+                    "value": ""
+                },{
+                    "name": "eraseOnLoad",
+                    "description": "prop_fir.eraseonload_desc",
+                    "type": "combo-boolean",
+                    "value": "0"
+                },{
+                    "name": "storeLocation",
+                    "description": "prop_fir.storelocation_desc",
+                    "type": "list",
+                    "options": [{
+                        "name": "formit.opt_cache",
+                        "value": "cache"
+                    },{
+                        "name": "formit.opt_session",
+                        "value": "session"
+                    }],
+                    "value": "cache"
+                }]
+            },{
+                "name": "FormItIsChecked",
+                "description": "A custom output filter used with checkboxes/radios for checking checked status.",
+                "file": "snippet.formitischecked.php",
+                "properties": []
+            },{
+                "name": "FormItIsSelected",
+                "description": "A custom output filter used with dropdowns for checking selected status.",
+                "file": "snippet.formitisselected.php",
+                "properties": []
+            },{
+                "name": "FormItCountryOptions",
+                "description": "A utility snippet for generating a dropdown list of countries.",
+                "file": "snippet.formitcountryoptions.php",
+                "properties": [{
+                    "name": "selected",
+                    "description": "prop_fico.selected_desc",
+                    "value": ""
+                },{
+                    "name": "tpl",
+                    "description": "prop_fico.tpl_desc",
+                    "value": "fiDefaultOptionTpl"
+                },{
+                    "name": "useIsoCode",
+                    "description": "prop_fico.useisocode_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "prioritized",
+                    "description": "prop_fico.prioritized_desc",
+                    "value": ""
+                },{
+                    "name": "optGroupTpl",
+                    "description": "prop_fico.optgrouptpl_desc",
+                    "value": "fiDefaultOptGroupTpl"
+                },{
+                    "name": "prioritizedGroupText",
+                    "description": "prop_fico.prioritizedgrouptext_desc",
+                    "value": ""
+                },{
+                    "name": "allGroupText",
+                    "description": "prop_fico.allgrouptext_desc",
+                    "value": ""
+                },{
+                    "name": "selectedAttribute",
+                    "description": "prop_fico.selectedattribute_desc",
+                    "value": " selected=\"selected\""
+                },{
+                    "name": "toPlaceholder",
+                    "description": "prop_fico.toplaceholder_desc",
+                    "value": ""
+                },{
+                    "name": "country",
+                    "description": "prop_fico.country_desc",
+                    "value": "[[++cultureKey]]"
+                },{
+                    "name": "limited",
+                    "description": "prop_fico.limited_desc",
+                    "value": ""
+                }]
+            },{
+                "name": "FormItStateOptions",
+                "description": "A utility snippet for generating a dropdown list of U.S. states.",
+                "file": "snippet.formitstateoptions.php",
+                "properties": [{
+                    "name": "selected",
+                    "description": "prop_fiso.selected_desc",
+                    "value": ""
+                },{
+                    "name": "tpl",
+                    "description": "prop_fiso.tpl_desc",
+                    "value": "fiDefaultOptionTpl"
+                },{
+                    "name": "useAbbr",
+                    "description": "prop_fiso.useabbr_desc",
+                    "type": "combo-boolean",
+                    "value": "1"
+                },{
+                    "name": "selectedAttribute",
+                    "description": "prop_fiso.selectedattribute_desc",
+                    "value": " selected=\"selected\""
+                },{
+                    "name": "toPlaceholder",
+                    "description": "prop_fiso.toplaceholder_desc",
+                    "value": ""
+                },{
+                    "name": "country",
+                    "description": "prop_fiso.country_desc",
+                    "value": "[[++cultureKey]]"
+                }]
+            },{
+                "name": "FormItLoadSavedForm",
+                "description": "Prehook to load previously saved form.",
+                "file": "snippet.formitloadsavedform.php"
+            }]
+        },
+        "systemSettings": [{
+            "key": "recaptcha_public_key",
+            "type": "textfield",
+            "area": "recaptcha",
+            "value": ""
+        },{
+            "key": "recaptcha_private_key",
+            "type": "textfield",
+            "area": "recaptcha",
+            "value": ""
+        },{
+            "key": "recaptcha_use_ssl",
+            "type": "combo-boolean",
+            "area": "recaptcha",
+            "value": "0"
+        },{
+            "key": "exclude_contexts",
+            "type": "combo-boolean",
+            "area": "system",
+            "value": "mgr"
+        },{
+            "key": "form_encryptkey",
+            "type": "textfield",
+            "area": "system",
+            "value": ""
+        },{
+            "key": "attachment.mediasource",
+            "type": "modx-combo-source",
+            "area": "system",
+            "value": 1
+        },{
+            "key": "attachment.path",
+            "type": "textfield",
+            "area": "system",
+            "value": ""
+        },{
+            "key": "export_csv_delimiter",
+            "type": "textfield",
+            "area": "system",
+            "value": ";"
+        },{
+            "key": "cleanform.days",
+            "type": "numberfield",
+            "area": "system",
+            "value": "30"
+        }]
+    },
+    "database": {
+        "tables": [
+            "FormItForm"
+        ]
+    },
+    "build": {
+        "readme": "docs/readme.txt",
+        "license": "docs/license.txt",
+        "changelog": "docs/changelog.txt",
+        "resolver": {
+            "after": [
+                "resolve.tables.php",
+                "setupoptions.resolver.php",
+                "stercextra.resolver.php",
+                "resolve.cron.php"
+            ]
+        },
+        "setupOptions":{
+            "source": "setup.options.php"
+        }
+    }
+}

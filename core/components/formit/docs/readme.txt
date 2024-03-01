@@ -1,9 +1,9 @@
 --------------------
 Snippet: FormIt
 --------------------
-Author: Shaun McCormick <shaun@modx.com>
+Author: Sterc <modx@sterc.nl>
 
 A form processing Snippet for MODx Revolution.
 
 Official Documentation:
-http://rtfm.modx.com/display/ADDON/FormIt
+https://docs.modx.com/extras/revo/formit
